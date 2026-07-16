@@ -40,6 +40,7 @@ jobs:
         with:
           push: true
           build-args: |
+            SIMPLE_MODE=true
             VITE_DEFAULT_LANGUAGE=sk
             SITE_URL=${{ inputs.site_url || 'https://pdf.city.marek-mraz.com' }}
           tags: |
