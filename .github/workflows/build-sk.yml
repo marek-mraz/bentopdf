@@ -1,18 +1,15 @@
-name: Build Slovak municipal image
+name: Build municipal image
 
-# Builds ghcr.io/<owner>/bentopdf-sk from the upstream non-root Dockerfile
-# (nginx-unprivileged, uid 101, static client-side app) with Slovak as the
-# default UI language. The upstream build-and-publish.yml is gated to
-# alam00000/bentopdf, so the fork needs this workflow.
+# Slovak-default simple-mode build of the upstream non-root Dockerfile
+# (nginx-unprivileged, uid 101, static client-side app). The upstream
+# build-and-publish.yml is gated to alam00000/bentopdf, so the fork needs this.
+# Tag is incremental: <package.json version>-<workflow run number>, no latest.
 on:
   workflow_dispatch:
     inputs:
       site_url:
         description: Public canonical URL of the deployment
         default: https://pdf.city.marek-mraz.com
-  push:
-    tags:
-      - "sk-v*"
 
 jobs:
   build:
@@ -34,7 +31,7 @@ jobs:
       - id: meta
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${VERSION}-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
 
       - uses: docker/build-push-action@v6
         with:
@@ -44,8 +41,9 @@ jobs:
             VITE_DEFAULT_LANGUAGE=sk
             SITE_URL=${{ inputs.site_url || 'https://pdf.city.marek-mraz.com' }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/bentopdf-sk:${{ steps.meta.outputs.version }}
-            ghcr.io/${{ github.repository_owner }}/bentopdf-sk:latest
+            ghcr.io/${{ github.repository_owner }}/bentopdf:${{ steps.meta.outputs.tag }}
           platforms: linux/amd64
           cache-from: type=gha,scope=sk
           cache-to: type=gha,mode=max,scope=sk
+
+      - run: echo "Built ghcr.io/${{ github.repository_owner }}/bentopdf:${{ steps.meta.outputs.tag }}" >> "$GITHUB_STEP_SUMMARY"
