@@ -8,7 +8,10 @@ const __dirname = path.dirname(__filename);
 
 const POSTS_DIR = path.resolve(__dirname, '../blog/posts');
 const BLOG_DIR = path.resolve(__dirname, '../blog');
-const SITE_URL = 'https://www.bentopdf.com';
+const SITE_URL = (process.env.SITE_URL || 'https://www.bentopdf.com').replace(
+  /\/+$/,
+  ''
+);
 const AUTHOR = {
   name: 'Alam',
   url: `${SITE_URL}/blog/author-alam`,
@@ -414,6 +417,17 @@ function generate() {
     keep.add(`${post.slug}.html`);
   }
   fs.writeFileSync(path.join(BLOG_DIR, 'index.html'), renderIndex(posts));
+
+  // author-alam.html is hand-written; point its absolute URLs at SITE_URL too.
+  const authorPage = path.join(BLOG_DIR, 'author-alam.html');
+  if (fs.existsSync(authorPage)) {
+    fs.writeFileSync(
+      authorPage,
+      fs
+        .readFileSync(authorPage, 'utf-8')
+        .replaceAll('https://www.bentopdf.com', SITE_URL)
+    );
+  }
 
   for (const entry of fs.readdirSync(BLOG_DIR)) {
     if (entry.endsWith('.html') && !keep.has(entry)) {
