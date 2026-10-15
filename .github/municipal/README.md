@@ -24,10 +24,10 @@ bash .github/municipal/verify-engine.sh     # len ak sa zmenil vendor/ (report t
 git push origin sync-upstream-<dátum>       # PR do main
 ```
 
-Potom v GitHub Actions spustite **Build municipal image**. Jediný vstup je
-`ocr_languages` (predvolene slk,ces,eng). Image:
-`ghcr.io/<owner>/bentopdf:<verzia>-<číslo behu>`. Push prebehne iba ak prejde
-`verify.sh`.
+Každý push do `main` spustí workflow **Build municipal image**, ktorý image
+zbuilduje, overí cez `verify.sh` a až potom pushne ako
+`ghcr.io/<owner>/bentopdf:<verzia>-<číslo behu>`. Ručne ho spustíte len ak
+chcete iné OCR jazyky (vstup `ocr_languages`, predvolene slk,ces,eng).
 
 ## Nastavenie pri spustení
 

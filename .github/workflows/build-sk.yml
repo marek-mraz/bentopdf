@@ -8,8 +8,11 @@ name: Build municipal image
 # self-only CSP and leaves brand, footer and site URL as placeholders that the
 # container fills from BRAND_NAME, FOOTER_TEXT, SITE_URL at start. It edits the
 # CI checkout only (never committed), so upstream merges stay conflict-free.
-# verify.sh gates the push.
+# verify.sh gates the push. Every push to main builds a new image; run it
+# by hand to bundle other OCR languages.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       ocr_languages:
