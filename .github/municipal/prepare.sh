@@ -2,20 +2,24 @@
 # Prepares a throwaway checkout for the municipal image. Nothing here is ever
 # committed, so upstream merges stay conflict-free and new upstream code gets
 # the same treatment on the next build.
-#   1. Renames the visible product name.
+#   1. Replaces the visible product name with a placeholder.
 #   2. Bundles every runtime WASM, OCR and font asset under public/wasm using
 #      upstream's air-gap tooling, so the browser loads no code from a CDN.
 #   3. Adds a second, self-only Content-Security-Policy. Browsers enforce every
 #      CSP they receive, so no third-party origin can load even if upstream's
 #      generated policy lists one.
 #   4. Writes the matching Docker build args to municipal.build-args.
+#   5. Installs runtime-config.sh, which swaps the brand, footer and site URL
+#      placeholders for the container's env at start (nothing is baked in).
 # Usage (repo root of a throwaway checkout):
-#   prepare.sh <brand> <site_url> <ocr_languages> [source_url]
+#   prepare.sh <ocr_languages> [source_url]
 set -euo pipefail
-BRAND=$1
-SITE_URL=${2%/}
-OCR_LANGS=$3
-SOURCE_URL=${4:-https://github.com/${GITHUB_REPOSITORY:-marek-mraz/bentopdf}}
+OCR_LANGS=$1
+SOURCE_URL=${2:-https://github.com/${GITHUB_REPOSITORY:-marek-mraz/bentopdf}}
+HERE=$(cd "$(dirname "$0")" && pwd)
+# Placeholders; runtime-config.sh lists the same three strings.
+BRAND=KONVERTOR_BRAND_TOKEN
+SITE_URL=https://konvertor-site.invalid
 WASM_URL="$SITE_URL/wasm"
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
@@ -72,7 +76,7 @@ SIMPLE_MODE=true
 VITE_DEFAULT_LANGUAGE=sk
 SITE_URL=$SITE_URL
 VITE_BRAND_NAME=$BRAND
-VITE_FOOTER_TEXT=Založené na open-source BentoPDF (AGPL-3.0), zdrojový kód: ${SOURCE_URL#https://}
+VITE_FOOTER_TEXT=KONVERTOR_FOOTER_TOKEN
 VITE_WASM_PYMUPDF_URL=$WASM_URL/pymupdf/
 VITE_WASM_GS_URL=$WASM_URL/gs/
 VITE_WASM_CPDF_URL=$WASM_URL/cpdf/
@@ -83,4 +87,10 @@ VITE_TESSERACT_AVAILABLE_LANGUAGES=$OCR_LANGS
 VITE_OCR_FONT_BASE_URL=$WASM_URL/ocr/fonts
 EOF
 
-echo "prepare.sh: brand '$BRAND', assets under public/wasm ($(du -sh public/wasm | cut -f1)), strict CSP at $n include(s)"
+# 5. Upstream's Dockerfile already copies nginx-noindex.sh into the nginx
+# entrypoint directory; add ours next to it.
+sed "s|@SOURCE_URL@|${SOURCE_URL#https://}|" "$HERE/runtime-config.sh" > municipal-runtime.sh
+perl -0pi -e 's{^(COPY [^\n]*nginx-noindex\.sh [^\n]*\n)}{$1COPY --chown=nginx:nginx --chmod=755 municipal-runtime.sh /docker-entrypoint.d/90-municipal-config.sh\n}m
+  or die "Dockerfile: nginx-noindex.sh COPY line not found\n"' Dockerfile
+
+echo "prepare.sh: placeholders for brand/footer/site, assets under public/wasm ($(du -sh public/wasm | cut -f1)), strict CSP at $n include(s)"

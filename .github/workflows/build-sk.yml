@@ -4,18 +4,14 @@ name: Build municipal image
 # (nginx-unprivileged, uid 101, static client-side app). The upstream
 # build-and-publish.yml is gated to alam00000/bentopdf, so the fork needs this.
 # Tag is incremental: <package.json version>-<workflow run number>, no latest.
-# .github/municipal/prepare.sh renames the product, bundles every WASM/OCR/font
-# asset and adds a self-only CSP on the CI checkout only (never committed), so
-# upstream merges stay conflict-free. verify.sh gates the push.
+# .github/municipal/prepare.sh bundles every WASM/OCR/font asset, adds a
+# self-only CSP and leaves brand, footer and site URL as placeholders that the
+# container fills from BRAND_NAME, FOOTER_TEXT, SITE_URL at start. It edits the
+# CI checkout only (never committed), so upstream merges stay conflict-free.
+# verify.sh gates the push.
 on:
   workflow_dispatch:
     inputs:
-      site_url:
-        description: Public URL of the deployment (no trailing slash)
-        default: https://pdf.city.marek-mraz.com
-      brand_name:
-        description: Product name that replaces "BentoPDF" in the UI
-        default: Konvertor PDF
       ocr_languages:
         description: Tesseract languages bundled for offline OCR
         default: slk,ces,eng
@@ -27,8 +23,6 @@ jobs:
       contents: read
       packages: write
     env:
-      SITE_URL: ${{ inputs.site_url || 'https://pdf.city.marek-mraz.com' }}
-      BRAND: ${{ inputs.brand_name || 'Konvertor PDF' }}
       OCR_LANGS: ${{ inputs.ocr_languages || 'slk,ces,eng' }}
     steps:
       - uses: actions/checkout@v4
@@ -39,7 +33,7 @@ jobs:
 
       - id: prep
         run: |
-          bash .github/municipal/prepare.sh "$BRAND" "$SITE_URL" "$OCR_LANGS"
+          bash .github/municipal/prepare.sh "$OCR_LANGS"
           VERSION=$(node -p "require('./package.json').version")
           echo "image=ghcr.io/${{ github.repository_owner }}/bentopdf:${VERSION}-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
           { echo 'args<<EOF'; cat municipal.build-args; echo EOF; } >> "$GITHUB_OUTPUT"
@@ -60,11 +54,14 @@ jobs:
           load: true
           build-args: ${{ steps.prep.outputs.args }}
           tags: ${{ steps.prep.outputs.image }}
+          # Upstream's Dockerfile labels the image with its own repo; GHCR links
+          # the package to the repo named here.
+          labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
           platforms: linux/amd64
           cache-from: type=gha,scope=sk
           cache-to: type=gha,mode=max,scope=sk
 
-      - run: bash .github/municipal/verify.sh "${{ steps.prep.outputs.image }}" "$BRAND" "$OCR_LANGS"
+      - run: bash .github/municipal/verify.sh "${{ steps.prep.outputs.image }}" "$OCR_LANGS"
 
       - run: |
           docker push "${{ steps.prep.outputs.image }}"
