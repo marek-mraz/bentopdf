@@ -11,6 +11,7 @@ na ne aplikujú automaticky.
 | `prepare.sh` | premenuje produkt, pribalí všetky WASM/OCR/font súbory do `public/wasm`, pridá CSP len na vlastnú doménu, zapíše build argumenty |
 | `verify.sh` | spustí hotový image a overí CSP na každej odpovedi, pribalené súbory a názov |
 | `build-local.sh` | lokálny build z commitnutého HEAD: export, `prepare.sh`, `docker build`, `verify.sh` |
+| `verify-engine.sh` | zbuilduje PDF engine (`vendor/bentopdf-pdfium`) zo zdrojákov bez cache a porovná sha256 s vendorovaným tarballom; ~1 h, aj ako workflow **Verify PDF engine** |
 
 ## Aktualizácia z upstreamu
 
@@ -18,6 +19,7 @@ na ne aplikujú automaticky.
 bash .github/municipal/sync-upstream.sh     # report + merge do novej vetvy
 npm ci && npm run test:run
 bash .github/municipal/build-local.sh       # http://localhost:8080 ako SITE_URL
+bash .github/municipal/verify-engine.sh     # len ak sa zmenil vendor/ (report to ukáže)
 git push origin sync-upstream-<dátum>       # PR do main
 ```
 

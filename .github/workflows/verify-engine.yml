@@ -1,0 +1,25 @@
+name: Verify PDF engine
+
+# Rebuilds vendor/bentopdf-pdfium from source without cache and fails unless
+# the result is bit-identical to the vendored tarball. Run after every
+# upstream sync that changes vendor/.
+on:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      # shell: bash adds pipefail, so tee cannot hide a mismatch.
+      - shell: bash
+        run: bash .github/municipal/verify-engine.sh | tee -a "$GITHUB_STEP_SUMMARY"
