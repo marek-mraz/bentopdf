@@ -16,7 +16,14 @@ const getBasePath = () => {
   return url.pathname.replace(/\/$/, '') || '';
 };
 
-const buildCriticalAssets = () => [];
+const PRECACHE_ASSETS = [];
+
+const buildCriticalAssets = () => {
+  const basePath = getBasePath();
+  return PRECACHE_ASSETS.map(
+    (asset) => `${basePath}/${asset.replace(/^\/+/, '')}`
+  );
+};
 
 self.addEventListener('install', (event) => {
   const CRITICAL_ASSETS = buildCriticalAssets();
@@ -102,7 +109,7 @@ self.addEventListener('fetch', (event) => {
     isLocal &&
     (url.pathname.endsWith('.html') ||
       url.pathname === '/' ||
-      /^\/(en|fr|es|de|zh|zh-TW|vi|tr|id|it|pt|ru|nl|be)(\/|$)/.test(
+      /^\/(en|ar|be|da|de|es|fr|id|it|ja|ko|nl|pl|pt|ru|sk|sv|tr|uk|vi|zh|zh-TW)(\/|$)/.test(
         url.pathname
       ))
   ) {
@@ -201,7 +208,9 @@ async function findCachedFile(fileName, requestUrl) {
   const requests = await cache.keys();
   for (const req of requests) {
     const reqUrl = new URL(req.url);
-    if (reqUrl.pathname.endsWith(fileName)) {
+    const trustedOrigin =
+      reqUrl.origin === location.origin || trustedCdnOrigins.has(reqUrl.origin);
+    if (trustedOrigin && reqUrl.pathname.split('/').pop() === fileName) {
       const response = await cache.match(req);
       if (response) {
         const clone = response.clone();
@@ -221,7 +230,7 @@ async function removeDuplicateCache(cache, fileName, isCDN) {
 
   for (const req of requests) {
     const reqUrl = new URL(req.url);
-    if (reqUrl.pathname.endsWith(fileName)) {
+    if (reqUrl.pathname.split('/').pop() === fileName) {
       const reqIsCDN = trustedCdnOrigins.has(reqUrl.origin);
       if (reqIsCDN !== isCDN) {
         await cache.delete(req);
