@@ -1,20 +1,24 @@
 name: Build municipal image
 
-# Slovak-default simple-mode build of the upstream non-root Dockerfile
+# Slovak-default simple-mode build of the upstream Dockerfile
 # (nginx-unprivileged, uid 101, static client-side app). The upstream
 # build-and-publish.yml is gated to alam00000/bentopdf, so the fork needs this.
 # Tag is incremental: <package.json version>-<workflow run number>, no latest.
-# The brand rename is applied to the CI checkout only, never committed, so
-# upstream merges stay conflict-free and new upstream text gets renamed too.
+# .github/municipal/prepare.sh renames the product, bundles every WASM/OCR/font
+# asset and adds a self-only CSP on the CI checkout only (never committed), so
+# upstream merges stay conflict-free. verify.sh gates the push.
 on:
   workflow_dispatch:
     inputs:
       site_url:
-        description: Public canonical URL of the deployment
+        description: Public URL of the deployment (no trailing slash)
         default: https://pdf.city.marek-mraz.com
       brand_name:
         description: Product name that replaces "BentoPDF" in the UI
         default: Konvertor PDF
+      ocr_languages:
+        description: Tesseract languages bundled for offline OCR
+        default: slk,ces,eng
 
 jobs:
   build:
@@ -22,20 +26,23 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      SITE_URL: ${{ inputs.site_url || 'https://pdf.city.marek-mraz.com' }}
+      BRAND: ${{ inputs.brand_name || 'Konvertor PDF' }}
+      OCR_LANGS: ${{ inputs.ocr_languages || 'slk,ces,eng' }}
     steps:
       - uses: actions/checkout@v4
 
-      # Header/footer come from VITE_BRAND_NAME; page titles, SEO meta, locale
-      # strings and the i18n page generator hard-code "BentoPDF", so rename
-      # those here. Handles and URLs (@BentoPDF, x.com/BentoPDF, BentoPDF.com)
-      # stay intact; blog/ is upstream's author blog and keeps its name.
-      - name: Apply brand name
-        env:
-          BRAND: ${{ inputs.brand_name || 'Konvertor PDF' }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - id: prep
         run: |
-          grep -rlZ BentoPDF -- *.html src/pages src/partials public/locales \
-              src/js/sw-register.ts scripts/generate-i18n-pages.mjs scripts/enhance-seo-pages.mjs \
-            | xargs -0 -r perl -pi -e 's/(?<![@\/])BentoPDF(?!\.com)/$ENV{BRAND}/g'
+          bash .github/municipal/prepare.sh "$BRAND" "$SITE_URL" "$OCR_LANGS"
+          VERSION=$(node -p "require('./package.json').version")
+          echo "image=ghcr.io/${{ github.repository_owner }}/bentopdf:${VERSION}-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+          { echo 'args<<EOF'; cat municipal.build-args; echo EOF; } >> "$GITHUB_OUTPUT"
 
       - uses: docker/setup-buildx-action@v3
 
@@ -45,27 +52,20 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - id: meta
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          echo "tag=${VERSION}-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
-
-      # context: . builds the renamed checkout (the default git context would
-      # rebuild the pristine commit and drop the rename).
+      # context: . builds the prepared checkout (the default git context would
+      # rebuild the pristine commit). load: true so verify.sh runs before push.
       - uses: docker/build-push-action@v6
         with:
           context: .
-          push: true
-          build-args: |
-            SIMPLE_MODE=true
-            VITE_DEFAULT_LANGUAGE=sk
-            SITE_URL=${{ inputs.site_url || 'https://pdf.city.marek-mraz.com' }}
-            VITE_BRAND_NAME=${{ inputs.brand_name || 'Konvertor PDF' }}
-            VITE_FOOTER_TEXT=Založené na open-source BentoPDF (AGPL-3.0), zdrojový kód: github.com/${{ github.repository }}
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/bentopdf:${{ steps.meta.outputs.tag }}
+          load: true
+          build-args: ${{ steps.prep.outputs.args }}
+          tags: ${{ steps.prep.outputs.image }}
           platforms: linux/amd64
           cache-from: type=gha,scope=sk
           cache-to: type=gha,mode=max,scope=sk
 
-      - run: echo "Built ghcr.io/${{ github.repository_owner }}/bentopdf:${{ steps.meta.outputs.tag }}" >> "$GITHUB_STEP_SUMMARY"
+      - run: bash .github/municipal/verify.sh "${{ steps.prep.outputs.image }}" "$BRAND" "$OCR_LANGS"
+
+      - run: |
+          docker push "${{ steps.prep.outputs.image }}"
+          echo "Built ${{ steps.prep.outputs.image }}" >> "$GITHUB_STEP_SUMMARY"
