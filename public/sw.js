@@ -208,8 +208,9 @@ async function findCachedFile(fileName, requestUrl) {
   const requests = await cache.keys();
   for (const req of requests) {
     const reqUrl = new URL(req.url);
-    const trustedOrigin =
-      reqUrl.origin === location.origin || trustedCdnOrigins.has(reqUrl.origin);
+    // Fall back only to copies served by our own origin: a CDN entry with the
+    // same file name may come from any GitHub repo via jsdelivr.
+    const trustedOrigin = reqUrl.origin === location.origin;
     if (trustedOrigin && reqUrl.pathname.split('/').pop() === fileName) {
       const response = await cache.match(req);
       if (response) {
