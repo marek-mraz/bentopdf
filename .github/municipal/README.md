@@ -26,7 +26,8 @@ git push origin sync-upstream-<dátum>       # PR do main
 
 Každý push do `main` spustí workflow **Build municipal image**, ktorý image
 zbuilduje, overí cez `verify.sh` a až potom pushne ako
-`ghcr.io/<owner>/bentopdf:<verzia>-<číslo behu>`. Ručne ho spustíte len ak
+`ghcr.io/<owner>/bentopdf:<verzia>-<číslo behu>`, jeden tag pre linux/amd64
+aj linux/arm64 (Docker si stiahne správnu variantu sám). Ručne ho spustíte len ak
 chcete iné OCR jazyky (vstup `ocr_languages`, predvolene slk,ces,eng).
 
 ## Nastavenie pri spustení

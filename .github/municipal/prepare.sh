@@ -11,6 +11,8 @@
 #   4. Writes the matching Docker build args to municipal.build-args.
 #   5. Installs runtime-config.sh, which swaps the brand, footer and site URL
 #      placeholders for the container's env at start (nothing is baked in).
+#   6. Pins the Dockerfile's build stage to the builder's own platform: it only
+#      produces static files, so an arm64 image needs no emulated npm build.
 # Usage (repo root of a throwaway checkout):
 #   prepare.sh <ocr_languages> [source_url]
 set -euo pipefail
@@ -92,5 +94,9 @@ EOF
 sed "s|@SOURCE_URL@|${SOURCE_URL#https://}|" "$HERE/runtime-config.sh" > municipal-runtime.sh
 perl -0pi -e 's{^(COPY [^\n]*nginx-noindex\.sh [^\n]*\n)}{$1COPY --chown=nginx:nginx --chmod=755 municipal-runtime.sh /docker-entrypoint.d/90-municipal-config.sh\n}m
   or die "Dockerfile: nginx-noindex.sh COPY line not found\n"' Dockerfile
+
+# 6. Only the nginx stage is built per platform.
+perl -0pi -e 's{^FROM (\S+ AS builder\b)}{FROM --platform=\$BUILDPLATFORM $1}m
+  or die "Dockerfile: builder FROM line not found\n"' Dockerfile
 
 echo "prepare.sh: placeholders for brand/footer/site, assets under public/wasm ($(du -sh public/wasm | cut -f1)), strict CSP at $n include(s)"
