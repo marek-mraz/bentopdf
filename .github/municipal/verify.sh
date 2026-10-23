@@ -28,6 +28,14 @@ for path in / /sk/ /sk/merge-pdf /sw.js /wasm/ocr/worker.min.js /docs/; do
   check "self-only CSP on $path" $r "$(head -1 <<<"$headers"), self-only headers: $selfonly"
 done
 
+# No redirect may leave the site (//host or /\host in Location changes host).
+for path in '//evil.example/' '/\evil.example/' '/%5Cevil.example/' '/en//evil.example' '/sk//evil.example/'; do
+  # Browsers read a backslash as a slash; curl does not, so check the raw header.
+  to=$(curl -sI --path-as-is "$URL$path" | tr -d '\r' | sed -n 's/^[Ll]ocation: //p' || true)
+  case "$to" in //*|/\\*|*://*) r=bad ;; *) r=ok ;; esac
+  check "no off-site redirect for $path" $r "Location: $to"
+done
+
 assets="gs/gs.wasm cpdf/coherentpdf.browser.min.js ocr/worker.min.js ocr/fonts/NotoSans-Regular.ttf"
 for lang in ${OCR_LANGS//,/ }; do assets="$assets ocr/lang-data/$lang.traineddata.gz"; done
 for f in $assets; do

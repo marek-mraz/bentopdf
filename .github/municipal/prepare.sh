@@ -72,6 +72,12 @@ perl -pi -e '
   s{^(\s*)include /etc/nginx/security-headers-docs\.conf;\s*$}{$&${1}add_header Content-Security-Policy "$ENV{DOCS_CSP}" always;\n};
 ' nginx.conf
 
+# 3b. With absolute_redirect off, upstream's slash-cleanup rewrites send
+# //evil.com/ or /\evil.com/ back as "Location: //evil.com", an open redirect.
+# Refuse such paths before any redirect rule runs (\x5c = backslash).
+perl -pi -e 's{^(\s*)absolute_redirect off;\s*$}{$&${1}if (\$request_uri ~ ^/[/\\x5c]) { return 404; }\n}' nginx.conf
+grep -qF 'if ($request_uri ~ ^/[/\x5c])' nginx.conf || { echo "nginx.conf: absolute_redirect line not found" >&2; exit 1; }
+
 # 4. One build arg per line; values may contain spaces.
 cat > municipal.build-args <<EOF
 SIMPLE_MODE=true

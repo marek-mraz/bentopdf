@@ -40,7 +40,7 @@ TMP=$(mktemp)
 trap 'rm -f "$LIST" "$TMP"' EXIT
 find "$ROOT" \( -path "$ROOT/wasm" -o -path "$ROOT/libreoffice-wasm" \) -prune -o -type f \
   \( -name '*.html' -o -name '*.js' -o -name '*.mjs' -o -name '*.json' -o -name '*.xml' \
-     -o -name '*.txt' -o -name '*.webmanifest' \) -exec grep -lE "$TOKENS" {} + >"$LIST" || true
+     -o -name '*.txt' -o -name '*.webmanifest' -o -name _headers \) -exec grep -lE "$TOKENS" {} + >"$LIST" || true
 grep -lE "$TOKENS" /etc/nginx/security-headers*.conf >>"$LIST" || true
 if [ ! -s "$LIST" ]; then
   echo "municipal-config: no placeholders left (restart), nothing to do"
