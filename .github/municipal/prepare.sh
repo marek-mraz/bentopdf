@@ -9,8 +9,9 @@
 #      CSP they receive, so no third-party origin can load even if upstream's
 #      generated policy lists one.
 #   4. Writes the matching Docker build args to municipal.build-args.
-#   5. Installs runtime-config.sh, which swaps the brand, footer and site URL
-#      placeholders for the container's env at start (nothing is baked in).
+#   5. Installs runtime-config.sh and makes nginx swap the brand, footer and
+#      site URL placeholders for the container's env while serving (nothing is
+#      baked in, and the web root stays read-only).
 #   6. Pins the Dockerfile's build stage to the builder's own platform: it only
 #      produces static files, so an arm64 image needs no emulated npm build.
 # Usage (repo root of a throwaway checkout):
@@ -83,6 +84,19 @@ grep -qF 'if ($request_uri ~ ^/[/\x5c])' nginx.conf || { echo "nginx.conf: absol
 perl -0pi -e "s/\n\s*'faq\.sectionTitle',//; s/\n\s*'Frequently Asked Questions',//" src/js/utils/simple-mode-footer.ts
 ! grep -qE "faq\.sectionTitle|Frequently Asked Questions" src/js/utils/simple-mode-footer.ts || { echo "simple-mode-footer.ts: FAQ entries not removed" >&2; exit 1; }
 
+# 3d. nginx swaps the placeholders while serving: runtime-config.sh writes the
+# values as variables to /etc/nginx/tmp/municipal.conf at start. sub_filter
+# cannot edit pre-compressed files, so gzip_static stays on only for WASM and
+# data files, which carry no placeholders; the rest is gzipped on the fly.
+# The swapped files drop Last-Modified (sub_filter default) and ETag, so a
+# browser never gets 304 with the old brand after the env changes; binary files
+# keep Last-Modified. nginx's temp files go to /etc/nginx/tmp too: a read-only
+# pod needs only that directory.
+perl -0pi -e 's{^([ \t]*)gzip_static on;\n}{${1}gzip_static off;\n${1}include /etc/nginx/tmp/municipal.conf;\n${1}client_body_temp_path /etc/nginx/tmp/client_body;\n${1}proxy_temp_path /etc/nginx/tmp/proxy;\n${1}fastcgi_temp_path /etc/nginx/tmp/fastcgi;\n${1}uwsgi_temp_path /etc/nginx/tmp/uwsgi;\n${1}scgi_temp_path /etc/nginx/tmp/scgi;\n${1}sub_filter_once off;\n${1}etag off;\n${1}sub_filter_types text/xml text/plain text/css text/javascript application/javascript application/json application/xml application/manifest+json;\n${1}sub_filter KONVERTOR_BRAND_TOKEN \$konvertor_brand;\n${1}sub_filter KONVERTOR_FOOTER_TOKEN \$konvertor_footer;\n${1}sub_filter https://konvertor-site.invalid \$konvertor_site;\n}m
+  or die "nginx.conf: gzip_static line not found\n";
+  s{^(\s*location ~\* \\\.\(wasm\|wasm\\\.gz\|data\|data\\\.gz\)\$ \{\n)}{$1            gzip_static on;\n}m
+  or die "nginx.conf: wasm location not found\n"' nginx.conf
+
 # 4. One build arg per line; values may contain spaces.
 cat > municipal.build-args <<EOF
 SIMPLE_MODE=true
@@ -105,6 +119,10 @@ EOF
 sed "s|@SOURCE_URL@|${SOURCE_URL#https://}|" "$HERE/runtime-config.sh" > municipal-runtime.sh
 perl -0pi -e 's{^(COPY [^\n]*nginx-noindex\.sh [^\n]*\n)}{$1COPY --chown=nginx:nginx --chmod=755 municipal-runtime.sh /docker-entrypoint.d/90-municipal-config.sh\n}m
   or die "Dockerfile: nginx-noindex.sh COPY line not found\n"' Dockerfile
+# The generated security headers list the WASM origin, which is the site
+# itself; 'self' says the same without a placeholder in the nginx config.
+perl -0pi -e 's{^(COPY [^\n]*security-headers-docs\.conf [^\n]*\n)}{$1RUN sed -i "s|https://konvertor-site\\.invalid|'"'"'self'"'"'|g" /etc/nginx/security-headers.conf /etc/nginx/security-headers-docs.conf\n}m
+  or die "Dockerfile: security-headers-docs.conf COPY line not found\n"' Dockerfile
 
 # 6. Only the nginx stage is built per platform.
 perl -0pi -e 's{^FROM (\S+ AS builder\b)}{FROM --platform=\$BUILDPLATFORM $1}m

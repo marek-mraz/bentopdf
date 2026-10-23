@@ -9,7 +9,7 @@ na ne aplikujú automaticky.
 |---|---|
 | `sync-upstream.sh` | stiahne upstream, vypíše čo skontrolovať (nové knižnice, binárky vo `vendor/`, nové externé hosty, nové URL parametre), zmerguje do vetvy `sync-upstream-<dátum>` |
 | `prepare.sh` | nahradí názov, pätu a adresu zástupnými textami, pribalí všetky WASM/OCR/font súbory do `public/wasm`, pridá CSP len na vlastnú doménu, v jednoduchom režime nechá na stránkach nástrojov viditeľné časté otázky (FAQ), zapíše build argumenty |
-| `runtime-config.sh` | beží pri štarte kontajnera a doplní `BRAND_NAME`, `FOOTER_TEXT`, `SITE_URL` z env |
+| `runtime-config.sh` | beží pri štarte kontajnera a zapíše `BRAND_NAME`, `FOOTER_TEXT`, `SITE_URL` z env do `/etc/nginx/tmp/municipal.conf`; nginx ich dosadí do odpovedí |
 | `verify.sh` | spustí hotový image s vlastným názvom a overí CSP na každej odpovedi, pribalené súbory, názov a že nezostal žiadny zástupný text |
 | `build-local.sh` | lokálny build z commitnutého HEAD: export, `prepare.sh`, `docker build`, `verify.sh` |
 | `verify-engine.sh` | zbuilduje PDF engine (`vendor/bentopdf-pdfium`) zo zdrojákov bez cache a porovná sha256 s vendorovaným tarballom; ~1 h, aj ako workflow **Verify PDF engine** |
@@ -32,8 +32,10 @@ chcete iné OCR jazyky (vstup `ocr_languages`, predvolene slk,ces,eng).
 
 ## Nastavenie pri spustení
 
-Názov, päta ani adresa nie sú v image. Doplní ich `runtime-config.sh` pri
-štarte kontajnera z env:
+Názov, päta ani adresa nie sú v image. Súbory v image majú namiesto nich
+zástupné texty. `runtime-config.sh` pri štarte kontajnera zapíše hodnoty z env
+do `/etc/nginx/tmp/municipal.conf` a nginx ich dosadí do každej odpovede
+(`sub_filter`). Súbory v `/usr/share/nginx/html` sa nemenia:
 
 | Premenná | Predvolene | Význam |
 |---|---|---|
@@ -49,19 +51,19 @@ docker run -d -p 8080:8080 \
   ghcr.io/marek-mraz/bentopdf:<tag>
 ```
 
-- Hodnotu so znakmi `<` `>` `"` `'` `\` `$` `&` `|`, spätným apostrofom
-  alebo novým riadkom kontajner odmietne a nenaštartuje; hodnoty idú bez
-  escapovania do HTML, JSON a JS.
+- Hodnotu so znakmi `<` `>` `"` `'` `\` `$` `&` `|` `;` `{` `}`, spätným
+  apostrofom alebo novým riadkom kontajner odmietne a nenaštartuje; hodnoty
+  idú bez escapovania do HTML, JSON, JS a do konfigurácie nginx.
 - Ak stránku otvoríte cez inú adresu než `SITE_URL`, nástroje s WASM/OCR
   nepôjdu (CSP povoľuje len vlastnú adresu).
-- Nový kontajner pri prvom štarte prepisuje ~3100 súborov, nginx odpovie
-  asi po 20 s. Reštart toho istého kontajnera je okamžitý.
+- Kontajner štartuje hneď, nič sa neprepisuje.
 - Zmena env znamená nový kontajner (`docker compose up -d` ho vytvorí sám).
   Návštevník, ktorý už má stránku v cache, uvidí starý názov v časti
   vykresľovanej cez JS, kým mu cache súborov nevyprší; HTML a preklady sa
   obnovia do hodiny.
-- Kontajner s `--read-only` nepôjde: skript prepisuje súbory vo
-  `/usr/share/nginx/html`.
+- Kontajner môže bežať s read-only súborovým systémom. Zapisovať potrebuje
+  len do `/etc/nginx/tmp` (v Kubernetes `emptyDir`, v Dockeri
+  `--read-only --tmpfs /etc/nginx/tmp:uid=101,gid=101`).
 
 ## Bez externých zdrojov
 

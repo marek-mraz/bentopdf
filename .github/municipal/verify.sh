@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Smoke-tests a built municipal image: every response carries the self-only
-# CSP, the bundled WASM/OCR assets are served, and the brand from the
-# container env replaces every placeholder.
+# CSP, the bundled WASM/OCR assets are served, and nginx swaps every
+# placeholder for the container env. Runs read-only like the cluster pod:
+# only /etc/nginx/tmp is writable.
 # Usage: verify.sh <image> <ocr_languages>
 set -euo pipefail
 IMAGE=$1
@@ -9,11 +10,12 @@ OCR_LANGS=$2
 BRAND='Overenie Názvu PDF'
 NAME=municipal-verify-$$
 docker run -d --rm --name "$NAME" -p 127.0.0.1::8080 \
+  --read-only --tmpfs /etc/nginx/tmp:uid=101,gid=101 \
   -e BRAND_NAME="$BRAND" -e SITE_URL=https://overenie.example "$IMAGE" >/dev/null
 trap 'docker stop "$NAME" >/dev/null' EXIT
 URL="http://$(docker port "$NAME" 8080 | head -1)"
 for _ in $(seq 1 120); do curl -fs -o /dev/null "$URL/" && break; sleep 0.5; done
-docker logs "$NAME" 2>&1 | grep municipal-config || true
+docker logs "$NAME" 2>&1 | grep -E 'municipal-config|emerg|Read-only' || true
 
 fail=0
 check() { if [ "$2" = ok ]; then echo "  ok    $1"; else echo "  FAIL  $1: $3"; fail=1; fi; }
@@ -47,10 +49,29 @@ title=$(curl -fs "$URL/sk/merge-pdf" | tr '\n' ' ' | grep -oE '<title>[^<]*</tit
 if grep -qF -- "$BRAND" <<<"$title"; then r=ok; else r=bad; fi
 check "brand in /sk/merge-pdf $title" $r "'$BRAND' missing"
 
-left=$(docker exec "$NAME" grep -rlE 'KONVERTOR_(BRAND|FOOTER)_TOKEN|konvertor-site\.invalid' \
-  /usr/share/nginx/html /etc/nginx || true)
-if [ -z "$left" ]; then r=ok; else r=bad; fi
-check "no placeholders left" $r "$(head -3 <<<"$left")"
+# The files keep their placeholders; every response must not. Sample the
+# files that hold one and fetch each plain and gzip-compressed.
+files=$(docker exec "$NAME" sh -c "find /usr/share/nginx/html -path '*/wasm' -prune -o -type f -print \
+  | xargs grep -lE 'KONVERTOR_(BRAND|FOOTER)_TOKEN|konvertor-site\.invalid'" | awk 'NR % 10 == 1' || true)
+left=""
+for f in $files; do
+  u=${f#/usr/share/nginx/html}
+  for c in "" --compressed; do
+    # Read the body first: grep -q exits early and pipefail would count curl's SIGPIPE.
+    body=$(curl -fs $c "$URL$u" || echo "FETCH FAILED")
+    grep -qE 'KONVERTOR_|konvertor-site|FETCH FAILED' <<<"$body" && left="$left $c$u"
+  done
+done
+if [ -n "$files" ] && [ -z "$left" ]; then r=ok; else r=bad; fi
+check "no placeholders in $(wc -w <<<"$files") sampled responses" $r "${left:-no files with placeholders found}"
+
+sitemap=$(curl -fs "$URL/sitemap.xml" || true)
+if grep -qF https://overenie.example <<<"$sitemap"; then r=ok; else r=bad; fi
+check "SITE_URL in /sitemap.xml" $r "https://overenie.example missing"
+
+hdr=$(curl -fsI "$URL/sk/merge-pdf"; curl -fsI "$URL/docs/")
+if grep -qE 'KONVERTOR_|konvertor-site' <<<"$hdr"; then r=bad; else r=ok; fi
+check "no placeholders in response headers" $r "$(grep -E 'konvertor-site' <<<"$hdr" | head -1)"
 
 out=$(docker run --rm -e 'BRAND_NAME=a<b' --entrypoint /docker-entrypoint.d/90-municipal-config.sh \
   "$IMAGE" 2>&1) && r=bad || r=ok
