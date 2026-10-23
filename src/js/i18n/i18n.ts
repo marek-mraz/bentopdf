@@ -112,11 +112,14 @@ export const getLanguageFromUrl = (): SupportedLanguage => {
   return 'en';
 };
 
-let initialized = false;
+let initPromise: Promise<typeof i18next> | null = null;
 
-export const initI18n = async (): Promise<typeof i18next> => {
-  if (initialized) return i18next;
+// Pages that build their UI on DOMContentLoaded await this before calling t();
+// every caller shares the one load main.ts starts.
+export const initI18n = (): Promise<typeof i18next> =>
+  (initPromise ??= loadI18n());
 
+const loadI18n = async (): Promise<typeof i18next> => {
   const currentLang = getLanguageFromUrl();
 
   setStoredItem('i18nextLng', currentLang);
@@ -145,7 +148,6 @@ export const initI18n = async (): Promise<typeof i18next> => {
 
   await i18next.loadNamespaces('tools');
 
-  initialized = true;
   return i18next;
 };
 
