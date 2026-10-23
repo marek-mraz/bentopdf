@@ -2538,7 +2538,347 @@
     "ui": {
       "protectedPdf": "Protected PDF",
       "enterPasswordPlaceholder": "Enter password",
-      "skip": "Skip"
+      "skip": "Skip",
+      "pdfFiles": "PDF Files",
+      "uploadPdfs": "Upload PDFs",
+      "addMoreFiles": "Add More Files",
+      "images": "Images",
+      "uploadImages": "Upload Images",
+      "addMoreImages": "Add More Images",
+      "uploadOf": "Upload {{files}}",
+      "addMoreOf": "Add More {{files}}",
+      "supportedFormats": "Supported: {{formats}}",
+      "wrongPdfPassword": "Wrong password or failed to decrypt \"{{file}}\".",
+      "failedLoadPdf": "Failed to load PDF: {{message}}",
+      "failedLoadImages": "Failed to load images: {{message}}",
+      "failedLoadFiles": "Failed to load files: {{message}}",
+      "certificate": "Certificate (.pfx, .p12, .pem)",
+      "certificatePassword": "Certificate Password",
+      "unlock": "Unlock",
+      "unlocking": "Unlocking...",
+      "incorrectPassword": "Incorrect password",
+      "certificateUnlocked": "Certificate unlocked",
+      "changeCertificate": "Change Certificate",
+      "uploadCertificate": "Upload Certificate",
+      "searchLanguages": "Search languages..."
+    },
+    "processingNode": "Processing {{node}}...",
+    "nodeCount_one": "{{count}} node",
+    "nodeCount_other": "{{count}} nodes",
+    "status": {
+      "running": "Running...",
+      "complete": "Complete",
+      "failed": "Failed",
+      "connected": "Connected",
+      "notConnected": "Not connected"
+    },
+    "fileInputs": {
+      "word": {
+        "label": "Word Documents",
+        "files": "Documents"
+      },
+      "excel": {
+        "label": "Spreadsheets",
+        "files": "Spreadsheets"
+      },
+      "powerpoint": {
+        "label": "Presentations",
+        "files": "Presentations"
+      },
+      "text": {
+        "label": "Text Files",
+        "files": "Text Files"
+      },
+      "svg": {
+        "label": "SVG Files",
+        "files": "SVG Files"
+      },
+      "epub": {
+        "label": "EPUB Files",
+        "files": "EPUB Files"
+      },
+      "email": {
+        "label": "Email Files",
+        "files": "Email Files"
+      },
+      "xps": {
+        "label": "XPS Files",
+        "files": "XPS Files"
+      },
+      "mobi": {
+        "label": "MOBI Files",
+        "files": "MOBI Files"
+      },
+      "fb2": {
+        "label": "FB2 Files",
+        "files": "FB2 Files"
+      },
+      "cbz": {
+        "label": "Comic Archives",
+        "files": "Comics"
+      },
+      "markdown": {
+        "label": "Markdown Files",
+        "files": "Markdown Files"
+      },
+      "json": {
+        "label": "JSON Files",
+        "files": "JSON Files"
+      },
+      "xml": {
+        "label": "XML Files",
+        "files": "XML Files"
+      },
+      "wpd": {
+        "label": "WordPerfect Files",
+        "files": "WPD Files"
+      },
+      "wps": {
+        "label": "WPS Files",
+        "files": "WPS Files"
+      },
+      "pages": {
+        "label": "Pages Files",
+        "files": "Pages Files"
+      },
+      "odg": {
+        "label": "ODG Files",
+        "files": "ODG Files"
+      },
+      "pub": {
+        "label": "Publisher Files",
+        "files": "PUB Files"
+      },
+      "vsd": {
+        "label": "Visio Files",
+        "files": "Visio Files"
+      }
+    },
+    "controls": {
+      "addBookmark": "Add Bookmark",
+      "afterPage": "After Page",
+      "angle": "Angle",
+      "author": "Author",
+      "backgroundColor": "Background Color",
+      "binarize": "Binarize",
+      "blankPosition": "Blank Position",
+      "blur": "Blur",
+      "border": "Border",
+      "borderColor": "Border Color",
+      "bottom": "Bottom",
+      "brightness": "Brightness",
+      "color": "Color",
+      "cols": "Columns",
+      "compressionLevel": "Compression Level",
+      "contactInfo": "Contact Info",
+      "contrast": "Contrast",
+      "convertToGrayscale": "Convert to Grayscale",
+      "count": "Count",
+      "creator": "Creator",
+      "customHeight": "Custom Height",
+      "customUnits": "Custom Units",
+      "customWidth": "Custom Width",
+      "direction": "Direction",
+      "dpi": "DPI",
+      "filename": "Filename",
+      "fillColor": "Fill Color",
+      "flatten": "Flatten",
+      "flattenForms": "Flatten Forms",
+      "fontColor": "Font Color",
+      "fontFamily": "Font Family",
+      "fontSize": "Font Size",
+      "footerCenter": "Footer Center",
+      "footerLeft": "Footer Left",
+      "footerRight": "Footer Right",
+      "format": "Format",
+      "gamma": "Gamma",
+      "grayscale": "Grayscale",
+      "gridMode": "Grid Mode",
+      "headerCenter": "Header Center",
+      "headerLeft": "Header Left",
+      "headerRight": "Header Right",
+      "hueShift": "Hue Shift",
+      "imageFormat": "Image Format",
+      "includeAttachments": "Include Attachments",
+      "includeCcBcc": "Include CC/BCC",
+      "keywords": "Keywords",
+      "language": "Language",
+      "left": "Left",
+      "level": "Level",
+      "location": "Location",
+      "margins": "Margins",
+      "mode": "Mode",
+      "noise": "Noise",
+      "numberFormat": "Number Format",
+      "opacity": "Opacity",
+      "orientation": "Orientation",
+      "ownerPassword": "Owner Password",
+      "pageSize": "Page Size",
+      "pages": "Pages",
+      "pagesPerSheet": "Pages Per Sheet",
+      "paperSize": "Paper Size",
+      "password": "Password",
+      "position": "Position",
+      "preFlatten": "Pre Flatten",
+      "processingDpi": "Processing DPI",
+      "producer": "Producer",
+      "quality": "Quality",
+      "rasterizeDpi": "Rasterize DPI",
+      "reason": "Reason",
+      "redactMode": "Redact Mode",
+      "removeAnnotations": "Remove Annotations",
+      "removeEmbeddedFiles": "Remove Embedded Files",
+      "removeFonts": "Remove Fonts",
+      "removeJavascript": "Remove JavaScript",
+      "removeLayers": "Remove Layers",
+      "removeLinks": "Remove Links",
+      "removeMarkInfo": "Remove Mark Info",
+      "removeMetadata": "Remove Metadata",
+      "removeStructureTree": "Remove Structure Tree",
+      "resolution": "Resolution",
+      "retainPageLabels": "Retain Page Labels",
+      "right": "Right",
+      "rotation": "Rotation",
+      "rotationVariance": "Rotation Variance",
+      "rows": "Rows",
+      "saturation": "Saturation",
+      "scalingMode": "Scaling Mode",
+      "separator": "Separator",
+      "separatorColor": "Separator Color",
+      "separatorThickness": "Separator Thickness",
+      "sepia": "Sepia",
+      "skewThreshold": "Skew Threshold",
+      "spacing": "Spacing",
+      "subject": "Subject",
+      "targetKilobytes": "Target Kilobytes",
+      "targetSize": "Target Size",
+      "temperature": "Temperature",
+      "text": "Text",
+      "threshold": "Threshold",
+      "tile": "Tile",
+      "tileGapX": "Tile Gap X",
+      "tileGapY": "Tile Gap Y",
+      "tint": "Tint",
+      "title": "Title",
+      "top": "Top",
+      "tsaUrl": "TSA URL",
+      "userPassword": "User Password",
+      "whitelist": "Whitelist",
+      "x0": "X0",
+      "x1": "X1",
+      "y0": "Y0",
+      "y1": "Y1",
+      "yellowish": "Yellowish"
+    },
+    "hints": {
+      "pages": "e.g. 1-3, 5, 7-9",
+      "whitelist": "Limit recognized characters (leave empty for all)",
+      "afterPage": "Insert blank pages after this page number",
+      "x0": "Left edge in points (1 inch = 72 pts)",
+      "y0": "Top edge in points",
+      "x1": "Right edge in points",
+      "y1": "Bottom edge in points",
+      "targetKilobytes": "Finds the best quality under this size. 0 means no target.",
+      "retainPageLabels": "Off (default): natural 1–N numbering. On: each file's original page labels are preserved (may produce duplicate labels)."
+    },
+    "options": {
+      "orientation": {
+        "auto": "Auto (Keep Original)",
+        "portrait": "Portrait",
+        "landscape": "Landscape",
+        "vertical": "Vertical",
+        "horizontal": "Horizontal"
+      },
+      "direction": {
+        "vertical": "Vertical",
+        "horizontal": "Horizontal"
+      },
+      "blankPosition": {
+        "end": "End",
+        "start": "Beginning",
+        "after": "After Page..."
+      },
+      "gridMode": {
+        "1x2": "1x2 (Booklet)",
+        "2x2": "2x2 (4-up)",
+        "2x4": "2x4 (8-up)",
+        "4x4": "4x4 (16-up)"
+      },
+      "compressionLevel": {
+        "low": "Low (Best Quality)",
+        "medium": "Medium (Recommended)",
+        "high": "High (Smallest Files)",
+        "lossless": "Lossless (No Quality Loss)"
+      },
+      "skewThreshold": {
+        "0_1": "0.1° (Very Sensitive)",
+        "0_5": "0.5° (Default)",
+        "1_0": "1.0° (Normal)",
+        "2_0": "2.0° (Less Sensitive)"
+      },
+      "processingDpi": {
+        "100": "100 (Fast)",
+        "150": "150 (Default)",
+        "200": "200 (Better)",
+        "300": "300 (Best Quality)"
+      },
+      "targetSize": {
+        "Custom": "Custom"
+      },
+      "scalingMode": {
+        "fit": "Fit (keep full page visible)",
+        "fill": "Fill (cover full target page)"
+      },
+      "customUnits": {
+        "mm": "Millimeters (mm)",
+        "in": "Inches (in)"
+      },
+      "resolution": {
+        "2_0": "Standard (192 DPI)",
+        "3_0": "High (288 DPI)",
+        "4_0": "Ultra (384 DPI)"
+      },
+      "position": {
+        "bottom-center": "Bottom Center",
+        "bottom-left": "Bottom Left",
+        "bottom-right": "Bottom Right",
+        "top-center": "Top Center",
+        "top-left": "Top Left",
+        "top-right": "Top Right",
+        "center": "Center",
+        "top": "Top",
+        "left": "Left",
+        "right": "Right",
+        "bottom": "Bottom"
+      },
+      "numberFormat": {
+        "simple": "Simple (1, 2, 3)",
+        "page_x_of_y": "Page X of Y"
+      },
+      "level": {
+        "PDF_A-1b": "PDF/A-1b (Strict, no transparency)",
+        "PDF_A-2b": "PDF/A-2b (Recommended)",
+        "PDF_A-3b": "PDF/A-3b (Modern, allows attachments)"
+      },
+      "rasterizeDpi": {
+        "72": "72 (Screen)",
+        "150": "150 (Default)",
+        "200": "200 (Good)",
+        "300": "300 (Print)",
+        "600": "600 (High Quality)"
+      },
+      "imageFormat": {
+        "png": "PNG (Lossless)",
+        "jpeg": "JPEG (Smaller file size)"
+      },
+      "redactMode": {
+        "text": "Search Text",
+        "area": "Area (Coordinates)"
+      },
+      "angle": {
+        "90": "90° Clockwise",
+        "270": "90° Counter-clockwise"
+      }
     }
   },
   "wasmSettings": {
