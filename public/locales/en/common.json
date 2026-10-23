@@ -9,7 +9,10 @@
     "openMainMenu": "Open main menu",
     "language": "Language",
     "searchLanguage": "Search language…",
-    "noLanguagesFound": "No languages found"
+    "noLanguagesFound": "No languages found",
+    "products": "Products",
+    "kuraDescription": "PDF/A, PDF/UA and PDF/X conversion engine.",
+    "contentPreservingPdfCompressionEngine": "Content-preserving PDF compression engine."
   },
   "donation": {
     "message": "Love BentoPDF? Help us keep it free and open source!",
@@ -333,7 +336,9 @@
     "alert": {
       "initializationError": "Initialization Error",
       "couldNotLoadPdf": "Could not load the PDF engine. Please refresh the page and try again."
-    }
+    },
+    "pageCountLabel": "Pages: {{count}}",
+    "removeFile": "Remove file"
   },
   "about": {
     "hero": {
@@ -451,5 +456,34 @@
       "couldNotLoadPdf": "Could not load PDF. The file may be invalid, corrupted, or password-protected.",
       "someFilesWereSkipped": "Some files were skipped because they are not supported images."
     }
+  },
+  "toolPage": {
+    "backgroundColor": "Background Color",
+    "fit": "Fit",
+    "text": "Text",
+    "totalPages": "Total Pages:",
+    "orientation": "Orientation",
+    "portrait": "Portrait",
+    "landscape": "Landscape",
+    "fontSize": "Font Size",
+    "color": "Color",
+    "position": "Position",
+    "reset": "Reset",
+    "convertToPdf": "Convert to PDF",
+    "pdfQuality": "PDF Quality",
+    "highQualityLargerFile": "High Quality (Larger file)",
+    "mediumQualityBalanced": "Medium Quality (Balanced)",
+    "lowQualitySmallerFile": "Low Quality (Smaller file)",
+    "controlsImageCompressionWhenEmbedding": "Controls image compression when embedding into PDF"
+  },
+  "pageHeading": {
+    "pdfMultiTool": "PDF Multi Tool Free Online - Edit & Organize PDFs",
+    "compressPdfForEmail": "Compress PDF for Email",
+    "compressPdfTo100kb": "Compress PDF to 100KB",
+    "compressPdfTo1mb": "Compress PDF to 1MB",
+    "compressPdfTo200kb": "Compress PDF to 200KB",
+    "compressPdfTo2mb": "Compress PDF to 2MB",
+    "compressPdfTo500kb": "Compress PDF to 500KB",
+    "pdfWorkflow": "PDF Workflow Builder Free Online - Chain PDF Tools Into One Run"
   }
 }

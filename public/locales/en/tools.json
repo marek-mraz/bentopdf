@@ -42,6 +42,12 @@
       "renderingPreviews": "Rendering page previews...",
       "merging": "Merging PDFs...",
       "loadingDocuments": "Loading PDF documents..."
+    },
+    "ui": {
+      "clickDrag": "Click and drag the",
+      "iconToChangeOrderFiles": "icon to change the order of the files.",
+      "pagesRangeTotal": "Pages (e.g., 1-3, 5) - Total: {{count}}",
+      "leaveBlankAllPages": "Leave blank for all pages"
     }
   },
   "splitPdf": {
@@ -54,6 +60,42 @@
     },
     "loader": {
       "splittingPdf": "Splitting PDF..."
+    },
+    "ui": {
+      "splitMode": "Split Mode",
+      "extractPageRangeDefault": "Extract by Page Range (Default)",
+      "splitEvenOddPages": "Split by Even/Odd Pages",
+      "splitAllPagesIntoSeparate": "Split All Pages into Separate Files",
+      "selectPagesVisually": "Select Pages Visually",
+      "splitBookmarks": "Split by Bookmarks",
+      "splitTimes": "Split N Times",
+      "enterPageNumbersSeparatedCommas": "Enter page numbers separated by commas (e.g., 2, 8, 14).",
+      "enterPageRangesUsingHyphen": "Enter page ranges using a hyphen (e.g., 5-10).",
+      "combineThemComplexSelections": "Combine them for complex selections (e.g., 1-3, 7, 12-15).",
+      "pageRange": "Page Range",
+      "pageRangePlaceholder": "e.g. 1-5, 8, 11-13",
+      "extractAllEvenPagesAll": "Extract all even pages (2, 4, 6...) or all odd pages (1, 3, 5...) into a new PDF.",
+      "evenPages": "Even Pages",
+      "oddPages": "Odd Pages",
+      "everySinglePagePdfSaved": "Every single page of the PDF will be saved as a separate PDF file.",
+      "resultDownloadedZipFileContaining": "The result will be downloaded as a ZIP file containing all the pages.",
+      "clickOnPageThumbnailsBelow": "Click on the page thumbnails below to select the pages you want to extract.",
+      "selectedPagesHighlighted": "Selected pages will be highlighted.",
+      "splitPdfBasedOnIts": "Split the PDF based on its bookmarks (outline).",
+      "selectBookmarkLevelToSplit": "Select the bookmark level to split at.",
+      "bookmarkLevel": "Bookmark Level",
+      "allLevels": "All Levels",
+      "levelTopLevelOnly": "Level 0 (Top Level Only)",
+      "level1": "Level 1",
+      "level2": "Level 2",
+      "level3": "Level 3",
+      "splitPdfIntoMultipleFiles": "Split the PDF into multiple files, each containing N pages.",
+      "pagesPerFile": "Pages per file (N)",
+      "output": "Output",
+      "singleCombinedPdf": "Single combined PDF",
+      "multipleFilesDownloadedTogetherZip": "Multiple files are downloaded together as a ZIP.",
+      "onePdfPerRange": "One PDF per range",
+      "onePdfPerPage": "One PDF per page"
     }
   },
   "compressPdf": {
@@ -70,6 +112,146 @@
       "compressionComplete": "Compression Complete",
       "passwordNeeded": "Password Needed",
       "notPdf": "Not a PDF"
+    },
+    "landing": {
+      "forEmail": {
+        "shrinkPdfsToFitAny": "Shrink PDFs to fit any email attachment limit.",
+        "toEmailLargePdfCompress": "To email a large PDF, compress it below your provider's attachment limit first: add the file below and click Compress PDF. The target size is set to 10 MB, which fits even strict corporate mail servers; change it to match your provider. The work happens in your browser, so a confidential contract never touches a third-party server on its way to your outbox.",
+        "emailAttachmentLimitsInPractice": "Email attachment limits in practice",
+        "gmailAllows25mbPerMessage": "Gmail allows 25MB per message, Outlook.com 20MB, Yahoo 25MB, iCloud 20MB. and corporate mail servers are often far stricter, commonly 10MB and sometimes 5MB. The limit applies to the whole message after encoding, which inflates attachments by about a third, so a \"25MB\" limit really fits roughly an 18MB file. When in doubt, aim well below the ceiling.",
+        "betterThanDownloadLink": "Better than a download link",
+        "cloudLinksExpireNeedPermissions": "Cloud links expire, need permissions, and get quarantined by security filters. A compressed attachment simply arrives. The Medium level often cuts a scanned contract or slide deck by 60 to 90%, which turns most too-big files into comfortable attachments while keeping them readable and printable.",
+        "recurringEmailWorkflows": "For recurring email workflows",
+        "ifRegularlySendBatchesDocuments": "If you regularly send batches of documents, compress them all at once. each file processes independently in your browser. Pair with the Merge PDF tool to combine several attachments into one tidy file before compressing."
+      },
+      "to100kb": {
+        "getPdfUnder100kbPortals": "Get your PDF under 100KB for portals with strict upload limits.",
+        "toCompressPdfTo100kb": "To compress a PDF to 100KB, add your file below and click Compress PDF. The target size is already set to 100 KB, so Hyper Compress picks the best image quality that still fits. Everything runs inside your browser and the PDF is never uploaded to a server, so even sensitive documents like ID scans and application forms stay on your device.",
+        "whenNeedPdfUnder100kb": "When you need a PDF under 100KB",
+        "capCommonOnJobApplication": "A 100KB cap is common on job application portals, government e-filing systems, university admission forms, and visa or immigration websites. These systems usually reject larger files outright, often without a helpful error message, so compressing before you upload saves a failed submission.",
+        "whatToExpect100kb": "What to expect at 100KB",
+        "textBasedPdfFewPages": "A text-based PDF of a few pages. a resume, cover letter, or typed form. compresses below 100KB easily with no visible change. Scanned documents and photo-heavy files are harder: to hit 100KB they need stronger image downscaling, so expect visibly softer images. If your scan still will not reach 100KB, the result tells you the smallest size it could make. If the scan has no text layer, turn on Rasterize pages under Custom Settings to rebuild each page as one optimized image, or split the document and compress the pages you actually need to submit.",
+        "tipsSmallestPossibleFile": "Tips for the smallest possible file",
+        "removePagesDoNotNeed": "Remove pages you do not need before compressing. Prefer documents exported straight from an editor over scans. a re-typed one-page form is often 20KB while the same page scanned is 500KB. If you control the scanner, scan at 150 DPI in grayscale instead of 300 DPI color."
+      },
+      "to1mb": {
+        "reduceLargePdfsBelowMost": "Reduce large PDFs below the most common 1MB upload limit.",
+        "toCompressPdfTo1mb": "To compress a PDF to 1MB, add the file below and click Compress PDF. The target size is already set to 1 MB. One megabyte is the most common upload ceiling on the web, nearly every document reaches it without visible quality loss, and everything is processed privately in your browser.",
+        "mostCommonUploadLimit": "The most common upload limit",
+        "countlessWebFormsCapAttachments": "Countless web forms cap attachments at 1MB: HR systems, insurance claim uploads, property portals, CRM attachments. Even large reports with photos usually compress below 1MB at the Medium level, because most PDF weight is unoptimized images and duplicate embedded fonts that compression removes losslessly first.",
+        "veryLargeFiles": "Very large files",
+        "to100mbScannedBookBrochure": "A 50 to 100MB scanned book or brochure needs much stronger image compression to get under 1MB, which the target size handles by lowering quality step by step, and extremely long documents may not fit at any quality. In that case, split the PDF into logical parts, such as chapters or sections, and compress each part under 1MB."
+      },
+      "to200kb": {
+        "reducePdfBelow200kbWithout": "Reduce your PDF below 200KB without losing readability.",
+        "toGetPdfUnder200kb": "To get a PDF under 200KB, add the file below and click Compress PDF. The target size is already set to 200 KB, so Hyper Compress finds the best quality that fits. The compression happens locally in your browser, with no upload, no signup, and no file limit.",
+        "when200kbTarget": "When 200KB is the target",
+        "ceilingShowsUpOnBank": "A 200KB ceiling shows up on bank KYC uploads, scholarship and exam registration portals, and many national e-government services. It is a friendlier target than 100KB: most everyday documents reach it at the Medium level with no visible quality loss.",
+        "gettingStubbornFileUnder200kb": "Getting a stubborn file under 200KB",
+        "ifScannedDocumentStaysAbove": "If a scanned document stays above 200KB, the result tells you how close it got. For a scan with no text layer, Rasterize pages under Custom Settings can go smaller. Multi-page scans benefit from removing blank or irrelevant pages first: every scanned page you delete is often 100KB saved before compression even starts."
+      },
+      "to2mb": {
+        "meet2mbPortalLimitsWhile": "Meet 2MB portal limits while keeping high image quality.",
+        "toCompressPdfTo2mb": "To compress a PDF to 2MB, add your file below, pick the Low level for the best image quality, and click Compress PDF. The target size is already set to 2 MB, a budget that lets you keep high image quality for portfolios and reports, and the compression runs entirely on your device.",
+        "qualityFirstCompression": "Quality-first compression",
+        "toWorkRarelyNeedDestructive": "With 2MB to work with, you rarely need destructive settings. The Low level removes dead weight, such as duplicate fonts, unused objects, and editing leftovers, and keeps images at high quality, which suits design portfolios, photography-heavy reports, and print-ready documents that still have to pass an upload check.",
+        "common2mbSituations": "Common 2MB situations",
+        "universityThesisSubmissionSystemsConference": "University thesis submission systems, conference paper uploads, and many procurement portals cap files at 2MB. Documents exported from Word or Google Docs almost always fit at the Low level; for InDesign or Canva exports with full-resolution imagery, the 2 MB target lowers image quality only as far as it has to."
+      },
+      "to500kb": {
+        "bringPdfUnder500kbWhile": "Bring your PDF under 500KB while keeping images sharp.",
+        "toCompressPdfTo500kb": "To compress a PDF to 500KB, add your file below and click Compress PDF. The target size is already set to 500 KB. It is a comfortable target: most documents reach it with no visible difference, and your file never leaves your browser.",
+        "sweetSpotTarget": "The sweet spot target",
+        "halfMegabyteMostForgivingCommon": "Half a megabyte is the most forgiving of the common upload limits, used by CMS uploads, tender portals, and course submission systems. The Medium level often gets an office document or light scan under 500KB on its own, keeping images sharp and text perfectly crisp.",
+        "ifJustOverLine": "If you are just over the line",
+        "whenMediumLevelAloneLands": "When the Medium level alone lands just above 500KB, the target size makes Hyper Compress lower image quality a little further until the file fits. Check for an embedded photo cover page or a high-resolution logo on every page: repeated images are a common hidden cost that compression handles well."
+      }
+    },
+    "ui": {
+      "compressToSpecificSize": "Compress to a Specific Size",
+      "compressPdfTo100kb": "Compress PDF to 100KB",
+      "getPdfUnder100kbPortals": "Get your PDF under 100KB for portals with strict upload limits.",
+      "compressPdfTo200kb": "Compress PDF to 200KB",
+      "reducePdfBelow200kbWithout": "Reduce your PDF below 200KB without losing readability.",
+      "compressPdfTo500kb": "Compress PDF to 500KB",
+      "bringPdfUnder500kbWhile": "Bring your PDF under 500KB while keeping images sharp.",
+      "compressPdfTo1mb": "Compress PDF to 1MB",
+      "reduceLargePdfsBelowMost": "Reduce large PDFs below the most common 1MB upload limit.",
+      "compressPdfTo2mb": "Compress PDF to 2MB",
+      "meet2mbPortalLimitsWhile": "Meet 2MB portal limits while keeping high image quality.",
+      "compressPdfEmail": "Compress PDF for Email",
+      "shrinkPdfsToFitAny": "Shrink PDFs to fit any email attachment limit.",
+      "compressionLevel": "Compression Level",
+      "lowBestQuality": "Low (Best Quality)",
+      "mediumRecommended": "Medium (Recommended)",
+      "highSmallestFiles": "High (Smallest Files)",
+      "losslessNoQualityLoss": "Lossless (No Quality Loss)",
+      "custom": "Custom",
+      "poweredHyperCompressRecompressesImages": "Powered by Hyper Compress: it recompresses images, subsets and merges fonts, and strips dead weight while text, links, and forms keep working. For image-only scans, turn on Rasterize pages under Custom Settings.",
+      "targetFileSizeOptional": "Target File Size (Optional)",
+      "noTargetPlaceholder": "No target",
+      "hyperCompressFindsBestQuality": "Hyper Compress finds the best quality that fits. Leave it empty to use the level as is.",
+      "customSettings": "Custom Settings",
+      "fineTuneHyperCompressPicking": "Fine-tune Hyper Compress. Picking a compression level resets these, except Override content protection, Convert to grayscale, Preserve PDF/A, and Brotli.",
+      "overrideContentProtection": "Override content protection",
+      "defaultHyperCompressPreservesContent": "By default, Hyper Compress preserves content: it leaves digitally signed PDFs untouched and won't rasterize pages that have text. Turn this on to bypass both. Signed PDFs lose their signatures, and Rasterize pages also turns text into images."
+    },
+    "hyperOptions": {
+      "sections": {
+        "images": "Images",
+        "fonts": "Fonts",
+        "content": "Content",
+        "cleanup": "Cleanup",
+        "rasterize": "Rasterize",
+        "output": "Output"
+      },
+      "dpiNone": "None",
+      "imageQuality": "Image quality",
+      "imageQualityHelp": "JPEG quality for re-encoded images, 20 to 100. Lower means smaller files and more visible artifacts.",
+      "maxDpi": "Maximum resolution",
+      "maxDpiHelp": "Images above this are resampled down. None leaves resolution alone.",
+      "forceDownsample": "Always resample to that resolution",
+      "forceDownsampleHelp": "Resamples even when an image is only slightly above the limit.",
+      "grayscale": "Convert to grayscale",
+      "grayscaleHelp": "Reduces file size by removing color information.",
+      "reduceColor": "Reduce color complexity",
+      "reduceColorHelp": "Only where it does not change how the image looks.",
+      "clipImages": "Clip invisible parts of images",
+      "removeAlternates": "Remove alternate images",
+      "flattenIcc": "Simplify large color profiles",
+      "preferJpx": "Prefer JPEG 2000 for photos",
+      "preferJpxHelp": "Tries JPEG 2000 against JPEG for each image and keeps the smaller one.",
+      "lossless": "Lossless (no image re-encoding)",
+      "losslessHelp": "Turns off quality, resolution and every other lossy image step.",
+      "subsetFonts": "Subset embedded fonts",
+      "subsetFontsHelp": "Keeps only the characters the document uses.",
+      "mergeFonts": "Merge duplicate fonts",
+      "removeStandardFonts": "Unembed standard fonts",
+      "removeStandardFontsHelp": "PDF readers supply the 14 standard PDF fonts themselves.",
+      "unembedAliasedFonts": "Unembed standard-font look-alikes",
+      "unembedAliasedFontsHelp": "Arial, Times New Roman and Courier New map to the built-in equivalents. Only applied when safe.",
+      "removeAnnots": "Flatten annotations",
+      "removeAnnotsHelp": "Comments and markup become part of the page. Form fields and links keep working.",
+      "flattenForms": "Flatten form fields",
+      "flattenFormsHelp": "Form fields stop being fillable.",
+      "flattenLinks": "Flatten links",
+      "flattenLinksHelp": "Links stop being clickable.",
+      "removeThumbnails": "Remove page thumbnails",
+      "removeAppData": "Remove application data",
+      "removeAppDataHelp": "Private data that editing apps store inside the PDF.",
+      "removeThreads": "Remove article threads",
+      "removeSpiderInfo": "Remove web capture information",
+      "removeStructTree": "Remove document structure tree",
+      "removeStructTreeHelp": "Drops tagging, which screen readers rely on.",
+      "removeOutputIntents": "Remove output intents",
+      "rasterizePages": "Rasterize pages to images",
+      "rasterizePagesHelp": "For image-only PDFs such as scans. Skipped when the document has selectable text, unless Override content protection is on.",
+      "rasterizeDpi": "Rasterize resolution (DPI)",
+      "rasterizeQuality": "Rasterize quality",
+      "preserveConformance": "Preserve PDF/A",
+      "preserveConformanceHelp": "Keeps a PDF/A file conformant. Brotli and rasterizing are skipped while this is on.",
+      "brotli": "Brotli compression (PDF 2.0)",
+      "brotliHelp": "Smaller files, but only readers with Brotli support can open them, such as Firefox, MuPDF 1.26+ and Ghostscript 10.06+."
     }
   },
   "pdfEditor": {
@@ -211,6 +393,24 @@
     "tipShowBar": "Show bar",
     "loader": {
       "loadingPdfTextEditor": "Loading PDF Text Editor..."
+    },
+    "ui": {
+      "spelling": "Spelling",
+      "rulers": "Rulers",
+      "findReplace": "Find & Replace",
+      "matchCase": "Match case",
+      "wholeWord": "Whole word",
+      "ignoreAccents": "Ignore accents",
+      "everythingRunsLocallyInBrowser": "Everything runs locally in your browser, and nothing is uploaded.",
+      "saveImagePngEditIn": "Save this image as a PNG, edit it in any app; saved changes re-import automatically",
+      "format": "Format",
+      "lineSpacing": "Line Spacing",
+      "paragraphSpacing": "Paragraph Spacing",
+      "characterSpacing": "Character Spacing",
+      "wordSpacing": "Word Spacing",
+      "horizontalScale": "Horizontal Scale %",
+      "firstLineIndent": "First-line Indent",
+      "hangingIndent": "Hanging Indent"
     }
   },
   "jpgToPdf": {
@@ -235,11 +435,22 @@
       "signedPdfDownloadedSuccessfully": "Signed PDF downloaded successfully!",
       "exportFailed": "Export failed",
       "couldNotExportSigned": "Could not export the signed PDF. Please try again."
+    },
+    "ui": {
+      "flattenPdfUseSaveButton": "Flatten PDF (use the Save button below)",
+      "saveDownloadSignedPdf": "Save & Download Signed PDF"
     }
   },
   "cropPdf": {
     "name": "Crop PDF",
-    "subtitle": "Trim the margins of every page in your PDF."
+    "subtitle": "Trim the margins of every page in your PDF.",
+    "ui": {
+      "previousPage": "Previous Page",
+      "nextPage": "Next Page",
+      "flatteningCropConvertsPagesTo": "Flattening Crop (converts pages to images)",
+      "applyToAllPages": "Apply to all pages",
+      "cropDownload": "Crop & Download"
+    }
   },
   "extractPages": {
     "name": "Extract Pages",
@@ -252,6 +463,11 @@
     },
     "loader": {
       "extractingPages": "Extracting pages..."
+    },
+    "ui": {
+      "enterPagesToExtract": "Enter pages to extract (e.g., 2, 4-6, 9):",
+      "pageRangePlaceholder": "e.g., 2, 4-6, 9",
+      "extractDownloadZip": "Extract & Download ZIP"
     }
   },
   "duplicateOrganize": {
@@ -274,6 +490,11 @@
       "pagesHaveBeenReordered": "Pages have been reordered.",
       "pdfOrganizedSuccessfully": "PDF organized successfully!",
       "failedSaveChanges": "Failed to save changes."
+    },
+    "ui": {
+      "pageOrderCommaSeparated": "Page Order (comma-separated)",
+      "pageRangePlaceholder": "e.g., 3,1,4,2",
+      "applyOrder": "Apply Order"
     }
   },
   "deletePages": {
@@ -286,6 +507,11 @@
     },
     "loader": {
       "deletingPages": "Deleting pages..."
+    },
+    "ui": {
+      "enterPagesToDelete": "Enter pages to delete (e.g., 2, 4-6, 9):",
+      "pageRangePlaceholder": "e.g., 2, 4-6, 9",
+      "deletePagesDownload": "Delete Pages & Download"
     }
   },
   "editBookmarks": {
@@ -297,7 +523,46 @@
     "jsonFormat": "JSON format",
     "uploadCsvAction": "Click to upload CSV",
     "uploadJsonAction": "Click to upload JSON",
-    "orDragHere": "or drag here"
+    "orDragHere": "or drag here",
+    "ui": {
+      "deleteAll": "Delete All",
+      "pdfViewer": "PDF Viewer",
+      "bookmarks": "Bookmarks",
+      "goTo": "Go to:",
+      "go": "Go",
+      "zoomOut": "Zoom Out",
+      "zoomIn": "Zoom In",
+      "fitToWidth": "Fit to Width",
+      "clickOnPdfToSet": "Click on the PDF to set bookmark destination",
+      "searchBookmarksPlaceholder": "Search bookmarks...",
+      "bookmarkTitlePlaceholder": "Bookmark title...",
+      "addToPage": "Add to Page",
+      "batchMode": "Batch Mode",
+      "selected": "selected",
+      "batchOperations": "Batch Operations",
+      "setColor": "Set Color...",
+      "none": "None",
+      "red": "Red",
+      "blue": "Blue",
+      "green": "Green",
+      "yellow": "Yellow",
+      "purple": "Purple",
+      "setStyle": "Set Style...",
+      "normal": "Normal",
+      "bold": "Bold",
+      "italic": "Italic",
+      "boldItalic": "Bold & Italic",
+      "deleteSelected": "Delete Selected",
+      "expandAll": "Expand All",
+      "collapseAll": "Collapse All",
+      "importCsv": "Import CSV",
+      "importJson": "Import JSON",
+      "exportCsv": "Export CSV",
+      "exportJson": "Export JSON",
+      "noBookmarksYetAddOne": "No bookmarks yet. Add one above!",
+      "savePdfBookmarks": "Save PDF with Bookmarks",
+      "extractExistingBookmarks": "Extract Existing Bookmarks"
+    }
   },
   "tableOfContents": {
     "name": "Table of Contents",
@@ -324,6 +589,16 @@
     "alert": {
       "pageNumbersAddedSuccessfully": "Page numbers added successfully!",
       "couldNotAddPage": "Could not add page numbers."
+    },
+    "ui": {
+      "bottomCenter": "Bottom Center",
+      "bottomLeft": "Bottom Left",
+      "bottomRight": "Bottom Right",
+      "topCenter": "Top Center",
+      "topLeft": "Top Left",
+      "topRight": "Top Right",
+      "format": "Format",
+      "addPageNumbers": "Add Page Numbers"
     }
   },
   "addPageLabels": {
@@ -395,6 +670,30 @@
     "alert": {
       "uploadValidPdfFiles": "Please upload valid PDF files.",
       "failedApplyBatesNumbers": "Failed to apply Bates numbers."
+    },
+    "ui": {
+      "pdfFilesMultipleSupported": "PDF files (multiple supported)",
+      "selectStyle": "Select Style",
+      "customStyleOther": "Custom style (other)",
+      "customizeStyle": "Customize Style",
+      "placeholdersBatesPageFileFilename": "Placeholders: [BATES] [PAGE] [FILE] [FILENAME]",
+      "preview": "Preview:",
+      "batesPadding": "Bates Padding",
+      "digits6": "6 digits (000001)",
+      "digits5": "5 digits (00001)",
+      "digits4": "4 digits (0001)",
+      "digits3": "3 digits (001)",
+      "noPadding": "No padding (1)",
+      "headerCenter": "Header Center",
+      "headerLeft": "Header Left",
+      "headerRight": "Header Right",
+      "footerCenter": "Footer Center",
+      "footerLeft": "Footer Left",
+      "footerRight": "Footer Right",
+      "batesStarts": "Bates Starts From",
+      "fileCounterStarts": "File Counter Starts From",
+      "font": "Font",
+      "applyBatesNumbers": "Apply Bates Numbers"
     }
   },
   "addWatermark": {
@@ -407,6 +706,36 @@
     "alert": {
       "watermarkAddedSuccessfully": "Watermark added successfully!",
       "couldNotAddWatermark": "Could not add the watermark."
+    },
+    "ui": {
+      "changeFile": "Change File",
+      "preview": "Preview",
+      "dragWatermarkToPosition": "Drag watermark to position",
+      "image": "Image",
+      "layout": "Layout",
+      "single": "Single",
+      "tiled": "Tiled",
+      "tiledRepeatsWatermarkAcrossWhole": "Tiled repeats the watermark across the whole page.",
+      "pageRange": "Page Range",
+      "pageRangePlaceholder": "all or 1-3, 5, 7-9",
+      "useAllSpecifyPages": "Use \"all\" or specify pages, e.g. 1-3, 5, 7-9",
+      "opacity": "Opacity:",
+      "angle": "Angle:",
+      "watermarkImage": "Watermark Image",
+      "scale": "Scale:",
+      "horizontalGap": "Horizontal gap:",
+      "verticalGap": "Vertical gap:",
+      "topLeft": "Top Left",
+      "top": "Top",
+      "topRight": "Top Right",
+      "left": "Left",
+      "center": "Center",
+      "right": "Right",
+      "bottomLeft": "Bottom Left",
+      "bottom": "Bottom",
+      "bottomRight": "Bottom Right",
+      "flattenWatermark": "Flatten watermark",
+      "bakesWatermarkIntoPagePixels": "Bakes the watermark into page pixels, making it tamper-resistant. Text will no longer be selectable."
     }
   },
   "headerFooter": {
@@ -418,6 +747,20 @@
     "alert": {
       "headerFooterAddedSuccessfully": "Header & Footer added successfully!",
       "couldNotAddHeader": "Could not add header or footer."
+    },
+    "ui": {
+      "formattingOptions": "Formatting Options",
+      "pageRangeOptional": "Page Range (optional)",
+      "pageRangePlaceholder": "e.g., 1-3, 5",
+      "totalPages": "Total pages:",
+      "fontColor": "Font Color",
+      "headerLeft": "Header Left",
+      "headerCenter": "Header Center",
+      "headerRight": "Header Right",
+      "footerLeft": "Footer Left",
+      "footerCenter": "Footer Center",
+      "footerRight": "Footer Right",
+      "addHeaderFooter": "Add Header & Footer"
     }
   },
   "invertColors": {
@@ -429,6 +772,9 @@
     "alert": {
       "colorsInvertedSuccessfully": "Colors inverted successfully!",
       "couldNotInvertPdf": "Could not invert PDF colors."
+    },
+    "ui": {
+      "clickButtonBelowToInvert": "Click the button below to invert all colors in your PDF."
     }
   },
   "scannerEffect": {
@@ -485,6 +831,9 @@
     "alert": {
       "backgroundColorChangedSuccessfully": "Background color changed successfully!",
       "couldNotChangeBackground": "Could not change the background color."
+    },
+    "ui": {
+      "changeBackgroundColor": "Change Background Color"
     }
   },
   "changeTextColor": {
@@ -496,6 +845,9 @@
     "alert": {
       "textColorChangedSuccessfully": "Text color changed successfully!",
       "couldNotChangeText": "Could not change text color."
+    },
+    "ui": {
+      "newTextColor": "New Text Color"
     }
   },
   "addStamps": {
@@ -504,7 +856,11 @@
     "usernameLabel": "Stamp Username",
     "usernamePlaceholder": "Enter your name (for stamps)",
     "usernameHint": "This name will appear on stamps you create.",
-    "saveButton": "Save Stamped PDF"
+    "saveButton": "Save Stamped PDF",
+    "ui": {
+      "stampEditor": "Stamp Editor",
+      "useToolbarImageStampTool": "Use the toolbar's image stamp tool to place stamps."
+    }
   },
   "removeAnnotations": {
     "name": "Remove Annotations",
@@ -515,6 +871,9 @@
     "alert": {
       "annotationsRemovedSuccessfully": "Annotations removed successfully!",
       "couldNotRemoveAnnotations": "Could not remove annotations."
+    },
+    "ui": {
+      "clickButtonBelowToRemove": "Click the button below to remove all annotations from your PDF."
     }
   },
   "pdfFormFiller": {
@@ -531,13 +890,49 @@
       "waitFormFinishLoading": "Please wait for the form to finish loading.",
       "useDownloadButtonPdf": "Please use the Download button in the PDF viewer toolbar above.",
       "cannotAccessViewerControls": "Cannot access viewer controls. Please use the Download button in the PDF viewer toolbar above."
+    },
+    "ui": {
+      "saveDownloadFilledForm": "Save & Download Filled Form"
     }
   },
   "createPdfForm": {
     "name": "Create PDF Form",
     "subtitle": "Create fillable PDF forms with drag-and-drop text fields.",
     "orSeparator": "OR",
-    "createBlankPdf": "Create Blank PDF"
+    "createBlankPdf": "Create Blank PDF",
+    "ui": {
+      "pageSize": "Page Size:",
+      "custom": "Custom",
+      "widthPts": "Width (pts)",
+      "heightPts": "Height (pts)",
+      "inchPoints1": "1 inch = 72 points",
+      "startCreating": "Start Creating",
+      "properties": "Properties",
+      "fieldCount": "Fields:",
+      "pressDeleteToRemoveSelected": "Press Delete to remove selected field",
+      "goTo": "Go to:",
+      "go": "Go",
+      "grid": "Grid:",
+      "toggleGrid": "Toggle Grid",
+      "addPage": "Add Page",
+      "fields": "Fields:",
+      "textField": "Text Field",
+      "checkbox": "Checkbox",
+      "radioButton": "Radio Button",
+      "radio": "Radio",
+      "dropdown": "Dropdown",
+      "optionList": "Option List",
+      "list": "List",
+      "button": "Button",
+      "signature": "Signature",
+      "dateField": "Date Field",
+      "date": "Date",
+      "imageField": "Image Field",
+      "image": "Image",
+      "barcodeField": "Barcode Field",
+      "barcode": "Barcode",
+      "downloadPdfForm": "Download PDF Form"
+    }
   },
   "removeBlankPages": {
     "name": "Remove Blank Pages",
@@ -552,6 +947,12 @@
       "couldNotDetectBlank": "Could not detect blank pages.",
       "noPagesSelectedRemoval": "No pages selected for removal.",
       "couldNotRemoveBlank": "Could not remove blank pages."
+    },
+    "ui": {
+      "sensitivity": "Sensitivity:",
+      "detectBlankPages": "Detect Blank Pages",
+      "detectedBlankPages": "Detected Blank Pages",
+      "removeSelectedBlankPages": "Remove Selected Blank Pages"
     }
   },
   "imageToPdf": {
@@ -647,6 +1048,9 @@
     },
     "loader": {
       "creatingPdf": "Creating PDF..."
+    },
+    "ui": {
+      "startTypingHerePlaceholder": "Start typing here..."
     }
   },
   "jsonToPdf": {
@@ -754,6 +1158,16 @@
       "conversionError": "Failed to convert PDF to TIFF. The file might be corrupted.",
       "conversionOutOfMemory": "The browser ran out of memory while converting. Try a lower DPI, or uncheck the multi-page TIFF option to convert pages one at a time.",
       "failedLoadImageProcessor": "Failed to load the image processor. Please ensure your browser supports SharedArrayBuffer (requires HTTPS or localhost)."
+    },
+    "ui": {
+      "lzwLossless": "LZW (Lossless)",
+      "deflateZipLossless": "Deflate / ZIP (Lossless)",
+      "ccittGroupDocuments": "CCITT Group 4 (B&W documents)",
+      "jpegLossy": "JPEG (Lossy)",
+      "noneUncompressed": "None (Uncompressed)",
+      "colorRgb": "Color (RGB)",
+      "greyscale": "Greyscale",
+      "blackWhiteBit": "Black & White (1-bit)"
     }
   },
   "pdfToCbz": {
@@ -784,6 +1198,10 @@
       "noFileExplanation": "Please upload a PDF file first.",
       "conversionSuccess": "PDF converted to CBZ successfully!",
       "conversionError": "Failed to convert PDF to CBZ. The file might be corrupted."
+    },
+    "ui": {
+      "autoDetectedFilenamePlaceholder": "Auto-detected from filename",
+      "actionAdventureSciFiPlaceholder": "Action, Adventure, Sci-Fi"
     }
   },
   "pdfToGreyscale": {
@@ -795,6 +1213,9 @@
     "alert": {
       "pdfConvertedGreyscaleSuccessfully": "PDF converted to greyscale successfully!",
       "failedConvertPdfGreyscale": "Failed to convert PDF to greyscale. The file might be corrupted."
+    },
+    "ui": {
+      "convertToGreyscale": "Convert to Greyscale"
     }
   },
   "pdfToJson": {
@@ -883,6 +1304,11 @@
       "uploadLeastTwoPdf": "Please upload at least two PDF files to alternate and mix.",
       "leastTwoValidPdfs": "At least two valid PDFs are required.",
       "pdfsHaveBeenMixed": "PDFs have been mixed successfully!"
+    },
+    "ui": {
+      "filesOrder": "Files Order",
+      "dragToReorderPagesInterleaved": "Drag to reorder. Pages will be interleaved in this order.",
+      "mixPages": "Mix Pages"
     }
   },
   "duplexCollate": {
@@ -940,6 +1366,16 @@
     "loader": {
       "embeddingFilesIntoPdf": "Embedding files into PDF...",
       "attachingFilesPdf": "Attaching files to PDF..."
+    },
+    "ui": {
+      "selectFilesToAttach": "Select Files to Attach",
+      "clickDropFilesToAttach": "Click or drop files to attach",
+      "anyFileType": "Any file type",
+      "attachmentLevel": "Attachment Level",
+      "documentLevel": "Document Level",
+      "pageLevel": "Page Level",
+      "pageRangeTotal": "Page Range (e.g., 1,3,5-7) - Total:",
+      "pages": "pages"
     }
   },
   "extractAttachments": {
@@ -966,6 +1402,10 @@
     "loader": {
       "loadingAttachments": "Loading attachments...",
       "processingAttachments": "Processing attachments..."
+    },
+    "ui": {
+      "attachments": "Attachments",
+      "saveChanges": "Save Changes"
     }
   },
   "dividePages": {
@@ -979,6 +1419,20 @@
     },
     "loader": {
       "splittingPdfPages": "Splitting PDF pages..."
+    },
+    "ui": {
+      "vertical": "Vertical:",
+      "splitEachPageIntoLeft": "Split each page into left and right halves.",
+      "horizontal": "Horizontal:",
+      "splitEachPageIntoTop": "Split each page into top and bottom halves.",
+      "specifyWhichPagesToDivide": "Specify which pages to divide. Other pages will be kept as-is.",
+      "leaveBlankUseAllTo": "Leave blank or use \"all\" to divide all pages.",
+      "pagesToDivide": "Pages to Divide",
+      "leaveBlankAllPagesPlaceholder": "e.g. 1-5, 8, 11-13 (leave blank for all pages)",
+      "enterPageNumbersSeparatedCommas": "Enter page numbers separated by commas or ranges with hyphens.",
+      "splitDirection": "Split Direction",
+      "verticalLeftRight": "Vertical (Left & Right)",
+      "horizontalTopBottom": "Horizontal (Top & Bottom)"
     }
   },
   "addBlankPage": {
@@ -987,6 +1441,14 @@
     "alert": {
       "invalidInput": "Invalid Input",
       "enterValidNumberPages": "Please enter a valid number of pages (1 or more)."
+    },
+    "ui": {
+      "specifyPositionWhereBlankPages": "Specify the position where blank pages should be inserted.",
+      "positionInsertsBeginningPositionEqual": "Position 0 inserts at the beginning, position equal to page count inserts at the end.",
+      "blankPagesMatchSizeFirst": "Blank pages will match the size of the first page in your document.",
+      "insertAfterPage": "Insert after page",
+      "numberBlankPages": "Number of blank pages",
+      "addBlankPages": "Add Blank Pages"
     }
   },
   "reversePages": {
@@ -998,15 +1460,30 @@
     "alert": {
       "pagesHaveBeenReversed": "Pages have been reversed successfully!",
       "couldNotReversePdf": "Could not reverse the PDF pages. Please check that your files are valid PDFs."
+    },
+    "ui": {
+      "allPagesReversedFirstBecomes": "All pages will be reversed (first becomes last, last becomes first).",
+      "ifUploadMultiplePdfsEach": "If you upload multiple PDFs, each will be reversed and downloaded as a ZIP file."
     }
   },
   "rotatePdf": {
     "name": "Rotate PDF",
-    "subtitle": "Turn pages in 90-degree increments."
+    "subtitle": "Turn pages in 90-degree increments.",
+    "ui": {
+      "batchActions": "Batch Actions",
+      "left": "Left",
+      "right": "Right",
+      "applyRotations": "Apply Rotations"
+    }
   },
   "rotateCustom": {
     "name": "Rotate by Custom Degrees",
-    "subtitle": "Rotate pages by any custom angle."
+    "subtitle": "Rotate pages by any custom angle.",
+    "ui": {
+      "batchRotation": "Batch Rotation",
+      "applyToAll": "Apply to All",
+      "applyRotations": "Apply Rotations"
+    }
   },
   "nUpPdf": {
     "name": "N-Up PDF",
@@ -1017,6 +1494,22 @@
     "alert": {
       "nUpPdfCreated": "N-Up PDF created successfully!",
       "errorOccurredWhileCreating": "An error occurred while creating the N-Up PDF."
+    },
+    "ui": {
+      "chooseHowManyPagesTo": "Choose how many pages to fit on each sheet (2, 4, 9, or 16).",
+      "selectOutputPageSizeOrientation": "Select output page size and orientation.",
+      "optionallyAddMarginsBordersAround": "Optionally add margins and borders around each page.",
+      "pagesPerSheet": "Pages per Sheet",
+      "up1x2": "2-up (1x2)",
+      "up2x4": "4-up (2x2)",
+      "up3x9": "9-up (3x3)",
+      "up4x16": "16-up (4x4)",
+      "outputPageSize": "Output Page Size",
+      "auto": "Auto",
+      "addMargins": "Add Margins",
+      "addBorder": "Add Border",
+      "borderColor": "Border Color",
+      "createUpPdf": "Create N-Up PDF"
     }
   },
   "combineToSinglePage": {
@@ -1028,6 +1521,16 @@
     "alert": {
       "pagesCombinedSuccessfully": "Pages combined successfully!",
       "errorOccurredWhileCombining": "An error occurred while combining pages."
+    },
+    "ui": {
+      "layoutDirection": "Layout Direction",
+      "verticalTopToBottom": "Vertical (Top to Bottom)",
+      "horizontalLeftToRight": "Horizontal (Left to Right)",
+      "spacingPixels": "Spacing (pixels)",
+      "addSeparatorLines": "Add Separator Lines",
+      "separatorThickness": "Separator Thickness",
+      "separatorColor": "Separator Color",
+      "combinePages": "Combine Pages"
     }
   },
   "viewMetadata": {
@@ -1037,6 +1540,10 @@
       "copied": "Copied",
       "metadataCopiedClipboardAs": "Metadata copied to clipboard as JSON.",
       "failedCopyMetadataClipboard": "Failed to copy metadata to clipboard."
+    },
+    "ui": {
+      "documentMetadata": "Document Metadata",
+      "copyMetadataJson": "Copy Metadata as JSON"
     }
   },
   "editMetadata": {
@@ -1048,6 +1555,20 @@
     "alert": {
       "metadataUpdatedSuccessfully": "Metadata updated successfully!",
       "couldNotUpdateMetadata": "Could not update metadata. Please check that date formats are correct."
+    },
+    "ui": {
+      "title": "Title",
+      "author": "Author",
+      "subject": "Subject",
+      "keywordsCommaSeparated": "Keywords (comma-separated)",
+      "creator": "Creator",
+      "producer": "Producer",
+      "creationDate": "Creation Date",
+      "modificationDate": "Modification Date",
+      "customFields": "Custom Fields",
+      "noteCustomFieldsNotSupported": "Note: Custom fields are not supported by all PDF readers.",
+      "addCustomField": "Add Custom Field",
+      "saveMetadata": "Save Metadata"
     }
   },
   "pdfsToZip": {
@@ -1060,6 +1581,11 @@
     },
     "loader": {
       "generatingZipFile": "Generating ZIP file..."
+    },
+    "ui": {
+      "allSelectedPdfFilesPackaged": "All selected PDF files will be packaged into a single ZIP archive.",
+      "fileNamesPreservedInArchive": "File names will be preserved in the archive.",
+      "createZipArchive": "Create ZIP Archive"
     }
   },
   "comparePdfs": {
@@ -1104,7 +1630,24 @@
     "loadingFile": "Loading {{name}}...",
     "invalidFile": "Invalid File",
     "invalidFileMsg": "Please select a valid PDF file.",
-    "loadError": "Could not load PDF. It may be corrupt or password-protected."
+    "loadError": "Could not load PDF. It may be corrupt or password-protected.",
+    "ui": {
+      "zoomOut": "Zoom out",
+      "zoomIn": "Zoom in",
+      "resetZoomToFit": "Reset zoom to fit",
+      "allChanges": "All changes",
+      "contentOnly": "Content only",
+      "overlayView": "Overlay view",
+      "changeType": "Change Type",
+      "moved": "Moved",
+      "style": "Style",
+      "content": "Content",
+      "images": "Images",
+      "headers": "Headers",
+      "annotations": "Annotations",
+      "formatting": "Formatting",
+      "backgrounds": "Backgrounds"
+    }
   },
   "posterizePdf": {
     "name": "Posterize PDF",
@@ -1115,6 +1658,26 @@
     "alert": {
       "pdfHasBeenPosterized": "Your PDF has been posterized.",
       "couldNotPosterizePdf": "Could not posterize the PDF."
+    },
+    "ui": {
+      "pagePreview": "Page Preview",
+      "gridLayout": "Grid Layout",
+      "rows": "Rows",
+      "columns": "Columns",
+      "outputPageSettings": "Output Page Settings",
+      "pageSize": "Page Size",
+      "automaticRecommended": "Automatic (Recommended)",
+      "advancedOptions": "Advanced Options",
+      "contentScaling": "Content Scaling",
+      "preservesAllContentMayAdd": "Preserves all content, may add margins.",
+      "fillCrop": "Fill (Crop)",
+      "fillsPageMayCropContent": "Fills the page, may crop content.",
+      "overlapAssembly": "Overlap (for assembly)",
+      "points": "Points",
+      "inches": "Inches",
+      "pageRangeOptional": "Page Range (optional)",
+      "pageRangePlaceholder": "e.g., 1-3, 5",
+      "totalPages": "Total pages:"
     }
   },
   "fixPageSize": {
@@ -1123,6 +1686,21 @@
     "alert": {
       "pageSizesStandardizedSuccessfully": "Page sizes standardized successfully!",
       "errorOccurredWhileStandardizing": "An error occurred while standardizing pages."
+    },
+    "ui": {
+      "targetPageSize": "Target Page Size",
+      "custom": "Custom...",
+      "width": "Width",
+      "height": "Height",
+      "units": "Units",
+      "inches": "Inches",
+      "millimeters": "Millimeters",
+      "autoKeepOriginal": "Auto (Keep Original)",
+      "contentScaling": "Content Scaling",
+      "preservesAllContentMayAdd": "Preserves all content, may add margins.",
+      "fillCrop": "Fill (Crop)",
+      "fillsPageMayCropContent": "Fills the page, may crop content.",
+      "colorMarginsPadding": "Color for margins/padding"
     }
   },
   "linearizePdf": {
@@ -1131,11 +1709,33 @@
     "alert": {
       "noPdfFiles": "No PDF Files",
       "linearizationFailed": "Linearization Failed"
+    },
+    "ui": {
+      "whatLinearization": "What is linearization?",
+      "optimizesPdfStructureWebViewing": "Optimizes PDF structure for web viewing",
+      "enablesProgressiveLoadingFirstPage": "Enables progressive loading (first page displays faster)",
+      "improvesUserExperienceOnlinePdfs": "Improves user experience for online PDFs",
+      "alsoKnownFastWebView": "Also known as \"Fast Web View\" or \"Optimized\"",
+      "linearizePdf": "Linearize PDF(s)"
     }
   },
   "pageDimensions": {
     "name": "Page Dimensions",
-    "subtitle": "Analyze page size, orientation, and units."
+    "subtitle": "Analyze page size, orientation, and units.",
+    "ui": {
+      "units": "Units:",
+      "pointsPt": "Points (pt)",
+      "inchesIn": "Inches (in)",
+      "millimetersMm": "Millimeters (mm)",
+      "pixelsPx": "Pixels (px)",
+      "exportToCsv": "Export to CSV",
+      "page": "Page #",
+      "dimensions": "Dimensions",
+      "standardSize": "Standard Size",
+      "aspectRatio": "Aspect Ratio",
+      "area": "Area",
+      "rotation": "Rotation"
+    }
   },
   "removeRestrictions": {
     "name": "Remove Restrictions",
@@ -1144,6 +1744,17 @@
       "pdfRestrictionsRemovedSuccessfully": "PDF restrictions removed successfully! The file is now fully editable and printable.",
       "operationFailed": "Operation Failed",
       "pdfMightCorruptedPassword": "The PDF might be corrupted or password-protected."
+    },
+    "ui": {
+      "ownerPasswordOptional": "Owner Password (Optional)",
+      "enterOwnerPasswordIfRequiredPlaceholder": "Enter owner password if required",
+      "leaveEmptyIfPdfHas": "Leave empty if the PDF has no owner password.",
+      "whatRemoved": "What will be removed:",
+      "passwordProtection": "Password protection",
+      "printingRestrictions": "Printing restrictions",
+      "editingRestrictions": "Editing restrictions",
+      "copyingRestrictions": "Copying restrictions",
+      "allOtherSecurityLimitations": "All other security limitations"
     }
   },
   "repairPdf": {
@@ -1172,6 +1783,20 @@
       "noItemsWereSelected": "No items were selected for removal or none were found in the PDF.",
       "sanitizedWithWarnings": "Sanitized With Warnings",
       "pdfHasBeenSanitized": "PDF has been sanitized and downloaded."
+    },
+    "ui": {
+      "sanitizationOptions": "Sanitization Options:",
+      "flattenForms": "Flatten Forms",
+      "removeMetadata": "Remove Metadata",
+      "removeAnnotations": "Remove Annotations",
+      "removeJavascript": "Remove JavaScript",
+      "removeEmbeddedFiles": "Remove Embedded Files",
+      "removeLayersOcg": "Remove Layers (OCG)",
+      "removeLinks": "Remove Links",
+      "removeStructureTree": "Remove Structure Tree",
+      "removeMarkinfo": "Remove MarkInfo",
+      "removeEmbeddedFonts": "Remove Embedded Fonts",
+      "sanitizationRemovesSensitiveContentPermanently": "Sanitization removes sensitive content permanently. Some options may affect PDF rendering."
     }
   },
   "decryptPdf": {
@@ -1180,7 +1805,15 @@
   },
   "flattenPdf": {
     "name": "Flatten PDF",
-    "subtitle": "Make form fields and annotations non-editable."
+    "subtitle": "Make form fields and annotations non-editable.",
+    "ui": {
+      "whatFlattened": "What will be flattened:",
+      "formFieldsTextFieldsCheckboxes": "Form fields (text fields, checkboxes, radio buttons, etc.)",
+      "annotationsComments": "Annotations and comments",
+      "interactiveElements": "Interactive elements",
+      "noteFlattenedContentCannotEdited": "Note: Flattened content cannot be edited or filled out.",
+      "flattenPdf": "Flatten PDF(s)"
+    }
   },
   "removeMetadata": {
     "name": "Remove Metadata",
@@ -1188,6 +1821,16 @@
     "alert": {
       "metadataRemovedSuccessfully": "Metadata removed successfully!",
       "errorOccurredWhileTrying": "An error occurred while trying to remove metadata."
+    },
+    "ui": {
+      "whatRemoved": "What will be removed:",
+      "titleAuthorSubjectKeywords": "Title, Author, Subject, Keywords",
+      "creatorProducerInformation": "Creator and Producer information",
+      "creationModificationDates": "Creation and Modification dates",
+      "xmpMetadataStreams": "XMP Metadata streams",
+      "documentIds": "Document IDs",
+      "pieceinfoPrivateApplicationData": "PieceInfo (private application data)",
+      "removeAllMetadata": "Remove All Metadata"
     }
   },
   "changePermissions": {
@@ -1200,6 +1843,23 @@
       "passwordRequired": "Password Required",
       "pdfPasswordProtectedEnter": "This PDF is password-protected. Please enter the current password to proceed.",
       "pdfMightCorruptedPassword": "The PDF might be corrupted or password protected."
+    },
+    "ui": {
+      "currentPasswordIfEncrypted": "Current Password (if encrypted)",
+      "enterCurrentPasswordPlaceholder": "Enter current password",
+      "newUserPassword": "New User Password",
+      "passwordToOpenPdfPlaceholder": "Password to open PDF",
+      "newOwnerPassword": "New Owner Password",
+      "passwordPermissionsPlaceholder": "Password for permissions",
+      "requiredWhenSettingPermissionsUser": "Required when setting permissions or a user password. Leave all fields empty to decrypt the PDF instead.",
+      "permissionsRequiresOwnerPassword": "Permissions (requires owner password)",
+      "allowPrinting": "Allow Printing",
+      "allowCopyingText": "Allow Copying Text",
+      "allowModifying": "Allow Modifying",
+      "allowAnnotating": "Allow Annotating",
+      "allowFillingForms": "Allow Filling Forms",
+      "allowDocumentAssembly": "Allow Document Assembly",
+      "allowPageExtraction": "Allow Page Extraction"
     }
   },
   "odtToPdf": {
@@ -1309,6 +1969,17 @@
     },
     "loader": {
       "creatingBooklet": "Creating Booklet..."
+    },
+    "ui": {
+      "sourceRotation": "Source Rotation",
+      "noRotation": "No rotation",
+      "rotateClockwise": "Rotate clockwise (90°)",
+      "rotateCounterClockwise": "Rotate counter-clockwise (90°)",
+      "alternateOddCwEvenCcw": "Alternate (odd→CW, even→CCW)",
+      "gridMode": "Grid Mode",
+      "booklet1": "1×2 (Booklet)",
+      "autoBestLayout": "Auto (best for layout)",
+      "generatePreview": "Generate Preview"
     }
   },
   "xpsToPdf": {
@@ -1410,6 +2081,9 @@
     "alert": {
       "pdfConvertedSvgSuccessfully": "PDF converted to SVG successfully!",
       "uploadPdfFiles": "Please upload PDF files."
+    },
+    "ui": {
+      "convertToSvg": "Convert to SVG"
     }
   },
   "extractTables": {
@@ -1417,6 +2091,10 @@
     "subtitle": "Extract tables from PDF files and export as CSV, JSON, or Markdown.",
     "alert": {
       "extracted1TableSuccessfully": "Extracted 1 table successfully!"
+    },
+    "ui": {
+      "exportFormat": "Export Format",
+      "extractTables": "Extract Tables"
     }
   },
   "pdfToCsv": {
@@ -1424,6 +2102,9 @@
     "subtitle": "Extract tables from PDF and convert to CSV format.",
     "alert": {
       "pdfConvertedCsvSuccessfully": "PDF converted to CSV successfully!"
+    },
+    "ui": {
+      "convertToCsv": "Convert to CSV"
     }
   },
   "pdfToExcel": {
@@ -1431,6 +2112,9 @@
     "subtitle": "Extract tables from PDF and convert to Excel (XLSX) format.",
     "loader": {
       "creatingExcelFile": "Creating Excel file..."
+    },
+    "ui": {
+      "convertToExcel": "Convert to Excel"
     }
   },
   "pdfToText": {
@@ -1547,6 +2231,12 @@
     },
     "loader": {
       "analyzingSignatures": "Analyzing signatures..."
+    },
+    "ui": {
+      "customCertificateFileOptional": "Custom Certificate File X.509 (Optional)",
+      "uploadTrustedCertificateToValidate": "Upload a trusted X.509 certificate to validate against a custom trust source.",
+      "uploadCertificatePemCrtCer": "Upload certificate (.pem, .crt, .cer)",
+      "signatureValidationResults": "Signature Validation Results"
     }
   },
   "timestampPdf": {
@@ -1562,6 +2252,10 @@
     },
     "alert": {
       "timestampFailed": "Timestamp Failed"
+    },
+    "ui": {
+      "internetConnectionRequired": "Internet connection required",
+      "timestampingRequiresContactingSelectedTsa": "Timestamping requires contacting the selected TSA server to obtain a trusted timestamp token."
     }
   },
   "emailToPdf": {
@@ -1573,11 +2267,26 @@
       "loadingPdfEngine": "Loading PDF engine...",
       "generatingPdf": "Generating PDF...",
       "convertingEmails": "Converting emails..."
+    },
+    "ui": {
+      "conversionOptions": "Conversion Options",
+      "pageSize": "Page Size",
+      "includeCcBccRecipientsIn": "Include CC and BCC recipients in header",
+      "includeEmailAttachmentsList": "Include email attachments list"
     }
   },
   "fontToOutline": {
     "name": "Font to Outline",
-    "subtitle": "Convert all fonts to vector outlines for consistent rendering across all devices."
+    "subtitle": "Convert all fonts to vector outlines for consistent rendering across all devices.",
+    "ui": {
+      "whatToolDoes": "What this tool does:",
+      "convertsAllTextToVector": "Converts all text to vector paths/curves",
+      "eliminatesFontDependencyIssues": "Eliminates font dependency issues",
+      "ensuresConsistentRenderingAcrossAll": "Ensures consistent rendering across all devices",
+      "idealPrintReadyPdfs": "Ideal for print-ready PDFs",
+      "noteTextNoLongerSelectable": "Note: Text will no longer be selectable or searchable after conversion.",
+      "convertToOutlines": "Convert to Outlines"
+    }
   },
   "deskewPdf": {
     "name": "Deskew PDF",
@@ -1587,11 +2296,29 @@
     },
     "alert": {
       "downloadsStartedAllFiles": "Downloads started for all files."
+    },
+    "ui": {
+      "skewThresholdDegrees": "Skew Threshold (degrees)",
+      "verySensitive01": "0.1° (Very Sensitive)",
+      "default05": "0.5° (Default)",
+      "normal10": "1.0° (Normal)",
+      "lessSensitive20": "2.0° (Less Sensitive)",
+      "pagesSkewBelowThresholdWon": "Pages with skew below this threshold won't be corrected.",
+      "processingQualityDpi": "Processing Quality (DPI)",
+      "fast100": "100 (Fast)",
+      "default150": "150 (Default)",
+      "better200": "200 (Better)",
+      "bestQuality300": "300 (Best Quality)",
+      "deskewResults": "Deskew Results",
+      "pagesCorrected": "Pages Corrected:"
     }
   },
   "pdfToWord": {
     "name": "PDF to Word",
-    "subtitle": "Convert PDF files to editable Word documents."
+    "subtitle": "Convert PDF files to editable Word documents.",
+    "ui": {
+      "convertToDocx": "Convert to DOCX"
+    }
   },
   "extractImages": {
     "name": "Extract Images",
@@ -1602,6 +2329,10 @@
     "alert": {
       "noImagesFound": "No Images Found",
       "noEmbeddedImagesWere": "No embedded images were found in the selected PDF(s)."
+    },
+    "ui": {
+      "extractedImages": "Extracted Images",
+      "downloadAllZip": "Download All (ZIP)"
     }
   },
   "pdfToMarkdown": {
@@ -1612,6 +2343,10 @@
     },
     "alert": {
       "failedConvertPdfMay": "Failed to convert PDF. It may be image-based or corrupted."
+    },
+    "ui": {
+      "includeImagesBase64": "Include images as base64",
+      "convertToMarkdown": "Convert to Markdown"
     }
   },
   "preparePdfForAi": {
@@ -1623,6 +2358,14 @@
     "alert": {
       "successfullyExtractedPdfAi": "Successfully extracted PDF for AI/LLM use.",
       "extractionPartial": "Extraction Partial"
+    },
+    "ui": {
+      "outputFormat": "Output Format:",
+      "eachPdfExtractedJsonFile": "Each PDF will be extracted as a JSON file containing an array of LlamaIndex Document objects with:",
+      "extractedTextContentPerPage": "- Extracted text content per page",
+      "pageNumberHeadingsDocumentInfo": "- Page number, headings, and document info",
+      "additionalContextRagSystems": "- Additional context for RAG systems",
+      "extractAi": "Extract for AI"
     }
   },
   "pdfOcg": {
@@ -1641,6 +2384,13 @@
     "loader": {
       "readingLayerConfiguration": "Reading layer configuration...",
       "savingPdfWithLayer": "Saving PDF with layer changes..."
+    },
+    "ui": {
+      "loadLayers": "Load Layers",
+      "enterNewLayerNamePlaceholder": "Enter new layer name...",
+      "addLayer": "Add Layer",
+      "downloadModifiedPdf": "Download Modified PDF",
+      "layerNamePlaceholder": "Layer Name"
     }
   },
   "pdfToPdfa": {
@@ -1650,6 +2400,15 @@
       "preFlatteningPdf": "Pre-flattening PDF...",
       "initializingGhostscript": "Initializing Ghostscript...",
       "convertingMultiplePdfsPdf": "Converting multiple PDFs to PDF/A..."
+    },
+    "ui": {
+      "pdfVersion": "PDF/A Version",
+      "pdf1bStrictNoTransparency": "PDF/A-1b (Strict, no transparency)",
+      "pdf2bRecommendedAllowsTransparency": "PDF/A-2b (Recommended, allows transparency)",
+      "pdf3bModernAllowsAttachments": "PDF/A-3b (Modern, allows attachments)",
+      "preFlattenPdfRecommendedComplex": "Pre-flatten PDF (recommended for complex files)",
+      "convertsPdfToImagesFirst": "Converts the PDF to images first, ensuring better PDF/A compliance. Recommended if validation fails on the normal conversion.",
+      "convertToPdfa": "Convert to PDF/A"
     }
   },
   "rasterizePdf": {
@@ -1661,6 +2420,18 @@
     "alert": {
       "rasterizationComplete": "Rasterization Complete",
       "rasterizationPartial": "Rasterization Partial"
+    },
+    "ui": {
+      "dpiResolution": "DPI (Resolution)",
+      "screen72": "72 (Screen)",
+      "default150": "150 (Default)",
+      "good200": "200 (Good)",
+      "print300": "300 (Print)",
+      "highQuality600": "600 (High Quality)",
+      "imageFormat": "Image Format",
+      "pngLossless": "PNG (Lossless)",
+      "jpegSmallerFileSize": "JPEG (Smaller file size)",
+      "convertToGrayscale": "Convert to Grayscale"
     }
   },
   "pdfWorkflow": {
@@ -1763,6 +2534,11 @@
     },
     "alert": {
       "loaded": "Loaded"
+    },
+    "ui": {
+      "protectedPdf": "Protected PDF",
+      "enterPasswordPlaceholder": "Enter password",
+      "skip": "Skip"
     }
   },
   "wasmSettings": {
@@ -1834,6 +2610,9 @@
     "alert": {
       "missingFiles": "Missing Files",
       "uploadBothBasePdf": "Please upload both a base PDF and an overlay/underlay PDF."
+    },
+    "ui": {
+      "pageRangePlaceholder": "e.g. 1-5, 8, 10-z (leave empty for all)"
     }
   },
   "unlockPdf": {
@@ -1847,6 +2626,12 @@
       "unableDecryptPdfWith": "Unable to decrypt the PDF with the provided password.",
       "decryptionFailed": "Decryption Failed",
       "passwordYouEnteredWrong": "The password you entered is wrong or the file is corrupted."
+    },
+    "ui": {
+      "pdfPassword": "PDF Password",
+      "enterPdfPasswordPlaceholder": "Enter the PDF password",
+      "enterPasswordUsedToProtect": "Enter the password used to protect this PDF.",
+      "decryptPdf": "Decrypt PDF"
     }
   },
   "protectPdf": {
@@ -1856,6 +2641,20 @@
       "enterUserPassword": "Please enter a user password.",
       "encryptionFailed": "Encryption Failed",
       "pdfMightCorrupted": "The PDF might be corrupted."
+    },
+    "ui": {
+      "userPasswordRequired": "User Password (Required)",
+      "enterPasswordToOpenPdfPlaceholder": "Enter password to open PDF",
+      "passwordRequiredToOpenPdf": "This password will be required to open the PDF.",
+      "ownerPasswordOptional": "Owner Password (Optional)",
+      "enterPasswordPermissionsOptionalPlaceholder": "Enter password for permissions (optional)",
+      "ifProvidedUsageRestrictionsApplied": "If provided, usage restrictions will be applied. Leave empty for no restrictions.",
+      "encryptionDetails": "Encryption Details:",
+      "bitAesEncryptionHighestSecurity256": "256-bit AES encryption (highest security)",
+      "userPasswordRequiredToOpen": "User password required to open PDF",
+      "ownerPasswordEnablesUsageRestrictions": "Owner password enables usage restrictions",
+      "withoutOwnerPasswordNoRestrictions": "Without owner password: no restrictions applied",
+      "encryptPdf": "Encrypt PDF"
     }
   },
   "cropper": {

@@ -9,7 +9,10 @@
     "openMainMenu": "Otvoriť hlavné menu",
     "language": "Jazyk",
     "searchLanguage": "Hľadať jazyk…",
-    "noLanguagesFound": "Nenašli sa žiadne jazyky"
+    "noLanguagesFound": "Nenašli sa žiadne jazyky",
+    "products": "Produkty",
+    "kuraDescription": "Nástroj na prevod do PDF/A, PDF/UA a PDF/X.",
+    "contentPreservingPdfCompressionEngine": "Kompresia PDF so zachovaním obsahu."
   },
   "donation": {
     "message": "Páči sa vám BentoPDF? Pomôžte nám udržať ho bezplatný a open source!",
@@ -298,8 +301,8 @@
     "howItWorks": "Ako to funguje:",
     "fileModeInstructions": [
       "Kliknite a potiahnite ikonu pre zmenu poradia súborov.",
-      "V poli \"Strany\" pri každom súbore môžete zadať rozsahy (napr. \"1-3, 5\") na zlúčenie iba týchto strán.",
-      "Ak chcete zahrnúť všetky strany z daného súboru, nechajte pole \"Strany\" prázdne."
+      "V poli „Strany“ pri každom súbore môžete zadať rozsahy (napr. „1-3, 5“) na zlúčenie iba týchto strán.",
+      "Ak chcete zahrnúť všetky strany z daného súboru, nechajte pole „Strany“ prázdne."
     ],
     "pageModeInstructions": [
       "Všetky strany z vašich nahratých PDF dokumentov sú zobrazené nižšie.",
@@ -333,7 +336,9 @@
     "alert": {
       "initializationError": "Chyba inicializácie",
       "couldNotLoadPdf": "PDF jadro sa nepodarilo načítať. Obnovte stránku a skúste to znova."
-    }
+    },
+    "pageCountLabel": "Počet strán: {{count}}",
+    "removeFile": "Odstrániť súbor"
   },
   "about": {
     "hero": {
@@ -451,5 +456,34 @@
       "couldNotLoadPdf": "PDF sa nepodarilo načítať. Súbor môže byť neplatný, poškodený alebo chránený heslom.",
       "someFilesWereSkipped": "Niektoré súbory boli preskočené, pretože nie sú podporované obrázky."
     }
+  },
+  "toolPage": {
+    "backgroundColor": "Farba pozadia",
+    "fit": "Prispôsobiť",
+    "text": "Text",
+    "totalPages": "Počet strán:",
+    "orientation": "Orientácia",
+    "portrait": "Na výšku",
+    "landscape": "Na šírku",
+    "fontSize": "Veľkosť písma",
+    "color": "Farba",
+    "position": "Pozícia",
+    "reset": "Obnoviť",
+    "convertToPdf": "Previesť do PDF",
+    "pdfQuality": "Kvalita PDF",
+    "highQualityLargerFile": "Vysoká kvalita (väčší súbor)",
+    "mediumQualityBalanced": "Stredná kvalita (vyvážená)",
+    "lowQualitySmallerFile": "Nízka kvalita (menší súbor)",
+    "controlsImageCompressionWhenEmbedding": "Určuje kompresiu obrázkov pri vkladaní do PDF"
+  },
+  "pageHeading": {
+    "pdfMultiTool": "Multifunkčný nástroj PDF – upravte a usporiadajte PDF online zadarmo",
+    "compressPdfForEmail": "Komprimovať PDF na e-mail",
+    "compressPdfTo100kb": "Komprimovať PDF na 100 KB",
+    "compressPdfTo1mb": "Komprimovať PDF na 1 MB",
+    "compressPdfTo200kb": "Komprimovať PDF na 200 KB",
+    "compressPdfTo2mb": "Komprimovať PDF na 2 MB",
+    "compressPdfTo500kb": "Komprimovať PDF na 500 KB",
+    "pdfWorkflow": "Tvorca pracovných postupov PDF online zadarmo – spojte nástroje PDF do jedného postupu"
   }
 }
