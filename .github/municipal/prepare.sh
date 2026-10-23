@@ -78,6 +78,11 @@ perl -pi -e '
 perl -pi -e 's{^(\s*)absolute_redirect off;\s*$}{$&${1}if (\$request_uri ~ ^/[/\\x5c]) { return 404; }\n}' nginx.conf
 grep -qF 'if ($request_uri ~ ^/[/\x5c])' nginx.conf || { echo "nginx.conf: absolute_redirect line not found" >&2; exit 1; }
 
+# 3c. Simple mode hides How It Works, Related Tools and the FAQ on tool pages.
+# Keep the FAQ: it answers citizens' questions about each tool.
+perl -0pi -e "s/\n\s*'faq\.sectionTitle',//; s/\n\s*'Frequently Asked Questions',//" src/js/utils/simple-mode-footer.ts
+! grep -qE "faq\.sectionTitle|Frequently Asked Questions" src/js/utils/simple-mode-footer.ts || { echo "simple-mode-footer.ts: FAQ entries not removed" >&2; exit 1; }
+
 # 4. One build arg per line; values may contain spaces.
 cat > municipal.build-args <<EOF
 SIMPLE_MODE=true

@@ -8,7 +8,7 @@ na ne aplikujú automaticky.
 | Skript | Čo robí |
 |---|---|
 | `sync-upstream.sh` | stiahne upstream, vypíše čo skontrolovať (nové knižnice, binárky vo `vendor/`, nové externé hosty, nové URL parametre), zmerguje do vetvy `sync-upstream-<dátum>` |
-| `prepare.sh` | nahradí názov, pätu a adresu zástupnými textami, pribalí všetky WASM/OCR/font súbory do `public/wasm`, pridá CSP len na vlastnú doménu, zapíše build argumenty |
+| `prepare.sh` | nahradí názov, pätu a adresu zástupnými textami, pribalí všetky WASM/OCR/font súbory do `public/wasm`, pridá CSP len na vlastnú doménu, v jednoduchom režime nechá na stránkach nástrojov viditeľné časté otázky (FAQ), zapíše build argumenty |
 | `runtime-config.sh` | beží pri štarte kontajnera a doplní `BRAND_NAME`, `FOOTER_TEXT`, `SITE_URL` z env |
 | `verify.sh` | spustí hotový image s vlastným názvom a overí CSP na každej odpovedi, pribalené súbory, názov a že nezostal žiadny zástupný text |
 | `build-local.sh` | lokálny build z commitnutého HEAD: export, `prepare.sh`, `docker build`, `verify.sh` |
