@@ -128,6 +128,13 @@ perl -0pi -e 's{^([ \t]*)gzip_static on;\n}{${1}gzip_static off;\n${1}include /e
   s{^(\s*location ~\* \\\.\(wasm\|wasm\\\.gz\|data\|data\\\.gz\)\$ \{\n)}{$1            gzip_static on;\n}m
   or die "nginx.conf: wasm location not found\n"' nginx.conf
 
+# 3e. The annotation viewer (Add Stamps) defines HASH_PARAMS in an inline
+# script, which the self-only CSP blocks; serve it as a file instead.
+perl -0pi -e 's{<script>(\s*// Provide a minimal HASH_PARAMS.*?)</script>}{
+    open(my $f, ">", "public/pdfjs-annotation-viewer/web/hash-params.js") or die "hash-params.js: $!\n";
+    print $f "$1\n"; close $f; q{<script src="hash-params.js"></script>} }se
+  or die "annotation viewer.html: HASH_PARAMS script not found\n"' public/pdfjs-annotation-viewer/web/viewer.html
+
 # 4. One build arg per line; values may contain spaces.
 cat > municipal.build-args <<EOF
 SIMPLE_MODE=true
