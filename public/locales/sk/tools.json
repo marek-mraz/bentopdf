@@ -2538,7 +2538,343 @@
     "ui": {
       "protectedPdf": "Chránené PDF",
       "enterPasswordPlaceholder": "Zadajte heslo",
-      "skip": "Preskočiť"
+      "skip": "Preskočiť",
+      "pdfFiles": "Súbory PDF",
+      "uploadPdfs": "Nahrať PDF",
+      "addMoreFiles": "Pridať ďalšie súbory",
+      "images": "Obrázky",
+      "uploadImages": "Nahrať obrázky",
+      "addMoreImages": "Pridať ďalšie obrázky",
+      "uploadOf": "Nahrať {{files}}",
+      "addMoreOf": "Pridať ďalšie {{files}}",
+      "supportedFormats": "Podporované: {{formats}}",
+      "wrongPdfPassword": "Nesprávne heslo alebo sa súbor „{{file}}“ nepodarilo dešifrovať.",
+      "failedLoadPdf": "Nepodarilo sa načítať PDF: {{message}}",
+      "failedLoadImages": "Nepodarilo sa načítať obrázky: {{message}}",
+      "failedLoadFiles": "Nepodarilo sa načítať súbory: {{message}}",
+      "certificate": "Certifikát (.pfx, .p12, .pem)",
+      "certificatePassword": "Heslo certifikátu",
+      "unlock": "Odomknúť",
+      "unlocking": "Odomyká sa...",
+      "incorrectPassword": "Nesprávne heslo",
+      "certificateUnlocked": "Certifikát je odomknutý",
+      "changeCertificate": "Zmeniť certifikát",
+      "uploadCertificate": "Nahrať certifikát",
+      "searchLanguages": "Hľadať jazyky..."
+    },
+    "processingNode": "Spracúva sa: {{node}}...",
+    "nodeCount_one": "{{count}} uzol",
+    "nodeCount_few": "{{count}} uzly",
+    "nodeCount_many": "{{count}} uzla",
+    "nodeCount_other": "{{count}} uzlov",
+    "status": {
+      "running": "Spracúva sa...",
+      "complete": "Hotovo",
+      "failed": "Chyba",
+      "connected": "Pripojený",
+      "notConnected": "Nepripojený"
+    },
+    "fileInputs": {
+      "word": {
+        "label": "Dokumenty Word",
+        "files": "dokumenty"
+      },
+      "excel": {
+        "label": "Tabuľky",
+        "files": "tabuľky"
+      },
+      "powerpoint": {
+        "label": "Prezentácie",
+        "files": "prezentácie"
+      },
+      "text": {
+        "label": "Textové súbory",
+        "files": "textové súbory"
+      },
+      "svg": {
+        "label": "Súbory SVG",
+        "files": "súbory SVG"
+      },
+      "epub": {
+        "label": "Súbory EPUB",
+        "files": "súbory EPUB"
+      },
+      "email": {
+        "label": "E-mailové súbory",
+        "files": "e-mailové súbory"
+      },
+      "xps": {
+        "label": "Súbory XPS",
+        "files": "súbory XPS"
+      },
+      "mobi": {
+        "label": "Súbory MOBI",
+        "files": "súbory MOBI"
+      },
+      "fb2": {
+        "label": "Súbory FB2",
+        "files": "súbory FB2"
+      },
+      "cbz": {
+        "label": "Archívy komiksov",
+        "files": "komiksy"
+      },
+      "markdown": {
+        "label": "Súbory Markdown",
+        "files": "súbory Markdown"
+      },
+      "json": {
+        "label": "Súbory JSON",
+        "files": "súbory JSON"
+      },
+      "xml": {
+        "label": "Súbory XML",
+        "files": "súbory XML"
+      },
+      "wpd": {
+        "label": "Súbory WordPerfect",
+        "files": "súbory WPD"
+      },
+      "wps": {
+        "label": "Súbory WPS",
+        "files": "súbory WPS"
+      },
+      "pages": {
+        "label": "Súbory Pages",
+        "files": "súbory Pages"
+      },
+      "odg": {
+        "label": "Súbory ODG",
+        "files": "súbory ODG"
+      },
+      "pub": {
+        "label": "Súbory Publisher",
+        "files": "súbory PUB"
+      },
+      "vsd": {
+        "label": "Súbory Visio",
+        "files": "súbory Visio"
+      }
+    },
+    "controls": {
+      "addBookmark": "Pridať záložku",
+      "afterPage": "Za stranou",
+      "angle": "Uhol",
+      "author": "Autor",
+      "backgroundColor": "Farba pozadia",
+      "binarize": "Binarizácia",
+      "blankPosition": "Umiestnenie prázdnych strán",
+      "blur": "Rozostrenie",
+      "border": "Okraj",
+      "borderColor": "Farba okraja",
+      "bottom": "Zdola",
+      "brightness": "Jas",
+      "color": "Farba",
+      "cols": "Stĺpce",
+      "compressionLevel": "Úroveň kompresie",
+      "contactInfo": "Kontaktné informácie",
+      "contrast": "Kontrast",
+      "convertToGrayscale": "Previesť do odtieňov sivej",
+      "count": "Počet",
+      "creator": "Aplikácia",
+      "customHeight": "Vlastná výška",
+      "customUnits": "Jednotky",
+      "customWidth": "Vlastná šírka",
+      "direction": "Smer",
+      "filename": "Názov súboru",
+      "fillColor": "Farba výplne",
+      "flatten": "Zlúčiť so stranou",
+      "flattenForms": "Zlúčiť formulárové polia so stranou",
+      "fontColor": "Farba písma",
+      "fontFamily": "Rodina písma",
+      "fontSize": "Veľkosť písma",
+      "footerCenter": "Päta v strede",
+      "footerLeft": "Päta vľavo",
+      "footerRight": "Päta vpravo",
+      "format": "Formát",
+      "gamma": "Gama",
+      "grayscale": "Odtiene sivej",
+      "gridMode": "Rozloženie",
+      "headerCenter": "Hlavička v strede",
+      "headerLeft": "Hlavička vľavo",
+      "headerRight": "Hlavička vpravo",
+      "hueShift": "Posun odtieňa",
+      "imageFormat": "Formát obrázka",
+      "includeAttachments": "Zahrnúť prílohy",
+      "includeCcBcc": "Zahrnúť kópiu a skrytú kópiu",
+      "keywords": "Kľúčové slová",
+      "language": "Jazyk",
+      "left": "Zľava",
+      "level": "Úroveň",
+      "location": "Miesto",
+      "margins": "Okraje",
+      "mode": "Režim",
+      "noise": "Šum",
+      "numberFormat": "Formát čísla",
+      "opacity": "Nepriehľadnosť",
+      "orientation": "Orientácia",
+      "ownerPassword": "Heslo vlastníka",
+      "pageSize": "Veľkosť strany",
+      "pages": "Strany",
+      "pagesPerSheet": "Strán na list",
+      "paperSize": "Veľkosť papiera",
+      "password": "Heslo",
+      "position": "Umiestnenie",
+      "preFlatten": "Najprv zlúčiť vrstvy",
+      "processingDpi": "DPI spracovania",
+      "producer": "Tvorca PDF",
+      "quality": "Kvalita",
+      "rasterizeDpi": "DPI rastrovania",
+      "reason": "Dôvod",
+      "redactMode": "Režim začiernenia",
+      "removeAnnotations": "Odstrániť anotácie",
+      "removeEmbeddedFiles": "Odstrániť vložené súbory",
+      "removeFonts": "Odstrániť písma",
+      "removeJavascript": "Odstrániť JavaScript",
+      "removeLayers": "Odstrániť vrstvy",
+      "removeLinks": "Odstrániť odkazy",
+      "removeMarkInfo": "Odstrániť MarkInfo",
+      "removeMetadata": "Odstrániť metadáta",
+      "removeStructureTree": "Odstrániť strom štruktúry",
+      "resolution": "Rozlíšenie",
+      "retainPageLabels": "Zachovať označenia strán",
+      "right": "Sprava",
+      "rotation": "Otočenie",
+      "rotationVariance": "Odchýlka otočenia",
+      "rows": "Riadky",
+      "saturation": "Sýtosť",
+      "scalingMode": "Spôsob prispôsobenia",
+      "separator": "Deliaca čiara",
+      "separatorColor": "Farba deliacej čiary",
+      "separatorThickness": "Hrúbka deliacej čiary",
+      "sepia": "Sépia",
+      "skewThreshold": "Prah sklonu",
+      "spacing": "Rozostup",
+      "subject": "Predmet",
+      "targetKilobytes": "Cieľová veľkosť (KB)",
+      "targetSize": "Cieľový formát",
+      "temperature": "Teplota",
+      "threshold": "Prah",
+      "tile": "Opakovať ako dlaždice",
+      "tileGapX": "Vodorovná medzera dlaždíc",
+      "tileGapY": "Zvislá medzera dlaždíc",
+      "tint": "Tónovanie",
+      "title": "Názov",
+      "top": "Zhora",
+      "tsaUrl": "URL servera TSA",
+      "userPassword": "Heslo používateľa",
+      "whitelist": "Povolené znaky",
+      "yellowish": "Zožltnutie"
+    },
+    "hints": {
+      "pages": "napr. 1-3, 5, 7-9",
+      "whitelist": "Obmedzí rozpoznávané znaky (prázdne = všetky)",
+      "afterPage": "Prázdne strany sa vložia za stranu s týmto číslom",
+      "x0": "Ľavý okraj v bodoch (1 palec = 72 bodov)",
+      "y0": "Horný okraj v bodoch",
+      "x1": "Pravý okraj v bodoch",
+      "y1": "Dolný okraj v bodoch",
+      "targetKilobytes": "Nájde najlepšiu kvalitu, pri ktorej súbor neprekročí túto veľkosť. 0 znamená bez obmedzenia.",
+      "retainPageLabels": "Vypnuté (predvolené): strany sa očíslujú postupne od 1 po N. Zapnuté: zostanú pôvodné označenia strán každého súboru (označenia sa môžu opakovať)."
+    },
+    "options": {
+      "orientation": {
+        "auto": "Automaticky (zachovať pôvodnú)",
+        "portrait": "Na výšku",
+        "landscape": "Na šírku",
+        "vertical": "Zvisle",
+        "horizontal": "Vodorovne"
+      },
+      "direction": {
+        "vertical": "Zvisle",
+        "horizontal": "Vodorovne"
+      },
+      "blankPosition": {
+        "end": "Na koniec",
+        "start": "Na začiatok",
+        "after": "Za stranu..."
+      },
+      "gridMode": {
+        "1x2": "1x2 (brožúra)",
+        "2x2": "2x2 (4 na list)",
+        "2x4": "2x4 (8 na list)",
+        "4x4": "4x4 (16 na list)"
+      },
+      "compressionLevel": {
+        "low": "Nízka (najlepšia kvalita)",
+        "medium": "Stredná (odporúčaná)",
+        "high": "Vysoká (najmenšie súbory)",
+        "lossless": "Bezstratová (bez straty kvality)"
+      },
+      "skewThreshold": {
+        "0_1": "0,1° (veľmi citlivé)",
+        "0_5": "0,5° (predvolené)",
+        "1_0": "1,0° (bežné)",
+        "2_0": "2,0° (menej citlivé)"
+      },
+      "processingDpi": {
+        "100": "100 (rýchle)",
+        "150": "150 (predvolené)",
+        "200": "200 (lepšie)",
+        "300": "300 (najlepšia kvalita)"
+      },
+      "targetSize": {
+        "Custom": "Vlastná"
+      },
+      "scalingMode": {
+        "fit": "Prispôsobiť (celá strana zostane viditeľná)",
+        "fill": "Vyplniť (pokryje celú cieľovú stranu)"
+      },
+      "customUnits": {
+        "mm": "Milimetre (mm)",
+        "in": "Palce (in)"
+      },
+      "resolution": {
+        "2_0": "Štandardné (192 DPI)",
+        "3_0": "Vysoké (288 DPI)",
+        "4_0": "Najvyššie (384 DPI)"
+      },
+      "position": {
+        "bottom-center": "Dole v strede",
+        "bottom-left": "Vľavo dole",
+        "bottom-right": "Vpravo dole",
+        "top-center": "Hore v strede",
+        "top-left": "Vľavo hore",
+        "top-right": "Vpravo hore",
+        "center": "V strede",
+        "top": "Hore",
+        "left": "Vľavo",
+        "right": "Vpravo",
+        "bottom": "Dole"
+      },
+      "numberFormat": {
+        "simple": "Jednoduchý (1, 2, 3)",
+        "page_x_of_y": "Strana X z Y"
+      },
+      "level": {
+        "PDF_A-1b": "PDF/A-1b (prísny, bez priehľadnosti)",
+        "PDF_A-2b": "PDF/A-2b (odporúčaný)",
+        "PDF_A-3b": "PDF/A-3b (moderný, povoľuje prílohy)"
+      },
+      "rasterizeDpi": {
+        "72": "72 (obrazovka)",
+        "150": "150 (predvolené)",
+        "200": "200 (dobré)",
+        "300": "300 (tlač)",
+        "600": "600 (vysoká kvalita)"
+      },
+      "imageFormat": {
+        "png": "PNG (bezstratový)",
+        "jpeg": "JPEG (menší súbor)"
+      },
+      "redactMode": {
+        "text": "Vyhľadať text",
+        "area": "Oblasť (súradnice)"
+      },
+      "angle": {
+        "90": "90° v smere hodinových ručičiek",
+        "270": "90° proti smeru hodinových ručičiek"
+      }
     }
   },
   "wasmSettings": {
