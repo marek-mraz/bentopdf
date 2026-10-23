@@ -77,3 +77,37 @@ Licencie: BentoPDF, PyMuPDF, Ghostscript, CoherentPDF sú AGPL-3.0, Tesseract
 Apache-2.0, fonty OFL-1.1. Pri AGPL nasadení je pribalenie v poriadku;
 zdrojový kód je verejný a odkazuje naň päta stránky. Licencie pribalených
 balíkov sú v image pod `/wasm/licenses/`.
+
+## Binárne súbory tretích strán
+
+Do image idú hotové binárky, ktoré sa nedajú prečítať ako zdrojový kód (WASM,
+minifikovaný JS, fonty). `binaries.sha256` obsahuje SHA-256 každej z nich:
+čo pribalí `prepare.sh` (PyMuPDF, Ghostscript, CoherentPDF, Tesseract, OCR
+dáta, fonty) aj čo upstream commituje (LibreOffice, qpdf, CoherentPDF,
+prehliadače pdf.js, `vendor/`). Ak sa ktorýkoľvek súbor zmení alebo pribudne
+nový, build sa zastaví. Po kontrole pôvodu nových súborov:
+
+```bash
+UPDATE_BINARIES=1 bash .github/municipal/build-local.sh   # prepíše zoznam
+git diff .github/municipal/binaries.sha256                 # skontrolovať, commitnúť
+```
+
+Pôvod súborov v zozname bol overený 23. 10. 2026:
+
+| Súbor | Overenie |
+|---|---|
+| `vendor/bentopdf-pdfium` | `verify-engine.sh` ho zostaví zo zdroja a porovná bit po bite |
+| `vendor/hyper-compress-wasm` | zhodný s npm 1.0.3, podpísaná proveniencia (GitHub Actions, alam00000/bentopdf-hyper-compress) |
+| `public/libreoffice-wasm` | zhodný s npm `@matbee/libreoffice-converter` 2.3.1, podpísaná proveniencia |
+| `public/qpdf.wasm` | zhodný s npm `@neslinesli93/qpdf-wasm` 0.3.0 |
+| `public/coherentpdf.browser.min.js` | npm `coherentpdf` 2.5.5 + hlavička s licenciou |
+| `public/pdfjs-viewer`, `public/pdfjs-annotation-viewer` | jadro a worker zhodné s vydaniami Mozilla pdf.js 5.4.296 a 4.3.136; úpravy upstreamu v prehliadači sú čitateľný kód (písma podpisu, bez predvoleného súboru) |
+| PyMuPDF (`@bentopdf/pymupdf-wasm` 0.11.16) | podpísaná proveniencia (GitHub Actions) |
+| Ghostscript, Tesseract, CoherentPDF z npm | pevná verzia, podpis registra npm, bez proveniencie |
+| `vendor/bentopdf-viewer`, `pdfjs-annotation-extension.js` | bez nezávislého overenia (zostavuje upstream) |
+
+Základné image sú pripnuté cez digest (`NODE_IMAGE`, `NGINX_IMAGE` v
+`prepare.sh`); nový digest zistí `docker buildx imagetools inspect <image>`.
+Akcie v `build-sk.yml` sú pripnuté cez SHA commitu. Pred pushom image
+`build-sk.yml` spustí Trivy a zastaví sa pri HIGH/CRITICAL zraniteľnosti,
+ktorá má opravu; image dostane podpísanú provenienciu a SBOM.

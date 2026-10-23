@@ -14,9 +14,16 @@
 #      baked in, and the web root stays read-only).
 #   6. Pins the Dockerfile's build stage to the builder's own platform: it only
 #      produces static files, so an arm64 image needs no emulated npm build.
+#      Both base images are pinned by digest.
+# Every third-party binary (downloaded or committed upstream) must match
+# binaries.sha256, so a changed or new binary stops the build until a person
+# has checked where it comes from (UPDATE_BINARIES=1 rewrites the list).
 # Usage (repo root of a throwaway checkout):
 #   prepare.sh <ocr_languages> [source_url]
 set -euo pipefail
+# Multi-arch digests; refresh with: docker buildx imagetools inspect <image>
+NODE_IMAGE=mirror.gcr.io/library/node:26-alpine@sha256:40cd011b55415bc894e45b02fdd5a5dfde056921b7d23a64c74f80497af48797
+NGINX_IMAGE=quay.io/nginx/nginx-unprivileged:alpine-slim@sha256:a2ae214d0266826427b804b0513dce20c9c93b862f1593203f9e6b50be9c2689
 OCR_LANGS=$1
 SOURCE_URL=${2:-https://github.com/${GITHUB_REPOSITORY:-marek-mraz/bentopdf}}
 HERE=$(cd "$(dirname "$0")" && pwd)
@@ -37,6 +44,9 @@ grep -rlZ BentoPDF -- *.html src/pages src/partials public/locales \
 # 2. PyMuPDF, Ghostscript, CoherentPDF, Tesseract (+ language data, OCR fonts).
 # CDNs answer 503 now and then; curl retries those via this .curlrc.
 printf 'retry = 5\nretry-delay = 3\n' > "$TMP/.curlrc"
+# Upstream fetches the newest CoherentPDF; take the reviewed release.
+perl -pi -e 's/npm pack coherentpdf --quiet/npm pack coherentpdf\@2.5.5 --quiet/' scripts/prepare-airgap.sh
+grep -qF 'npm pack coherentpdf@2.5.5' scripts/prepare-airgap.sh || { echo "prepare-airgap.sh: coherentpdf fetch not found" >&2; exit 1; }
 CURL_HOME="$TMP" bash scripts/prepare-airgap.sh --skip-docker --wasm-base-url "$WASM_URL" \
   --ocr-languages "$OCR_LANGS" --output-dir "$TMP/bundle"
 WASM_EXTRACT_DIR="$PWD/public/wasm" bash "$TMP/bundle/setup.sh" <<<n  # answers its "start now?" prompt
@@ -61,6 +71,27 @@ for tgz in "$TMP"/bundle/*.tgz; do
   tar xzf "$tgz" -C "$dest" --strip-components=1 --wildcards \
     'package/LICENSE*' 'package/COPYING*' 'package/package.json' 2>/dev/null || true
 done
+
+# 2b. Third-party binaries: everything bundled above plus the WASM, viewers and
+# engine tarballs upstream commits. OCR data for languages not chosen in this
+# build may be missing from the image; nothing may differ or be new.
+LOCK="$HERE/binaries.sha256"
+{ find public/wasm public/libreoffice-wasm public/pdfjs-viewer public/pdfjs-annotation-viewer vendor -type f -print0
+  printf '%s\0' public/qpdf.wasm public/coherentpdf.browser.min.js
+} | LC_ALL=C sort -z | xargs -0 sha256sum > "$TMP/binaries.sha256"
+if [ "${UPDATE_BINARIES:-}" = 1 ]; then
+  cp "$TMP/binaries.sha256" "$LOCK"
+  echo "prepare.sh: rewrote binaries.sha256; review the diff before committing it"
+else
+  langdata=' public/wasm/ocr/lang-data/'
+  changed=$(diff <(grep -vF "$langdata" "$LOCK") <(grep -vF "$langdata" "$TMP/binaries.sha256") || true)
+  unknown=$(grep -F "$langdata" "$TMP/binaries.sha256" | LC_ALL=C comm -23 - <(LC_ALL=C sort "$LOCK") || true)
+  if [ -n "$changed$unknown" ]; then
+    printf 'Third-party binaries differ from binaries.sha256 (< expected, > found):\n%s\n%s\n' "$changed" "$unknown" >&2
+    echo "Check where the files come from, then rerun with UPDATE_BINARIES=1 and commit the reviewed list." >&2
+    exit 1
+  fi
+fi
 
 # 3. Self-only CSP next to every upstream security-header include. Docs pages
 # (VitePress) need inline scripts; the app needs eval for LibreOffice WASM.
@@ -124,8 +155,10 @@ perl -0pi -e 's{^(COPY [^\n]*nginx-noindex\.sh [^\n]*\n)}{$1COPY --chown=nginx:n
 perl -0pi -e 's{^(COPY [^\n]*security-headers-docs\.conf [^\n]*\n)}{$1RUN sed -i "s|https://konvertor-site\\.invalid|'"'"'self'"'"'|g" /etc/nginx/security-headers.conf /etc/nginx/security-headers-docs.conf\n}m
   or die "Dockerfile: security-headers-docs.conf COPY line not found\n"' Dockerfile
 
-# 6. Only the nginx stage is built per platform.
-perl -0pi -e 's{^FROM (\S+ AS builder\b)}{FROM --platform=\$BUILDPLATFORM $1}m
-  or die "Dockerfile: builder FROM line not found\n"' Dockerfile
+# 6. Only the nginx stage is built per platform; both stages from pinned digests.
+NODE_IMAGE=$NODE_IMAGE NGINX_IMAGE=$NGINX_IMAGE perl -0pi -e 's{^FROM mirror\.gcr\.io/library/node:26-alpine AS builder$}{FROM --platform=\$BUILDPLATFORM $ENV{NODE_IMAGE} AS builder}m
+    or die "Dockerfile: builder FROM line changed, review and update NODE_IMAGE\n";
+  s{^FROM quay\.io/nginx/nginx-unprivileged:alpine-slim$}{FROM $ENV{NGINX_IMAGE}}m
+    or die "Dockerfile: nginx FROM line changed, review and update NGINX_IMAGE\n"' Dockerfile
 
 echo "prepare.sh: placeholders for brand/footer/site, assets under public/wasm ($(du -sh public/wasm | cut -f1)), strict CSP at $n include(s)"

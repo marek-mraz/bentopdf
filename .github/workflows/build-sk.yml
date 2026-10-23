@@ -5,10 +5,12 @@ name: Build municipal image
 # build-and-publish.yml is gated to alam00000/bentopdf, so the fork needs this.
 # Tag is incremental: <package.json version>-<workflow run number>, no latest.
 # .github/municipal/prepare.sh bundles every WASM/OCR/font asset, adds a
-# self-only CSP and leaves brand, footer and site URL as placeholders that the
-# container fills from BRAND_NAME, FOOTER_TEXT, SITE_URL at start. It edits the
-# CI checkout only (never committed), so upstream merges stay conflict-free.
-# verify.sh gates the push. One tag covers linux/amd64 and linux/arm64.
+# self-only CSP and leaves brand, footer and site URL as placeholders that
+# nginx fills from BRAND_NAME, FOOTER_TEXT, SITE_URL while serving. It checks
+# every third-party binary against binaries.sha256 and pins the base images.
+# It edits the CI checkout only (never committed), so upstream merges stay
+# conflict-free. verify.sh and Trivy gate the push. One tag covers linux/amd64
+# and linux/arm64.
 # Every push to main builds a new image; run it by hand to bundle other OCR
 # languages.
 on:
@@ -29,9 +31,11 @@ jobs:
     env:
       OCR_LANGS: ${{ inputs.ocr_languages || 'slk,ces,eng' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '20'
 
@@ -43,11 +47,11 @@ jobs:
           { echo 'args<<EOF'; cat municipal.build-args; echo EOF; } >> "$GITHUB_OUTPUT"
 
       # arm64 emulation for the nginx stage; the npm build runs natively.
-      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3.7.0
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
 
-      - uses: docker/login-action@v3
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -56,7 +60,7 @@ jobs:
       # context: . builds the prepared checkout (the default git context would
       # rebuild the pristine commit). amd64 with load: true so verify.sh runs
       # before anything is pushed.
-      - uses: docker/build-push-action@v6
+      - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
           load: true
@@ -71,9 +75,16 @@ jobs:
 
       - run: bash .github/municipal/verify.sh "${{ steps.prep.outputs.image }}" "$OCR_LANGS"
 
+      # No push while the image has a HIGH or CRITICAL vulnerability with a fix.
+      - run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:0.69.3@sha256:bcc376de8d77cfe086a917230e818dc9f8528e3c852f7b1aff648949b6258d1c \
+            image --scanners vuln,secret --severity HIGH,CRITICAL --ignore-unfixed \
+            --exit-code 1 --no-progress "${{ steps.prep.outputs.image }}"
+
       # Same build for both platforms: the build stage and the amd64 image come
       # from the cache above, arm64 adds only its nginx stage.
-      - uses: docker/build-push-action@v6
+      - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
           push: true
@@ -82,6 +93,9 @@ jobs:
           labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha,scope=sk
+          # Signed build provenance and an SBOM travel with the image.
+          provenance: mode=max
+          sbom: true
 
       - run: |
           docker buildx imagetools inspect "${{ steps.prep.outputs.image }}"
