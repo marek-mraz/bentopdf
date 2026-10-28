@@ -311,7 +311,23 @@
       "anErrorOccurredDuringCompressionError": "Pri kompresii sa vyskytla chyba. Chyba: {{value}}",
       "isNotAValidPdfSo": "{{value}} nie je platné PDF, preto nebol pridaný.",
       "theseFilesAreNotValidPdfs": "Tieto súbory nie sú platné PDF, preto neboli pridané: {{value}}.",
-      "remove": "Odstrániť {{name}}"
+      "remove": "Odstrániť {{name}}",
+      "lockLocked": "Chránené heslom",
+      "lockWrong": "Nesprávne heslo",
+      "lockUnlocked": "Odomknuté",
+      "resultReduced": "Veľkosť súboru sa zmenšila z {{from}} na {{to}} (ušetrené {{percent}} %).",
+      "resultNotReduced": "Veľkosť súboru sa nepodarilo ďalej zmenšiť. Pôvodná: {{from}}, nová: {{to}}.",
+      "resultFitsTarget": "Zmestí sa do cieľovej veľkosti {{target}}.",
+      "resultAboveTargetPdfa": "Stále je nad cieľovou veľkosťou {{target}}, pretože Zachovať PDF/A obmedzuje, ako veľmi sa dá komprimovať.",
+      "resultAboveTarget": "Stále je nad cieľovou veľkosťou {{target}}. Toto je najmenšia veľkosť, akú tieto nastavenia dovolia; pri skenoch zložených len z obrázkov zapnite Rastrovať strany vo Vlastných nastaveniach.",
+      "resultSignaturesRemoved": "Digitálne podpisy boli odstránené, aby sa súbor dal komprimovať. V prípade potreby ho podpíšte znova.",
+      "resultPdfaWithdrawn": "Súbor už nedeklaruje zhodu s PDF/A. Ak ju chcete zachovať, zapnite Zachovať PDF/A vo Vlastných nastaveniach.",
+      "resultPdfaKept": "Brotli a rastrovanie sa vynechali, aby súbor zostal v PDF/A.",
+      "titleFinished": "Kompresia skončila",
+      "titleTargetNotReached": "Cieľ sa nedosiahol",
+      "titleComplete": "Kompresia dokončená",
+      "errorWrongPassword": "nesprávne heslo",
+      "errorPasswordProtected": "chránený heslom"
     }
   },
   "pdfEditor": {

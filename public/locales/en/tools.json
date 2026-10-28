@@ -311,7 +311,23 @@
       "anErrorOccurredDuringCompressionError": "An error occurred during compression. Error: {{value}}",
       "isNotAValidPdfSo": "{{value}} is not a valid PDF, so it was not added.",
       "theseFilesAreNotValidPdfs": "These files are not valid PDFs, so they were not added: {{value}}.",
-      "remove": "Remove {{name}}"
+      "remove": "Remove {{name}}",
+      "lockLocked": "Password protected",
+      "lockWrong": "Wrong password",
+      "lockUnlocked": "Unlocked",
+      "resultReduced": "File size reduced from {{from}} to {{to}} (Saved {{percent}}%).",
+      "resultNotReduced": "Could not reduce file size further. Original: {{from}}, New: {{to}}.",
+      "resultFitsTarget": "It fits the {{target}} target.",
+      "resultAboveTargetPdfa": "It is still above the {{target}} target because Preserve PDF/A limits how far it can be compressed.",
+      "resultAboveTarget": "It is still above the {{target}} target. This is the smallest these settings allow; for image-only scans, turn on Rasterize pages under Custom Settings.",
+      "resultSignaturesRemoved": "Its digital signatures were removed so it could be compressed. Sign it again if needed.",
+      "resultPdfaWithdrawn": "It no longer claims PDF/A conformance. Turn on Preserve PDF/A under Custom Settings to keep it.",
+      "resultPdfaKept": "Brotli and rasterizing were skipped to keep it PDF/A.",
+      "titleFinished": "Compression Finished",
+      "titleTargetNotReached": "Target Not Reached",
+      "titleComplete": "Compression Complete",
+      "errorWrongPassword": "wrong password",
+      "errorPasswordProtected": "password protected"
     }
   },
   "pdfEditor": {

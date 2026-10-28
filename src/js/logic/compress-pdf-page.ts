@@ -36,17 +36,17 @@ type OptionChangeHandler = (
 
 const LOCK_MESSAGES = {
   locked: {
-    text: 'Password protected',
+    text: 'tools:compressPdf.msg.lockLocked',
     color: 'text-gray-400',
     field: 'border-gray-600 focus:ring-indigo-500',
   },
   wrong: {
-    text: 'Wrong password',
+    text: 'tools:compressPdf.msg.lockWrong',
     color: 'text-red-400',
     field: 'border-red-500 focus:ring-red-500',
   },
   unlocked: {
-    text: 'Unlocked',
+    text: 'tools:compressPdf.msg.lockUnlocked',
     color: 'text-green-400',
     field: 'border-green-500 focus:ring-green-500',
   },
@@ -416,59 +416,70 @@ function describeCompressResult(
   if (saved > 0) {
     const percent = ((saved / result.originalSize) * 100).toFixed(1);
     parts.push(
-      `File size reduced from ${formatBytes(result.originalSize)} to ${formatBytes(result.compressedSize)} (Saved ${percent}%).`
+      t('tools:compressPdf.msg.resultReduced', {
+        from: formatBytes(result.originalSize),
+        to: formatBytes(result.compressedSize),
+        percent,
+      })
     );
   } else {
     parts.push(
-      `Could not reduce file size further. Original: ${formatBytes(result.originalSize)}, New: ${formatBytes(result.compressedSize)}.`
+      t('tools:compressPdf.msg.resultNotReduced', {
+        from: formatBytes(result.originalSize),
+        to: formatBytes(result.compressedSize),
+      })
     );
   }
 
   const preservingPdfa = options.preserveConformance && result.pdfa !== null;
   if (targetBytes !== undefined) {
     if (result.metTarget) {
-      parts.push(`It fits the ${formatBytes(targetBytes)} target.`);
+      parts.push(
+        t('tools:compressPdf.msg.resultFitsTarget', {
+          target: formatBytes(targetBytes),
+        })
+      );
     } else if (preservingPdfa) {
       parts.push(
-        `It is still above the ${formatBytes(targetBytes)} target because Preserve PDF/A limits how far it can be compressed.`
+        t('tools:compressPdf.msg.resultAboveTargetPdfa', {
+          target: formatBytes(targetBytes),
+        })
       );
     } else {
       parts.push(
-        `It is still above the ${formatBytes(targetBytes)} target. This is the smallest these settings allow; for image-only scans, turn on Rasterize pages under Custom Settings.`
+        t('tools:compressPdf.msg.resultAboveTarget', {
+          target: formatBytes(targetBytes),
+        })
       );
     }
   }
 
   if (result.signaturesRemoved) {
-    parts.push(
-      'Its digital signatures were removed so it could be compressed. Sign it again if needed.'
-    );
+    parts.push(t('tools:compressPdf.msg.resultSignaturesRemoved'));
   }
 
   if (result.pdfaOutcome === 'claim-withdrawn') {
-    parts.push(
-      'It no longer claims PDF/A conformance. Turn on Preserve PDF/A under Custom Settings to keep it.'
-    );
+    parts.push(t('tools:compressPdf.msg.resultPdfaWithdrawn'));
   } else if (preservingPdfa && (options.brotli || options.rasterizePages)) {
-    parts.push('Brotli and rasterizing were skipped to keep it PDF/A.');
+    parts.push(t('tools:compressPdf.msg.resultPdfaKept'));
   }
 
   if (saved <= 0) {
     return {
-      title: 'Compression Finished',
+      title: t('tools:compressPdf.msg.titleFinished'),
       message: parts.join(' '),
       type: 'warning',
     };
   }
   if (result.metTarget === false) {
     return {
-      title: 'Target Not Reached',
+      title: t('tools:compressPdf.msg.titleTargetNotReached'),
       message: parts.join(' '),
       type: 'warning',
     };
   }
   return {
-    title: 'Compression Complete',
+    title: t('tools:compressPdf.msg.titleComplete'),
     message: parts.join(' '),
     type: 'success',
   };
@@ -476,7 +487,9 @@ function describeCompressResult(
 
 function describeCompressionError(err: unknown, hadPassword: boolean): string {
   if (err instanceof HyperError && err.code === 'decrypt_failed') {
-    return hadPassword ? 'wrong password' : 'password protected';
+    return hadPassword
+      ? t('tools:compressPdf.msg.errorWrongPassword')
+      : t('tools:compressPdf.msg.errorPasswordProtected');
   }
   return err instanceof Error ? err.message : String(err);
 }
@@ -696,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lock && view && lock.status !== 'checking' && lock.status !== 'open') {
       const { text, color, field } = LOCK_MESSAGES[lock.status];
       if (view.input.value !== lock.password) view.input.value = lock.password;
-      view.status.textContent = text;
+      view.status.textContent = t(text);
       view.status.className = `truncate ${color}`;
       view.input.className = `${PASSWORD_INPUT_CLASS} ${field}`;
       view.lockIcon.classList.toggle('hidden', lock.status === 'unlocked');
