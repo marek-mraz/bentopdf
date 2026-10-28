@@ -52,7 +52,9 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(pageState.file.size)} • Loading...`;
+    metaSpan.textContent = t('tools:nUpPdf.msg.loading', {
+      value: formatBytes(pageState.file.size),
+    });
 
     infoContainer.append(nameSpan, metaSpan);
 
@@ -80,7 +82,10 @@ async function updateUI() {
       hideLoader();
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageCount} pages`;
+      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        size: formatBytes(pageState.file.size),
+        count: pageCount,
+      });
 
       if (toolOptions) toolOptions.classList.remove('hidden');
     } catch (error) {
@@ -153,7 +158,9 @@ async function nUpTool() {
     const usableHeight = pageHeight - margin * 2;
 
     for (let i = 0; i < sourcePages.length; i += n) {
-      showLoader(`Processing sheet ${Math.floor(i / n) + 1}...`);
+      showLoader(
+        t('tools:nUpPdf.msg.processingSheet', { value: Math.floor(i / n) + 1 })
+      );
       const chunk = sourcePages.slice(i, i + n);
       const outputPage = newDoc.addPage([pageWidth, pageHeight]);
 

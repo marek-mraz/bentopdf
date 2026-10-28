@@ -93,7 +93,8 @@ async function runSanitize() {
   const loaderModal = document.getElementById('loader-modal');
   const loaderText = document.getElementById('loader-text');
   if (loaderModal) loaderModal.classList.remove('hidden');
-  if (loaderText) loaderText.textContent = 'Sanitizing PDF...';
+  if (loaderText)
+    loaderText.textContent = t('tools:sanitizePdf.msg.sanitizingPdf');
 
   try {
     const options = {
@@ -144,7 +145,8 @@ async function runSanitize() {
       return;
     }
     if (loaderModal) loaderModal.classList.remove('hidden');
-    if (loaderText) loaderText.textContent = 'Sanitizing PDF...';
+    if (loaderText)
+      loaderText.textContent = t('tools:sanitizePdf.msg.sanitizingPdf');
     loaded.pdf.destroy();
     pageState.file = loaded.file;
     const result = await sanitizePdf(new Uint8Array(loaded.bytes), options);
@@ -156,7 +158,9 @@ async function runSanitize() {
     if (result.skipped.length > 0) {
       showAlert(
         t('tools:sanitizePdf.alert.sanitizedWithWarnings'),
-        `The PDF was downloaded, but these steps could not be completed: ${result.skipped.join(', ')}. The content they cover may still be in the file.`,
+        t('tools:sanitizePdf.msg.thePdfWasDownloadedButThese', {
+          value: result.skipped.join(', '),
+        }),
         'warning',
         () => {
           resetState();
@@ -177,7 +181,7 @@ async function runSanitize() {
     const msg = e instanceof Error ? e.message : String(e);
     showAlert(
       t('common.error'),
-      `An error occurred during sanitization: ${msg}`
+      t('tools:sanitizePdf.msg.anErrorOccurredDuringSanitization', { msg })
     );
   } finally {
     if (loaderModal) loaderModal.classList.add('hidden');

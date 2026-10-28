@@ -111,7 +111,9 @@ async function linearizePdf() {
   const loaderText = document.getElementById('loader-text');
   if (loaderModal) loaderModal.classList.remove('hidden');
   if (loaderText)
-    loaderText.textContent = 'Optimizing PDFs for web view (linearizing)...';
+    loaderText.textContent = t(
+      'tools:linearizePdf.msg.optimizingPdfsForWebViewLinearizing'
+    );
 
   const zip = new JSZip();
   const usedNames = new Set<string>();
@@ -128,7 +130,11 @@ async function linearizePdf() {
       const outputPath = `/output_${i}.pdf`;
 
       if (loaderText)
-        loaderText.textContent = `Optimizing ${file.name} (${i + 1}/${pdfFiles.length})...`;
+        loaderText.textContent = t('tools:linearizePdf.msg.optimizing', {
+          name: file.name,
+          value: i + 1,
+          count: pdfFiles.length,
+        });
 
       try {
         const fileBuffer = await readFileAsArrayBuffer(file);
@@ -145,7 +151,9 @@ async function linearizePdf() {
           console.error(
             `Linearization resulted in an empty file for ${file.name}.`
           );
-          throw new Error(`Processing failed for ${file.name}.`);
+          throw new Error(
+            t('tools:linearizePdf.msg.processingFailedFor', { name: file.name })
+          );
         }
 
         const zipEntryName = deduplicateFileName(
@@ -177,10 +185,11 @@ async function linearizePdf() {
     }
 
     if (successCount === 0) {
-      throw new Error('No PDF files could be linearized.');
+      throw new Error(t('tools:linearizePdf.msg.noPdfFilesCouldBeLinearized'));
     }
 
-    if (loaderText) loaderText.textContent = 'Generating ZIP file...';
+    if (loaderText)
+      loaderText.textContent = t('tools:pdfsToZip.loader.generatingZipFile');
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     downloadFile(zipBlob, 'linearized-pdfs.zip');
 
@@ -195,7 +204,10 @@ async function linearizePdf() {
     console.error('Linearization process error:', error);
     showAlert(
       t('tools:linearizePdf.alert.linearizationFailed'),
-      `An error occurred: ${error instanceof Error ? error.message : t('common.unknownError')}.`
+      t('tools:linearizePdf.msg.anErrorOccurred', {
+        value:
+          error instanceof Error ? error.message : t('common.unknownError'),
+      })
     );
   } finally {
     if (loaderModal) loaderModal.classList.add('hidden');

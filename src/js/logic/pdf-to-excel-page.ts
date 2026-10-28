@@ -90,7 +90,9 @@ async function convert() {
     const allTables: TableData[] = [];
 
     for (let i = 0; i < pageCount; i++) {
-      showLoader(`Scanning page ${i + 1} of ${pageCount}...`);
+      showLoader(
+        t('tools:pdfToExcel.msg.scanningPageOf', { value: i + 1, pageCount })
+      );
       const page = doc.getPage(i);
       const tables = page.findTables();
 
@@ -132,14 +134,19 @@ async function convert() {
     downloadFile(blob, `${baseName}.xlsx`);
     showAlert(
       t('common.success'),
-      `Extracted ${allTables.length} table(s) to Excel!`,
+      t('tools:pdfToExcel.msg.extractedTableSToExcel', {
+        count: allTables.length,
+      }),
       'success',
       resetState
     );
   } catch (e) {
     console.error(e);
     const message = e instanceof Error ? e.message : 'Unknown error';
-    showAlert(t('common.error'), `Failed to convert PDF to Excel. ${message}`);
+    showAlert(
+      t('common.error'),
+      t('tools:pdfToExcel.msg.failedToConvertPdfToExcel', { error: message })
+    );
   } finally {
     hideLoader();
   }

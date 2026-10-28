@@ -104,7 +104,10 @@ function applyCustomOrder() {
   if (newOrder.length !== currentGridCount) {
     showAlert(
       t('tools:duplicateOrganize.alert.incorrectPageCount'),
-      `The number of pages specified (${newOrder.length}) does not match the current number of pages in the document (${currentGridCount}). Please provide a complete ordering for all pages.`
+      t('tools:duplicateOrganize.msg.theNumberOfPagesSpecifiedDoes', {
+        count: newOrder.length,
+        currentGridCount,
+      })
     );
     return;
   }
@@ -220,7 +223,10 @@ function updateFileDisplay() {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = `${formatBytes(organizeState.file.size)} • ${organizeState.totalPages} pages`;
+  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    size: formatBytes(organizeState.file.size),
+    count: organizeState.totalPages,
+  });
 
   infoContainer.append(nameSpan, metaSpan);
 
@@ -317,13 +323,13 @@ async function renderThumbnails() {
     const duplicateBtn = document.createElement('button');
     duplicateBtn.className =
       'duplicate-btn bg-green-600 hover:bg-green-700 text-white rounded-full w-8 h-8 flex items-center justify-center';
-    duplicateBtn.title = 'Duplicate Page';
+    duplicateBtn.title = t('tools:duplicateOrganize.msg.duplicatePage');
     duplicateBtn.innerHTML = '<i data-lucide="copy-plus" class="w-5 h-5"></i>';
 
     const deleteBtn = document.createElement('button');
     deleteBtn.className =
       'delete-btn bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center';
-    deleteBtn.title = 'Delete Page';
+    deleteBtn.title = t('tools:duplicateOrganize.msg.deletePage');
     deleteBtn.innerHTML = '<i data-lucide="x-circle" class="w-5 h-5"></i>';
 
     controlsDiv.append(duplicateBtn, deleteBtn);

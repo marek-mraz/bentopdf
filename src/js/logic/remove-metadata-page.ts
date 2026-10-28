@@ -146,7 +146,8 @@ async function removeMetadata() {
   const loaderModal = document.getElementById('loader-modal');
   const loaderText = document.getElementById('loader-text');
   if (loaderModal) loaderModal.classList.remove('hidden');
-  if (loaderText) loaderText.textContent = 'Removing all metadata...';
+  if (loaderText)
+    loaderText.textContent = t('tools:removeMetadata.msg.removingAllMetadata');
 
   try {
     if (loaderModal) loaderModal.classList.add('hidden');
@@ -156,7 +157,10 @@ async function removeMetadata() {
       return;
     }
     if (loaderModal) loaderModal.classList.remove('hidden');
-    if (loaderText) loaderText.textContent = 'Removing all metadata...';
+    if (loaderText)
+      loaderText.textContent = t(
+        'tools:removeMetadata.msg.removingAllMetadata'
+      );
     result.pdf.destroy();
     const pdfDoc = await loadPdfDocument(result.bytes);
 

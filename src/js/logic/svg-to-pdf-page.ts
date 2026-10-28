@@ -244,7 +244,9 @@ async function convertToPdf() {
       } catch (error) {
         console.error(`Failed to process ${file.name}:`, error);
         throw new Error(
-          `Could not process "${file.name}". The file may be corrupted.`,
+          t('tools:svgToPdf.msg.couldNotProcessTheFileMay', {
+            name: file.name,
+          }),
           { cause: error }
         );
       }

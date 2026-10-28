@@ -1,6 +1,8 @@
 import { PACKAGE_VERSIONS } from '../const/cdn-version';
 import { WasmProvider } from '../utils/wasm-provider';
 
+import { t } from '../i18n/i18n.js';
+
 export type WasmPackage = 'ghostscript' | 'pymupdf' | 'cpdf';
 
 export function getWasmBaseUrl(packageName: WasmPackage): string | undefined {
@@ -30,7 +32,7 @@ export async function fetchWasmFile(
 
   if (!baseUrl) {
     throw new Error(
-      `No URL configured for ${packageName}. Please configure it in WASM Settings.`
+      t('msg.wasmCdnConfig.noUrlConfiguredForPleaseConfigure', { packageName })
     );
   }
 

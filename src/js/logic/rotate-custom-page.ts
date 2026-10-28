@@ -205,7 +205,9 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(pageState.file.size)} • Loading...`;
+    metaSpan.textContent = t('tools:rotateCustom.msg.loading', {
+      value: formatBytes(pageState.file.size),
+    });
 
     infoContainer.append(nameSpan, metaSpan);
 
@@ -235,7 +237,10 @@ async function updateUI() {
       const pageCount = pageState.pdfDoc.getPageCount();
       pageState.rotations = new Array(pageCount).fill(0);
 
-      metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageCount} pages`;
+      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        size: formatBytes(pageState.file.size),
+        count: pageCount,
+      });
 
       await renderThumbnails();
       hideLoader();

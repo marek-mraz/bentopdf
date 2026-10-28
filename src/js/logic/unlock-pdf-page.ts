@@ -122,22 +122,26 @@ async function decryptPdf() {
 
   try {
     if (loaderModal) loaderModal.classList.remove('hidden');
-    if (loaderText) loaderText.textContent = 'Initializing decryption...';
+    if (loaderText)
+      loaderText.textContent = t('tools:unlockPdf.msg.initializingDecryption');
 
     if (pageState.files.length === 1) {
       // Single file: decrypt and download directly
       const file = pageState.files[0];
-      if (loaderText) loaderText.textContent = 'Reading encrypted PDF...';
+      if (loaderText)
+        loaderText.textContent = t('tools:unlockPdf.msg.readingEncryptedPdf');
       const fileBuffer = await readFileAsArrayBuffer(file);
       const uint8Array = new Uint8Array(fileBuffer as ArrayBuffer);
 
-      if (loaderText) loaderText.textContent = 'Decrypting PDF...';
+      if (loaderText)
+        loaderText.textContent = t('tools:unlockPdf.msg.decryptingPdf');
       const { bytes: decryptedBytes } = await decryptPdfBytes(
         uint8Array,
         password
       );
 
-      if (loaderText) loaderText.textContent = 'Preparing download...';
+      if (loaderText)
+        loaderText.textContent = t('tools:unlockPdf.msg.preparingDownload');
       const blob = new Blob([decryptedBytes.slice().buffer], {
         type: 'application/pdf',
       });
@@ -162,7 +166,11 @@ async function decryptPdf() {
         const file = pageState.files[i];
 
         if (loaderText)
-          loaderText.textContent = `Decrypting ${file.name} (${i + 1}/${pageState.files.length})...`;
+          loaderText.textContent = t('tools:unlockPdf.msg.decrypting', {
+            name: file.name,
+            value: i + 1,
+            count: pageState.files.length,
+          });
 
         try {
           const fileBuffer = await readFileAsArrayBuffer(file);
@@ -181,12 +189,11 @@ async function decryptPdf() {
       }
 
       if (successCount === 0) {
-        throw new Error(
-          'No PDF files could be decrypted. The password may be incorrect.'
-        );
+        throw new Error(t('tools:unlockPdf.msg.noPdfFilesCouldBeDecrypted'));
       }
 
-      if (loaderText) loaderText.textContent = 'Generating ZIP file...';
+      if (loaderText)
+        loaderText.textContent = t('tools:pdfsToZip.loader.generatingZipFile');
       const zipBlob = await zip.generateAsync({ type: 'blob' });
       downloadFile(zipBlob, 'decrypted-pdfs.zip');
 
@@ -215,7 +222,10 @@ async function decryptPdf() {
     } else {
       showAlert(
         t('tools:unlockPdf.alert.decryptionFailed'),
-        `An error occurred: ${errorMessage || t('tools:unlockPdf.alert.passwordYouEnteredWrong')}`
+        t('tools:unlockPdf.msg.anErrorOccurred', {
+          value:
+            errorMessage || t('tools:unlockPdf.alert.passwordYouEnteredWrong'),
+        })
       );
     }
   } finally {

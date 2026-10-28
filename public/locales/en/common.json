@@ -206,6 +206,23 @@
       "importSuccessMessage": "Shortcuts imported successfully!",
       "importFailTitle": "Import Failed",
       "importFailMessage": "Failed to import shortcuts. Invalid file format."
+    },
+    "reservedShortcuts": {
+      "closesTab": "Closes tab",
+      "opensNewTab": "Opens new tab",
+      "opensNewWindow": "Opens new window",
+      "opensIncognitoWindow": "Opens incognito window",
+      "quitsApplication": "Quits application (cannot be overridden)",
+      "minimizesWindow": "Minimizes window",
+      "hidesWindow": "Hides window",
+      "reloadsPage": "Reloads page",
+      "hardReloadsPage": "Hard reloads page",
+      "focusesAddressBar": "Focuses address bar",
+      "bookmarksPage": "Bookmarks page",
+      "reopensClosedTab": "Reopens closed tab",
+      "closesWindow": "Closes window",
+      "switchesTabs": "Switches tabs",
+      "switchesApps": "Switches apps"
     }
   },
   "warning": {
@@ -1067,5 +1084,150 @@
     "myFirstReactionAfterTryingBento": "My first reaction after trying Bento was \"this is magic, how does this work?\"",
     "bentopdfHasCovered100OfMy": "BentoPDF has covered 100% of my PDF needs and represents impressive software engineering indeed!",
     "scrollToTop": "Scroll to top"
+  },
+  "msg": {
+    "compareRender": {
+      "ocr": "OCR: {{status}}"
+    },
+    "bookmarkPdf": {
+      "previewText": "Preview Text",
+      "resetAndGoBackToFile": "Reset and go back to file uploader? All unsaved changes will be lost.",
+      "noBookmarksToDelete": "No bookmarks to delete.",
+      "deleteAllBookmarkS": "Delete all {{count}} bookmark(s) ? ",
+      "deleteBookmarkS": "Delete {{size}} bookmark(s) ? ",
+      "csvLoaded": "CSV Loaded",
+      "loadedBookmarksFromCsvNowUpload": "Loaded {{count}} bookmarks from CSV. Now upload your PDF.",
+      "jsonLoaded": "JSON Loaded",
+      "loadedBookmarksFromJsonNowUpload": "Loaded bookmarks from JSON. Now upload your PDF.",
+      "invalidJsonFormat": "Invalid JSON format",
+      "page": "Page {{num}} / {{numPages}}",
+      "addChild": "Add child",
+      "delete": "Delete \"{{title}}\"?",
+      "pleaseEnterATitle": "Please enter a title.",
+      "importedBookmarks": "Imported {{count}} bookmarks!",
+      "noBookmarksToExport": "No bookmarks to export!",
+      "bookmarksImportedFromJson": "Bookmarks imported from JSON!",
+      "foundExistingBookmarksReplaceCurrentBook": "Found {{count}} existing bookmarks. Replace current bookmarks?",
+      "noExistingBookmarksFoundInThis": "No existing bookmarks found in this PDF.",
+      "pdfSavedSuccessfully": "PDF saved successfully!",
+      "errorSavingPdfCheckConsoleFor": "Error saving PDF. Check console for details."
+    },
+    "posterizePage": {
+      "renderingPreviewForPage": "Rendering preview for page {{pageNum}}...",
+      "invalidPageRangeSpecified": "Invalid page range specified."
+    },
+    "editPdfTextDock": {
+      "pageNumber": "Page number",
+      "loadSystemFonts": "Load system fonts…"
+    },
+    "wasmCdnConfig": {
+      "noUrlConfiguredForPleaseConfigure": "No URL configured for {{packageName}}. Please configure it in WASM Settings."
+    },
+    "canvasEditor": {
+      "loadingPage": "Loading page {{num}}..."
+    },
+    "exportComparePdf": {
+      "atLeastOnePdfDocumentIs": "At least one PDF document is required for export.",
+      "noPagePairsToExport": "No page pairs to export."
+    },
+    "fileHandler": {
+      "keyEGDepartment": "Key (e.g., Department)",
+      "valueEGMarketing": "Value (e.g., Marketing)"
+    },
+    "tesseractRuntime": {
+      "selfHostedOcrAssetsArePartially": "Self-hosted OCR assets are partially configured. Set {{missing}} together with the other Tesseract asset URLs."
+    },
+    "xmlToPdf": {
+      "readingXmlFile": "Reading XML file...",
+      "parsingXmlStructure": "Parsing XML structure...",
+      "invalidXml": "Invalid XML: {{value}}",
+      "invalidXmlNoRootElement": "Invalid XML: no root element",
+      "analyzingDataStructure": "Analyzing data structure...",
+      "generatingFormattedContent": "Generating formatted content...",
+      "finalizingPdf": "Finalizing PDF...",
+      "complete": "Complete!"
+    },
+    "pagePreview": {
+      "pageOf": "Page {{pageNumber}} of {{totalPages}}"
+    },
+    "passwordPrompt": {
+      "pleaseEnterAPassword": "Please enter a password",
+      "validating": "Validating...",
+      "incorrectPasswordPleaseTryAgain": "Incorrect password. Please try again.",
+      "decrypting": "Decrypting...",
+      "failedToDecryptTryTheDecrypt": "Failed to decrypt. Try the Decrypt tool instead.",
+      "filesNeedAPassword": "{{count}} Files Need a Password",
+      "unlockAll": "Unlock All",
+      "skipRemaining": "Skip Remaining",
+      "skipAll": "Skip All",
+      "unlockRemaining": "Unlock Remaining ({{remaining}})",
+      "skipThisFile": "Skip this file",
+      "includeThisFile": "Include this file",
+      "validatingOf": "Validating {{value}} of {{count}}: {{name}}",
+      "decryptingOf": "Decrypting {{value}} of {{count}}: {{name}}",
+      "wrongPasswordFor": "Wrong password for: {{value}}",
+      "retryFailed": "Retry Failed"
+    },
+    "ghostscriptLoader": {
+      "ghostscriptIsNotConfiguredPleaseConfigur": "Ghostscript is not configured. Please configure it in WASM Settings.",
+      "loadingGhostscript": "Loading Ghostscript...",
+      "convertingTo": "Converting to {{level}}...",
+      "postProcessingForTransparencyCompliance": "Post-processing for transparency compliance...",
+      "convertingFontsToOutlines": "Converting fonts to outlines..."
+    },
+    "pdfOperations": {
+      "cannotDeleteAllPages": "Cannot delete all pages"
+    },
+    "pymupdfLoader": {
+      "pymupdfIsNotConfiguredPleaseConfigure": "PyMuPDF is not configured. Please configure it in Advanced Settings.",
+      "ghostscriptIsNotConfiguredPymupdfRequire": "Ghostscript is not configured. PyMuPDF requires Ghostscript for some operations. Please configure both in Advanced Settings.",
+      "failedToLoadPymupdfFromCdn": "Failed to load PyMuPDF from CDN: {{msg}}"
+    },
+    "ghostscriptDynamicLoader": {
+      "ghostscriptIsNotConfiguredPleaseConfigur": "Ghostscript is not configured. Please configure it in Advanced Settings.",
+      "failedToLoadGhostscriptFrom": "Failed to load Ghostscript from {{normalizedUrl}}: {{msg}}"
+    },
+    "cpdfHelper": {
+      "coherentpdfIsNotConfiguredPleaseConfigur": "CoherentPDF is not configured. Please configure it in WASM Settings."
+    },
+    "splitPdfHelpers": {
+      "pageExtractionProducedAnEmptyPdf": "Page extraction produced an empty PDF."
+    },
+    "ocr": {
+      "processingPageOf": "Processing page {{i}} of {{numPages}}",
+      "ocrAbortedBeforeAnyPageWas": "OCR aborted before any page was processed"
+    },
+    "markdownEditor": {
+      "mermaidError": "Mermaid Error: {{error}}"
+    },
+    "pdfDecrypt": {
+      "invalidPdfPassword": "Invalid PDF password."
+    },
+    "loadPdfDocument": {
+      "couldNotRemoveLeftoverDataFrom": "Could not remove leftover data from the PDF."
+    },
+    "csvToPdf": {
+      "readingCsvFile": "Reading CSV file...",
+      "creatingTable": "Creating table...",
+      "finalizingPdf": "Finalizing PDF...",
+      "complete": "Complete!"
+    },
+    "imageInputUtils": {
+      "failedToProcessHeicFile": "Failed to process HEIC file: {{name}}",
+      "failedToProcessWebpFile": "Failed to process WebP file: {{name}}"
+    },
+    "ui": {
+      "rotate90": "Rotate +90°",
+      "renderingPagePreviews": "Rendering page previews: {{current}}/{{total}}"
+    },
+    "swRegister": {
+      "aNewVersionOfBentopdfIs": "A new version of BentoPDF is available. Reload to update?"
+    },
+    "posterizeNode": {
+      "failedToRenderTileRowCol": "Failed to render tile (row {{r}}, col {{c}}) of page {{i}}"
+    },
+    "types": {
+      "noPdfConnected": "No PDF connected"
+    }
   }
 }

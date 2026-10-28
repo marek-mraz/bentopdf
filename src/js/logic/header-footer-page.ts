@@ -104,7 +104,10 @@ function updateFileDisplay() {
   nameSpan.textContent = pageState.file.name;
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageState.pdfDoc.getPageCount()} pages`;
+  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    size: formatBytes(pageState.file.size),
+    count: pageState.pdfDoc.getPageCount(),
+  });
   infoContainer.append(nameSpan, metaSpan);
   const removeBtn = document.createElement('button');
   removeBtn.className = 'ml-4 text-red-400 hover:text-red-300 flex-shrink-0';
@@ -171,7 +174,7 @@ async function addHeaderFooter() {
     };
     const indicesToProcess = parsePageRanges(pageRangeInput, totalPages);
     if (indicesToProcess.length === 0)
-      throw new Error('Invalid page range specified.');
+      throw new Error(t('tools:headerFooter.msg.invalidPageRangeSpecified'));
     const drawOptions = {
       font: helveticaFont,
       size: fontSize,

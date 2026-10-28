@@ -14,6 +14,8 @@ import { getPDFDocument } from './helpers.js';
 import { loadPdfDocument } from './load-pdf-document.js';
 import { createConfiguredTesseractWorker } from './tesseract-runtime.js';
 
+import { t } from '../i18n/i18n.js';
+
 export interface OcrOptions {
   language: string;
   resolution: number;
@@ -217,7 +219,7 @@ export async function performOcr(
 
     newPdfDoc.registerFontkit(fontkit);
 
-    progress('Loading fonts...', 0);
+    progress(t('tools:editPdfText.loadingFonts'), 0);
 
     const selectedLangs = language.split('+');
     const cjkLangs = ['jpn', 'chi_sim', 'chi_tra', 'kor'];
@@ -283,7 +285,7 @@ export async function performOcr(
 
     for (let i = 1; i <= pdf.numPages; i++) {
       progress(
-        `Processing page ${i} of ${pdf.numPages}`,
+        t('msg.ocr.processingPageOf', { i, numPages: pdf.numPages }),
         (i - 1) / pdf.numPages
       );
 
@@ -369,7 +371,7 @@ export async function performOcr(
   }
 
   if (!newPdfDoc) {
-    throw new Error('OCR aborted before any page was processed');
+    throw new Error(t('msg.ocr.ocrAbortedBeforeAnyPageWas'));
   }
 
   const savedBytes = await newPdfDoc.save();

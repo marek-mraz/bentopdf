@@ -500,7 +500,7 @@ function createPasswordField(
 
   const input = document.createElement('input');
   input.type = 'password';
-  input.placeholder = 'Enter password';
+  input.placeholder = t('tools:pdfWorkflow.ui.enterPasswordPlaceholder');
   input.autocomplete = 'off';
   input.value = value;
   input.setAttribute('aria-label', label);
@@ -513,14 +513,16 @@ function createPasswordField(
   toggle.type = 'button';
   toggle.className =
     'absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-200';
-  toggle.setAttribute('aria-label', 'Show password');
+  toggle.setAttribute('aria-label', t('tools:compressPdf.msg.showPassword'));
   toggle.append(showIcon, hideIcon);
   toggle.addEventListener('click', () => {
     const reveal = input.type === 'password';
     input.type = reveal ? 'text' : 'password';
     toggle.setAttribute(
       'aria-label',
-      reveal ? 'Hide password' : 'Show password'
+      reveal
+        ? t('tools:compressPdf.msg.hidePassword')
+        : t('tools:compressPdf.msg.showPassword')
     );
     showIcon.classList.toggle('hidden', reveal);
     hideIcon.classList.toggle('hidden', !reveal);
@@ -675,12 +677,16 @@ document.addEventListener('DOMContentLoaded', () => {
       (file) => fileLocks.get(file)?.status === 'unlocked'
     ).length;
     if (sharedMissed && unlocked < files.length) {
-      sharedView.status.textContent =
-        'That password did not open any of the remaining files.';
+      sharedView.status.textContent = t(
+        'tools:compressPdf.msg.thatPasswordDidNotOpenAny'
+      );
       sharedView.status.className = 'text-xs mt-1 text-red-400';
       return;
     }
-    sharedView.status.textContent = `Unlocked ${unlocked} of ${files.length} files.`;
+    sharedView.status.textContent = t('tools:compressPdf.msg.unlockedOfFiles', {
+      unlocked,
+      count: files.length,
+    });
     sharedView.status.className = `text-xs mt-1 ${unlocked === files.length ? 'text-green-400' : 'text-gray-400'}`;
   };
 
@@ -759,7 +765,9 @@ document.addEventListener('DOMContentLoaded', () => {
           sharedDiv.className = 'bg-gray-700 p-3 rounded-lg text-sm';
           const sharedLabel = document.createElement('div');
           sharedLabel.className = 'font-medium text-gray-200 text-sm';
-          sharedLabel.textContent = 'Password for all locked files';
+          sharedLabel.textContent = t(
+            'tools:compressPdf.msg.passwordForAllLockedFiles'
+          );
           sharedView = createPasswordField(
             'Password for all locked files',
             sharedPassword,
@@ -865,7 +873,9 @@ document.addEventListener('DOMContentLoaded', () => {
     showLoader(
       targetBytes === undefined
         ? t('tools:compressPdf.loader.compressing')
-        : `Compressing to ${formatBytes(targetBytes)}...`
+        : t('tools:compressPdf.msg.compressingTo', {
+            value: formatBytes(targetBytes),
+          })
     );
     const result = await compressWithHyper(await file.arrayBuffer(), {
       options: runOptions,
@@ -877,7 +887,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (result.signed) {
       showAlert(
         t('tools:compressPdf.alert.signedPdfNotChanged'),
-        `${file.name} is digitally signed, so it was left as it is. Compressing it would break the signature. To compress it anyway, turn on Override content protection under Custom Settings; its signatures will be removed.`,
+        t('tools:compressPdf.msg.isDigitallySignedSoItWas', {
+          name: file.name,
+        }),
         'warning',
         () => resetState()
       );
@@ -896,7 +908,9 @@ document.addEventListener('DOMContentLoaded', () => {
     showAlert(
       title,
       password
-        ? `${message} It was password protected, so the compressed copy has no password. Use Protect PDF to add one again.`
+        ? t('tools:compressPdf.msg.itWasPasswordProtectedSoThe', {
+            error: message,
+          })
         : message,
       type,
       () => resetState()
@@ -924,7 +938,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      showLoader(`Compressing ${i + 1}/${files.length}: ${file.name}...`);
+      showLoader(
+        t('tools:compressPdf.msg.compressing', {
+          value: i + 1,
+          count: files.length,
+          name: file.name,
+        })
+      );
       const lock = fileLocks.get(file);
       const password = isProtected(lock) ? lock.password : '';
       try {
@@ -954,7 +974,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `None of the files could be compressed: ${failures.join(', ')}.`
+        t('tools:compressPdf.msg.noneOfTheFilesCouldBe', {
+          value: failures.join(', '),
+        })
       );
       return;
     }
@@ -1024,8 +1046,12 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert(
         t('tools:compressPdf.alert.passwordNeeded'),
         needPassword.length === 1
-          ? `${needPassword[0].name} is password protected. Enter its password on the file card, then compress again.`
-          : `These files are password protected: ${needPassword.map((file) => file.name).join(', ')}. Enter their passwords on the file cards, or remove them, then compress again.`,
+          ? t('tools:compressPdf.msg.isPasswordProtectedEnterItsPassword', {
+              name: needPassword[0].name,
+            })
+          : t('tools:compressPdf.msg.theseFilesArePasswordProtectedEnter', {
+              value: needPassword.map((file) => file.name).join(', '),
+            }),
         'warning',
         () => lockViews.get(needPassword[0])?.input.focus()
       );
@@ -1057,7 +1083,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateUI();
         showAlert(
           t('tools:compressPdf.alert.passwordNeeded'),
-          `${file.name} is password protected. Enter its password on the file card, then compress again.`,
+          t('tools:compressPdf.msg.isPasswordProtectedEnterItsPassword', {
+            name: file.name,
+          }),
           'warning',
           () => lockViews.get(file)?.input.focus()
         );
@@ -1066,7 +1094,9 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('[CompressPDF] Error:', e);
       showAlert(
         t('common.error'),
-        `An error occurred during compression. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:compressPdf.msg.anErrorOccurredDuringCompressionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };
@@ -1086,8 +1116,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showAlert(
           t('tools:compressPdf.alert.notPdf'),
           rejected.length === 1
-            ? `${rejected[0]} is not a valid PDF, so it was not added.`
-            : `These files are not valid PDFs, so they were not added: ${rejected.join(', ')}.`,
+            ? t('tools:compressPdf.msg.isNotAValidPdfSo', {
+                value: rejected[0],
+              })
+            : t('tools:compressPdf.msg.theseFilesAreNotValidPdfs', {
+                value: rejected.join(', '),
+              }),
           'warning'
         );
       }

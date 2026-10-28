@@ -359,7 +359,7 @@ export const renderPageThumbnails = async (
       const rotateBtn = document.createElement('button');
       rotateBtn.className =
         'rotate-btn btn bg-gray-700 hover:bg-gray-600 p-1.5 rounded-md text-gray-200 transition-colors flex-shrink-0';
-      rotateBtn.title = 'Rotate +90°';
+      rotateBtn.title = t('msg.ui.rotate90');
       rotateBtn.innerHTML = '<i data-lucide="rotate-cw" class="w-4 h-4"></i>';
       rotateBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -418,7 +418,7 @@ export const renderPageThumbnails = async (
       useLazyLoading: true,
       lazyLoadMargin: '300px',
       onProgress: (current, total) => {
-        showLoader(`Rendering page previews: ${current}/${total}`);
+        showLoader(t('msg.ui.renderingPagePreviews', { current, total }));
       },
       onBatchComplete: () => {
         createIcons({ icons });

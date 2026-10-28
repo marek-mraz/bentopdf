@@ -390,8 +390,8 @@ function renderChangeList() {
   if (!comparison || visibleChanges.length === 0) {
     emptyState.textContent =
       comparison?.status === 'match'
-        ? 'No differences detected on this page.'
-        : 'No changes match the current filter.';
+        ? t('tools:comparePdfs.noDifferences')
+        : t('tools:comparePdfs.noMatchingChanges');
     emptyState.classList.remove('hidden');
     list.classList.add('hidden');
     prevChangeBtn.disabled = true;
@@ -498,7 +498,10 @@ async function buildPagePairs() {
     pageState.pdfDoc1,
     function (pageNumber, totalPages) {
       showLoader(
-        `Indexing PDF 1 page ${pageNumber} of ${totalPages}...`,
+        t('tools:comparePdfs.msg.indexingPdf1PageOf', {
+          pageNumber,
+          totalPages,
+        }),
         (pageNumber / Math.max(totalPages * 2, 1)) * 100
       );
     }
@@ -507,7 +510,10 @@ async function buildPagePairs() {
     pageState.pdfDoc2,
     function (pageNumber, totalPages) {
       showLoader(
-        `Indexing PDF 2 page ${pageNumber} of ${totalPages}...`,
+        t('tools:comparePdfs.msg.indexingPdf2PageOf', {
+          pageNumber,
+          totalPages,
+        }),
         50 + (pageNumber / Math.max(totalPages * 2, 1)) * 100
       );
     }
@@ -559,7 +565,10 @@ async function renderBothPages() {
   const gen = ++renderGeneration;
 
   showLoader(
-    `Loading comparison ${pageState.currentPage} of ${pageState.pagePairs.length}...`
+    t('tools:comparePdfs.loadingComparison', {
+      current: pageState.currentPage,
+      total: pageState.pagePairs.length,
+    })
   );
 
   const canvas1 = getElement<HTMLCanvasElement>(
@@ -748,7 +757,9 @@ async function handleFileInput(
       hideLoader();
       const result = await loadPdfWithPasswordPrompt(file);
       if (!result) return;
-      showLoader(`Loading ${result.file.name}...`);
+      showLoader(
+        t('tools:comparePdfs.loadingFile', { name: result.file.name })
+      );
       pageState[docKey] = result.pdf;
       caches.pageModelCache.clear();
       caches.comparisonCache.clear();

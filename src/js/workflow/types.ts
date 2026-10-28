@@ -1,6 +1,8 @@
 import type { PDFDocument } from 'pdf-lib';
 import { wfError } from './errors';
 
+import { t } from '../i18n/i18n.js';
+
 export interface PDFData {
   type: 'pdf';
   document: PDFDocument;
@@ -106,7 +108,7 @@ export function requirePdfInput(
   nodeName: string
 ): SocketData[] {
   if (!inputs['pdf']?.[0])
-    throw new WorkflowError('No PDF connected', nodeName);
+    throw new WorkflowError(t('msg.types.noPdfConnected'), nodeName);
   return inputs['pdf'];
 }
 

@@ -233,7 +233,7 @@ async function convert() {
     const { pdf } = result;
 
     if (pdf.numPages === 0) {
-      throw new Error('PDF has no pages');
+      throw new Error(t('tools:pdfToCbz.msg.pdfHasNoPages'));
     }
 
     const zip = new JSZip();

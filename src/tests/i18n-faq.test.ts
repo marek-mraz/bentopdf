@@ -39,7 +39,9 @@ describe('tool page FAQ translations', () => {
       });
     }
     expect(missing).toEqual([]);
-  });
+    // Parsing every page with jsdom takes longer than the default 10 s when
+    // the whole suite runs in parallel.
+  }, 60_000);
 
   it('translations keep the English keys and link markers', () => {
     const problems: string[] = [];

@@ -1,6 +1,8 @@
 import { WasmProvider } from './wasm-provider';
 import type { WindowWithCoherentPdf, CpdfInstance } from '@/types';
 
+import { t } from '../i18n/i18n.js';
+
 let cpdfLoaded = false;
 let cpdfLoadPromise: Promise<void> | null = null;
 
@@ -27,7 +29,7 @@ export async function isCpdfLoaded(): Promise<void> {
   const cpdfUrl = getCpdfUrl();
   if (!cpdfUrl) {
     throw new Error(
-      'CoherentPDF is not configured. Please configure it in WASM Settings.'
+      t('msg.cpdfHelper.coherentpdfIsNotConfiguredPleaseConfigur')
     );
   }
 

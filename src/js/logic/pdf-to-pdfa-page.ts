@@ -76,10 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdfDoc.numPages} pages`;
+          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+            size: formatBytes(file.size),
+            count: pdfDoc.numPages,
+          });
         } catch (error) {
           console.error('Error loading PDF:', error);
-          metaSpan.textContent = `${formatBytes(file.size)} • Could not load page count`;
+          metaSpan.textContent = t(
+            'tools:pdfToPdfa.msg.couldNotLoadPageCount',
+            { value: formatBytes(file.size) }
+          );
         }
       }
 
@@ -164,7 +170,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${originalFile.name} to ${level}.`,
+          t('tools:pdfToPdfa.msg.successfullyConvertedTo', {
+            name: originalFile.name,
+            level,
+          }),
           'success',
           () => resetState()
         );
@@ -177,7 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            `Converting ${i + 1}/${state.files.length}: ${file.name}...`
+            t('tools:pdfToPdfa.msg.converting', {
+              value: i + 1,
+              count: state.files.length,
+              name: file.name,
+            })
           );
 
           const convertedBlob = await convertFileToPdfA(file, level, (msg) =>
@@ -201,7 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${state.files.length} PDF(s) to ${level}.`,
+          t('tools:pdfToPdfa.msg.successfullyConvertedPdfSTo', {
+            count: state.files.length,
+            level,
+          }),
           'success',
           () => resetState()
         );
@@ -210,7 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during conversion. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:pdfToPdfa.msg.anErrorOccurredDuringConversionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

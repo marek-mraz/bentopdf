@@ -73,9 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdfDoc.numPages} pages`;
+          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+            size: formatBytes(file.size),
+            count: pdfDoc.numPages,
+          });
         } catch {
-          metaSpan.textContent = `${formatBytes(file.size)} • Could not load page count`;
+          metaSpan.textContent = t(
+            'tools:pdfToMarkdown.msg.couldNotLoadPageCount',
+            { value: formatBytes(file.size) }
+          );
         }
       }
 
@@ -115,7 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (state.files.length === 1) {
         const file = state.files[0];
-        showLoader(`Converting ${file.name}...`);
+        showLoader(
+          t('tools:pdfToMarkdown.msg.converting', { name: file.name })
+        );
 
         const markdown = await pymupdf.pdfToMarkdown(file, { includeImages });
         const outName = file.name.replace(/\.pdf$/i, '') + '.md';
@@ -126,7 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${file.name} to Markdown.`,
+          t('tools:pdfToMarkdown.msg.successfullyConvertedToMarkdown', {
+            name: file.name,
+          }),
           'success',
           () => resetState()
         );
@@ -138,7 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            `Converting ${i + 1}/${state.files.length}: ${file.name}...`
+            t('tools:pdfToMarkdown.msg.converting2', {
+              value: i + 1,
+              count: state.files.length,
+              name: file.name,
+            })
           );
 
           const markdown = await pymupdf.pdfToMarkdown(file, { includeImages });
@@ -155,7 +169,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${state.files.length} PDF(s) to Markdown.`,
+          t('tools:pdfToMarkdown.msg.successfullyConvertedPdfSToMarkdown', {
+            count: state.files.length,
+          }),
           'success',
           () => resetState()
         );
@@ -164,7 +180,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during conversion. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:pdfToMarkdown.msg.anErrorOccurredDuringConversionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

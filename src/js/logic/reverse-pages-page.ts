@@ -122,7 +122,13 @@ async function reversePages() {
 
     for (let j = 0; j < validFiles.length; j++) {
       const file = validFiles[j];
-      showLoader(`Reversing ${file.name} (${j + 1}/${validFiles.length})...`);
+      showLoader(
+        t('tools:reversePages.msg.reversing', {
+          name: file.name,
+          value: j + 1,
+          count: validFiles.length,
+        })
+      );
 
       const newPdfBytes = await reverseSingleFile(file);
       const zipEntryName = deduplicateFileName(file.name, usedNames);

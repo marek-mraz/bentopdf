@@ -115,7 +115,12 @@ async function convert() {
       } else {
         const zip = new JSZip();
         for (let i = 0; i < pageCount; i++) {
-          showLoader(`Converting page ${i + 1} of ${pageCount}...`);
+          showLoader(
+            t('tools:pdfToSvg.msg.convertingPageOf', {
+              value: i + 1,
+              pageCount,
+            })
+          );
           const page = doc.getPage(i);
           const svgContent = page.toSvg();
           zip.file(`page_${i + 1}.svg`, svgContent);
@@ -125,7 +130,7 @@ async function convert() {
         downloadFile(zipBlob, `${baseName}_svg.zip`);
         showAlert(
           t('common.success'),
-          `Converted ${pageCount} pages to SVG!`,
+          t('tools:pdfToSvg.msg.convertedPagesToSvg', { pageCount }),
           'success',
           () => resetState()
         );
@@ -136,14 +141,24 @@ async function convert() {
 
       for (let f = 0; f < files.length; f++) {
         const file = files[f];
-        showLoader(`Processing file ${f + 1} of ${files.length}...`);
+        showLoader(
+          t('tools:pdfToSvg.msg.processingFileOf', {
+            value: f + 1,
+            count: files.length,
+          })
+        );
         const doc = await pymupdf.open(file);
         const pageCount = doc.pageCount;
         const baseName = file.name.replace(/\.[^/.]+$/, '');
 
         for (let i = 0; i < pageCount; i++) {
           showLoader(
-            `File ${f + 1}/${files.length}: Page ${i + 1}/${pageCount}`
+            t('tools:pdfToSvg.msg.filePage', {
+              value: f + 1,
+              count: files.length,
+              value2: i + 1,
+              pageCount,
+            })
           );
           const page = doc.getPage(i);
           const svgContent = page.toSvg();
@@ -161,7 +176,10 @@ async function convert() {
       downloadFile(zipBlob, 'pdf_to_svg.zip');
       showAlert(
         t('common.success'),
-        `Converted ${files.length} files (${totalPages} pages) to SVG!`,
+        t('tools:pdfToSvg.msg.convertedFilesPagesToSvg', {
+          count: files.length,
+          totalPages,
+        }),
         'success',
         () => resetState()
       );
@@ -169,7 +187,10 @@ async function convert() {
   } catch (e) {
     console.error(e);
     const message = e instanceof Error ? e.message : 'Unknown error';
-    showAlert(t('common.error'), `Failed to convert PDF to SVG. ${message}`);
+    showAlert(
+      t('common.error'),
+      t('tools:pdfToSvg.msg.failedToConvertPdfToSvg', { error: message })
+    );
   } finally {
     hideLoader();
   }

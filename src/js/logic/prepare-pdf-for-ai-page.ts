@@ -71,10 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdfDoc.numPages} pages`;
+          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+            size: formatBytes(file.size),
+            count: pdfDoc.numPages,
+          });
         } catch (error) {
           console.error('Error loading PDF:', error);
-          metaSpan.textContent = `${formatBytes(file.size)} • Could not load page count`;
+          metaSpan.textContent = t(
+            'tools:preparePdfForAi.msg.couldNotLoadPageCount',
+            { value: formatBytes(file.size) }
+          );
         }
       }
 
@@ -116,7 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (total === 1) {
         const file = state.files[0];
-        showLoader(`Extracting ${file.name} for AI...`);
+        showLoader(
+          t('tools:preparePdfForAi.msg.extractingForAi', { name: file.name })
+        );
 
         const llamaDocs = await (pymupdf as PyMuPDFInstance).pdfToLlamaIndex(
           file
@@ -144,7 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
           try {
             const file = state.files[fi];
             showLoader(
-              `Extracting ${file.name} for AI (${completed + 1}/${total})...`
+              t('tools:preparePdfForAi.msg.extractingForAi2', {
+                name: file.name,
+                value: completed + 1,
+                total,
+              })
             );
 
             const llamaDocs = await (
@@ -172,14 +184,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (failed === 0) {
           showAlert(
             t('alert.extractionComplete'),
-            `Successfully extracted ${completed} PDF(s) for AI/LLM use.`,
+            t('tools:preparePdfForAi.msg.successfullyExtractedPdfSForAi', {
+              completed,
+            }),
             'success',
             () => resetState()
           );
         } else {
           showAlert(
             t('tools:preparePdfForAi.alert.extractionPartial'),
-            `Extracted ${completed} PDF(s), failed ${failed}.`,
+            t('tools:preparePdfForAi.msg.extractedPdfSFailed', {
+              completed,
+              failed,
+            }),
             'warning',
             () => resetState()
           );
@@ -189,7 +206,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during extraction. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:preparePdfForAi.msg.anErrorOccurredDuringExtractionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

@@ -8,6 +8,8 @@ import { getWasmBaseUrl, isWasmAvailable } from '../config/wasm-cdn-config.js';
 import { PDFDict, PDFName, PDFArray } from 'pdf-lib';
 import { loadPdfDocument } from './load-pdf-document.js';
 
+import { t } from '../i18n/i18n.js';
+
 interface GhostscriptModule {
   FS: {
     writeFile(path: string, data: Uint8Array | string): void;
@@ -69,11 +71,11 @@ export async function convertToPdfA(
 ): Promise<Uint8Array> {
   if (!isWasmAvailable('ghostscript')) {
     throw new Error(
-      'Ghostscript is not configured. Please configure it in WASM Settings.'
+      t('msg.ghostscriptLoader.ghostscriptIsNotConfiguredPleaseConfigur')
     );
   }
 
-  onProgress?.('Loading Ghostscript...');
+  onProgress?.(t('msg.ghostscriptLoader.loadingGhostscript'));
 
   let gs: GhostscriptModule;
 
@@ -98,7 +100,7 @@ export async function convertToPdfA(
   gs.FS.writeFile(inputPath, pdfData);
   console.log('[Ghostscript] Input file size:', pdfData.length);
 
-  onProgress?.(`Converting to ${level}...`);
+  onProgress?.(t('msg.ghostscriptLoader.convertingTo', { level }));
 
   try {
     const iccFileName = 'sRGB_IEC61966-2-1_no_black_scaling.icc';
@@ -262,7 +264,9 @@ export async function convertToPdfA(
   }
 
   if (level !== 'PDF/A-1b') {
-    onProgress?.('Post-processing for transparency compliance...');
+    onProgress?.(
+      t('msg.ghostscriptLoader.postProcessingForTransparencyCompliance')
+    );
     console.log(
       '[Ghostscript] Adding Group dictionaries to pages for transparency compliance...'
     );
@@ -395,11 +399,11 @@ export async function convertFontsToOutlines(
 ): Promise<Uint8Array> {
   if (!isWasmAvailable('ghostscript')) {
     throw new Error(
-      'Ghostscript is not configured. Please configure it in WASM Settings.'
+      t('msg.ghostscriptLoader.ghostscriptIsNotConfiguredPleaseConfigur')
     );
   }
 
-  onProgress?.('Loading Ghostscript...');
+  onProgress?.(t('msg.ghostscriptLoader.loadingGhostscript'));
 
   let gs: GhostscriptModule;
 
@@ -415,7 +419,7 @@ export async function convertFontsToOutlines(
 
   gs.FS.writeFile(inputPath, pdfData);
 
-  onProgress?.('Converting fonts to outlines...');
+  onProgress?.(t('msg.ghostscriptLoader.convertingFontsToOutlines'));
 
   const args = [
     '-dSAFER',

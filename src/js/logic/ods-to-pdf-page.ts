@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.files.length === 0) {
       showAlert(
         t('alert.noFiles'),
-        `Please select at least one ${FILETYPE_NAME} file.`
+        t('tools:odsToPdf.msg.pleaseSelectAtLeastOneFile', { FILETYPE_NAME })
       );
       return;
     }
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (state.files.length === 1) {
         const file = state.files[0];
-        showLoader(`Converting ${file.name}...`);
+        showLoader(t('tools:odsToPdf.msg.converting', { name: file.name }));
         const pdfBlob = await converter.convertToPdf(file);
 
         const baseName = file.name.replace(/\.[^/.]+$/, '');
@@ -114,7 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLoader();
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${file.name} to PDF.`,
+          t('tools:odsToPdf.msg.successfullyConvertedToPdf', {
+            name: file.name,
+          }),
           'success',
           () => resetState()
         );
@@ -126,7 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            `Converting ${i + 1}/${state.files.length}: ${file.name}...`
+            t('tools:odsToPdf.msg.converting2', {
+              value: i + 1,
+              count: state.files.length,
+              name: file.name,
+            })
           );
           const pdfBlob = await converter.convertToPdf(file);
 
@@ -140,7 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLoader();
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${state.files.length} files to PDF.`,
+          t('tools:odsToPdf.msg.successfullyConvertedFilesToPdf', {
+            count: state.files.length,
+          }),
           'success',
           () => resetState()
         );
@@ -151,7 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
         t('common.error'),
-        `An error occurred during conversion. Error: ${message}`
+        t('tools:odsToPdf.msg.anErrorOccurredDuringConversionError', {
+          error: message,
+        })
       );
     }
   };

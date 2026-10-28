@@ -3,6 +3,8 @@ import forge from 'node-forge';
 import { CertificateData, SignPdfOptions } from '@/types';
 import { isValidTsaRequestUrl } from '../config/timestamp-tsa.js';
 
+import { t } from '../i18n/i18n.js';
+
 export function parsePfxFile(
   pfxBytes: ArrayBuffer,
   password: string
@@ -19,17 +21,19 @@ export function parsePfxFile(
   const keyBagArray = keyBags[forge.pki.oids.pkcs8ShroudedKeyBag];
 
   if (!certBagArray || certBagArray.length === 0) {
-    throw new Error('No certificate found in PFX file');
+    throw new Error(t('tools:digitalSignPdf.msg.noCertificateFoundInPfxFile'));
   }
 
   if (!keyBagArray || keyBagArray.length === 0) {
-    throw new Error('No private key found in PFX file');
+    throw new Error(t('tools:digitalSignPdf.msg.noPrivateKeyFoundInPfx'));
   }
 
   const certificate = certBagArray[0].cert;
 
   if (!certificate) {
-    throw new Error('Failed to extract certificate from PFX file');
+    throw new Error(
+      t('tools:digitalSignPdf.msg.failedToExtractCertificateFromPfx')
+    );
   }
 
   return { p12Buffer: pfxBytes, password, certificate };
@@ -45,11 +49,13 @@ export function parsePemFiles(
   let privateKey: forge.pki.PrivateKey;
   if (keyPem.includes('ENCRYPTED')) {
     if (!keyPassword) {
-      throw new Error('Password required for encrypted private key');
+      throw new Error(
+        t('tools:digitalSignPdf.msg.passwordRequiredForEncryptedPrivateKey')
+      );
     }
     privateKey = forge.pki.decryptRsaPrivateKey(keyPem, keyPassword);
     if (!privateKey) {
-      throw new Error('Failed to decrypt private key');
+      throw new Error(t('tools:digitalSignPdf.msg.failedToDecryptPrivateKey'));
     }
   } else {
     privateKey = forge.pki.privateKeyFromPem(keyPem);
@@ -83,11 +89,11 @@ export function parseCombinedPem(
   );
 
   if (!certMatch) {
-    throw new Error('No certificate found in PEM file');
+    throw new Error(t('tools:digitalSignPdf.msg.noCertificateFoundInPemFile'));
   }
 
   if (!keyMatch) {
-    throw new Error('No private key found in PEM file');
+    throw new Error(t('tools:digitalSignPdf.msg.noPrivateKeyFoundInPem'));
   }
 
   return parsePemFiles(certMatch[0], keyMatch[0], password);
@@ -378,7 +384,7 @@ export async function timestampPdf(
 ): Promise<Uint8Array> {
   if (!isValidTsaRequestUrl(tsaUrl)) {
     throw new Error(
-      `Invalid TSA URL. The timestamp authority must be a valid http:// or https:// URL.`
+      t('tools:digitalSignPdf.msg.invalidTsaUrlTheTimestampAuthority')
     );
   }
 
@@ -388,10 +394,7 @@ export async function timestampPdf(
 
   if (pageIsHttps && tsaIsHttp && !CORS_PROXY_URL) {
     throw new Error(
-      `This TSA endpoint uses HTTP (${tsaUrl}). The browser blocks insecure ` +
-        `requests from this HTTPS page. Either choose a TSA with an HTTPS ` +
-        `endpoint or configure VITE_CORS_PROXY_URL at build time so the ` +
-        `request can be relayed through your proxy.`
+      t('tools:digitalSignPdf.msg.thisTsaEndpointUsesHttpThe', { tsaUrl })
     );
   }
 

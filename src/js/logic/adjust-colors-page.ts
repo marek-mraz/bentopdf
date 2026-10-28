@@ -184,7 +184,12 @@ async function processAllPages(): Promise<void> {
     const newPdfDoc = await PDFDocument.create();
 
     for (let i = 1; i <= doc.numPages; i++) {
-      showLoader(`Processing page ${i} of ${doc.numPages}...`);
+      showLoader(
+        t('tools:adjustColors.msg.processingPageOf', {
+          i,
+          numPages: doc.numPages,
+        })
+      );
 
       const page = await doc.getPage(i);
       const viewport = page.getViewport({ scale: 2.0 });

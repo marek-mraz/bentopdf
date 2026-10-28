@@ -133,16 +133,21 @@ async function changePermissions() {
 
   try {
     if (loaderModal) loaderModal.classList.remove('hidden');
-    if (loaderText) loaderText.textContent = 'Initializing...';
+    if (loaderText)
+      loaderText.textContent = t('tools:ocrPdf.progressInitializing');
 
     qpdf = await initializeQpdf();
 
-    if (loaderText) loaderText.textContent = 'Reading PDF...';
+    if (loaderText)
+      loaderText.textContent = t('tools:changePermissions.msg.readingPdf');
     const fileBuffer = await readFileAsArrayBuffer(pageState.file);
     const uint8Array = new Uint8Array(fileBuffer as ArrayBuffer);
     qpdf.FS.writeFile(inputPath, uint8Array);
 
-    if (loaderText) loaderText.textContent = 'Processing PDF permissions...';
+    if (loaderText)
+      loaderText.textContent = t(
+        'tools:changePermissions.msg.processingPdfPermissions'
+      );
 
     const args = [inputPath];
 
@@ -224,11 +229,16 @@ async function changePermissions() {
       });
     }
 
-    if (loaderText) loaderText.textContent = 'Preparing download...';
+    if (loaderText)
+      loaderText.textContent = t(
+        'tools:changePermissions.msg.preparingDownload'
+      );
     const outputFile = qpdf.FS.readFile(outputPath, { encoding: 'binary' });
 
     if (!outputFile || outputFile.length === 0) {
-      throw new Error('Processing resulted in an empty file.');
+      throw new Error(
+        t('tools:changePermissions.msg.processingResultedInAnEmptyFile')
+      );
     }
 
     const blob = new Blob([new Uint8Array(outputFile)], {
@@ -265,7 +275,11 @@ async function changePermissions() {
     } else {
       showAlert(
         t('alert.processingFailed'),
-        `An error occurred: ${errorMessage || t('tools:changePermissions.alert.pdfMightCorruptedPassword')}`
+        t('tools:changePermissions.msg.anErrorOccurred', {
+          value:
+            errorMessage ||
+            t('tools:changePermissions.alert.pdfMightCorruptedPassword'),
+        })
       );
     }
   } finally {

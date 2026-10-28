@@ -93,7 +93,13 @@ async function createZipArchive() {
 
     for (let i = 0; i < pageState.files.length; i++) {
       const file = pageState.files[i];
-      showLoader(`Adding ${file.name} (${i + 1}/${pageState.files.length})...`);
+      showLoader(
+        t('tools:pdfsToZip.msg.adding', {
+          name: file.name,
+          value: i + 1,
+          count: pageState.files.length,
+        })
+      );
       const arrayBuffer = await file.arrayBuffer();
       const zipEntryName = deduplicateFileName(file.name, usedNames);
       zip.file(zipEntryName, arrayBuffer);

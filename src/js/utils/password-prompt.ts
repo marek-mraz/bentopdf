@@ -4,6 +4,8 @@ import { createIcons, icons } from 'lucide';
 import { PasswordResponses } from 'pdfjs-dist';
 import type { LoadedPdf } from '@/types';
 
+import { t } from '../i18n/i18n.js';
+
 let cachedPassword: string | null = null;
 let activeModalPromise: Promise<unknown> | null = null;
 
@@ -237,7 +239,8 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
 
   if (!input || !submitBtn || !cancelBtn) return null;
 
-  if (titleEl) titleEl.textContent = 'Password Required';
+  if (titleEl)
+    titleEl.textContent = t('tools:changePermissions.alert.passwordRequired');
   if (subtitleEl) subtitleEl.textContent = file.name;
   if (errorEl) {
     errorEl.textContent = '';
@@ -285,7 +288,7 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
       const password = input.value;
       if (!password) {
         if (errorEl) {
-          errorEl.textContent = 'Please enter a password';
+          errorEl.textContent = t('msg.passwordPrompt.pleaseEnterAPassword');
           errorEl.classList.remove('hidden');
         }
         return;
@@ -296,7 +299,7 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
       submitBtn.disabled = true;
       cancelBtn.disabled = true;
       if (progressEl) {
-        progressEl.textContent = 'Validating...';
+        progressEl.textContent = t('msg.passwordPrompt.validating');
         progressEl.classList.remove('hidden');
       }
 
@@ -310,13 +313,16 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
         input.value = '';
         input.focus();
         if (errorEl) {
-          errorEl.textContent = 'Incorrect password. Please try again.';
+          errorEl.textContent = t(
+            'msg.passwordPrompt.incorrectPasswordPleaseTryAgain'
+          );
           errorEl.classList.remove('hidden');
         }
         return;
       }
 
-      if (progressEl) progressEl.textContent = 'Decrypting...';
+      if (progressEl)
+        progressEl.textContent = t('msg.passwordPrompt.decrypting');
 
       try {
         const decrypted = await decryptFileWithPassword(file, password);
@@ -329,8 +335,9 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
         cancelBtn.disabled = false;
         if (progressEl) progressEl.classList.add('hidden');
         if (errorEl) {
-          errorEl.textContent =
-            'Failed to decrypt. Try the Decrypt tool instead.';
+          errorEl.textContent = t(
+            'msg.passwordPrompt.failedToDecryptTryTheDecrypt'
+          );
           errorEl.classList.remove('hidden');
         }
       }
@@ -450,7 +457,9 @@ export async function promptAndDecryptBatch(
   }
 
   if (titleEl)
-    titleEl.textContent = `${fileNames.length} Files Need a Password`;
+    titleEl.textContent = t('msg.passwordPrompt.filesNeedAPassword', {
+      count: fileNames.length,
+    });
 
   samePwCheckbox.checked = true;
   sharedInput.value = '';
@@ -485,7 +494,7 @@ export async function promptAndDecryptBatch(
     progressEl.classList.add('hidden');
   }
   submitBtn.disabled = false;
-  submitBtn.textContent = 'Unlock All';
+  submitBtn.textContent = t('msg.passwordPrompt.unlockAll');
   submitBtn.dataset.originalText = 'Unlock All';
   cancelBtn.disabled = false;
 
@@ -510,7 +519,9 @@ export async function promptAndDecryptBatch(
 
     function updateButtons(autoClose = false) {
       const hasSucceeded = succeededSet.size > 0;
-      cancelBtn.textContent = hasSucceeded ? 'Skip Remaining' : 'Skip All';
+      cancelBtn.textContent = hasSucceeded
+        ? t('msg.passwordPrompt.skipRemaining')
+        : t('msg.passwordPrompt.skipAll');
 
       const remaining = getRemainingCount();
       if (autoClose && remaining === 0) {
@@ -519,7 +530,9 @@ export async function promptAndDecryptBatch(
       }
 
       if (hasSucceeded) {
-        submitBtn.textContent = `Unlock Remaining (${remaining})`;
+        submitBtn.textContent = t('msg.passwordPrompt.unlockRemaining', {
+          remaining,
+        });
         submitBtn.dataset.originalText = submitBtn.textContent;
       }
     }
@@ -596,7 +609,7 @@ export async function promptAndDecryptBatch(
         const pwInput =
           row.querySelector<HTMLInputElement>('input[data-pw-idx]');
         if (pwInput) pwInput.disabled = false;
-        btn.title = 'Skip this file';
+        btn.title = t('msg.passwordPrompt.skipThisFile');
       } else {
         skippedSet.add(idx);
         row.classList.add('opacity-40');
@@ -604,7 +617,7 @@ export async function promptAndDecryptBatch(
         const pwInput =
           row.querySelector<HTMLInputElement>('input[data-pw-idx]');
         if (pwInput) pwInput.disabled = true;
-        btn.title = 'Include this file';
+        btn.title = t('msg.passwordPrompt.includeThisFile');
       }
       updateButtons(true);
     }
@@ -678,7 +691,11 @@ export async function promptAndDecryptBatch(
         const realIdx = encryptedIndices[localIdx];
 
         if (progressEl) {
-          progressEl.textContent = `Validating ${i + 1} of ${toProcess.length}: ${files[realIdx].name}`;
+          progressEl.textContent = t('msg.passwordPrompt.validatingOf', {
+            value: i + 1,
+            count: toProcess.length,
+            name: files[realIdx].name,
+          });
           progressEl.classList.remove('hidden');
         }
 
@@ -694,7 +711,11 @@ export async function promptAndDecryptBatch(
         }
 
         if (progressEl) {
-          progressEl.textContent = `Decrypting ${i + 1} of ${toProcess.length}: ${files[realIdx].name}`;
+          progressEl.textContent = t('msg.passwordPrompt.decryptingOf', {
+            value: i + 1,
+            count: toProcess.length,
+            name: files[realIdx].name,
+          });
         }
 
         try {
@@ -717,7 +738,9 @@ export async function promptAndDecryptBatch(
 
       if (failedNames.length > 0) {
         if (errorEl) {
-          errorEl.textContent = `Wrong password for: ${failedNames.join(', ')}`;
+          errorEl.textContent = t('msg.passwordPrompt.wrongPasswordFor', {
+            value: failedNames.join(', '),
+          });
           errorEl.classList.remove('hidden');
         }
         if (!samePwCheckbox.checked) {
@@ -730,7 +753,7 @@ export async function promptAndDecryptBatch(
           sharedInput.focus();
         }
         updateButtons();
-        submitBtn.textContent = 'Retry Failed';
+        submitBtn.textContent = t('msg.passwordPrompt.retryFailed');
         return;
       }
 

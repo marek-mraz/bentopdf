@@ -109,7 +109,8 @@ async function fixPageSize() {
   const loaderModal = document.getElementById('loader-modal');
   const loaderText = document.getElementById('loader-text');
   if (loaderModal) loaderModal.classList.remove('hidden');
-  if (loaderText) loaderText.textContent = 'Standardizing pages...';
+  if (loaderText)
+    loaderText.textContent = t('tools:fixPageSize.msg.standardizingPages');
 
   try {
     const customWidth =

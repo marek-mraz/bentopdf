@@ -133,7 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${originalFile.name} to PDF.`,
+          t('tools:wordToPdf.msg.successfullyConvertedToPdf', {
+            name: originalFile.name,
+          }),
           'success',
           () => resetState()
         );
@@ -154,7 +156,11 @@ document.addEventListener('DOMContentLoaded', () => {
             file.name
           );
           showLoader(
-            `Converting ${i + 1}/${state.files.length}: ${file.name}...`
+            t('tools:wordToPdf.msg.converting', {
+              value: i + 1,
+              count: state.files.length,
+              name: file.name,
+            })
           );
 
           const pdfBlob = await converter.convertToPdf(file);
@@ -182,7 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${state.files.length} Word document(s) to PDF.`,
+          t('tools:wordToPdf.msg.successfullyConvertedWordDocumentSTo', {
+            count: state.files.length,
+          }),
           'success',
           () => resetState()
         );
@@ -196,7 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during conversion. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:wordToPdf.msg.anErrorOccurredDuringConversionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

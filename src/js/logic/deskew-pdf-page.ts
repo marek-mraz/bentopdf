@@ -91,7 +91,9 @@ function updateFileDisplay(): void {
 
     const sizeSpan = document.createElement('span');
     sizeSpan.className = 'text-gray-500 text-sm';
-    sizeSpan.textContent = `(${(file.size / 1024).toFixed(1)} KB)`;
+    sizeSpan.textContent = t('tools:deskewPdf.msg.kb', {
+      value: (file.size / 1024).toFixed(1),
+    });
 
     info.append(fileIcon, nameSpan, sizeSpan);
 
@@ -182,7 +184,7 @@ async function processDeskew(): Promise<void> {
     await pdf.load();
 
     for (const file of selectedFiles) {
-      showLoader(`Deskewing ${file.name}...`);
+      showLoader(t('tools:deskewPdf.msg.deskewing', { name: file.name }));
 
       const { pdf: resultPdf, result } = await pdf.deskewPdf(file, {
         threshold,
@@ -197,14 +199,23 @@ async function processDeskew(): Promise<void> {
     hideLoader();
     showAlert(
       t('common.success'),
-      `Deskewed ${selectedFiles.length} file(s). ${selectedFiles.length > 1 ? t('tools:deskewPdf.alert.downloadsStartedAllFiles') : ''}`
+      t('tools:deskewPdf.msg.deskewedFileS', {
+        count: selectedFiles.length,
+        value:
+          selectedFiles.length > 1
+            ? t('tools:deskewPdf.alert.downloadsStartedAllFiles')
+            : '',
+      })
     );
   } catch (error) {
     hideLoader();
     console.error('Deskew error:', error);
     showAlert(
       t('common.error'),
-      `Failed to deskew PDF: ${error instanceof Error ? error.message : t('common.unknownError')}`
+      t('tools:deskewPdf.msg.failedToDeskewPdf', {
+        value:
+          error instanceof Error ? error.message : t('common.unknownError'),
+      })
     );
   }
 }

@@ -76,7 +76,13 @@ export async function repairPdf() {
 
     for (let i = 0; i < state.files.length; i++) {
       const file = state.files[i];
-      showLoader(`Repairing ${file.name} (${i + 1}/${state.files.length})...`);
+      showLoader(
+        t('tools:repairPdf.msg.repairing', {
+          name: file.name,
+          value: i + 1,
+          count: state.files.length,
+        })
+      );
 
       const repairedData = await repairPdfFile(file);
 
@@ -104,7 +110,10 @@ export async function repairPdf() {
       const failedList = failedRepairs.join(', ');
       showAlert(
         t('tools:repairPdf.alert.partialSuccess'),
-        `Repaired ${successfulRepairs.length} file(s). Failed to repair: ${failedList}`
+        t('tools:repairPdf.msg.repairedFileSFailedToRepair', {
+          count: successfulRepairs.length,
+          failedList,
+        })
       );
     }
 

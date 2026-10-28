@@ -1,5 +1,7 @@
 import heic2any from 'heic2any';
 
+import { t } from '../i18n/i18n.js';
+
 export const IMAGE_EXTENSIONS = [
   '.jpg',
   '.jpeg',
@@ -60,7 +62,10 @@ export async function preprocessImageFile(file: File): Promise<File> {
       });
     } catch (cause) {
       console.error(`Failed to convert HEIC: ${file.name}`, cause);
-      throw new Error(`Failed to process HEIC file: ${file.name}`, { cause });
+      throw new Error(
+        t('msg.imageInputUtils.failedToProcessHeicFile', { name: file.name }),
+        { cause }
+      );
     }
   }
 
@@ -101,7 +106,10 @@ export async function preprocessImageFile(file: File): Promise<File> {
       });
     } catch (cause) {
       console.error(`Failed to convert WebP: ${file.name}`, cause);
-      throw new Error(`Failed to process WebP file: ${file.name}`, { cause });
+      throw new Error(
+        t('msg.imageInputUtils.failedToProcessWebpFile', { name: file.name }),
+        { cause }
+      );
     }
   }
 

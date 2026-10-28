@@ -24,6 +24,19 @@
     "subtitle": "Merge, Split, Organize, Delete, Rotate, Add Blank Pages, Extract and Duplicate in a unified interface.",
     "ui": {
       "closeFaq": "Close FAQ"
+    },
+    "msg": {
+      "repairing": "Repairing {{name}}...",
+      "failedToInsertPdfTheFile": "Failed to insert PDF. The file may be corrupted.",
+      "noSelection": "No Selection",
+      "pleaseSelectPagesToRotate": "Please select pages to rotate.",
+      "pleaseSelectPagesToDuplicate": "Please select pages to duplicate.",
+      "pleaseSelectPagesToMarkFor": "Please select pages to mark for splitting.",
+      "pleaseUploadPdfsFirst": "Please upload PDFs first.",
+      "downloadedPdfFilesInAZip": "Downloaded {{count}} PDF files in a ZIP archive.",
+      "failedToCreateSplitPdfs": "Failed to create split PDFs.",
+      "pdfDownloadedSuccessfully": "PDF downloaded successfully.",
+      "failedToCreatePdf": "Failed to create PDF."
     }
   },
   "mergePdf": {
@@ -112,6 +125,15 @@
       "viewPageThumbnailsAndSelectExactly": "View page thumbnails and select exactly which pages you want",
       "splitDownload": "Split & Download",
       "downloadExtractedPagesAsSeparatePdfs": "Download extracted pages as separate PDFs or as a ZIP file"
+    },
+    "msg": {
+      "renderingPagePreviews": "Rendering page previews: {{current}}/{{total}}",
+      "chooseAValidPageRange": "Choose a valid page range.",
+      "pleaseSelectEvenOrOddPages": "Please select even or odd pages.",
+      "noBookmarksFoundAtTheSelected": "No bookmarks found at the selected level.",
+      "nMustBeAtLeast1": "N must be at least 1.",
+      "noPagesWereSelectedForSplitting": "No pages were selected for splitting.",
+      "thePdfHasPagesWhichIs": "The PDF has {{totalPages}} pages, which is not evenly divisible by {{nValue}}. The last PDF will contain {{remainder}} page(s)."
     }
   },
   "compressPdf": {
@@ -268,6 +290,23 @@
       "preserveConformanceHelp": "Keeps a PDF/A file conformant. Brotli and rasterizing are skipped while this is on.",
       "brotli": "Brotli compression (PDF 2.0)",
       "brotliHelp": "Smaller files, but only readers with Brotli support can open them, such as Firefox, MuPDF 1.26+ and Ghostscript 10.06+."
+    },
+    "msg": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "thatPasswordDidNotOpenAny": "That password did not open any of the remaining files.",
+      "unlockedOfFiles": "Unlocked {{unlocked}} of {{count}} files.",
+      "passwordForAllLockedFiles": "Password for all locked files",
+      "compressingTo": "Compressing to {{value}}...",
+      "isDigitallySignedSoItWas": "{{name}} is digitally signed, so it was left as it is. Compressing it would break the signature. To compress it anyway, turn on Override content protection under Custom Settings; its signatures will be removed.",
+      "itWasPasswordProtectedSoThe": "{{error}} It was password protected, so the compressed copy has no password. Use Protect PDF to add one again.",
+      "compressing": "Compressing {{value}}/{{count}}: {{name}}...",
+      "noneOfTheFilesCouldBe": "None of the files could be compressed: {{value}}.",
+      "isPasswordProtectedEnterItsPassword": "{{name}} is password protected. Enter its password on the file card, then compress again.",
+      "theseFilesArePasswordProtectedEnter": "These files are password protected: {{value}}. Enter their passwords on the file cards, or remove them, then compress again.",
+      "anErrorOccurredDuringCompressionError": "An error occurred during compression. Error: {{value}}",
+      "isNotAValidPdfSo": "{{value}} is not a valid PDF, so it was not added.",
+      "theseFilesAreNotValidPdfs": "These files are not valid PDFs, so they were not added: {{value}}."
     }
   },
   "pdfEditor": {
@@ -288,6 +327,9 @@
     "loader": {
       "loadingPdfEditor": "Loading PDF Editor...",
       "removingRedactedTextFrom": "Removing redacted text from document data..."
+    },
+    "msg": {
+      "downloadEditedPdf": "Download Edited PDF"
     }
   },
   "editPdfText": {
@@ -441,6 +483,12 @@
       "portuguS": "Português",
       "iIiIii": "i. ii. iii.",
       "iIiIii2": "I. II. III."
+    },
+    "msg": {
+      "customZoom": "Custom Zoom",
+      "addATextBox": "Add a text box",
+      "documentProperties": "Document Properties",
+      "wasmEngineFailedToInitialize": "WASM engine failed to initialize"
     }
   },
   "jpgToPdf": {
@@ -481,6 +529,11 @@
       "applyToAllPages": "Apply to all pages",
       "cropDownload": "Crop & Download",
       "page1Of1": "Page 1 of 1"
+    },
+    "msg": {
+      "renderingPage": "Rendering Page {{num}}...",
+      "pageOf": "Page {{currentPageNum}} of {{numPages}}",
+      "processingPageOf": "Processing page {{pageNum}} of {{totalPages}}..."
     }
   },
   "extractPages": {
@@ -499,6 +552,9 @@
       "enterPagesToExtract": "Enter pages to extract (e.g., 2, 4-6, 9):",
       "pageRangePlaceholder": "e.g., 2, 4-6, 9",
       "extractDownloadZip": "Extract & Download ZIP"
+    },
+    "msg": {
+      "extractedPageSSuccessfully": "Extracted {{count}} page(s) successfully!"
     }
   },
   "duplicateOrganize": {
@@ -526,6 +582,12 @@
       "pageOrderCommaSeparated": "Page Order (comma-separated)",
       "pageRangePlaceholder": "e.g., 3,1,4,2",
       "applyOrder": "Apply Order"
+    },
+    "msg": {
+      "theNumberOfPagesSpecifiedDoes": "The number of pages specified ({{count}}) does not match the current number of pages in the document ({{currentGridCount}}). Please provide a complete ordering for all pages.",
+      "duplicatePage": "Duplicate Page",
+      "deletePage": "Delete Page",
+      "renderingPagePreviews": "Rendering page previews: {{current}}/{{total}}"
     }
   },
   "deletePages": {
@@ -543,6 +605,9 @@
       "enterPagesToDelete": "Enter pages to delete (e.g., 2, 4-6, 9):",
       "pageRangePlaceholder": "e.g., 2, 4-6, 9",
       "deletePagesDownload": "Delete Pages & Download"
+    },
+    "msg": {
+      "deletedPageSSuccessfully": "Deleted {{size}} page(s) successfully!"
     }
   },
   "editBookmarks": {
@@ -767,6 +832,11 @@
       "groupExhibitCaseBates": "Exhibit + Case + Bates",
       "groupCaseBates": "Case + Bates",
       "groupBatesNumberOnly": "Bates Number Only"
+    },
+    "msg": {
+      "batesNumbersAppliedSuccessfullyThrough": "Bates numbers applied successfully! ({{batesStart}} through {{value}})",
+      "fileSummary_one": "{{count}} file • {{totalPages}} total pages",
+      "fileSummary_other": "{{count}} files • {{totalPages}} total pages"
     }
   },
   "addWatermark": {
@@ -810,6 +880,13 @@
       "flattenWatermark": "Flatten watermark",
       "bakesWatermarkIntoPagePixels": "Bakes the watermark into page pixels, making it tamper-resistant. Text will no longer be selectable.",
       "confidential": "CONFIDENTIAL"
+    },
+    "msg": {
+      "pages": "{{name}} ({{value}}, {{totalPageCount}} pages)",
+      "pleaseEnterTextForTheWatermark": "Please enter text for the watermark.",
+      "pleaseSelectAnImageFileFor": "Please select an image file for the watermark.",
+      "unsupportedImagePleaseUseAPng": "Unsupported Image. Please use a PNG or JPG for the watermark.",
+      "flatteningPageOf": "Flattening page {{i}} of {{totalPages}}..."
     }
   },
   "headerFooter": {
@@ -835,6 +912,9 @@
       "footerCenter": "Footer Center",
       "footerRight": "Footer Right",
       "addHeaderFooter": "Add Header & Footer"
+    },
+    "msg": {
+      "invalidPageRangeSpecified": "Invalid page range specified."
     }
   },
   "invertColors": {
@@ -849,6 +929,9 @@
     },
     "ui": {
       "clickButtonBelowToInvert": "Click the button below to invert all colors in your PDF."
+    },
+    "msg": {
+      "processingPageOf": "Processing page {{i}} of {{numPages}}..."
     }
   },
   "scannerEffect": {
@@ -879,6 +962,9 @@
       "adjustSettings": "Adjust Settings",
       "customizeTheScannerEffectWithReal": "Customize the scanner effect with real-time preview",
       "saveYourScannedLookingPdfInstantly": "Save your scanned-looking PDF instantly"
+    },
+    "msg": {
+      "processingPageOf": "Processing page {{i}} of {{numPages}}..."
     }
   },
   "adjustColors": {
@@ -905,6 +991,9 @@
       "clickOrDragAndDropYour": "Click or drag and drop your PDF file to begin",
       "fineTuneColorSettingsWithReal": "Fine-tune color settings with real-time preview",
       "saveYourColorAdjustedPdfInstantly": "Save your color-adjusted PDF instantly"
+    },
+    "msg": {
+      "processingPageOf": "Processing page {{i}} of {{numPages}}..."
     }
   },
   "backgroundColor": {
@@ -933,6 +1022,9 @@
     },
     "ui": {
       "newTextColor": "New Text Color"
+    },
+    "msg": {
+      "processingPageOf": "Processing page {{i}} of {{numPages}}..."
     }
   },
   "addStamps": {
@@ -945,6 +1037,11 @@
     "ui": {
       "stampEditor": "Stamp Editor",
       "useToolbarImageStampTool": "Use the toolbar's image stamp tool to place stamps."
+    },
+    "msg": {
+      "viewerNotReadyPleaseUploadA": "Viewer not ready. Please upload a PDF and wait for it to finish loading.",
+      "couldNotAccessTheStampedPdf": "Could not access the stamped-PDF exporter. Please use the Export → PDF button in the viewer toolbar as a fallback.",
+      "couldNotExportTheStampedPdf": "Could not export the stamped PDF. Please use the Export → PDF button in the viewer toolbar as a fallback."
     }
   },
   "removeAnnotations": {
@@ -1026,6 +1123,26 @@
       "selectAFieldToEditProperties": "Select a field to edit properties",
       "page1Of1": "Page 1 of 1",
       "anErrorOccurred": "An error occurred."
+    },
+    "msg": {
+      "pleaseEnterAValidPageNumber": "Please enter a valid page number between 1 and {{count}}",
+      "item1": "Item 1",
+      "fieldNameCannotBeEmpty": "Field name cannot be empty",
+      "fieldNameConflict": "Field Name Conflict",
+      "theFollowingFieldNamesAlreadyExist": "The following field names already exist in the uploaded PDF: {{conflictList}}. Please rename these fields before downloading.",
+      "duplicateFieldNames": "Duplicate Field Names",
+      "theFollowingFieldNamesAreUsed": "The following field names are used more than once: {{duplicateList}}. Please rename these fields to use unique names before downloading.",
+      "pleaseAddAtLeastOneField": "Please add at least one field before downloading.",
+      "noPagesFoundPleaseCreateA": "No pages found. Please create a blank PDF or upload one.",
+      "yourPdfHasBeenDownloadedSuccessfully": "Your PDF has been downloaded successfully.",
+      "duplicateFieldName": "Duplicate Field Name",
+      "aFieldNamedAlreadyExistsPlease": "A field named \"{{fieldName}}\" already exists. Please rename this field to use a unique name before downloading.",
+      "errorGeneratingPdf": "Error generating PDF: {{errorMessage}}",
+      "pageOf": "Page {{value}} of {{count}}",
+      "errorLoadingPdfFilePleaseTry": "Error loading PDF file. Please try again with a valid PDF.",
+      "areYouSureYouWantTo": "Are you sure you want to reset? All your work will be lost.",
+      "fieldNameExistsInPdf": "Field name \"{{name}}\" already exists in this PDF. Please try using a unique name.",
+      "fieldNameExistsInForm": "Field name \"{{name}}\" already exists in this form. Please try using a unique name."
     }
   },
   "removeBlankPages": {
@@ -1047,6 +1164,11 @@
       "detectBlankPages": "Detect Blank Pages",
       "detectedBlankPages": "Detected Blank Pages",
       "removeSelectedBlankPages": "Remove Selected Blank Pages"
+    },
+    "msg": {
+      "foundBlankPageSClickOn": "Found {{count}} blank page(s). Click on a page to deselect it.",
+      "removingBlankPageS": "Removing {{count}} blank page(s)...",
+      "removedBlankPageSSuccessfully": "Removed {{count}} blank page(s) successfully!"
     }
   },
   "imageToPdf": {
@@ -1086,6 +1208,9 @@
     },
     "loader": {
       "creatingPdfFromSvg": "Creating PDF from SVG files..."
+    },
+    "msg": {
+      "couldNotProcessTheFileMay": "Could not process \"{{name}}\". The file may be corrupted."
     }
   },
   "bmpToPdf": {
@@ -1191,6 +1316,9 @@
       "groupIsoBSeries": "ISO B Series",
       "groupIsoCSeriesEnvelopes": "ISO C Series (Envelopes)",
       "groupNorthAmerican": "North American"
+    },
+    "msg": {
+      "failedToConvertTextToPdf": "Failed to convert text to PDF. {{value}}"
     }
   },
   "jsonToPdf": {
@@ -1356,6 +1484,9 @@
       "pickImageFormatQualityAndOptional": "Pick image format, quality, and optional metadata",
       "downloadCbz": "Download CBZ",
       "getYourCbzFileReadyFor": "Get your .cbz file ready for any comic book reader"
+    },
+    "msg": {
+      "pdfHasNoPages": "PDF has no pages"
     }
   },
   "pdfToGreyscale": {
@@ -1463,6 +1594,9 @@
       "filesOrder": "Files Order",
       "dragToReorderPagesInterleaved": "Drag to reorder. Pages will be interleaved in this order.",
       "mixPages": "Mix Pages"
+    },
+    "msg": {
+      "pdfFilesSelected": "{{count}} PDF files selected"
     }
   },
   "duplexCollate": {
@@ -1530,6 +1664,12 @@
       "pageLevel": "Page Level",
       "pageRangeTotal": "Page Range (e.g., 1,3,5-7) - Total:",
       "pages": "pages"
+    },
+    "msg": {
+      "fileSAttachedSuccessfully": "{{count}} file(s) attached successfully.",
+      "loading": "{{value}} • Loading...",
+      "reading": "Reading {{name}} ({{value}}/{{count}})...",
+      "failedToAttachFiles": "Failed to attach files: {{value}}"
     }
   },
   "extractAttachments": {
@@ -1541,6 +1681,13 @@
     },
     "loader": {
       "readingFiles": "Reading files..."
+    },
+    "msg": {
+      "attachmentSExtractedSuccessfully": "{{count}} attachment(s) extracted successfully!",
+      "extractionCompletedAttachmentSInZip": "Extraction completed! {{count}} attachment(s) in zip file ({{value}}). Download started.",
+      "pdfFileSSelected": "{{count}} PDF file(s) selected",
+      "extractingAttachmentsFromFileS": "Extracting attachments from {{count}} file(s)...",
+      "errorReadingFiles": "Error reading files: {{error}}"
     }
   },
   "editAttachments": {
@@ -1560,6 +1707,13 @@
     "ui": {
       "attachments": "Attachments",
       "saveChanges": "Save Changes"
+    },
+    "msg": {
+      "noAttachmentsFoundInThisPdf": "No attachments found in this PDF.",
+      "removeAllAttachments": "Remove All Attachments",
+      "documentLevelAttachment": "Document-level attachment",
+      "pageAttachment": "Page {{page}} attachment",
+      "removeAttachment": "Remove attachment"
     }
   },
   "dividePages": {
@@ -1587,6 +1741,10 @@
       "splitDirection": "Split Direction",
       "verticalLeftRight": "Vertical (Left & Right)",
       "horizontalTopBottom": "Horizontal (Top & Bottom)"
+    },
+    "msg": {
+      "loading": "{{value}} • Loading...",
+      "processingPageOf": "Processing page {{pageNum}} of {{count}}..."
     }
   },
   "addBlankPage": {
@@ -1604,6 +1762,17 @@
       "numberBlankPages": "Number of blank pages",
       "addBlankPages": "Add Blank Pages",
       "enter0ToInsertAtThe": "Enter 0 to insert at the beginning."
+    },
+    "msg": {
+      "loading": "{{value}} • Loading...",
+      "enter0ToInsertAtThe": "Enter 0 to insert at the beginning, or {{pageCount}} to insert at the end.",
+      "pleaseEnterANumberBetween0": "Please enter a number between 0 and {{totalPages}}.",
+      "adding_one": "Adding {{count}} blank page...",
+      "adding_other": "Adding {{count}} blank pages...",
+      "added_one": "Added {{count}} blank page successfully!",
+      "added_other": "Added {{count}} blank pages successfully!",
+      "couldNotAdd_one": "Could not add blank page.",
+      "couldNotAdd_other": "Could not add blank pages."
     }
   },
   "reversePages": {
@@ -1619,6 +1788,9 @@
     "ui": {
       "allPagesReversedFirstBecomes": "All pages will be reversed (first becomes last, last becomes first).",
       "ifUploadMultiplePdfsEach": "If you upload multiple PDFs, each will be reversed and downloaded as a ZIP file."
+    },
+    "msg": {
+      "reversing": "Reversing {{name}} ({{value}}/{{count}})..."
     }
   },
   "rotatePdf": {
@@ -1629,6 +1801,9 @@
       "left": "Left",
       "right": "Right",
       "applyRotations": "Apply Rotations"
+    },
+    "msg": {
+      "loading": "{{value}} • Loading..."
     }
   },
   "rotateCustom": {
@@ -1638,6 +1813,9 @@
       "batchRotation": "Batch Rotation",
       "applyToAll": "Apply to All",
       "applyRotations": "Apply Rotations"
+    },
+    "msg": {
+      "loading": "{{value}} • Loading..."
     }
   },
   "nUpPdf": {
@@ -1666,6 +1844,10 @@
       "borderColor": "Border Color",
       "createUpPdf": "Create N-Up PDF",
       "letter85X11": "Letter (8.5\" x 11\")"
+    },
+    "msg": {
+      "loading": "{{value}} • Loading...",
+      "processingSheet": "Processing sheet {{value}}..."
     }
   },
   "combineToSinglePage": {
@@ -1687,6 +1869,10 @@
       "separatorThickness": "Separator Thickness",
       "separatorColor": "Separator Color",
       "combinePages": "Combine Pages"
+    },
+    "msg": {
+      "loading": "{{value}} • Loading...",
+      "processingPageOf": "Processing page {{value}} of {{count}}..."
     }
   },
   "viewMetadata": {
@@ -1725,6 +1911,11 @@
       "noteCustomFieldsNotSupported": "Note: Custom fields are not supported by all PDF readers.",
       "addCustomField": "Add Custom Field",
       "saveMetadata": "Save Metadata"
+    },
+    "msg": {
+      "keyEGDepartment": "Key (e.g., Department)",
+      "valueEGMarketing": "Value (e.g., Marketing)",
+      "loading": "{{value}} • Loading..."
     }
   },
   "pdfsToZip": {
@@ -1742,6 +1933,9 @@
       "allSelectedPdfFilesPackaged": "All selected PDF files will be packaged into a single ZIP archive.",
       "fileNamesPreservedInArchive": "File names will be preserved in the archive.",
       "createZipArchive": "Create ZIP Archive"
+    },
+    "msg": {
+      "adding": "Adding {{name}} ({{value}}/{{count}})..."
     }
   },
   "comparePdfs": {
@@ -1803,6 +1997,10 @@
       "annotations": "Annotations",
       "formatting": "Formatting",
       "backgrounds": "Backgrounds"
+    },
+    "msg": {
+      "indexingPdf1PageOf": "Indexing PDF 1 page {{pageNumber}} of {{totalPages}}...",
+      "indexingPdf2PageOf": "Indexing PDF 2 page {{pageNumber}} of {{totalPages}}..."
     }
   },
   "posterizePdf": {
@@ -1862,6 +2060,9 @@
       "letter8511In": "Letter (8.5 × 11 in)",
       "legal8514In": "Legal (8.5 × 14 in)",
       "tabloid1117In": "Tabloid (11 × 17 in)"
+    },
+    "msg": {
+      "standardizingPages": "Standardizing pages..."
     }
   },
   "linearizePdf": {
@@ -1878,6 +2079,13 @@
       "improvesUserExperienceOnlinePdfs": "Improves user experience for online PDFs",
       "alsoKnownFastWebView": "Also known as \"Fast Web View\" or \"Optimized\"",
       "linearizePdf": "Linearize PDF(s)"
+    },
+    "msg": {
+      "optimizingPdfsForWebViewLinearizing": "Optimizing PDFs for web view (linearizing)...",
+      "optimizing": "Optimizing {{name}} ({{value}}/{{count}})...",
+      "processingFailedFor": "Processing failed for {{name}}.",
+      "noPdfFilesCouldBeLinearized": "No PDF files could be linearized.",
+      "anErrorOccurred": "An error occurred: {{value}}."
     }
   },
   "pageDimensions": {
@@ -1916,6 +2124,15 @@
       "editingRestrictions": "Editing restrictions",
       "copyingRestrictions": "Copying restrictions",
       "allOtherSecurityLimitations": "All other security limitations"
+    },
+    "msg": {
+      "readingPdf": "Reading PDF...",
+      "removingRestrictions": "Removing restrictions...",
+      "failedToRemoveRestrictionsThePdf": "Failed to remove restrictions. The PDF may require the correct owner password.",
+      "failedToRemoveRestrictions": "Failed to remove restrictions: {{value}}",
+      "preparingDownload": "Preparing download...",
+      "operationResultedInAnEmptyFile": "Operation resulted in an empty file.",
+      "anErrorOccurred": "An error occurred: {{value}}"
     }
   },
   "repairPdf": {
@@ -1930,6 +2147,10 @@
       "partialSuccess": "Partial Success",
       "allFilesRepairedSuccessfully": "All files repaired successfully!",
       "unexpectedErrorOccurredDuring": "An unexpected error occurred during the repair process."
+    },
+    "msg": {
+      "repairing": "Repairing {{name}} ({{value}}/{{count}})...",
+      "repairedFileSFailedToRepair": "Repaired {{count}} file(s). Failed to repair: {{failedList}}"
     }
   },
   "encryptPdf": {
@@ -1958,6 +2179,11 @@
       "removeMarkinfo": "Remove MarkInfo",
       "removeEmbeddedFonts": "Remove Embedded Fonts",
       "sanitizationRemovesSensitiveContentPermanently": "Sanitization removes sensitive content permanently. Some options may affect PDF rendering."
+    },
+    "msg": {
+      "sanitizingPdf": "Sanitizing PDF...",
+      "thePdfWasDownloadedButThese": "The PDF was downloaded, but these steps could not be completed: {{value}}. The content they cover may still be in the file.",
+      "anErrorOccurredDuringSanitization": "An error occurred during sanitization: {{msg}}"
     }
   },
   "decryptPdf": {
@@ -1974,6 +2200,12 @@
       "interactiveElements": "Interactive elements",
       "noteFlattenedContentCannotEdited": "Note: Flattened content cannot be edited or filled out.",
       "flattenPdf": "Flatten PDF(s)"
+    },
+    "msg": {
+      "flatteningPdf": "Flattening PDF...",
+      "flatteningMultiplePdfs": "Flattening multiple PDFs...",
+      "flattening": "Flattening {{value}}/{{count}}: {{name}}...",
+      "processedPdfs": "Processed {{processedCount}} PDFs."
     }
   },
   "removeMetadata": {
@@ -1992,6 +2224,9 @@
       "documentIds": "Document IDs",
       "pieceinfoPrivateApplicationData": "PieceInfo (private application data)",
       "removeAllMetadata": "Remove All Metadata"
+    },
+    "msg": {
+      "removingAllMetadata": "Removing all metadata..."
     }
   },
   "changePermissions": {
@@ -2021,6 +2256,13 @@
       "allowFillingForms": "Allow Filling Forms",
       "allowDocumentAssembly": "Allow Document Assembly",
       "allowPageExtraction": "Allow Page Extraction"
+    },
+    "msg": {
+      "readingPdf": "Reading PDF...",
+      "processingPdfPermissions": "Processing PDF permissions...",
+      "preparingDownload": "Preparing download...",
+      "processingResultedInAnEmptyFile": "Processing resulted in an empty file.",
+      "anErrorOccurred": "An error occurred: {{value}}"
     }
   },
   "odtToPdf": {
@@ -2030,6 +2272,12 @@
     "convertButton": "Convert to PDF",
     "alert": {
       "selectLeastOneOdt": "Please select at least one ODT file."
+    },
+    "msg": {
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedOdtFileSTo": "Successfully converted {{count}} ODT file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "csvToPdf": {
@@ -2042,6 +2290,12 @@
     },
     "loader": {
       "preparingConversion": "Preparing conversion..."
+    },
+    "msg": {
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedCsvFileSTo": "Successfully converted {{count}} CSV file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "rtfToPdf": {
@@ -2054,6 +2308,12 @@
     },
     "loader": {
       "convertingMultipleRtfFiles": "Converting multiple RTF files to PDF..."
+    },
+    "msg": {
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedRtfFileSTo": "Successfully converted {{count}} RTF file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "wordToPdf": {
@@ -2079,6 +2339,13 @@
       "seeYourConvertedPdfWithPreserved": "See your converted PDF with preserved formatting",
       "downloadPdfs": "Download PDFs",
       "saveYourPdfFilesFormattingPerfectly": "Save your PDF files - formatting perfectly preserved"
+    },
+    "msg": {
+      "couldNotGenerateAPreviewThe": "Could not generate a preview. The file may be corrupt or contain unsupported features. Error: {{error}}",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedWordDocumentSTo": "Successfully converted {{count}} Word document(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "excelToPdf": {
@@ -2088,6 +2355,12 @@
     "convertButton": "Convert to PDF",
     "alert": {
       "selectLeastOneExcel": "Please select at least one Excel file."
+    },
+    "msg": {
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedExcelFileSTo": "Successfully converted {{count}} Excel file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "powerpointToPdf": {
@@ -2097,6 +2370,12 @@
     "convertButton": "Convert to PDF",
     "alert": {
       "selectLeastOnePowerpoint": "Please select at least one PowerPoint file."
+    },
+    "msg": {
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedPowerpointFileSTo": "Successfully converted {{count}} PowerPoint file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "markdownToPdf": {
@@ -2182,97 +2461,221 @@
       "groupASeriesIso216": "A Series (ISO 216)",
       "groupBSeriesIso216": "B Series (ISO 216)",
       "groupCSeriesEnvelopes": "C Series (Envelopes)"
+    },
+    "msg": {
+      "bookletCreatedWithSheets": "Booklet created with {{numSheets}} sheets!"
     }
   },
   "xpsToPdf": {
     "name": "XPS to PDF",
     "subtitle": "Convert XPS/OXPS documents to PDF format. Supports multiple files.",
     "acceptedFormats": "XPS, OXPS files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{TOOL_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFileSToPdf": "Successfully converted {{count}} {{TOOL_NAME}} file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+    }
   },
   "mobiToPdf": {
     "name": "MOBI to PDF",
     "subtitle": "Convert MOBI e-books to PDF format. Supports multiple files.",
     "acceptedFormats": "MOBI files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{TOOL_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFileSToPdf": "Successfully converted {{count}} {{TOOL_NAME}} file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+    }
   },
   "epubToPdf": {
     "name": "EPUB to PDF",
     "subtitle": "Convert EPUB e-books to PDF format. Supports multiple files.",
     "acceptedFormats": "EPUB files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{TOOL_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFileSToPdf": "Successfully converted {{count}} {{TOOL_NAME}} file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+    }
   },
   "fb2ToPdf": {
     "name": "FB2 to PDF",
     "subtitle": "Convert FictionBook (FB2) e-books to PDF format. Supports multiple files.",
     "acceptedFormats": "FB2 files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{TOOL_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFileSToPdf": "Successfully converted {{count}} {{TOOL_NAME}} file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+    }
   },
   "cbzToPdf": {
     "name": "CBZ to PDF",
     "subtitle": "Convert comic book archives (CBZ/CBR) to PDF format. Supports multiple files.",
     "acceptedFormats": "CBZ, CBR files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "archiveHasTooManyImagesMax": "Archive has too many images (max {{MAX_CBZ_PAGES}}).",
+      "archiveContainsAnOversizedImageEntry": "Archive contains an oversized image entry.",
+      "archiveIsTooLargeWhenDecompressed": "Archive is too large when decompressed.",
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{TOOL_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFileSToPdf": "Successfully converted {{count}} {{TOOL_NAME}} file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+    }
   },
   "wpdToPdf": {
     "name": "WPD to PDF",
     "subtitle": "Convert WordPerfect documents (WPD) to PDF format. Supports multiple files.",
     "acceptedFormats": "WPD files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+    }
   },
   "wpsToPdf": {
     "name": "WPS to PDF",
     "subtitle": "Convert WPS Office documents to PDF format. Supports multiple files.",
     "acceptedFormats": "WPS files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+    }
   },
   "xmlToPdf": {
     "name": "XML to PDF",
     "subtitle": "Convert XML documents to PDF format. Supports multiple files.",
     "acceptedFormats": "XML files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "file": "File {{value}}/{{count}}: {{error}}",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{error}}"
+    }
   },
   "pagesToPdf": {
     "name": "Pages to PDF",
     "subtitle": "Convert Apple Pages documents to PDF format. Supports multiple files.",
     "acceptedFormats": "Pages files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+    }
   },
   "odgToPdf": {
     "name": "ODG to PDF",
     "subtitle": "Convert OpenDocument Graphics (ODG) files to PDF format. Supports multiple files.",
     "acceptedFormats": "ODG files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{error}}"
+    }
   },
   "odsToPdf": {
     "name": "ODS to PDF",
     "subtitle": "Convert OpenDocument Spreadsheet (ODS) files to PDF format. Supports multiple files.",
     "acceptedFormats": "ODS files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{error}}"
+    }
   },
   "odpToPdf": {
     "name": "ODP to PDF",
     "subtitle": "Convert OpenDocument Presentation (ODP) files to PDF format. Supports multiple files.",
     "acceptedFormats": "ODP files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{error}}"
+    }
   },
   "pubToPdf": {
     "name": "PUB to PDF",
     "subtitle": "Convert Microsoft Publisher (PUB) files to PDF format. Supports multiple files.",
     "acceptedFormats": "PUB files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{error}}"
+    }
   },
   "vsdToPdf": {
     "name": "VSD to PDF",
     "subtitle": "Convert Microsoft Visio (VSD, VSDX) files to PDF format. Supports multiple files.",
     "acceptedFormats": "VSD, VSDX files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFilesToPdf": "Successfully converted {{count}} files to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{error}}"
+    }
   },
   "psdToPdf": {
     "name": "PSD to PDF",
     "subtitle": "Convert Adobe Photoshop (PSD) files to PDF format. Supports multiple files.",
     "acceptedFormats": "PSD files",
-    "convertButton": "Convert to PDF"
+    "convertButton": "Convert to PDF",
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{FILETYPE_NAME}} file.",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "successfullyConvertedPsdFilesToA": "Successfully converted {{count}} PSD files to a single PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{error}}"
+    }
   },
   "pdfToSvg": {
     "name": "PDF to SVG",
@@ -2286,6 +2689,14 @@
     },
     "ui": {
       "convertToSvg": "Convert to SVG"
+    },
+    "msg": {
+      "convertingPageOf": "Converting page {{value}} of {{pageCount}}...",
+      "convertedPagesToSvg": "Converted {{pageCount}} pages to SVG!",
+      "processingFileOf": "Processing file {{value}} of {{count}}...",
+      "filePage": "File {{value}}/{{count}}: Page {{value2}}/{{pageCount}}",
+      "convertedFilesPagesToSvg": "Converted {{count}} files ({{totalPages}} pages) to SVG!",
+      "failedToConvertPdfToSvg": "Failed to convert PDF to SVG. {{error}}"
     }
   },
   "extractTables": {
@@ -2297,6 +2708,11 @@
     "ui": {
       "exportFormat": "Export Format",
       "extractTables": "Extract Tables"
+    },
+    "msg": {
+      "scanningPageOf": "Scanning page {{value}} of {{pageCount}}...",
+      "extractedTablesSuccessfully": "Extracted {{count}} tables successfully!",
+      "failedToExtractTables": "Failed to extract tables. {{error}}"
     }
   },
   "pdfToCsv": {
@@ -2307,6 +2723,10 @@
     },
     "ui": {
       "convertToCsv": "Convert to CSV"
+    },
+    "msg": {
+      "scanningPageOf": "Scanning page {{value}} of {{pageCount}}...",
+      "failedToConvertPdfToCsv": "Failed to convert PDF to CSV. {{error}}"
     }
   },
   "pdfToExcel": {
@@ -2317,6 +2737,11 @@
     },
     "ui": {
       "convertToExcel": "Convert to Excel"
+    },
+    "msg": {
+      "scanningPageOf": "Scanning page {{value}} of {{pageCount}}...",
+      "extractedTableSToExcel": "Extracted {{count}} table(s) to Excel!",
+      "failedToConvertPdfToExcel": "Failed to convert PDF to Excel. {{error}}"
     }
   },
   "pdfToText": {
@@ -2334,6 +2759,11 @@
     "loader": {
       "extractingText": "Extracting text...",
       "extractingTextFromMultiple": "Extracting text from multiple files..."
+    },
+    "msg": {
+      "extractingTextFrom": "Extracting text from {{name}}...",
+      "extractingTextFromFile": "Extracting text from file {{value}}/{{count}}: {{name}}...",
+      "extractedTextFromPdfFiles": "Extracted text from {{count}} PDF files!"
     }
   },
   "digitalSignPdf": {
@@ -2420,7 +2850,18 @@
     "applySignature": "Apply Digital Signature",
     "successMessage": "PDF signed successfully! The signature can be verified in any PDF reader.",
     "internetRequiredTitle": "Internet connection required",
-    "internetRequiredDescription": "Signing may need to fetch certificate chain information from your certificate issuer's server to validate the signature."
+    "internetRequiredDescription": "Signing may need to fetch certificate chain information from your certificate issuer's server to validate the signature.",
+    "msg": {
+      "noCertificateFoundInPfxFile": "No certificate found in PFX file",
+      "noPrivateKeyFoundInPfx": "No private key found in PFX file",
+      "failedToExtractCertificateFromPfx": "Failed to extract certificate from PFX file",
+      "passwordRequiredForEncryptedPrivateKey": "Password required for encrypted private key",
+      "failedToDecryptPrivateKey": "Failed to decrypt private key",
+      "noCertificateFoundInPemFile": "No certificate found in PEM file",
+      "noPrivateKeyFoundInPem": "No private key found in PEM file",
+      "invalidTsaUrlTheTimestampAuthority": "Invalid TSA URL. The timestamp authority must be a valid http:// or https:// URL.",
+      "thisTsaEndpointUsesHttpThe": "This TSA endpoint uses HTTP ({{tsaUrl}}). The browser blocks insecure requests from this HTTPS page. Either choose a TSA with an HTTPS endpoint or configure VITE_CORS_PROXY_URL at build time so the request can be relayed through your proxy."
+    }
   },
   "validateSignaturePdf": {
     "name": "Validate PDF Signature",
@@ -2469,6 +2910,10 @@
       "selectOneOfTheTrustedTsa": "Select one of the trusted TSA servers",
       "timestampDownload": "Timestamp & Download",
       "applyTheRfc3161TimestampAnd": "Apply the RFC 3161 timestamp and download your timestamped PDF"
+    },
+    "msg": {
+      "loadingPages": "{{value}} • Loading pages...",
+      "failedToTimestampPdfPleaseTry": "Failed to timestamp PDF: {{error}}\n\nPlease try a different TSA server or check your internet connection."
     }
   },
   "emailToPdf": {
@@ -2491,6 +2936,15 @@
       "clickOrDragAndDropYour": "Click or drag and drop your .eml or .msg file to begin",
       "clickTheConvertButtonToGenerate": "Click the convert button to generate your PDF",
       "saveYourConvertedPdfFileInstantly": "Save your converted PDF file instantly"
+    },
+    "msg": {
+      "pleaseSelectAtLeastOneFile": "Please select at least one {{TOOL_NAME}} file (.eml or .msg).",
+      "parsing": "Parsing {{name}}...",
+      "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
+      "converting": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedFileSToPdf": "Successfully converted {{count}} {{TOOL_NAME}} file(s) to PDF.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}",
+      "unsupportedFileType": "Unsupported file type: .{{ext}}"
     }
   },
   "fontToOutline": {
@@ -2507,6 +2961,12 @@
       "selectYourPdfFileWithEmbedded": "Select your PDF file with embedded fonts",
       "ghostscriptConvertsAllFontsToVector": "Ghostscript converts all fonts to vector paths",
       "getYourFontIndependentPdfInstantly": "Get your font-independent PDF instantly"
+    },
+    "msg": {
+      "convertingFontsToOutlines": "Converting fonts to outlines...",
+      "processingMultiplePdfs": "Processing multiple PDFs...",
+      "processing": "Processing {{value}}/{{count}}: {{name}}...",
+      "processedPdfs": "Processed {{processedCount}} PDFs."
     }
   },
   "deskewPdf": {
@@ -2536,6 +2996,12 @@
       "autoDetect": "Auto-Detect",
       "opencvAnalyzesAndDetectsSkewAngles": "OpenCV analyzes and detects skew angles",
       "getYourStraightenedPdfInstantly": "Get your straightened PDF instantly"
+    },
+    "msg": {
+      "kb": "({{value}} KB)",
+      "deskewing": "Deskewing {{name}}...",
+      "deskewedFileS": "Deskewed {{count}} file(s). {{value}}",
+      "failedToDeskewPdf": "Failed to deskew PDF: {{value}}"
     }
   },
   "pdfToWord": {
@@ -2543,6 +3009,14 @@
     "subtitle": "Convert PDF files to editable Word documents.",
     "ui": {
       "convertToDocx": "Convert to DOCX"
+    },
+    "msg": {
+      "couldNotLoadPageCount": "{{value}} • Could not load page count",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToDocx": "Successfully converted {{name}} to DOCX.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedPdfSToDocx": "Successfully converted {{count}} PDF(s) to DOCX.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "extractImages": {
@@ -2558,6 +3032,12 @@
     "ui": {
       "extractedImages": "Extracted Images",
       "downloadAllZip": "Download All (ZIP)"
+    },
+    "msg": {
+      "couldNotLoadPageCount": "{{value}} • Could not load page count",
+      "extractingImagesFrom": "Extracting images from {{name}}...",
+      "foundImageSInPdfS": "Found {{count}} image(s) in {{count2}} PDF(s).",
+      "anErrorOccurredDuringExtractionError": "An error occurred during extraction. Error: {{value}}"
     }
   },
   "pdfToMarkdown": {
@@ -2572,6 +3052,14 @@
     "ui": {
       "includeImagesBase64": "Include images as base64",
       "convertToMarkdown": "Convert to Markdown"
+    },
+    "msg": {
+      "couldNotLoadPageCount": "{{value}} • Could not load page count",
+      "converting": "Converting {{name}}...",
+      "successfullyConvertedToMarkdown": "Successfully converted {{name}} to Markdown.",
+      "converting2": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedPdfSToMarkdown": "Successfully converted {{count}} PDF(s) to Markdown.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "preparePdfForAi": {
@@ -2591,6 +3079,14 @@
       "pageNumberHeadingsDocumentInfo": "- Page number, headings, and document info",
       "additionalContextRagSystems": "- Additional context for RAG systems",
       "extractAi": "Extract for AI"
+    },
+    "msg": {
+      "couldNotLoadPageCount": "{{value}} • Could not load page count",
+      "extractingForAi": "Extracting {{name}} for AI...",
+      "extractingForAi2": "Extracting {{name}} for AI ({{value}}/{{total}})...",
+      "successfullyExtractedPdfSForAi": "Successfully extracted {{completed}} PDF(s) for AI/LLM use.",
+      "extractedPdfSFailed": "Extracted {{completed}} PDF(s), failed {{failed}}.",
+      "anErrorOccurredDuringExtractionError": "An error occurred during extraction. Error: {{value}}"
     }
   },
   "pdfOcg": {
@@ -2618,6 +3114,12 @@
       "layerNamePlaceholder": "Layer Name",
       "loadingLayers": "Loading layers...",
       "enterNameForTheNewLayer": "Enter name for the new layer:"
+    },
+    "msg": {
+      "couldNotLoadPageCount": "{{value}} • Could not load page count",
+      "loadingLayersFrom": "Loading layers from {{name}}...",
+      "failedToAddLayer": "Failed to add layer: {{value}}",
+      "failedToSavePdf": "Failed to save PDF: {{value}}"
     }
   },
   "pdfToPdfa": {
@@ -2636,6 +3138,13 @@
       "preFlattenPdfRecommendedComplex": "Pre-flatten PDF (recommended for complex files)",
       "convertsPdfToImagesFirst": "Converts the PDF to images first, ensuring better PDF/A compliance. Recommended if validation fails on the normal conversion.",
       "convertToPdfa": "Convert to PDF/A"
+    },
+    "msg": {
+      "couldNotLoadPageCount": "{{value}} • Could not load page count",
+      "successfullyConvertedTo": "Successfully converted {{name}} to {{level}}.",
+      "converting": "Converting {{value}}/{{count}}: {{name}}...",
+      "successfullyConvertedPdfSTo": "Successfully converted {{count}} PDF(s) to {{level}}.",
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
     }
   },
   "rasterizePdf": {
@@ -2659,6 +3168,15 @@
       "pngLossless": "PNG (Lossless)",
       "jpegSmallerFileSize": "JPEG (Smaller file size)",
       "convertToGrayscale": "Convert to Grayscale"
+    },
+    "msg": {
+      "couldNotLoadPageCount": "{{value}} • Could not load page count",
+      "rasterizing": "Rasterizing {{name}}...",
+      "successfullyRasterizedPdfAtDpi": "Successfully rasterized PDF at {{dpi}} DPI.",
+      "rasterizing2": "Rasterizing {{name}} ({{value}}/{{total}})...",
+      "successfullyRasterizedPdfSAtDpi": "Successfully rasterized {{completed}} PDF(s) at {{dpi}} DPI.",
+      "rasterizedPdfSFailed": "Rasterized {{completed}} PDF(s), failed {{failed}}.",
+      "anErrorOccurredDuringRasterizationError": "An error occurred during rasterization. Error: {{value}}"
     }
   },
   "pdfWorkflow": {
@@ -3185,6 +3703,12 @@
     },
     "ui": {
       "pageRangePlaceholder": "e.g. 1-5, 8, 10-z (leave empty for all)"
+    },
+    "msg": {
+      "applying": "Applying {{value}}...",
+      "processingProducedAnEmptyFile": "Processing produced an empty file.",
+      "pdfAppliedSuccessfully": "PDF {{modeLabel}} applied successfully.",
+      "anErrorOccurred": "An error occurred: {{value}}."
     }
   },
   "unlockPdf": {
@@ -3204,6 +3728,15 @@
       "enterPdfPasswordPlaceholder": "Enter the PDF password",
       "enterPasswordUsedToProtect": "Enter the password used to protect this PDF.",
       "decryptPdf": "Decrypt PDF"
+    },
+    "msg": {
+      "initializingDecryption": "Initializing decryption...",
+      "readingEncryptedPdf": "Reading encrypted PDF...",
+      "decryptingPdf": "Decrypting PDF...",
+      "preparingDownload": "Preparing download...",
+      "decrypting": "Decrypting {{name}} ({{value}}/{{count}})...",
+      "noPdfFilesCouldBeDecrypted": "No PDF files could be decrypted. The password may be incorrect.",
+      "anErrorOccurred": "An error occurred: {{value}}"
     }
   },
   "protectPdf": {
@@ -3227,12 +3760,26 @@
       "ownerPasswordEnablesUsageRestrictions": "Owner password enables usage restrictions",
       "withoutOwnerPasswordNoRestrictions": "Without owner password: no restrictions applied",
       "encryptPdf": "Encrypt PDF"
+    },
+    "msg": {
+      "initializingEncryption": "Initializing encryption...",
+      "readingPdf": "Reading PDF...",
+      "encryptingPdfWith256BitAes": "Encrypting PDF with 256-bit AES...",
+      "encryptionFailed": "Encryption failed: {{value}}",
+      "preparingDownload": "Preparing download...",
+      "encryptionResultedInAnEmptyFile": "Encryption resulted in an empty file.",
+      "anErrorOccurred": "An error occurred: {{value}}"
     }
   },
   "cropper": {
     "alert": {
       "selectAreaCrop": "Please select an area to crop.",
       "failedLoadPdfCropping": "Failed to load PDF for cropping."
+    },
+    "msg": {
+      "renderingPage": "Rendering Page {{num}}...",
+      "pageOf": "Page {{currentPageNum}} of {{numPages}}",
+      "processingPageOf": "Processing page {{pageNum}} of {{totalPages}}..."
     }
   },
   "redact": {

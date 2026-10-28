@@ -224,7 +224,9 @@ document.addEventListener('DOMContentLoaded', () => {
         useLazyLoading: true,
         lazyLoadMargin: '400px',
         onProgress: (current, total) => {
-          showLoader(`Rendering page previews: ${current}/${total}`);
+          showLoader(
+            t('tools:splitPdf.msg.renderingPagePreviews', { current, total })
+          );
         },
         onBatchComplete: () => {
           createIcons({ icons });
@@ -345,7 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const pageRangeInput = (
             document.getElementById('page-range') as HTMLInputElement
           ).value;
-          if (!pageRangeInput) throw new Error('Choose a valid page range.');
+          if (!pageRangeInput)
+            throw new Error(t('tools:splitPdf.msg.chooseAValidPageRange'));
 
           const { groups: rangeGroups, indices: rangeIndices } =
             parseRangeGroups(pageRangeInput, totalPages);
@@ -360,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'input[name="even-odd-choice"]:checked'
           ) as HTMLInputElement;
           if (!choiceElement)
-            throw new Error('Please select even or odd pages.');
+            throw new Error(t('tools:splitPdf.msg.pleaseSelectEvenOrOddPages'));
           const choice = choiceElement.value === 'even' ? 'even' : 'odd';
           indicesToExtract = evenOddIndices(choice, totalPages);
           break;
@@ -410,7 +413,9 @@ document.addEventListener('DOMContentLoaded', () => {
           cpdf.deletePdf(pdf);
 
           if (splitPages.length === 0) {
-            throw new Error('No bookmarks found at the selected level.');
+            throw new Error(
+              t('tools:splitPdf.msg.noBookmarksFoundAtTheSelected')
+            );
           }
 
           const zip = new JSZip();
@@ -440,7 +445,8 @@ document.addEventListener('DOMContentLoaded', () => {
             (document.getElementById('split-n-value') as HTMLInputElement)
               ?.value || '5'
           );
-          if (nValue < 1) throw new Error('N must be at least 1.');
+          if (nValue < 1)
+            throw new Error(t('tools:splitPdf.msg.nMustBeAtLeast1'));
 
           const zip2 = new JSZip();
           const chunks = nTimesGroups(nValue, totalPages);
@@ -471,7 +477,9 @@ document.addEventListener('DOMContentLoaded', () => {
         splitMode !== 'bookmarks' &&
         splitMode !== 'n-times'
       ) {
-        throw new Error('No pages were selected for splitting.');
+        throw new Error(
+          t('tools:splitPdf.msg.noPagesWereSelectedForSplitting')
+        );
       }
 
       if (outputGroups && outputGroups.length > 0) {
@@ -637,7 +645,10 @@ document.addEventListener('DOMContentLoaded', () => {
             nTimesWarning.classList.remove('hidden');
             const warningText = document.getElementById('n-times-warning-text');
             if (warningText) {
-              warningText.textContent = `The PDF has ${totalPages} pages, which is not evenly divisible by ${nValue}. The last PDF will contain ${remainder} page(s).`;
+              warningText.textContent = t(
+                'tools:splitPdf.msg.thePdfHasPagesWhichIs',
+                { totalPages, nValue, remainder }
+              );
             }
           } else if (nTimesWarning) {
             nTimesWarning.classList.add('hidden');

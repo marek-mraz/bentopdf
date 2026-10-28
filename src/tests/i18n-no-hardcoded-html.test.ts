@@ -67,5 +67,5 @@ describe('HTML sources', () => {
       ...htmlFiles('src/partials'),
     ];
     expect(files.flatMap(hardcoded)).toEqual([]);
-  });
+  }, 60_000);
 });

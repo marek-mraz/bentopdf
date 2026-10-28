@@ -33,6 +33,8 @@ import {
   PDF_COLOR_MAP,
 } from '@/types';
 
+import { t } from '../i18n/i18n.js';
+
 const modalContainer = document.getElementById(
   'modal-container'
 ) as HTMLElement | null;
@@ -358,7 +360,7 @@ class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900" />
         const color = colorSelectEl ? colorSelectEl.value : '';
         const style = styleSelectEl ? styleSelectEl.value : '';
 
-        previewText.textContent = titleVal || 'Preview Text';
+        previewText.textContent = titleVal || t('msg.bookmarkPdf.previewText');
 
         if (color === 'custom' && colorPickerEl) {
           previewText.style.color = colorPickerEl.value;
@@ -1005,7 +1007,7 @@ redoBtn?.addEventListener('click', redo);
 
 resetBtn?.addEventListener('click', async () => {
   const confirmed = await showConfirmModal(
-    'Reset and go back to file uploader? All unsaved changes will be lost.'
+    t('msg.bookmarkPdf.resetAndGoBackToFile')
   );
   if (confirmed) {
     resetToUploader();
@@ -1014,12 +1016,12 @@ resetBtn?.addEventListener('click', async () => {
 
 deleteAllBtn?.addEventListener('click', async () => {
   if (bookmarkTree.length === 0) {
-    await showAlertModal('Info', 'No bookmarks to delete.');
+    await showAlertModal('Info', t('msg.bookmarkPdf.noBookmarksToDelete'));
     return;
   }
 
   const confirmed = await showConfirmModal(
-    `Delete all ${bookmarkTree.length} bookmark(s) ? `
+    t('msg.bookmarkPdf.deleteAllBookmarkS', { count: bookmarkTree.length })
   );
   if (confirmed) {
     bookmarkTree = [];
@@ -1146,7 +1148,7 @@ batchDeleteBtn?.addEventListener('click', async () => {
   if (selectedBookmarks.size === 0) return;
 
   const confirmed = await showConfirmModal(
-    `Delete ${selectedBookmarks.size} bookmark(s) ? `
+    t('msg.bookmarkPdf.deleteBookmarkS', { size: selectedBookmarks.size })
   );
   if (!confirmed) return;
 
@@ -1292,8 +1294,10 @@ csvInput?.addEventListener('change', async (e: Event) => {
   csvBookmarks = parseCSV(text);
 
   await showAlertModal(
-    'CSV Loaded',
-    `Loaded ${csvBookmarks.length} bookmarks from CSV. Now upload your PDF.`
+    t('msg.bookmarkPdf.csvLoaded'),
+    t('msg.bookmarkPdf.loadedBookmarksFromCsvNowUpload', {
+      count: csvBookmarks.length,
+    })
   );
 });
 
@@ -1306,11 +1310,11 @@ jsonInput?.addEventListener('change', async (e: Event) => {
   try {
     jsonBookmarks = JSON.parse(text);
     await showAlertModal(
-      'JSON Loaded',
-      'Loaded bookmarks from JSON. Now upload your PDF.'
+      t('msg.bookmarkPdf.jsonLoaded'),
+      t('msg.bookmarkPdf.loadedBookmarksFromJsonNowUpload')
     );
   } catch {
-    await showAlertModal('Error', 'Invalid JSON format');
+    await showAlertModal('Error', t('msg.bookmarkPdf.invalidJsonFormat'));
   }
 });
 
@@ -1388,7 +1392,10 @@ async function renderPage(
     ctx.restore();
   }
 
-  pageIndicator!.textContent = `Page ${num} / ${pdfJsDoc.numPages}`;
+  pageIndicator!.textContent = t('msg.bookmarkPdf.page', {
+    num,
+    numPages: pdfJsDoc.numPages,
+  });
   if (gotoPageInput) gotoPageInput.value = String(num);
   currentPage = num;
   if (currentPageDisplay) currentPageDisplay.textContent = String(num);
@@ -1734,7 +1741,7 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
 
   const addChildBtn = document.createElement('button');
   addChildBtn.className = 'p-1 hover:bg-gray-200 rounded text-gray-700';
-  addChildBtn.title = 'Add child';
+  addChildBtn.title = t('msg.bookmarkPdf.addChild');
   addChildBtn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i>';
   addChildBtn.addEventListener('click', async (e: MouseEvent) => {
     e.stopPropagation();
@@ -1849,7 +1856,9 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
   deleteBtn.innerHTML = '<i data-lucide="trash-2" class="w-4 h-4"></i>';
   deleteBtn.addEventListener('click', async (e: MouseEvent) => {
     e.stopPropagation();
-    const confirmed = await showConfirmModal(`Delete "${node.title}"?`);
+    const confirmed = await showConfirmModal(
+      t('msg.bookmarkPdf.delete', { title: node.title })
+    );
     if (confirmed) {
       removeNodeById(bookmarkTree, node.id);
       saveState();
@@ -1883,7 +1892,7 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
 addTopLevelBtn?.addEventListener('click', async () => {
   const title = titleInput?.value.trim();
   if (!title) {
-    await showAlertModal('Error', 'Please enter a title.');
+    await showAlertModal('Error', t('msg.bookmarkPdf.pleaseEnterATitle'));
     return;
   }
 
@@ -1929,7 +1938,10 @@ csvImportHidden?.addEventListener('change', async (e: Event) => {
     bookmarkTree = imported;
     saveState();
     renderBookmarkTree();
-    await showAlertModal('Success', `Imported ${imported.length} bookmarks!`);
+    await showAlertModal(
+      'Success',
+      t('msg.bookmarkPdf.importedBookmarks', { count: imported.length })
+    );
   }
 
   if (csvImportHidden) csvImportHidden.value = '';
@@ -1939,7 +1951,7 @@ exportCsvBtn?.addEventListener('click', () => {
   exportDropdown?.classList.add('hidden');
 
   if (bookmarkTree.length === 0) {
-    showAlertModal('Error', 'No bookmarks to export!');
+    showAlertModal('Error', t('msg.bookmarkPdf.noBookmarksToExport'));
     return;
   }
 
@@ -2045,9 +2057,12 @@ jsonImportHidden?.addEventListener('change', async (e: Event) => {
     bookmarkTree = imported;
     saveState();
     renderBookmarkTree();
-    await showAlertModal('Success', 'Bookmarks imported from JSON!');
+    await showAlertModal(
+      'Success',
+      t('msg.bookmarkPdf.bookmarksImportedFromJson')
+    );
   } catch {
-    await showAlertModal('Error', 'Invalid JSON format');
+    await showAlertModal('Error', t('msg.bookmarkPdf.invalidJsonFormat'));
   }
 
   if (jsonImportHidden) jsonImportHidden.value = '';
@@ -2057,7 +2072,7 @@ exportJsonBtn?.addEventListener('click', () => {
   exportDropdown?.classList.add('hidden');
 
   if (bookmarkTree.length === 0) {
-    showAlertModal('Error', 'No bookmarks to export!');
+    showAlertModal('Error', t('msg.bookmarkPdf.noBookmarksToExport'));
     return;
   }
 
@@ -2072,7 +2087,9 @@ extractExistingBtn?.addEventListener('click', async () => {
   const extracted = await extractExistingBookmarks();
   if (extracted.length > 0) {
     const confirmed = await showConfirmModal(
-      `Found ${extracted.length} existing bookmarks. Replace current bookmarks?`
+      t('msg.bookmarkPdf.foundExistingBookmarksReplaceCurrentBook', {
+        count: extracted.length,
+      })
     );
     if (confirmed) {
       bookmarkTree = extracted;
@@ -2080,7 +2097,10 @@ extractExistingBtn?.addEventListener('click', async () => {
       renderBookmarkTree();
     }
   } else {
-    await showAlertModal('Info', 'No existing bookmarks found in this PDF.');
+    await showAlertModal(
+      'Info',
+      t('msg.bookmarkPdf.noExistingBookmarksFoundInThis')
+    );
   }
 });
 
@@ -2340,7 +2360,7 @@ downloadBtn?.addEventListener('click', async () => {
     });
     downloadFile(blob, `${originalFileName}.pdf`);
 
-    await showAlertModal('Success', 'PDF saved successfully!');
+    await showAlertModal('Success', t('msg.bookmarkPdf.pdfSavedSuccessfully'));
 
     setTimeout(() => {
       resetToUploader();
@@ -2349,7 +2369,7 @@ downloadBtn?.addEventListener('click', async () => {
     console.error(err);
     await showAlertModal(
       'Error',
-      'Error saving PDF. Check console for details.'
+      t('msg.bookmarkPdf.errorSavingPdfCheckConsoleFor')
     );
   }
 });

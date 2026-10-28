@@ -126,7 +126,10 @@ function updateFileDisplay() {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageState.pdfDoc.getPageCount()} pages`;
+  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    size: formatBytes(pageState.file.size),
+    count: pageState.pdfDoc.getPageCount(),
+  });
 
   infoContainer.append(nameSpan, metaSpan);
 

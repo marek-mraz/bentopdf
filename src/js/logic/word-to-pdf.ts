@@ -158,7 +158,7 @@ export async function wordToPdf() {
     hideLoader();
     showAlert(
       t('tools:wordToPdf.alert.previewError'),
-      `Could not generate a preview. The file may be corrupt or contain unsupported features. Error: ${e.message}`
+      t('tools:wordToPdf.msg.couldNotGenerateAPreviewThe', { error: e.message })
     );
   }
 }

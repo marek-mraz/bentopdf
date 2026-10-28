@@ -120,7 +120,8 @@ async function processOverlay() {
   const loaderModal = document.getElementById('loader-modal');
   const loaderText = document.getElementById('loader-text');
   if (loaderModal) loaderModal.classList.remove('hidden');
-  if (loaderText) loaderText.textContent = 'Initializing PDF engine...';
+  if (loaderText)
+    loaderText.textContent = t('common.loader.initializingPdfEngine');
 
   const inputPath = '/input_base.pdf';
   const overlayPath = '/input_overlay.pdf';
@@ -130,7 +131,10 @@ async function processOverlay() {
   try {
     qpdf = await initializeQpdf();
 
-    if (loaderText) loaderText.textContent = 'Reading files...';
+    if (loaderText)
+      loaderText.textContent = t(
+        'tools:extractAttachments.loader.readingFiles'
+      );
 
     const baseBuffer = await readFileAsArrayBuffer(pageState.baseFile);
     const overlayBuffer = await readFileAsArrayBuffer(pageState.overlayFile);
@@ -156,7 +160,9 @@ async function processOverlay() {
     const shouldRepeat = repeatCheckbox?.checked;
 
     if (loaderText)
-      loaderText.textContent = `Applying ${mode.replace('--', '')}...`;
+      loaderText.textContent = t('tools:pdfOverlay.msg.applying', {
+        value: mode.replace('--', ''),
+      });
 
     const args = [inputPath, mode, overlayPath];
 
@@ -174,7 +180,7 @@ async function processOverlay() {
 
     const outputFile = qpdf.FS.readFile(outputPath, { encoding: 'binary' });
     if (!outputFile || outputFile.length === 0) {
-      throw new Error('Processing produced an empty file.');
+      throw new Error(t('tools:pdfOverlay.msg.processingProducedAnEmptyFile'));
     }
 
     const modeLabel = mode.replace('--', '');
@@ -185,7 +191,7 @@ async function processOverlay() {
 
     showAlert(
       t('common.success'),
-      `PDF ${modeLabel} applied successfully.`,
+      t('tools:pdfOverlay.msg.pdfAppliedSuccessfully', { modeLabel }),
       'success',
       () => {
         resetState();
@@ -195,7 +201,10 @@ async function processOverlay() {
     console.error('Overlay/underlay error:', error);
     showAlert(
       t('alert.processingFailed'),
-      `An error occurred: ${error instanceof Error ? error.message : t('common.unknownError')}.`
+      t('tools:pdfOverlay.msg.anErrorOccurred', {
+        value:
+          error instanceof Error ? error.message : t('common.unknownError'),
+      })
     );
   } finally {
     try {

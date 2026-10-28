@@ -139,7 +139,9 @@ async function convertCbzToPdf(file: File): Promise<Blob> {
   const MAX_ENTRY_BYTES = 100 * 1024 * 1024;
   const MAX_TOTAL_BYTES = 500 * 1024 * 1024;
   if (imageFiles.length > MAX_CBZ_PAGES) {
-    throw new Error(`Archive has too many images (max ${MAX_CBZ_PAGES}).`);
+    throw new Error(
+      t('tools:cbzToPdf.msg.archiveHasTooManyImagesMax', { MAX_CBZ_PAGES })
+    );
   }
   let totalBytes = 0;
 
@@ -149,12 +151,16 @@ async function convertCbzToPdf(file: File): Promise<Blob> {
       zipEntry as unknown as { _data?: { uncompressedSize?: number } }
     )._data?.uncompressedSize;
     if (typeof declared === 'number' && declared > MAX_ENTRY_BYTES) {
-      throw new Error('Archive contains an oversized image entry.');
+      throw new Error(
+        t('tools:cbzToPdf.msg.archiveContainsAnOversizedImageEntry')
+      );
     }
     const imageData = await zipEntry.async('arraybuffer');
     totalBytes += imageData.byteLength;
     if (totalBytes > MAX_TOTAL_BYTES) {
-      throw new Error('Archive is too large when decompressed.');
+      throw new Error(
+        t('tools:cbzToPdf.msg.archiveIsTooLargeWhenDecompressed')
+      );
     }
     const dataArray = new Uint8Array(imageData);
     const actualFormat = detectImageFormat(dataArray);
@@ -275,14 +281,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (state.files.length === 0) {
         showAlert(
           t('alert.noFiles'),
-          `Please select at least one ${TOOL_NAME} file.`
+          t('tools:cbzToPdf.msg.pleaseSelectAtLeastOneFile', { TOOL_NAME })
         );
         return;
       }
 
       if (state.files.length === 1) {
         const originalFile = state.files[0];
-        showLoader(`Converting ${originalFile.name}...`);
+        showLoader(
+          t('tools:cbzToPdf.msg.converting', { name: originalFile.name })
+        );
 
         let pdfBlob: Blob;
         if (isCbzFile(originalFile.name)) {
@@ -297,7 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${originalFile.name} to PDF.`,
+          t('tools:cbzToPdf.msg.successfullyConvertedToPdf', {
+            name: originalFile.name,
+          }),
           'success',
           () => resetState()
         );
@@ -308,7 +318,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            `Converting ${i + 1}/${state.files.length}: ${file.name}...`
+            t('tools:cbzToPdf.msg.converting2', {
+              value: i + 1,
+              count: state.files.length,
+              name: file.name,
+            })
           );
 
           let pdfBlob: Blob;
@@ -330,7 +344,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${state.files.length} ${TOOL_NAME} file(s) to PDF.`,
+          t('tools:cbzToPdf.msg.successfullyConvertedFileSToPdf', {
+            count: state.files.length,
+            TOOL_NAME,
+          }),
           'success',
           () => resetState()
         );
@@ -340,7 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during conversion. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:cbzToPdf.msg.anErrorOccurredDuringConversionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

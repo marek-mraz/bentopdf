@@ -109,17 +109,22 @@ async function removeRestrictions() {
 
   try {
     if (loaderModal) loaderModal.classList.remove('hidden');
-    if (loaderText) loaderText.textContent = 'Initializing...';
+    if (loaderText)
+      loaderText.textContent = t('tools:ocrPdf.progressInitializing');
 
     qpdf = await initializeQpdf();
 
-    if (loaderText) loaderText.textContent = 'Reading PDF...';
+    if (loaderText)
+      loaderText.textContent = t('tools:removeRestrictions.msg.readingPdf');
     const fileBuffer = await readFileAsArrayBuffer(pageState.file);
     const uint8Array = new Uint8Array(fileBuffer as ArrayBuffer);
 
     qpdf.FS.writeFile(inputPath, uint8Array);
 
-    if (loaderText) loaderText.textContent = 'Removing restrictions...';
+    if (loaderText)
+      loaderText.textContent = t(
+        'tools:removeRestrictions.msg.removingRestrictions'
+      );
 
     const args = [inputPath];
 
@@ -136,22 +141,29 @@ async function removeRestrictions() {
       const qpdfMsg = qpdfError instanceof Error ? qpdfError.message : '';
       if (qpdfMsg.includes('password') || qpdfMsg.includes('encrypt')) {
         throw new Error(
-          'Failed to remove restrictions. The PDF may require the correct owner password.',
+          t('tools:removeRestrictions.msg.failedToRemoveRestrictionsThePdf'),
           { cause: qpdfError }
         );
       }
 
       throw new Error(
-        'Failed to remove restrictions: ' + (qpdfMsg || 'Unknown error'),
+        t('tools:removeRestrictions.msg.failedToRemoveRestrictions', {
+          value: qpdfMsg || 'Unknown error',
+        }),
         { cause: qpdfError }
       );
     }
 
-    if (loaderText) loaderText.textContent = 'Preparing download...';
+    if (loaderText)
+      loaderText.textContent = t(
+        'tools:removeRestrictions.msg.preparingDownload'
+      );
     const outputFile = qpdf.FS.readFile(outputPath, { encoding: 'binary' });
 
     if (!outputFile || outputFile.length === 0) {
-      throw new Error('Operation resulted in an empty file.');
+      throw new Error(
+        t('tools:removeRestrictions.msg.operationResultedInAnEmptyFile')
+      );
     }
 
     const blob = new Blob([new Uint8Array(outputFile)], {
@@ -174,7 +186,12 @@ async function removeRestrictions() {
     if (loaderModal) loaderModal.classList.add('hidden');
     showAlert(
       t('tools:removeRestrictions.alert.operationFailed'),
-      `An error occurred: ${error instanceof Error ? error.message : t('tools:removeRestrictions.alert.pdfMightCorruptedPassword')}`
+      t('tools:removeRestrictions.msg.anErrorOccurred', {
+        value:
+          error instanceof Error
+            ? error.message
+            : t('tools:removeRestrictions.alert.pdfMightCorruptedPassword'),
+      })
     );
   } finally {
     try {

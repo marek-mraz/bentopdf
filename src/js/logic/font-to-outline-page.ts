@@ -118,7 +118,9 @@ async function processFiles() {
     if (pageState.files.length === 1) {
       if (loaderModal) loaderModal.classList.remove('hidden');
       if (loaderText)
-        loaderText.textContent = 'Converting fonts to outlines...';
+        loaderText.textContent = t(
+          'tools:fontToOutline.msg.convertingFontsToOutlines'
+        );
 
       const file = pageState.files[0];
       const resultBlob = await convertFileToOutlines(file, (msg) => {
@@ -129,7 +131,10 @@ async function processFiles() {
       if (loaderModal) loaderModal.classList.add('hidden');
     } else {
       if (loaderModal) loaderModal.classList.remove('hidden');
-      if (loaderText) loaderText.textContent = 'Processing multiple PDFs...';
+      if (loaderText)
+        loaderText.textContent = t(
+          'tools:fontToOutline.msg.processingMultiplePdfs'
+        );
 
       const zip = new JSZip();
       const usedNames = new Set<string>();
@@ -138,7 +143,11 @@ async function processFiles() {
       for (let i = 0; i < pageState.files.length; i++) {
         const file = pageState.files[i];
         if (loaderText)
-          loaderText.textContent = `Processing ${i + 1}/${pageState.files.length}: ${file.name}...`;
+          loaderText.textContent = t('tools:fontToOutline.msg.processing', {
+            value: i + 1,
+            count: pageState.files.length,
+            name: file.name,
+          });
 
         try {
           const resultBlob = await convertFileToOutlines(file, () => {});
@@ -156,7 +165,7 @@ async function processFiles() {
         downloadFile(zipBlob, 'outlined_pdfs.zip');
         showAlert(
           t('common.success'),
-          `Processed ${processedCount} PDFs.`,
+          t('tools:fontToOutline.msg.processedPdfs', { processedCount }),
           'success',
           () => {
             resetState();

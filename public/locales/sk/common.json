@@ -206,6 +206,23 @@
       "importSuccessMessage": "Skratky boli úspešne importované!",
       "importFailTitle": "Import zlyhal",
       "importFailMessage": "Nepodarilo sa importovať skratky. Neplatný formát súboru."
+    },
+    "reservedShortcuts": {
+      "closesTab": "Zatvorí kartu",
+      "opensNewTab": "Otvorí novú kartu",
+      "opensNewWindow": "Otvorí nové okno",
+      "opensIncognitoWindow": "Otvorí okno inkognito",
+      "quitsApplication": "Ukončí aplikáciu (nedá sa prepísať)",
+      "minimizesWindow": "Minimalizuje okno",
+      "hidesWindow": "Skryje okno",
+      "reloadsPage": "Znova načíta stránku",
+      "hardReloadsPage": "Znova načíta stránku bez vyrovnávacej pamäte",
+      "focusesAddressBar": "Prejde do panela s adresou",
+      "bookmarksPage": "Pridá stránku medzi záložky",
+      "reopensClosedTab": "Znova otvorí zatvorenú kartu",
+      "closesWindow": "Zatvorí okno",
+      "switchesTabs": "Prepína karty",
+      "switchesApps": "Prepína aplikácie"
     }
   },
   "warning": {
@@ -1067,5 +1084,150 @@
     "myFirstReactionAfterTryingBento": "Moja prvá reakcia po vyskúšaní Bento bola: „To je mágia, ako to funguje?“",
     "bentopdfHasCovered100OfMy": "BentoPDF pokrylo 100 % mojich potrieb s PDF a je to naozaj pôsobivé softvérové inžinierstvo!",
     "scrollToTop": "Posunúť nahor"
+  },
+  "msg": {
+    "compareRender": {
+      "ocr": "OCR: {{status}}"
+    },
+    "bookmarkPdf": {
+      "previewText": "Ukážka textu",
+      "resetAndGoBackToFile": "Obnoviť a vrátiť sa k nahrávaniu súborov? Všetky neuložené zmeny sa stratia.",
+      "noBookmarksToDelete": "Nie sú žiadne záložky na odstránenie.",
+      "deleteAllBookmarkS": "Odstrániť všetky záložky ({{count}})?",
+      "deleteBookmarkS": "Odstrániť záložky ({{size}})?",
+      "csvLoaded": "CSV načítané",
+      "loadedBookmarksFromCsvNowUpload": "Z CSV sa načítali záložky: {{count}}. Teraz nahrajte PDF.",
+      "jsonLoaded": "JSON načítaný",
+      "loadedBookmarksFromJsonNowUpload": "Záložky sa načítali z JSON. Teraz nahrajte PDF.",
+      "invalidJsonFormat": "Neplatný formát JSON",
+      "page": "Strana {{num}} / {{numPages}}",
+      "addChild": "Pridať podzáložku",
+      "delete": "Odstrániť „{{title}}“?",
+      "pleaseEnterATitle": "Zadajte názov.",
+      "importedBookmarks": "Importované záložky: {{count}}!",
+      "noBookmarksToExport": "Nie sú žiadne záložky na export!",
+      "bookmarksImportedFromJson": "Záložky boli importované z JSON!",
+      "foundExistingBookmarksReplaceCurrentBook": "Našli sa existujúce záložky ({{count}}). Nahradiť aktuálne záložky?",
+      "noExistingBookmarksFoundInThis": "V tomto PDF sa nenašli žiadne existujúce záložky.",
+      "pdfSavedSuccessfully": "PDF bolo úspešne uložené!",
+      "errorSavingPdfCheckConsoleFor": "Chyba pri ukladaní PDF. Podrobnosti nájdete v konzole."
+    },
+    "posterizePage": {
+      "renderingPreviewForPage": "Vykresľuje sa náhľad strany {{pageNum}}...",
+      "invalidPageRangeSpecified": "Zadaný rozsah strán je neplatný."
+    },
+    "editPdfTextDock": {
+      "pageNumber": "Číslo strany",
+      "loadSystemFonts": "Načítať systémové písma…"
+    },
+    "wasmCdnConfig": {
+      "noUrlConfiguredForPleaseConfigure": "Pre {{packageName}} nie je nastavená URL. Nastavte ju v Nastaveniach WASM."
+    },
+    "canvasEditor": {
+      "loadingPage": "Načítava sa strana {{num}}..."
+    },
+    "exportComparePdf": {
+      "atLeastOnePdfDocumentIs": "Na export je potrebný aspoň jeden PDF dokument.",
+      "noPagePairsToExport": "Nie sú žiadne dvojice strán na export."
+    },
+    "fileHandler": {
+      "keyEGDepartment": "Kľúč (napr. Oddelenie)",
+      "valueEGMarketing": "Hodnota (napr. Marketing)"
+    },
+    "tesseractRuntime": {
+      "selfHostedOcrAssetsArePartially": "Vlastné súbory OCR sú nastavené len čiastočne. Nastavte {{missing}} spolu s ostatnými URL súborov Tesseract."
+    },
+    "xmlToPdf": {
+      "readingXmlFile": "Číta sa súbor XML...",
+      "parsingXmlStructure": "Analyzuje sa štruktúra XML...",
+      "invalidXml": "Neplatné XML: {{value}}",
+      "invalidXmlNoRootElement": "Neplatné XML: chýba koreňový prvok",
+      "analyzingDataStructure": "Analyzuje sa štruktúra dát...",
+      "generatingFormattedContent": "Vytvára sa formátovaný obsah...",
+      "finalizingPdf": "Dokončuje sa PDF...",
+      "complete": "Hotovo!"
+    },
+    "pagePreview": {
+      "pageOf": "Strana {{pageNumber}} z {{totalPages}}"
+    },
+    "passwordPrompt": {
+      "pleaseEnterAPassword": "Zadajte heslo",
+      "validating": "Overuje sa...",
+      "incorrectPasswordPleaseTryAgain": "Nesprávne heslo. Skúste to znova.",
+      "decrypting": "Dešifruje sa...",
+      "failedToDecryptTryTheDecrypt": "Dešifrovanie zlyhalo. Skúste namiesto toho nástroj Dešifrovať PDF.",
+      "filesNeedAPassword": "Súbory, ktoré potrebujú heslo: {{count}}",
+      "unlockAll": "Odomknúť všetky",
+      "skipRemaining": "Preskočiť zostávajúce",
+      "skipAll": "Preskočiť všetky",
+      "unlockRemaining": "Odomknúť zostávajúce ({{remaining}})",
+      "skipThisFile": "Preskočiť tento súbor",
+      "includeThisFile": "Zahrnúť tento súbor",
+      "validatingOf": "Overuje sa {{value}} z {{count}}: {{name}}",
+      "decryptingOf": "Dešifruje sa {{value}} z {{count}}: {{name}}",
+      "wrongPasswordFor": "Nesprávne heslo pre: {{value}}",
+      "retryFailed": "Zopakovať neúspešné"
+    },
+    "ghostscriptLoader": {
+      "ghostscriptIsNotConfiguredPleaseConfigur": "Ghostscript nie je nastavený. Nastavte ho v Nastaveniach WASM.",
+      "loadingGhostscript": "Načítava sa Ghostscript...",
+      "convertingTo": "Konvertuje sa do {{level}}...",
+      "postProcessingForTransparencyCompliance": "Dodatočné spracovanie priehľadnosti podľa štandardu...",
+      "convertingFontsToOutlines": "Písma sa prevádzajú na krivky..."
+    },
+    "pdfOperations": {
+      "cannotDeleteAllPages": "Nie je možné odstrániť všetky strany"
+    },
+    "pymupdfLoader": {
+      "pymupdfIsNotConfiguredPleaseConfigure": "PyMuPDF nie je nastavený. Nastavte ho v Rozšírených nastaveniach.",
+      "ghostscriptIsNotConfiguredPymupdfRequire": "Ghostscript nie je nastavený. PyMuPDF ho pri niektorých operáciách potrebuje. Nastavte oba v Rozšírených nastaveniach.",
+      "failedToLoadPymupdfFromCdn": "PyMuPDF sa nepodarilo načítať z CDN: {{msg}}"
+    },
+    "ghostscriptDynamicLoader": {
+      "ghostscriptIsNotConfiguredPleaseConfigur": "Ghostscript nie je nastavený. Nastavte ho v Rozšírených nastaveniach.",
+      "failedToLoadGhostscriptFrom": "Ghostscript sa nepodarilo načítať z {{normalizedUrl}}: {{msg}}"
+    },
+    "cpdfHelper": {
+      "coherentpdfIsNotConfiguredPleaseConfigur": "CoherentPDF nie je nastavený. Nastavte ho v Nastaveniach WASM."
+    },
+    "splitPdfHelpers": {
+      "pageExtractionProducedAnEmptyPdf": "Extrakciou strán vzniklo prázdne PDF."
+    },
+    "ocr": {
+      "processingPageOf": "Spracúva sa strana {{i}} z {{numPages}}",
+      "ocrAbortedBeforeAnyPageWas": "OCR bolo prerušené skôr, ako sa spracovala prvá strana"
+    },
+    "markdownEditor": {
+      "mermaidError": "Chyba Mermaid: {{error}}"
+    },
+    "pdfDecrypt": {
+      "invalidPdfPassword": "Neplatné heslo PDF."
+    },
+    "loadPdfDocument": {
+      "couldNotRemoveLeftoverDataFrom": "Z PDF sa nepodarilo odstrániť zvyškové dáta."
+    },
+    "csvToPdf": {
+      "readingCsvFile": "Číta sa súbor CSV...",
+      "creatingTable": "Vytvára sa tabuľka...",
+      "finalizingPdf": "Dokončuje sa PDF...",
+      "complete": "Hotovo!"
+    },
+    "imageInputUtils": {
+      "failedToProcessHeicFile": "Súbor HEIC sa nepodarilo spracovať: {{name}}",
+      "failedToProcessWebpFile": "Súbor WebP sa nepodarilo spracovať: {{name}}"
+    },
+    "ui": {
+      "rotate90": "Otočiť o +90°",
+      "renderingPagePreviews": "Vykresľujú sa náhľady strán: {{current}}/{{total}}"
+    },
+    "swRegister": {
+      "aNewVersionOfBentopdfIs": "Je dostupná nová verzia BentoPDF. Načítať stránku znova a aktualizovať?"
+    },
+    "posterizeNode": {
+      "failedToRenderTileRowCol": "Dlaždicu (riadok {{r}}, stĺpec {{c}}) strany {{i}} sa nepodarilo vykresliť"
+    },
+    "types": {
+      "noPdfConnected": "Nie je pripojené žiadne PDF"
+    }
   }
 }

@@ -128,7 +128,10 @@ function updateFileDisplay() {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = `${formatBytes(cropperState.file.size)} • ${cropperState.pdfDoc?.numPages || 0} pages`;
+  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    size: formatBytes(cropperState.file.size),
+    count: cropperState.pdfDoc?.numPages || 0,
+  });
 
   infoContainer.append(nameSpan, metaSpan);
 
@@ -157,7 +160,7 @@ function saveCurrentCrop() {
 }
 
 async function displayPageAsImage(num: number) {
-  showLoader(`Rendering Page ${num}...`);
+  showLoader(t('tools:cropPdf.msg.renderingPage', { num }));
 
   try {
     const page = await cropperState.pdfDoc.getPage(num);
@@ -230,7 +233,10 @@ async function changePage(offset: number) {
 function updatePageInfo() {
   const pageInfo = document.getElementById('page-info');
   if (pageInfo)
-    pageInfo.textContent = `Page ${cropperState.currentPageNum} of ${cropperState.pdfDoc.numPages}`;
+    pageInfo.textContent = t('tools:cropPdf.msg.pageOf', {
+      currentPageNum: cropperState.currentPageNum,
+      numPages: cropperState.pdfDoc.numPages,
+    });
 }
 
 function enableControls() {
@@ -354,7 +360,9 @@ async function performFlatteningCrop(
 
   for (let i = 0; i < totalPages; i++) {
     const pageNum = i + 1;
-    showLoader(`Processing page ${pageNum} of ${totalPages}...`);
+    showLoader(
+      t('tools:cropPdf.msg.processingPageOf', { pageNum, totalPages })
+    );
 
     if (cropData[pageNum]) {
       const page = await cropperState.pdfDoc.getPage(pageNum);

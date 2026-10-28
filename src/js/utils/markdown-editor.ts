@@ -39,6 +39,8 @@ import type {
   MarkdownItRenderRule,
 } from '@/types';
 
+import { t } from '../i18n/i18n.js';
+
 // Register highlight.js languages
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('js', javascript);
@@ -738,7 +740,9 @@ export class MarkdownEditor {
           console.error('Mermaid rendering error:', error);
           const errorDiv = document.createElement('div');
           errorDiv.className = 'mermaid-error';
-          errorDiv.textContent = `Mermaid Error: ${(error as Error).message}`;
+          errorDiv.textContent = t('msg.markdownEditor.mermaidError', {
+            error: (error as Error).message,
+          });
           pre.replaceWith(errorDiv);
         }
       }

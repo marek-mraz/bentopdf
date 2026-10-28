@@ -51,7 +51,9 @@ async function updateUI() {
 
     const infoSpan = document.createElement('span');
     infoSpan.className = 'text-gray-200';
-    infoSpan.textContent = `${pageState.files.length} PDF files selected`;
+    infoSpan.textContent = t('tools:alternateMerge.msg.pdfFilesSelected', {
+      count: pageState.files.length,
+    });
 
     const clearBtn = document.createElement('button');
     clearBtn.className = 'text-red-400 hover:text-red-300';
@@ -95,7 +97,10 @@ async function updateUI() {
 
         const metaSpan = document.createElement('span');
         metaSpan.className = 'text-sm text-gray-400 flex-shrink-0';
-        metaSpan.textContent = `${formatBytes(file.size)} • ${pageCount} pages`;
+        metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+          size: formatBytes(file.size),
+          count: pageCount,
+        });
 
         infoDiv.append(nameSpan, metaSpan);
 

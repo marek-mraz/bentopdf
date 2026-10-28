@@ -1,3 +1,4 @@
+import { t } from '../i18n/i18n.js';
 type SectionSpec = { id: string; title: string; icon: string };
 type RangeLink = { range: HTMLInputElement; num: HTMLInputElement };
 
@@ -141,7 +142,7 @@ function setupPagePill(): void {
     inp.min = '1';
     inp.step = '1';
     inp.className = 'dpageinp';
-    inp.setAttribute('aria-label', 'Page number');
+    inp.setAttribute('aria-label', t('msg.editPdfTextDock.pageNumber'));
     const st = parse();
     if (Number.isFinite(st.current)) inp.value = String(st.current);
     if (Number.isFinite(st.total)) inp.max = String(st.total);
@@ -173,7 +174,7 @@ function setupPagePill(): void {
     menu.appendChild(document.createElement('hr'));
     const props = mkBtn('ecmenu-item', 'Document properties');
     const propLabel = document.createElement('span');
-    propLabel.textContent = 'Document properties';
+    propLabel.textContent = t('tools:editPdfText.tipDocumentProperties');
     props.append(ph('ph-info'), propLabel);
     props.addEventListener('click', () => {
       closeMenu();
@@ -490,7 +491,7 @@ export function setupFormatDock(): void {
       fontListEl.appendChild(div('ddivider'));
       const sys = mkBtn('dfrow dfsys', 'Load system fonts');
       const label = document.createElement('span');
-      label.textContent = 'Load system fonts…';
+      label.textContent = t('msg.editPdfTextDock.loadSystemFonts');
       sys.appendChild(label);
       sys.addEventListener('click', () => q('sysFonts')?.click());
       fontListEl.appendChild(sys);

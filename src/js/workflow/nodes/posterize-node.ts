@@ -7,6 +7,8 @@ import { PDFDocument } from 'pdf-lib';
 import * as pdfjsLib from 'pdfjs-dist';
 import { wfError } from '../errors';
 
+import { t } from '../../i18n/i18n.js';
+
 export class PosterizeNode extends BaseWorkflowNode {
   readonly category = 'Organize & Manage' as const;
   readonly icon = 'ph-notepad';
@@ -89,7 +91,7 @@ export class PosterizeNode extends BaseWorkflowNode {
               );
               if (!pngBlob)
                 throw new Error(
-                  `Failed to render tile (row ${r}, col ${c}) of page ${i}`
+                  t('msg.posterizeNode.failedToRenderTileRowCol', { r, c, i })
                 );
               const pngBytes = new Uint8Array(await pngBlob.arrayBuffer());
               const pngImage = await newDoc.embedPng(pngBytes);

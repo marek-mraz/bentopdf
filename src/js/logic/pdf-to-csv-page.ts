@@ -104,7 +104,9 @@ async function convert() {
     const allRows: (string | null)[][] = [];
 
     for (let i = 0; i < pageCount; i++) {
-      showLoader(`Scanning page ${i + 1} of ${pageCount}...`);
+      showLoader(
+        t('tools:pdfToCsv.msg.scanningPageOf', { value: i + 1, pageCount })
+      );
       const page = doc.getPage(i);
       const tables = page.findTables();
 
@@ -131,7 +133,10 @@ async function convert() {
   } catch (e) {
     console.error(e);
     const message = e instanceof Error ? e.message : 'Unknown error';
-    showAlert(t('common.error'), `Failed to convert PDF to CSV. ${message}`);
+    showAlert(
+      t('common.error'),
+      t('tools:pdfToCsv.msg.failedToConvertPdfToCsv', { error: message })
+    );
   } finally {
     hideLoader();
   }

@@ -149,7 +149,10 @@ async function updateFileDisplay() {
   }
   signState.file = result.file;
   nameSpan.textContent = result.file.name;
-  metaSpan.textContent = `${formatBytes(result.file.size)} • ${result.pdf.numPages} pages`;
+  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    size: formatBytes(result.file.size),
+    count: result.pdf.numPages,
+  });
   result.pdf.destroy();
 }
 

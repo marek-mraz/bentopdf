@@ -19,6 +19,8 @@ import { recognizePageCanvas } from '../compare/engine/ocr-page.ts';
 import { isLowQualityExtractedText } from '../compare/engine/text-normalization.ts';
 import { COMPARE_RENDER, COMPARE_GEOMETRY } from '../compare/config.ts';
 
+import { t } from '../i18n/i18n.js';
+
 export function getElement<T extends HTMLElement>(id: string) {
   return document.getElementById(id) as T | null;
 }
@@ -280,12 +282,15 @@ export async function renderPage(
       );
       finalModel.pageNumber = pageNum;
     } else {
-      ctx.showLoader(`Running OCR on page ${pageNum}...`);
+      ctx.showLoader(t('tools:comparePdfs.runningOcr', { page: pageNum }));
       const ocrModel = await recognizePageCanvas(
         canvas,
         ctx.ocrLanguage,
         function (status, progress) {
-          ctx.showLoader(`OCR: ${status}`, progress * 100);
+          ctx.showLoader(
+            t('msg.compareRender.ocr', { status }),
+            progress * 100
+          );
         }
       );
       finalModel = {

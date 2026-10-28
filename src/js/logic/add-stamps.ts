@@ -7,6 +7,8 @@ import { initializeGlobalShortcuts } from '../utils/shortcuts-init.js';
 import { createIcons, icons } from 'lucide';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 
+import { t } from '../i18n/i18n.js';
+
 let selectedFile: File | null = null;
 let viewerIframe: HTMLIFrameElement | null = null;
 let currentBlobUrl: string | null = null;
@@ -105,7 +107,7 @@ function updateFileList() {
   const deleteBtn = document.createElement('button');
   deleteBtn.className =
     'text-red-400 hover:text-red-300 p-2 flex-shrink-0 ml-2';
-  deleteBtn.title = 'Remove file';
+  deleteBtn.title = t('common.removeFile');
   deleteBtn.innerHTML = '<i data-lucide="trash-2" class="w-4 h-4"></i>';
   deleteBtn.onclick = (e) => {
     e.stopPropagation();
@@ -300,9 +302,7 @@ if (dropZone) {
 if (saveStampedBtn) {
   saveStampedBtn.addEventListener('click', () => {
     if (!viewerIframe) {
-      alert(
-        'Viewer not ready. Please upload a PDF and wait for it to finish loading.'
-      );
+      alert(t('tools:addStamps.msg.viewerNotReadyPleaseUploadA'));
       return;
     }
 
@@ -337,14 +337,10 @@ if (saveStampedBtn) {
         return;
       }
 
-      alert(
-        'Could not access the stamped-PDF exporter. Please use the Export → PDF button in the viewer toolbar as a fallback.'
-      );
+      alert(t('tools:addStamps.msg.couldNotAccessTheStampedPdf'));
     } catch (e) {
       console.error('Failed to trigger stamped PDF export:', e);
-      alert(
-        'Could not export the stamped PDF. Please use the Export → PDF button in the viewer toolbar as a fallback.'
-      );
+      alert(t('tools:addStamps.msg.couldNotExportTheStampedPdf'));
     }
   });
 }

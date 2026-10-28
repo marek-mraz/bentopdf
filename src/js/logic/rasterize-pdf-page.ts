@@ -72,10 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdfDoc.numPages} pages`;
+          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+            size: formatBytes(file.size),
+            count: pdfDoc.numPages,
+          });
         } catch (error) {
           console.error('Error loading PDF:', error);
-          metaSpan.textContent = `${formatBytes(file.size)} • Could not load page count`;
+          metaSpan.textContent = t(
+            'tools:rasterizePdf.msg.couldNotLoadPageCount',
+            { value: formatBytes(file.size) }
+          );
         }
       }
 
@@ -134,7 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (total === 1) {
         const file = state.files[0];
-        showLoader(`Rasterizing ${file.name}...`);
+        showLoader(
+          t('tools:rasterizePdf.msg.rasterizing', { name: file.name })
+        );
 
         const rasterizedBlob = await (pymupdf as PyMuPDFInstance).rasterizePdf(
           file,
@@ -151,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLoader();
         showAlert(
           t('tools:rasterizePdf.alert.rasterizationComplete'),
-          `Successfully rasterized PDF at ${dpi} DPI.`,
+          t('tools:rasterizePdf.msg.successfullyRasterizedPdfAtDpi', { dpi }),
           'success',
           () => resetState()
         );
@@ -164,7 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
           try {
             const file = state.files[fi];
             showLoader(
-              `Rasterizing ${file.name} (${completed + 1}/${total})...`
+              t('tools:rasterizePdf.msg.rasterizing2', {
+                name: file.name,
+                value: completed + 1,
+                total,
+              })
             );
 
             const rasterizedBlob = await (
@@ -199,14 +211,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (failed === 0) {
           showAlert(
             t('tools:rasterizePdf.alert.rasterizationComplete'),
-            `Successfully rasterized ${completed} PDF(s) at ${dpi} DPI.`,
+            t('tools:rasterizePdf.msg.successfullyRasterizedPdfSAtDpi', {
+              completed,
+              dpi,
+            }),
             'success',
             () => resetState()
           );
         } else {
           showAlert(
             t('tools:rasterizePdf.alert.rasterizationPartial'),
-            `Rasterized ${completed} PDF(s), failed ${failed}.`,
+            t('tools:rasterizePdf.msg.rasterizedPdfSFailed', {
+              completed,
+              failed,
+            }),
             'warning',
             () => resetState()
           );
@@ -216,7 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during rasterization. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:rasterizePdf.msg.anErrorOccurredDuringRasterizationError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

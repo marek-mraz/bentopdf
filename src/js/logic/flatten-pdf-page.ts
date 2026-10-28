@@ -113,7 +113,8 @@ async function flattenPdf() {
   try {
     if (pageState.files.length === 1) {
       if (loaderModal) loaderModal.classList.remove('hidden');
-      if (loaderText) loaderText.textContent = 'Flattening PDF...';
+      if (loaderText)
+        loaderText.textContent = t('tools:flattenPdf.msg.flatteningPdf');
 
       const file = pageState.files[0];
       const arrayBuffer = await file.arrayBuffer();
@@ -143,7 +144,10 @@ async function flattenPdf() {
       if (loaderModal) loaderModal.classList.add('hidden');
     } else {
       if (loaderModal) loaderModal.classList.remove('hidden');
-      if (loaderText) loaderText.textContent = 'Flattening multiple PDFs...';
+      if (loaderText)
+        loaderText.textContent = t(
+          'tools:flattenPdf.msg.flatteningMultiplePdfs'
+        );
 
       const zip = new JSZip();
       const usedNames = new Set<string>();
@@ -152,7 +156,11 @@ async function flattenPdf() {
       for (let i = 0; i < pageState.files.length; i++) {
         const file = pageState.files[i];
         if (loaderText)
-          loaderText.textContent = `Flattening ${i + 1}/${pageState.files.length}: ${file.name}...`;
+          loaderText.textContent = t('tools:flattenPdf.msg.flattening', {
+            value: i + 1,
+            count: pageState.files.length,
+            name: file.name,
+          });
 
         try {
           const arrayBuffer = await file.arrayBuffer();
@@ -190,7 +198,7 @@ async function flattenPdf() {
         downloadFile(zipBlob, 'flattened_pdfs.zip');
         showAlert(
           t('common.success'),
-          `Processed ${processedCount} PDFs.`,
+          t('tools:flattenPdf.msg.processedPdfs', { processedCount }),
           'success',
           () => {
             resetState();

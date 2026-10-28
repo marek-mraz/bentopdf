@@ -90,7 +90,7 @@ function renderFileDisplay(file: File) {
 
 async function handleFileSelect(file: File) {
   if (file.type !== 'application/pdf') {
-    showStatus('Please select a PDF file.', 'error');
+    showStatus(t('tools:duplexCollate.invalidFileMessage'), 'error');
     return;
   }
 

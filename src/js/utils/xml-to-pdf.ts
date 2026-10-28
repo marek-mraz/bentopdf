@@ -2,6 +2,8 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { XMLParser } from 'fast-xml-parser';
 
+import { t } from '../i18n/i18n.js';
+
 export interface XmlToPdfOptions {
   onProgress?: (percent: number, message: string) => void;
 }
@@ -19,14 +21,14 @@ export async function convertXmlToPdf(
 ): Promise<Blob> {
   const { onProgress } = options || {};
 
-  onProgress?.(10, 'Reading XML file...');
+  onProgress?.(10, t('msg.xmlToPdf.readingXmlFile'));
   const rawXmlText = await file.text();
   const xmlText = String(rawXmlText)
     .replace(/<!DOCTYPE[\s\S]*?>/gi, '')
     .replace(/<!ENTITY[\s\S]*?>/gi, '')
     .replace(/<\?xml-stylesheet[\s\S]*?\?>/gi, '');
 
-  onProgress?.(30, 'Parsing XML structure...');
+  onProgress?.(30, t('msg.xmlToPdf.parsingXmlStructure'));
   const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: ATTR_PREFIX,
@@ -45,17 +47,19 @@ export async function convertXmlToPdf(
     parsed = parser.parse(xmlText) as Record<string, unknown>;
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    throw new Error('Invalid XML: ' + toSafeText(msg), { cause: err });
+    throw new Error(t('msg.xmlToPdf.invalidXml', { value: toSafeText(msg) }), {
+      cause: err,
+    });
   }
 
   const rootKeys = Object.keys(parsed);
   if (rootKeys.length === 0) {
-    throw new Error('Invalid XML: no root element');
+    throw new Error(t('msg.xmlToPdf.invalidXmlNoRootElement'));
   }
   const rootName = rootKeys[0];
   const rootValue = parsed[rootName];
 
-  onProgress?.(50, 'Analyzing data structure...');
+  onProgress?.(50, t('msg.xmlToPdf.analyzingDataStructure'));
 
   const doc: jsPDFWithAutoTable = new jsPDF({
     orientation: 'landscape',
@@ -73,7 +77,7 @@ export async function convertXmlToPdf(
   });
   yPosition += 15;
 
-  onProgress?.(60, 'Generating formatted content...');
+  onProgress?.(60, t('msg.xmlToPdf.generatingFormattedContent'));
 
   if (isPlainObject(rootValue)) {
     const rootObj = rootValue;
@@ -155,11 +159,11 @@ export async function convertXmlToPdf(
     }
   }
 
-  onProgress?.(90, 'Finalizing PDF...');
+  onProgress?.(90, t('msg.xmlToPdf.finalizingPdf'));
 
   const pdfBlob = doc.output('blob');
 
-  onProgress?.(100, 'Complete!');
+  onProgress?.(100, t('msg.xmlToPdf.complete'));
   return pdfBlob;
 }
 

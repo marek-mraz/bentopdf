@@ -183,7 +183,9 @@ async function extractText() {
 
     if (files.length === 1) {
       const file = files[0];
-      showLoader(`Extracting text from ${file.name}...`);
+      showLoader(
+        t('tools:pdfToText.msg.extractingTextFrom', { name: file.name })
+      );
 
       const fullText = await mupdf.pdfToText(file);
 
@@ -212,7 +214,11 @@ async function extractText() {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         showLoader(
-          `Extracting text from file ${i + 1}/${files.length}: ${file.name}...`
+          t('tools:pdfToText.msg.extractingTextFromFile', {
+            value: i + 1,
+            count: files.length,
+            name: file.name,
+          })
         );
 
         const fullText = await mupdf.pdfToText(file);
@@ -228,7 +234,9 @@ async function extractText() {
       hideLoader();
       showAlert(
         t('common.success'),
-        `Extracted text from ${files.length} PDF files!`,
+        t('tools:pdfToText.msg.extractedTextFromPdfFiles', {
+          count: files.length,
+        }),
         'success',
         () => {
           resetState();

@@ -514,7 +514,9 @@ async function loadPdfs(files: File[]) {
           console.log(`Repairing ${file.name}...`);
           const loadingText = document.getElementById('loading-text');
           if (loadingText)
-            loadingText.textContent = `Repairing ${file.name}...`;
+            loadingText.textContent = t('tools:pdfMultiTool.msg.repairing', {
+              name: file.name,
+            });
 
           const repairedData = await repairPdfFile(file);
           if (repairedData) {
@@ -1026,7 +1028,7 @@ async function handleInsertPdf(e: Event) {
     console.error('Failed to insert PDF:', e);
     showModal(
       'Error',
-      'Failed to insert PDF. The file may be corrupted.',
+      t('tools:pdfMultiTool.msg.failedToInsertPdfTheFile'),
       'error'
     );
   }
@@ -1085,7 +1087,11 @@ function addBlankPage() {
 
 function bulkRotate(delta: number) {
   if (selectedPages.size === 0) {
-    showModal('No Selection', 'Please select pages to rotate.', 'info');
+    showModal(
+      t('tools:pdfMultiTool.msg.noSelection'),
+      t('tools:pdfMultiTool.msg.pleaseSelectPagesToRotate'),
+      'info'
+    );
     return;
   }
 
@@ -1117,7 +1123,11 @@ function bulkRotate(delta: number) {
 
 function bulkDelete() {
   if (selectedPages.size === 0) {
-    showModal('No Selection', 'Please select pages to delete.', 'info');
+    showModal(
+      t('tools:pdfMultiTool.msg.noSelection'),
+      t('tools:deletePages.alert.selectPagesDelete'),
+      'info'
+    );
     return;
   }
   const indices = Array.from(selectedPages).sort((a, b) => b - a);
@@ -1134,7 +1144,11 @@ function bulkDelete() {
 
 function bulkDuplicate() {
   if (selectedPages.size === 0) {
-    showModal('No Selection', 'Please select pages to duplicate.', 'info');
+    showModal(
+      t('tools:pdfMultiTool.msg.noSelection'),
+      t('tools:pdfMultiTool.msg.pleaseSelectPagesToDuplicate'),
+      'info'
+    );
     return;
   }
   const indices = Array.from(selectedPages).sort((a, b) => b - a);
@@ -1148,8 +1162,8 @@ function bulkDuplicate() {
 function bulkSplit() {
   if (selectedPages.size === 0) {
     showModal(
-      'No Selection',
-      'Please select pages to mark for splitting.',
+      t('tools:pdfMultiTool.msg.noSelection'),
+      t('tools:pdfMultiTool.msg.pleaseSelectPagesToMarkFor'),
       'info'
     );
     return;
@@ -1167,7 +1181,11 @@ function bulkSplit() {
 
 async function downloadAll() {
   if (allPages.length === 0) {
-    showModal('No Pages', 'Please upload PDFs first.', 'info');
+    showModal(
+      t('multiTool.noPages'),
+      t('tools:pdfMultiTool.msg.pleaseUploadPdfsFirst'),
+      'info'
+    );
     return;
   }
 
@@ -1278,12 +1296,18 @@ async function downloadSplitPdfs() {
 
     showModal(
       'Success',
-      `Downloaded ${segments.length} PDF files in a ZIP archive.`,
+      t('tools:pdfMultiTool.msg.downloadedPdfFilesInAZip', {
+        count: segments.length,
+      }),
       'success'
     );
   } catch (e) {
     console.error('Failed to create split PDFs:', e);
-    showModal('Error', 'Failed to create split PDFs.', 'error');
+    showModal(
+      'Error',
+      t('tools:pdfMultiTool.msg.failedToCreateSplitPdfs'),
+      'error'
+    );
   } finally {
     hideLoading(); // Ensure loader is hidden if we used it (though showModal replaces it)
   }
@@ -1358,10 +1382,14 @@ async function downloadPagesAsPdf(indices: number[], filename: string) {
     });
 
     downloadFile(blob, filename);
-    showModal('Success', 'PDF downloaded successfully.', 'success');
+    showModal(
+      'Success',
+      t('tools:pdfMultiTool.msg.pdfDownloadedSuccessfully'),
+      'success'
+    );
   } catch (e) {
     console.error('Failed to create PDF:', e);
-    showModal('Error', 'Failed to create PDF.', 'error');
+    showModal('Error', t('tools:pdfMultiTool.msg.failedToCreatePdf'), 'error');
   }
 }
 

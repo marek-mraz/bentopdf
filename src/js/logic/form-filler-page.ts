@@ -81,7 +81,7 @@ function updateFileDisplay() {
   removeBtn.id = 'remove-file';
   removeBtn.className =
     'text-red-400 hover:text-red-300 p-2 flex-shrink-0 ml-2';
-  removeBtn.title = 'Remove file';
+  removeBtn.title = t('common.removeFile');
 
   const removeIcon = document.createElement('i');
   removeIcon.setAttribute('data-lucide', 'trash-2');

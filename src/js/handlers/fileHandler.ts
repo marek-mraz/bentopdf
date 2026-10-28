@@ -493,13 +493,13 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
 
         const keyInput = document.createElement('input');
         keyInput.type = 'text';
-        keyInput.placeholder = 'Key (e.g., Department)';
+        keyInput.placeholder = t('msg.fileHandler.keyEGDepartment');
         keyInput.className =
           'custom-meta-key w-full sm:w-1/3 bg-gray-800 border border-gray-600 text-white rounded-lg p-2';
 
         const valueInput = document.createElement('input');
         valueInput.type = 'text';
-        valueInput.placeholder = 'Value (e.g., Marketing)';
+        valueInput.placeholder = t('msg.fileHandler.valueEGMarketing');
         valueInput.className =
           'custom-meta-value w-full sm:flex-grow bg-gray-800 border border-gray-600 text-white rounded-lg p-2';
 

@@ -71,14 +71,14 @@ function addCustomFieldRow(key: string = '', value: string = '') {
 
   const keyInput = document.createElement('input');
   keyInput.type = 'text';
-  keyInput.placeholder = 'Key (e.g., Department)';
+  keyInput.placeholder = t('tools:editMetadata.msg.keyEGDepartment');
   keyInput.value = key;
   keyInput.className =
     'custom-meta-key w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2.5';
 
   const valueInput = document.createElement('input');
   valueInput.type = 'text';
-  valueInput.placeholder = 'Value (e.g., Marketing)';
+  valueInput.placeholder = t('tools:editMetadata.msg.valueEGMarketing');
   valueInput.value = value;
   valueInput.className =
     'custom-meta-value w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2.5';
@@ -206,7 +206,9 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(pageState.file.size)} • Loading...`;
+    metaSpan.textContent = t('tools:editMetadata.msg.loading', {
+      value: formatBytes(pageState.file.size),
+    });
 
     infoContainer.append(nameSpan, metaSpan);
 
@@ -234,7 +236,10 @@ async function updateUI() {
       hideLoader();
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageCount} pages`;
+      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        size: formatBytes(pageState.file.size),
+        count: pageCount,
+      });
 
       populateMetadataFields();
 

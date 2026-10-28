@@ -71,9 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdfDoc.numPages} pages`;
+          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+            size: formatBytes(file.size),
+            count: pdfDoc.numPages,
+          });
         } catch {
-          metaSpan.textContent = `${formatBytes(file.size)} • Could not load page count`;
+          metaSpan.textContent = t(
+            'tools:pdfToWord.msg.couldNotLoadPageCount',
+            { value: formatBytes(file.size) }
+          );
         }
       }
 
@@ -111,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (state.files.length === 1) {
         const file = state.files[0];
-        showLoader(`Converting ${file.name}...`);
+        showLoader(t('tools:pdfToWord.msg.converting', { name: file.name }));
 
         const docxBlob = await pymupdf.pdfToDocx(
           await normalizeCmykForDocx(file)
@@ -123,7 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${file.name} to DOCX.`,
+          t('tools:pdfToWord.msg.successfullyConvertedToDocx', {
+            name: file.name,
+          }),
           'success',
           () => resetState()
         );
@@ -135,7 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            `Converting ${i + 1}/${state.files.length}: ${file.name}...`
+            t('tools:pdfToWord.msg.converting2', {
+              value: i + 1,
+              count: state.files.length,
+              name: file.name,
+            })
           );
 
           const docxBlob = await pymupdf.pdfToDocx(
@@ -158,7 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${state.files.length} PDF(s) to DOCX.`,
+          t('tools:pdfToWord.msg.successfullyConvertedPdfSToDocx', {
+            count: state.files.length,
+          }),
           'success',
           () => resetState()
         );
@@ -167,7 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during conversion. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:pdfToWord.msg.anErrorOccurredDuringConversionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

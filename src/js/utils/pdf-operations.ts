@@ -1,6 +1,8 @@
 import { PDFDocument, degrees, rgb, StandardFonts, PageSizes } from 'pdf-lib';
 import { loadPdfDocument } from './load-pdf-document.js';
 
+import { t } from '../i18n/i18n.js';
+
 export async function mergePdfs(
   pdfBytesList: Uint8Array[]
 ): Promise<Uint8Array> {
@@ -132,7 +134,8 @@ export async function deletePdfPages(
     }
   }
 
-  if (pagesToKeep.length === 0) throw new Error('Cannot delete all pages');
+  if (pagesToKeep.length === 0)
+    throw new Error(t('msg.pdfOperations.cannotDeleteAllPages'));
 
   const newPdf = await PDFDocument.create();
   const copiedPages = await newPdf.copyPages(srcDoc, pagesToKeep);

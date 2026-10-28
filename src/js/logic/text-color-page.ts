@@ -102,7 +102,10 @@ function updateFileDisplay() {
   nameSpan.textContent = pageState.file.name;
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageState.pdfDoc.getPageCount()} pages`;
+  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    size: formatBytes(pageState.file.size),
+    count: pageState.pdfDoc.getPageCount(),
+  });
   infoContainer.append(nameSpan, metaSpan);
   const removeBtn = document.createElement('button');
   removeBtn.className = 'ml-4 text-red-400 hover:text-red-300 flex-shrink-0';
@@ -141,7 +144,12 @@ async function changeTextColor() {
     ).promise;
 
     for (let i = 1; i <= pdf.numPages; i++) {
-      showLoader(`Processing page ${i} of ${pdf.numPages}...`);
+      showLoader(
+        t('tools:changeTextColor.msg.processingPageOf', {
+          i,
+          numPages: pdf.numPages,
+        })
+      );
       const page = await pdf.getPage(i);
       const viewport = page.getViewport({ scale: 2.0 });
       const canvas = document.createElement('canvas');

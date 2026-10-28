@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (state.files.length === 0) {
       showAlert(
         t('alert.noFiles'),
-        `Please select at least one ${FILETYPE_NAME} file.`
+        t('tools:xmlToPdf.msg.pleaseSelectAtLeastOneFile', { FILETYPE_NAME })
       );
       return;
     }
@@ -102,7 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLoader();
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${file.name} to PDF.`,
+          t('tools:xmlToPdf.msg.successfullyConvertedToPdf', {
+            name: file.name,
+          }),
           'success',
           () => resetState()
         );
@@ -117,7 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const pdfBlob = await convertXmlToPdf(file, {
             onProgress: (percent, message) => {
               showLoader(
-                `File ${i + 1}/${state.files.length}: ${message}`,
+                t('tools:xmlToPdf.msg.file', {
+                  value: i + 1,
+                  count: state.files.length,
+                  error: message,
+                }),
                 percent
               );
             },
@@ -137,7 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLoader();
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${state.files.length} files to PDF.`,
+          t('tools:xmlToPdf.msg.successfullyConvertedFilesToPdf', {
+            count: state.files.length,
+          }),
           'success',
           () => resetState()
         );
@@ -148,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
         t('common.error'),
-        `An error occurred during conversion. Error: ${message}`
+        t('tools:xmlToPdf.msg.anErrorOccurredDuringConversionError', {
+          error: message,
+        })
       );
     }
   };

@@ -128,18 +128,22 @@ async function encryptPdf() {
 
   try {
     if (loaderModal) loaderModal.classList.remove('hidden');
-    if (loaderText) loaderText.textContent = 'Initializing encryption...';
+    if (loaderText)
+      loaderText.textContent = t('tools:protectPdf.msg.initializingEncryption');
 
     qpdf = await initializeQpdf();
 
-    if (loaderText) loaderText.textContent = 'Reading PDF...';
+    if (loaderText)
+      loaderText.textContent = t('tools:protectPdf.msg.readingPdf');
     const fileBuffer = await readFileAsArrayBuffer(pageState.file);
     const uint8Array = new Uint8Array(fileBuffer as ArrayBuffer);
 
     qpdf.FS.writeFile(inputPath, uint8Array);
 
     if (loaderText)
-      loaderText.textContent = 'Encrypting PDF with 256-bit AES...';
+      loaderText.textContent = t(
+        'tools:protectPdf.msg.encryptingPdfWith256BitAes'
+      );
 
     const args = [inputPath, '--encrypt', userPassword, ownerPassword, '256'];
 
@@ -164,17 +168,22 @@ async function encryptPdf() {
     } catch (qpdfError: unknown) {
       console.error('qpdf execution error:', qpdfError);
       throw new Error(
-        'Encryption failed: ' +
-          (qpdfError instanceof Error ? qpdfError.message : 'Unknown error'),
+        t('tools:protectPdf.msg.encryptionFailed', {
+          value:
+            qpdfError instanceof Error ? qpdfError.message : 'Unknown error',
+        }),
         { cause: qpdfError }
       );
     }
 
-    if (loaderText) loaderText.textContent = 'Preparing download...';
+    if (loaderText)
+      loaderText.textContent = t('tools:protectPdf.msg.preparingDownload');
     const outputFile = qpdf.FS.readFile(outputPath, { encoding: 'binary' });
 
     if (!outputFile || outputFile.length === 0) {
-      throw new Error('Encryption resulted in an empty file.');
+      throw new Error(
+        t('tools:protectPdf.msg.encryptionResultedInAnEmptyFile')
+      );
     }
 
     const blob = new Blob([new Uint8Array(outputFile)], {
@@ -198,7 +207,12 @@ async function encryptPdf() {
     if (loaderModal) loaderModal.classList.add('hidden');
     showAlert(
       t('tools:protectPdf.alert.encryptionFailed'),
-      `An error occurred: ${error instanceof Error ? error.message : t('tools:protectPdf.alert.pdfMightCorrupted')}`
+      t('tools:protectPdf.msg.anErrorOccurred', {
+        value:
+          error instanceof Error
+            ? error.message
+            : t('tools:protectPdf.alert.pdfMightCorrupted'),
+      })
     );
   } finally {
     try {

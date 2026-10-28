@@ -2,6 +2,8 @@ import { getCpdf, isCpdfAvailable } from './cpdf-helper';
 import { isPyMuPDFAvailable, loadPyMuPDF } from './pymupdf-loader';
 import type { CpdfInstance } from '@/types';
 
+import { t } from '../i18n/i18n.js';
+
 export type PdfDecryptEngine = 'cpdf' | 'pymupdf';
 
 export interface PdfDecryptResult {
@@ -102,7 +104,7 @@ async function decryptWithPyMuPDF(
     if (document.needsPass || document.isEncrypted) {
       const authenticated = document.authenticate(password);
       if (!authenticated) {
-        throw new Error('Invalid PDF password.');
+        throw new Error(t('msg.pdfDecrypt.invalidPdfPassword'));
       }
     }
 

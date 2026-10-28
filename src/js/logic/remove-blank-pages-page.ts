@@ -238,7 +238,10 @@ function updatePreviewPanel() {
 
   if (!previewInfo || !previewContainer) return;
 
-  previewInfo.textContent = `Found ${pageState.detectedBlankPages.length} blank page(s). Click on a page to deselect it.`;
+  previewInfo.textContent = t(
+    'tools:removeBlankPages.msg.foundBlankPageSClickOn',
+    { count: pageState.detectedBlankPages.length }
+  );
   previewContainer.innerHTML = '';
 
   pageState.detectedBlankPages.forEach((pageIndex) => {
@@ -305,7 +308,11 @@ async function processRemoveBlankPages() {
     return;
   }
 
-  showLoader(`Removing ${selectedPages.length} blank page(s)...`);
+  showLoader(
+    t('tools:removeBlankPages.msg.removingBlankPageS', {
+      count: selectedPages.length,
+    })
+  );
   try {
     const newPdf = await PDFDocument.create();
     const pages = pageState.pdfDoc.getPages();
@@ -324,7 +331,9 @@ async function processRemoveBlankPages() {
     );
     showAlert(
       t('common.success'),
-      `Removed ${selectedPages.length} blank page(s) successfully!`,
+      t('tools:removeBlankPages.msg.removedBlankPageSSuccessfully', {
+        count: selectedPages.length,
+      }),
       'success',
       resetState
     );

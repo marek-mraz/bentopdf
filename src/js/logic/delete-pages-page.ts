@@ -128,7 +128,10 @@ function updateFileDisplay() {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = `${formatBytes(deleteState.file.size)} • ${deleteState.totalPages} pages`;
+  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    size: formatBytes(deleteState.file.size),
+    count: deleteState.totalPages,
+  });
 
   infoContainer.append(nameSpan, metaSpan);
 
@@ -283,7 +286,9 @@ async function deletePages() {
     hideLoader();
     showAlert(
       t('common.success'),
-      `Deleted ${deleteState.pagesToDelete.size} page(s) successfully!`,
+      t('tools:deletePages.msg.deletedPageSSuccessfully', {
+        size: deleteState.pagesToDelete.size,
+      }),
       'success',
       () => resetState()
     );

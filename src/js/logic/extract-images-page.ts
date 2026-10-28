@@ -85,9 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdfDoc.numPages} pages`;
+          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+            size: formatBytes(file.size),
+            count: pdfDoc.numPages,
+          });
         } catch {
-          metaSpan.textContent = `${formatBytes(file.size)} • Could not load page count`;
+          metaSpan.textContent = t(
+            'tools:extractImages.msg.couldNotLoadPageCount',
+            { value: formatBytes(file.size) }
+          );
         }
       }
 
@@ -167,7 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       for (let i = 0; i < state.files.length; i++) {
         const file = state.files[i];
-        showLoader(`Extracting images from ${file.name}...`);
+        showLoader(
+          t('tools:extractImages.msg.extractingImagesFrom', { name: file.name })
+        );
 
         const doc = await pymupdf.open(file);
         const pageCount = doc.pageCount;
@@ -206,7 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
         displayImages();
         showAlert(
           t('alert.extractionComplete'),
-          `Found ${extractedImages.length} image(s) in ${state.files.length} PDF(s).`,
+          t('tools:extractImages.msg.foundImageSInPdfS', {
+            count: extractedImages.length,
+            count2: state.files.length,
+          }),
           'success'
         );
       }
@@ -214,7 +225,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during extraction. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:extractImages.msg.anErrorOccurredDuringExtractionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

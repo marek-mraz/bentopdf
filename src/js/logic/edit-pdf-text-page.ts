@@ -90,7 +90,7 @@ function setupEditMenu() {
     scopeSel.value = value;
     scopeSel.dispatchEvent(new Event('change'));
     label.textContent = picked.has('all')
-      ? 'Edit All'
+      ? t('tools:editPdfText.ui.editAll')
       : 'Edit ' +
         SCOPES.filter(([k]) => picked.has(k))
           .map(([, l]) => l.replace('Edit ', ''))
@@ -232,7 +232,7 @@ function setupZoomMenu() {
     inp.type = 'number';
     inp.min = '20';
     inp.max = '600';
-    inp.placeholder = 'Custom Zoom';
+    inp.placeholder = t('tools:editPdfText.msg.customZoom');
     const pctSpan = document.createElement('span');
     pctSpan.textContent = '%';
     form.append(inp, pctSpan);
@@ -299,7 +299,7 @@ function relocateAddText() {
   icon.className = 'ph ph-text-t';
   addTextBtn.appendChild(icon);
   addTextBtn.classList.add('btn', 'icon');
-  addTextBtn.title = 'Add a text box';
+  addTextBtn.title = t('tools:editPdfText.msg.addATextBox');
   findBtn.parentElement.insertBefore(addTextBtn, findBtn);
   const sync = () =>
     addTextBtn.classList.toggle('on', !editBtn.classList.contains('on'));
@@ -335,7 +335,7 @@ function setupDocPanel() {
     const head = document.createElement('div');
     head.className = 'docmodal-head';
     const title = document.createElement('span');
-    title.textContent = 'Document Properties';
+    title.textContent = t('tools:editPdfText.msg.documentProperties');
     const x = document.createElement('button');
     x.className = 'btn icon';
     x.title = 'Close';
@@ -615,7 +615,7 @@ async function launchEditor(file: File) {
     }
     const engineOk = await appModule.engineReady;
     if (!engineOk) {
-      throw new Error('WASM engine failed to initialize');
+      throw new Error(t('tools:editPdfText.msg.wasmEngineFailedToInitialize'));
     }
     await appModule.openFile(decrypted[0]);
     if (window.matchMedia('(max-width: 768px)').matches) fitMobileWidth();

@@ -135,7 +135,10 @@ function updateFileDisplay() {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = `${formatBytes(extractState.file.size)} • ${extractState.totalPages} pages`;
+  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    size: formatBytes(extractState.file.size),
+    count: extractState.totalPages,
+  });
 
   infoContainer.append(nameSpan, metaSpan);
 
@@ -207,7 +210,9 @@ async function extractPages() {
     hideLoader();
     showAlert(
       t('common.success'),
-      `Extracted ${pagesToExtract.length} page(s) successfully!`,
+      t('tools:extractPages.msg.extractedPageSSuccessfully', {
+        count: pagesToExtract.length,
+      }),
       'success',
       () => {
         resetState();

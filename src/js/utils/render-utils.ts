@@ -1,4 +1,6 @@
 import * as pdfjsLib from 'pdfjs-dist';
+import { t } from '../i18n/i18n.js';
+
 import './setup-pdf-worker.js';
 
 /**
@@ -76,7 +78,7 @@ export function createPlaceholder(
 
   const loadingText = document.createElement('span');
   loadingText.className = 'text-gray-500 text-xs';
-  loadingText.textContent = 'Loading...';
+  loadingText.textContent = t('common.loading');
 
   skeletonContainer.appendChild(loadingText);
   placeholder.appendChild(skeletonContainer);

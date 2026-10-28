@@ -151,7 +151,9 @@ async function updatePdfDisplay(): Promise<void> {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = `${formatBytes(state.pdfFile.size)} • Loading pages...`;
+  metaSpan.textContent = t('tools:timestampPdf.msg.loadingPages', {
+    value: formatBytes(state.pdfFile.size),
+  });
 
   infoContainer.append(nameSpan, metaSpan);
 
@@ -175,7 +177,10 @@ async function updatePdfDisplay(): Promise<void> {
       const pdfDoc = await getPDFDocument({
         data: state.pdfBytes.slice(),
       }).promise;
-      metaSpan.textContent = `${formatBytes(state.pdfFile.size)} • ${pdfDoc.numPages} pages`;
+      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        size: formatBytes(state.pdfFile.size),
+        count: pdfDoc.numPages,
+      });
     }
   } catch (error) {
     console.error('Error loading PDF:', error);
@@ -245,7 +250,9 @@ async function processTimestamp(): Promise<void> {
     const message = error instanceof Error ? error.message : 'Unknown error';
     showAlert(
       t('tools:timestampPdf.alert.timestampFailed'),
-      `Failed to timestamp PDF: ${message}\n\nPlease try a different TSA server or check your internet connection.`
+      t('tools:timestampPdf.msg.failedToTimestampPdfPleaseTry', {
+        error: message,
+      })
     );
   } finally {
     hideLoader();

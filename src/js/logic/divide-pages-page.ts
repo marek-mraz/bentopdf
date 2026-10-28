@@ -64,7 +64,9 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(pageState.file.size)} • Loading...`;
+    metaSpan.textContent = t('tools:dividePages.msg.loading', {
+      value: formatBytes(pageState.file.size),
+    });
 
     infoContainer.append(nameSpan, metaSpan);
 
@@ -93,7 +95,10 @@ async function updateUI() {
       pageState.totalPages = pageState.pdfDoc.getPageCount();
       hideLoader();
 
-      metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageState.totalPages} pages`;
+      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        size: formatBytes(pageState.file.size),
+        count: pageState.totalPages,
+      });
 
       if (toolOptions) toolOptions.classList.remove('hidden');
     } catch (error) {
@@ -152,7 +157,12 @@ async function dividePages() {
       const originalPage = pages[i];
       const { width, height } = originalPage.getSize();
 
-      showLoader(`Processing page ${pageNum} of ${pages.length}...`);
+      showLoader(
+        t('tools:dividePages.msg.processingPageOf', {
+          pageNum,
+          count: pages.length,
+        })
+      );
 
       if (pagesToDivide.has(pageNum)) {
         const [page1] = await newPdfDoc.copyPages(pageState.pdfDoc, [i]);

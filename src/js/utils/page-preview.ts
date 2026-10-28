@@ -1,6 +1,8 @@
 import * as pdfjsLib from 'pdfjs-dist';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 import { PreviewState } from '@/types';
+import { t } from '../i18n/i18n.js';
+
 import './setup-pdf-worker.js';
 
 const state: PreviewState = {
@@ -64,7 +66,10 @@ async function renderPreviewPage(pageNumber: number): Promise<void> {
 
   container.innerHTML = '<div class="text-white/60 text-sm">Loading...</div>';
 
-  pageInfo.textContent = `Page ${pageNumber} of ${state.totalPages}`;
+  pageInfo.textContent = t('msg.pagePreview.pageOf', {
+    pageNumber,
+    totalPages: state.totalPages,
+  });
   prevBtn.style.visibility = pageNumber > 1 ? 'visible' : 'hidden';
   nextBtn.style.visibility =
     pageNumber < state.totalPages ? 'visible' : 'hidden';

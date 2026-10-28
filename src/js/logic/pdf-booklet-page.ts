@@ -528,7 +528,7 @@ async function createBooklet() {
 
     showAlert(
       t('common.success'),
-      `Booklet created with ${numSheets} sheets!`,
+      t('tools:pdfBooklet.msg.bookletCreatedWithSheets', { numSheets }),
       'success',
       function () {
         resetState();

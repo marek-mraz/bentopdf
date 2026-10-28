@@ -241,7 +241,10 @@ function renderFileList() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(entry.file.size)} \u2022 ${entry.pageCount} pages`;
+    metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+      size: formatBytes(entry.file.size),
+      count: entry.pageCount,
+    });
 
     infoContainer.append(nameSpan, metaSpan);
     leftSection.append(dragHandle, infoContainer);
@@ -264,7 +267,10 @@ function renderFileList() {
 
   const summary = document.createElement('div');
   summary.className = 'text-xs text-gray-400 mt-1';
-  summary.textContent = `${files.length} file${files.length !== 1 ? 's' : ''} \u2022 ${totalPages} total pages`;
+  summary.textContent = t('tools:batesNumbering.msg.fileSummary', {
+    count: files.length,
+    totalPages,
+  });
   fileListEl.appendChild(summary);
 }
 
@@ -543,7 +549,10 @@ async function applyBatesNumbers() {
 
     showAlert(
       t('common.success'),
-      `Bates numbers applied successfully! (${batesStart} through ${batesCounter - 1})`,
+      t('tools:batesNumbering.msg.batesNumbersAppliedSuccessfullyThrough', {
+        batesStart,
+        value: batesCounter - 1,
+      }),
       'success',
       () => {
         resetState();

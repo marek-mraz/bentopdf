@@ -39,6 +39,8 @@ import {
 } from '@/types';
 import { extractExistingFields as extractExistingPdfFields } from './form-creator-extraction.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
+import { t } from '../i18n/i18n.js';
+
 import '../utils/setup-pdf-worker.js';
 
 let fields: FormField[] = [];
@@ -247,7 +249,11 @@ if (gotoPageBtn && gotoPageInput) {
       renderCanvas();
       updatePageNavigation();
     } else {
-      alert(`Please enter a valid page number between 1 and ${pages.length}`);
+      alert(
+        t('tools:createPdfForm.msg.pleaseEnterAValidPageNumber', {
+          count: pages.length,
+        })
+      );
     }
   });
 
@@ -683,7 +689,7 @@ function renderField(field: FormField): void {
       // Empty state
       const optEl = document.createElement('div');
       optEl.className = 'px-1 w-full text-black italic';
-      optEl.textContent = 'Item 1';
+      optEl.textContent = t('tools:createPdfForm.msg.item1');
       contentEl.appendChild(optEl);
     }
   } else if (field.type === 'button') {
@@ -1404,7 +1410,9 @@ function showProperties(field: FormField): void {
 
   const validateName = (newName: string): boolean => {
     if (!newName) {
-      nameError.textContent = 'Field name cannot be empty';
+      nameError.textContent = t(
+        'tools:createPdfForm.msg.fieldNameCannotBeEmpty'
+      );
       nameError.classList.remove('hidden');
       propName.classList.add('border-red-500');
       return false;
@@ -1422,7 +1430,12 @@ function showProperties(field: FormField): void {
     const isDuplicateInPdf = existingFieldNames.has(newName);
 
     if (isDuplicateInFields || isDuplicateInPdf) {
-      nameError.textContent = `Field name "${newName}" already exists in this ${isDuplicateInPdf ? 'PDF' : 'form'}. Please try using a unique name.`;
+      nameError.textContent = t(
+        isDuplicateInPdf
+          ? 'tools:createPdfForm.msg.fieldNameExistsInPdf'
+          : 'tools:createPdfForm.msg.fieldNameExistsInForm',
+        { name: newName }
+      );
       nameError.classList.remove('hidden');
       propName.classList.add('border-red-500');
       return false;
@@ -2137,8 +2150,10 @@ downloadBtn.addEventListener('click', async () => {
       .map((name) => `"${name}"`)
       .join(', ');
     showModal(
-      'Field Name Conflict',
-      `The following field names already exist in the uploaded PDF: ${conflictList}. Please rename these fields before downloading.`,
+      t('tools:createPdfForm.msg.fieldNameConflict'),
+      t('tools:createPdfForm.msg.theFollowingFieldNamesAlreadyExist', {
+        conflictList,
+      }),
       'error'
     );
     return;
@@ -2147,20 +2162,22 @@ downloadBtn.addEventListener('click', async () => {
   if (duplicates.length > 0) {
     const duplicateList = duplicates.map((name) => `"${name}"`).join(', ');
     showModal(
-      'Duplicate Field Names',
-      `The following field names are used more than once: ${duplicateList}. Please rename these fields to use unique names before downloading.`,
+      t('tools:createPdfForm.msg.duplicateFieldNames'),
+      t('tools:createPdfForm.msg.theFollowingFieldNamesAreUsed', {
+        duplicateList,
+      }),
       'error'
     );
     return;
   }
 
   if (fields.length === 0) {
-    alert('Please add at least one field before downloading.');
+    alert(t('tools:createPdfForm.msg.pleaseAddAtLeastOneField'));
     return;
   }
 
   if (pages.length === 0) {
-    alert('No pages found. Please create a blank PDF or upload one.');
+    alert(t('tools:createPdfForm.msg.noPagesFoundPleaseCreateA'));
     return;
   }
 
@@ -2705,7 +2722,7 @@ downloadBtn.addEventListener('click', async () => {
     downloadFile(blob, uploadedFileName || 'document.pdf');
     showModal(
       'Success',
-      'Your PDF has been downloaded successfully.',
+      t('tools:createPdfForm.msg.yourPdfHasBeenDownloadedSuccessfully'),
       'info',
       () => {
         resetToInitial();
@@ -2730,13 +2747,19 @@ downloadBtn.addEventListener('click', async () => {
         console.log(`Adding to existing radio group: ${fieldName}`);
       } else {
         showModal(
-          'Duplicate Field Name',
-          `A field named "${fieldName}" already exists. Please rename this field to use a unique name before downloading.`,
+          t('tools:createPdfForm.msg.duplicateFieldName'),
+          t('tools:createPdfForm.msg.aFieldNamedAlreadyExistsPlease', {
+            fieldName,
+          }),
           'error'
         );
       }
     } else {
-      showModal('Error', 'Error generating PDF: ' + errorMessage, 'error');
+      showModal(
+        'Error',
+        t('tools:createPdfForm.msg.errorGeneratingPdf', { errorMessage }),
+        'error'
+      );
     }
   }
 });
@@ -2906,7 +2929,10 @@ async function renderCanvas(): Promise<void> {
 }
 
 function updatePageNavigation(): void {
-  pageIndicator.textContent = `Page ${currentPageIndex + 1} of ${pages.length}`;
+  pageIndicator.textContent = t('tools:createPdfForm.msg.pageOf', {
+    value: currentPageIndex + 1,
+    count: pages.length,
+  });
   prevPageBtn.disabled = currentPageIndex === 0;
   nextPageBtn.disabled = currentPageIndex === pages.length - 1;
 }
@@ -3067,7 +3093,7 @@ async function handlePdfUpload(file: File) {
     console.error('Error loading PDF:', error);
     showModal(
       'Error',
-      'Error loading PDF file. Please try again with a valid PDF.',
+      t('tools:createPdfForm.msg.errorLoadingPdfFilePleaseTry'),
       'error'
     );
   }
@@ -3093,9 +3119,7 @@ addPageBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
   if (fields.length > 0 || pages.length > 0) {
-    if (
-      confirm('Are you sure you want to reset? All your work will be lost.')
-    ) {
+    if (confirm(t('tools:createPdfForm.msg.areYouSureYouWantTo'))) {
       resetToInitial();
     }
   } else {

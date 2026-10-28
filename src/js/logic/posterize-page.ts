@@ -49,7 +49,7 @@ async function renderPosterizePreview(pageNum: number) {
   if (!pageState.pdfJsDoc) return;
 
   pageState.currentPage = pageNum;
-  showLoader(`Rendering preview for page ${pageNum}...`);
+  showLoader(t('msg.posterizePage.renderingPreviewForPage', { pageNum }));
 
   const canvas = document.getElementById(
     'posterize-preview-canvas'
@@ -209,7 +209,7 @@ async function posterize() {
     const pageIndicesToProcess = parsePageRanges(pageRangeInput, totalPages);
 
     if (pageIndicesToProcess.length === 0) {
-      throw new Error('Invalid page range specified.');
+      throw new Error(t('msg.posterizePage.invalidPageRangeSpecified'));
     }
 
     const tempCanvas = document.createElement('canvas');

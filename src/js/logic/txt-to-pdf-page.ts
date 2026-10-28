@@ -149,7 +149,9 @@ async function convert() {
     console.error('[TxtToPDF] Error:', e);
     showAlert(
       t('common.error'),
-      `Failed to convert text to PDF. ${e instanceof Error ? e.message : ''}`
+      t('tools:textToPdf.msg.failedToConvertTextToPdf', {
+        value: e instanceof Error ? e.message : '',
+      })
     );
   } finally {
     hideLoader();

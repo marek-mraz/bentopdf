@@ -93,10 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const arrayBuffer = await readFileAsArrayBuffer(currentFile);
         const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-        metaSpan.textContent = `${formatBytes(currentFile.size)} • ${pdfDoc.numPages} pages`;
+        metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+          size: formatBytes(currentFile.size),
+          count: pdfDoc.numPages,
+        });
       } catch (error) {
         console.error('Error loading PDF:', error);
-        metaSpan.textContent = `${formatBytes(currentFile.size)} • Could not load page count`;
+        metaSpan.textContent = t('tools:pdfOcg.msg.couldNotLoadPageCount', {
+          value: formatBytes(currentFile.size),
+        });
       }
 
       createIcons({ icons });
@@ -340,7 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
       showLoader(t('loader.loadingEngine'));
       const pymupdf = await loadPyMuPDF();
 
-      showLoader(`Loading layers from ${currentFile.name}...`);
+      showLoader(
+        t('tools:pdfOcg.msg.loadingLayersFrom', { name: currentFile.name })
+      );
       currentDoc = await (
         pymupdf as { open: (file: File) => Promise<PyMuPDFDocument> }
       ).open(currentFile);
@@ -426,8 +433,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err: unknown) {
           showAlert(
             t('common.error'),
-            'Failed to add layer: ' +
-              (err instanceof Error ? err.message : String(err))
+            t('tools:pdfOcg.msg.failedToAddLayer', {
+              value: err instanceof Error ? err.message : String(err),
+            })
           );
         }
       };
@@ -453,8 +461,9 @@ document.addEventListener('DOMContentLoaded', () => {
           hideLoader();
           showAlert(
             t('common.error'),
-            'Failed to save PDF: ' +
-              (err instanceof Error ? err.message : String(err))
+            t('tools:pdfOcg.msg.failedToSavePdf', {
+              value: err instanceof Error ? err.message : String(err),
+            })
           );
         }
       };

@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (state.files.length === 0) {
         showAlert(
           t('alert.noFiles'),
-          `Please select at least one ${TOOL_NAME} file.`
+          t('tools:mobiToPdf.msg.pleaseSelectAtLeastOneFile', { TOOL_NAME })
         );
         return;
       }
@@ -96,7 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (state.files.length === 1) {
         const originalFile = state.files[0];
-        showLoader(`Converting ${originalFile.name}...`);
+        showLoader(
+          t('tools:mobiToPdf.msg.converting', { name: originalFile.name })
+        );
 
         const pdfBlob = await pymupdf.convertToPdf(originalFile, {
           filetype: FILETYPE,
@@ -108,7 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${originalFile.name} to PDF.`,
+          t('tools:mobiToPdf.msg.successfullyConvertedToPdf', {
+            name: originalFile.name,
+          }),
           'success',
           () => resetState()
         );
@@ -120,7 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            `Converting ${i + 1}/${state.files.length}: ${file.name}...`
+            t('tools:mobiToPdf.msg.converting2', {
+              value: i + 1,
+              count: state.files.length,
+              name: file.name,
+            })
           );
 
           const pdfBlob = await pymupdf.convertToPdf(file, {
@@ -138,7 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showAlert(
           t('alert.conversionComplete'),
-          `Successfully converted ${state.files.length} ${TOOL_NAME} file(s) to PDF.`,
+          t('tools:mobiToPdf.msg.successfullyConvertedFileSToPdf', {
+            count: state.files.length,
+            TOOL_NAME,
+          }),
           'success',
           () => resetState()
         );
@@ -148,7 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
       showAlert(
         t('common.error'),
-        `An error occurred during conversion. Error: ${e instanceof Error ? e.message : String(e)}`
+        t('tools:mobiToPdf.msg.anErrorOccurredDuringConversionError', {
+          value: e instanceof Error ? e.message : String(e),
+        })
       );
     }
   };

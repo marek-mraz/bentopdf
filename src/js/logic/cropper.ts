@@ -55,7 +55,7 @@ function saveCurrentCrop() {
  */
 
 async function displayPageAsImage(num: number) {
-  showLoader(`Rendering Page ${num}...`);
+  showLoader(t('tools:cropper.msg.renderingPage', { num }));
 
   try {
     const page = await cropperState.pdfDoc.getPage(num);
@@ -134,8 +134,13 @@ async function changePage(offset: number) {
 }
 
 function updatePageInfo() {
-  document.getElementById('page-info').textContent =
-    `Page ${cropperState.currentPageNum} of ${cropperState.pdfDoc.numPages}`;
+  document.getElementById('page-info').textContent = t(
+    'tools:cropper.msg.pageOf',
+    {
+      currentPageNum: cropperState.currentPageNum,
+      numPages: cropperState.pdfDoc.numPages,
+    }
+  );
 }
 
 function enableControls() {
@@ -220,7 +225,9 @@ async function performFlatteningCrop(
 
   for (let i = 0; i < totalPages; i++) {
     const pageNum = i + 1;
-    showLoader(`Processing page ${pageNum} of ${totalPages}...`);
+    showLoader(
+      t('tools:cropper.msg.processingPageOf', { pageNum, totalPages })
+    );
 
     if (cropData[pageNum]) {
       const page = await cropperState.pdfDoc.getPage(pageNum);

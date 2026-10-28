@@ -1,3 +1,4 @@
+import { t } from './i18n/i18n.js';
 /**
  * Service Worker Registration
  * Registers the service worker to enable offline caching
@@ -82,11 +83,7 @@ if (isDevelopment) {
               ) {
                 console.log('[SW] New version available! Reload to update.');
 
-                if (
-                  confirm(
-                    'A new version of BentoPDF is available. Reload to update?'
-                  )
-                ) {
+                if (confirm(t('msg.swRegister.aNewVersionOfBentopdfIs'))) {
                   newWorker.postMessage({ type: 'SKIP_WAITING' });
                   window.location.reload();
                 }

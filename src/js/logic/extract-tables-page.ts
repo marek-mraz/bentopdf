@@ -121,7 +121,9 @@ async function extract() {
     const allTables: TableData[] = [];
 
     for (let i = 0; i < pageCount; i++) {
-      showLoader(`Scanning page ${i + 1} of ${pageCount}...`);
+      showLoader(
+        t('tools:extractTables.msg.scanningPageOf', { value: i + 1, pageCount })
+      );
       const page = doc.getPage(i);
       const tables = page.findTables();
 
@@ -197,7 +199,9 @@ async function extract() {
       downloadFile(zipBlob, `${baseName}_tables.zip`);
       showAlert(
         t('common.success'),
-        `Extracted ${allTables.length} tables successfully!`,
+        t('tools:extractTables.msg.extractedTablesSuccessfully', {
+          count: allTables.length,
+        }),
         'success',
         resetState
       );
@@ -205,7 +209,10 @@ async function extract() {
   } catch (e) {
     console.error(e);
     const message = e instanceof Error ? e.message : 'Unknown error';
-    showAlert(t('common.error'), `Failed to extract tables. ${message}`);
+    showAlert(
+      t('common.error'),
+      t('tools:extractTables.msg.failedToExtractTables', { error: message })
+    );
   } finally {
     hideLoader();
   }

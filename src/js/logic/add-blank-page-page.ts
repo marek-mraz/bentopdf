@@ -62,7 +62,9 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(pageState.file.size)} • Loading...`;
+    metaSpan.textContent = t('tools:addBlankPage.msg.loading', {
+      value: formatBytes(pageState.file.size),
+    });
 
     infoContainer.append(nameSpan, metaSpan);
 
@@ -91,10 +93,16 @@ async function updateUI() {
       hideLoader();
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageCount} pages`;
+      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        size: formatBytes(pageState.file.size),
+        count: pageCount,
+      });
 
       if (pagePositionHint) {
-        pagePositionHint.textContent = `Enter 0 to insert at the beginning, or ${pageCount} to insert at the end.`;
+        pagePositionHint.textContent = t(
+          'tools:addBlankPage.msg.enter0ToInsertAtThe',
+          { pageCount }
+        );
       }
       if (pagePositionInput) {
         pagePositionInput.max = pageCount.toString();
@@ -132,7 +140,7 @@ async function addBlankPages() {
   if (isNaN(position) || position < 0 || position > totalPages) {
     showAlert(
       t('tools:addBlankPage.alert.invalidInput'),
-      `Please enter a number between 0 and ${totalPages}.`
+      t('tools:addBlankPage.msg.pleaseEnterANumberBetween0', { totalPages })
     );
     return;
   }
@@ -145,9 +153,7 @@ async function addBlankPages() {
     return;
   }
 
-  showLoader(
-    `Adding ${insertCount} blank page${insertCount > 1 ? 's' : ''}...`
-  );
+  showLoader(t('tools:addBlankPage.msg.adding', { count: insertCount }));
 
   try {
     const newPdf = await PDFLibDocument.create();
@@ -186,7 +192,7 @@ async function addBlankPages() {
 
     showAlert(
       t('common.success'),
-      `Added ${insertCount} blank page${insertCount > 1 ? 's' : ''} successfully!`,
+      t('tools:addBlankPage.msg.added', { count: insertCount }),
       'success',
       function () {
         resetState();
@@ -196,7 +202,7 @@ async function addBlankPages() {
     console.error(e);
     showAlert(
       t('common.error'),
-      `Could not add blank page${insertCount > 1 ? 's' : ''}.`
+      t('tools:addBlankPage.msg.couldNotAdd', { count: insertCount })
     );
   } finally {
     hideLoader();

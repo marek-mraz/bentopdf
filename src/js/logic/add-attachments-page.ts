@@ -73,7 +73,9 @@ worker.onmessage = function (e) {
 
     showAlert(
       t('common.success'),
-      `${pageState.attachments.length} file(s) attached successfully.`,
+      t('tools:addAttachments.msg.fileSAttachedSuccessfully', {
+        count: pageState.attachments.length,
+      }),
       'success',
       function () {
         resetState();
@@ -116,7 +118,9 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(pageState.file.size)} • Loading...`;
+    metaSpan.textContent = t('tools:addAttachments.msg.loading', {
+      value: formatBytes(pageState.file.size),
+    });
 
     infoContainer.append(nameSpan, metaSpan);
 
@@ -144,7 +148,10 @@ async function updateUI() {
       pageState.pdfDoc = await loadPdfDocument(result.bytes);
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${pageCount} pages`;
+      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        size: formatBytes(pageState.file.size),
+        count: pageCount,
+      });
 
       const totalPagesSpan = document.getElementById('attachment-total-pages');
       if (totalPagesSpan) totalPagesSpan.textContent = pageCount.toString();
@@ -256,7 +263,11 @@ async function addAttachments() {
     for (let i = 0; i < pageState.attachments.length; i++) {
       const file = pageState.attachments[i];
       showLoader(
-        `Reading ${file.name} (${i + 1}/${pageState.attachments.length})...`
+        t('tools:addAttachments.msg.reading', {
+          name: file.name,
+          value: i + 1,
+          count: pageState.attachments.length,
+        })
       );
 
       const fileBuffer = await file.arrayBuffer();
@@ -283,7 +294,10 @@ async function addAttachments() {
     hideLoader();
     showAlert(
       t('common.error'),
-      `Failed to attach files: ${error instanceof Error ? error.message : t('common.unknownError')}`
+      t('tools:addAttachments.msg.failedToAttachFiles', {
+        value:
+          error instanceof Error ? error.message : t('common.unknownError'),
+      })
     );
   }
 }

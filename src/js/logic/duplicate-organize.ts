@@ -131,7 +131,7 @@ export async function renderDuplicateOrganizeThumbnails() {
     const duplicateBtn = document.createElement('button');
     duplicateBtn.className =
       'duplicate-btn bg-green-600 hover:bg-green-700 text-white rounded-full w-8 h-8 flex items-center justify-center';
-    duplicateBtn.title = 'Duplicate Page';
+    duplicateBtn.title = t('tools:duplicateOrganize.msg.duplicatePage');
     const duplicateIcon = document.createElement('i');
     duplicateIcon.setAttribute('data-lucide', 'copy-plus');
     duplicateIcon.className = 'w-5 h-5';
@@ -140,7 +140,7 @@ export async function renderDuplicateOrganizeThumbnails() {
     const deleteBtn = document.createElement('button');
     deleteBtn.className =
       'delete-btn bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center';
-    deleteBtn.title = 'Delete Page';
+    deleteBtn.title = t('tools:duplicateOrganize.msg.deletePage');
     const deleteIcon = document.createElement('i');
     deleteIcon.setAttribute('data-lucide', 'x-circle');
     deleteIcon.className = 'w-5 h-5';
@@ -161,7 +161,12 @@ export async function renderDuplicateOrganizeThumbnails() {
       useLazyLoading: true,
       lazyLoadMargin: '400px',
       onProgress: (current, total) => {
-        showLoader(`Rendering page previews: ${current}/${total}`);
+        showLoader(
+          t('tools:duplicateOrganize.msg.renderingPagePreviews', {
+            current,
+            total,
+          })
+        );
       },
       onBatchComplete: () => {
         createIcons({ icons });
