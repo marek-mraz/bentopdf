@@ -36,7 +36,8 @@
       "downloadedPdfFilesInAZip": "Stiahnuté PDF súbory v archíve ZIP: {{count}}.",
       "failedToCreateSplitPdfs": "Rozdelené PDF sa nepodarilo vytvoriť.",
       "pdfDownloadedSuccessfully": "PDF bolo úspešne stiahnuté.",
-      "failedToCreatePdf": "PDF sa nepodarilo vytvoriť."
+      "failedToCreatePdf": "PDF sa nepodarilo vytvoriť.",
+      "page": "Strana {{value}} "
     }
   },
   "mergePdf": {
@@ -70,6 +71,9 @@
       "mergeFiles": "Zlúčiť súbory",
       "clickTheMergeButtonToCombine": "Kliknutím na tlačidlo zlúčenia spojíte všetky PDF do jedného dokumentu",
       "saveYourMergedPdfAllPages": "Uložte zlúčené PDF – všetky strany spojené v poradí, ktoré ste zvolili"
+    },
+    "msg": {
+      "page": "Strana {{pageNumber}}"
     }
   },
   "splitPdf": {
@@ -306,7 +310,8 @@
       "theseFilesArePasswordProtectedEnter": "Tieto súbory sú chránené heslom: {{value}}. Zadajte ich heslá na kartách súborov alebo ich odstráňte a potom komprimujte znova.",
       "anErrorOccurredDuringCompressionError": "Pri kompresii sa vyskytla chyba. Chyba: {{value}}",
       "isNotAValidPdfSo": "{{value}} nie je platné PDF, preto nebol pridaný.",
-      "theseFilesAreNotValidPdfs": "Tieto súbory nie sú platné PDF, preto neboli pridané: {{value}}."
+      "theseFilesAreNotValidPdfs": "Tieto súbory nie sú platné PDF, preto neboli pridané: {{value}}.",
+      "remove": "Odstrániť {{name}}"
     }
   },
   "pdfEditor": {
@@ -488,7 +493,8 @@
       "customZoom": "Vlastné priblíženie",
       "addATextBox": "Pridať textové pole",
       "documentProperties": "Vlastnosti dokumentu",
-      "wasmEngineFailedToInitialize": "Engine WASM sa nepodarilo inicializovať"
+      "wasmEngineFailedToInitialize": "Engine WASM sa nepodarilo inicializovať",
+      "edit": "Upraviť {{value}}"
     }
   },
   "jpgToPdf": {
@@ -1144,7 +1150,10 @@
       "errorLoadingPdfFilePleaseTry": "Chyba pri načítaní PDF. Skúste to znova s platným PDF.",
       "areYouSureYouWantTo": "Naozaj chcete všetko obnoviť? Celá vaša práca sa stratí.",
       "fieldNameExistsInPdf": "Pole s názvom „{{name}}“ už v tomto PDF existuje. Použite jedinečný názov.",
-      "fieldNameExistsInForm": "Pole s názvom „{{name}}“ už v tomto formulári existuje. Použite jedinečný názov."
+      "fieldNameExistsInForm": "Pole s názvom „{{name}}“ už v tomto formulári existuje. Použite jedinečný názov.",
+      "okay": "OK",
+      "signHere": "Podpíšte tu",
+      "invalidData": "Neplatné údaje"
     }
   },
   "removeBlankPages": {
@@ -1894,6 +1903,13 @@
     "ui": {
       "documentMetadata": "Metadáta dokumentu",
       "copyMetadataJson": "Kopírovať metadáta ako JSON"
+    },
+    "msg": {
+      "noInfoDictionaryDataFound": "- Nenašli sa žiadne údaje slovníka Info -",
+      "noInteractiveFormFieldsFound": "- Nenašli sa žiadne interaktívne polia formulára -",
+      "noParseableXmpPropertiesFound": "- Nenašli sa žiadne čitateľné vlastnosti XMP -",
+      "errorParsingXmpXmlDisplayingRaw": "- Chyba pri čítaní XMP XML. Zobrazuje sa nespracované. -",
+      "noXmpMetadataFound": "- Nenašli sa žiadne metadáta XMP -"
     }
   },
   "editMetadata": {
@@ -2471,7 +2487,8 @@
       "groupCSeriesEnvelopes": "Rad C (obálky)"
     },
     "msg": {
-      "bookletCreatedWithSheets": "Brožúra bola vytvorená, počet hárkov: {{numSheets}}!"
+      "bookletCreatedWithSheets": "Brožúra bola vytvorená, počet hárkov: {{numSheets}}!",
+      "generatingPreview": "Vytvára sa náhľad..."
     }
   },
   "xpsToPdf": {
@@ -2894,6 +2911,20 @@
       "theToolExtractsAndParsesAll": "Nástroj vyextrahuje a rozoberie všetky digitálne podpisy v dokumente",
       "viewResults": "Zobraziť výsledky",
       "seeSignerInformationCertificateValidityA": "Pozrite si údaje o podpisujúcom, platnosť certifikátu a stav podpisu"
+    },
+    "msg": {
+      "noSignaturesFound": "Nenašli sa žiadne podpisy",
+      "thisPdfDoesNotContainAny": "Toto PDF neobsahuje žiadne digitálne podpisy.",
+      "signedBy": "Podpísal",
+      "validFrom": "Platný od",
+      "validUntil": "Platný do",
+      "technicalDetails": "Technické podrobnosti",
+      "serialNumber": "Sériové číslo:",
+      "digestAlgorithm": "Hašovací algoritmus:",
+      "signatureAlgorithm": "Podpisový algoritmus:",
+      "fullCoverage": "Pokrýva celý dokument",
+      "partialCoverage": "Pokrýva časť dokumentu",
+      "signedOn": "Podpísané dňa"
     }
   },
   "timestampPdf": {
@@ -3127,7 +3158,9 @@
       "couldNotLoadPageCount": "{{value}} • Počet strán sa nepodarilo načítať",
       "loadingLayersFrom": "Načítavajú sa vrstvy z {{name}}...",
       "failedToAddLayer": "Vrstvu sa nepodarilo pridať: {{value}}",
-      "failedToSavePdf": "PDF sa nepodarilo uložiť: {{value}}"
+      "failedToSavePdf": "PDF sa nepodarilo uložiť: {{value}}",
+      "thisPdfHasNoLayersOcg": "Toto PDF nemá žiadne vrstvy (OCG).",
+      "addANewLayerToGet": "Začnite pridaním novej vrstvy!"
     }
   },
   "pdfToPdfa": {

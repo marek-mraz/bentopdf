@@ -1110,7 +1110,9 @@
       "foundExistingBookmarksReplaceCurrentBook": "Našli sa existujúce záložky ({{count}}). Nahradiť aktuálne záložky?",
       "noExistingBookmarksFoundInThis": "V tomto PDF sa nenašli žiadne existujúce záložky.",
       "pdfSavedSuccessfully": "PDF bolo úspešne uložené!",
-      "errorSavingPdfCheckConsoleFor": "Chyba pri ukladaní PDF. Podrobnosti nájdete v konzole."
+      "errorSavingPdfCheckConsoleFor": "Chyba pri ukladaní PDF. Podrobnosti nájdete v konzole.",
+      "confirm": "Potvrdiť",
+      "confirmAction": "Potvrdenie akcie"
     },
     "posterizePage": {
       "renderingPreviewForPage": "Vykresľuje sa náhľad strany {{pageNum}}...",
@@ -1132,7 +1134,12 @@
     },
     "fileHandler": {
       "keyEGDepartment": "Kľúč (napr. Oddelenie)",
-      "valueEGMarketing": "Hodnota (napr. Marketing)"
+      "valueEGMarketing": "Hodnota (napr. Marketing)",
+      "noInfoDictionaryDataFound": "- Nenašli sa žiadne údaje slovníka Info -",
+      "noInteractiveFormFieldsFound": "- Nenašli sa žiadne interaktívne polia formulára -",
+      "noParseableXmpPropertiesFound": "- Nenašli sa žiadne čitateľné vlastnosti XMP -",
+      "errorParsingXmpXmlDisplayingRaw": "- Chyba pri čítaní XMP XML. Zobrazuje sa nespracované. -",
+      "noXmpMetadataFound": "- Nenašli sa žiadne metadáta XMP -"
     },
     "tesseractRuntime": {
       "selfHostedOcrAssetsArePartially": "Vlastné súbory OCR sú nastavené len čiastočne. Nastavte {{missing}} spolu s ostatnými URL súborov Tesseract."
@@ -1148,7 +1155,9 @@
       "complete": "Hotovo!"
     },
     "pagePreview": {
-      "pageOf": "Strana {{pageNumber}} z {{totalPages}}"
+      "pageOf": "Strana {{pageNumber}} z {{totalPages}}",
+      "closeEsc": "Zavrieť (Esc)",
+      "failedToRenderPage": "Stranu sa nepodarilo vykresliť"
     },
     "passwordPrompt": {
       "pleaseEnterAPassword": "Zadajte heslo",
@@ -1166,7 +1175,10 @@
       "validatingOf": "Overuje sa {{value}} z {{count}}: {{name}}",
       "decryptingOf": "Dešifruje sa {{value}} z {{count}}: {{name}}",
       "wrongPasswordFor": "Nesprávne heslo pre: {{value}}",
-      "retryFailed": "Zopakovať neúspešné"
+      "retryFailed": "Zopakovať neúspešné",
+      "passwordForAllFiles": "Heslo pre všetky súbory",
+      "enterPasswordsForEachEncryptedFile": "Zadajte heslá pre jednotlivé zašifrované súbory",
+      "useSamePasswordForAllFiles": "Použiť rovnaké heslo pre všetky súbory"
     },
     "ghostscriptLoader": {
       "ghostscriptIsNotConfiguredPleaseConfigur": "Ghostscript nie je nastavený. Nastavte ho v Nastaveniach WASM.",
@@ -1198,7 +1210,9 @@
       "ocrAbortedBeforeAnyPageWas": "OCR bolo prerušené skôr, ako sa spracovala prvá strana"
     },
     "markdownEditor": {
-      "mermaidError": "Chyba Mermaid: {{error}}"
+      "mermaidError": "Chyba Mermaid: {{error}}",
+      "toggleSyncScroll": "Prepnúť synchronizované posúvanie",
+      "convertNewlinesToLtBrGt": "Prevádzať nové riadky na &lt;br&gt;"
     },
     "pdfDecrypt": {
       "invalidPdfPassword": "Neplatné heslo PDF."
@@ -1228,6 +1242,15 @@
     },
     "types": {
       "noPdfConnected": "Nie je pripojené žiadne PDF"
+    },
+    "wasmProvider": {
+      "advancedFeatureRequired": "Vyžaduje sa rozšírená funkcia",
+      "externalProcessingModuleNeeded": "Potrebný je externý modul na spracovanie",
+      "thisFeatureRequires": "Táto funkcia vyžaduje, aby bol",
+      "toBeConfigured": "nastavený.",
+      "featuresEnabledByThisModule": "Funkcie, ktoré tento modul sprístupní:",
+      "thisModuleIsLicensedUnderAgpl": "Tento modul je licencovaný pod AGPL-3.0. Jeho nastavením súhlasíte s jeho licenčnými podmienkami.",
+      "configure": "Nastaviť"
     }
   }
 }

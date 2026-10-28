@@ -170,7 +170,7 @@ async function renderPageMergeThumbnails() {
       fileNamePara.title = fullTitle;
       fileNamePara.textContent = displayName
         ? `${displayName.substring(0, 10)}... (p${pageNumber})`
-        : `Page ${pageNumber}`;
+        : t('tools:mergePdf.msg.page', { pageNumber });
 
       wrapper.append(imgContainer, fileNamePara);
       return wrapper;

@@ -39,8 +39,7 @@ function resetState() {
 
   const previewArea = document.getElementById('booklet-preview');
   if (previewArea)
-    previewArea.innerHTML =
-      '<p class="text-gray-400 text-center py-8">Upload a PDF and click "Generate Preview" to see the booklet layout</p>';
+    previewArea.innerHTML = `<p class="text-gray-400 text-center py-8">${t('tools:pdfBooklet.ui.uploadAPdfAndClickGenerate')}</p>`;
 
   const downloadBtn = document.getElementById(
     'download-btn'
@@ -198,8 +197,7 @@ async function generatePreview() {
   const canvasWidth = containerWidth;
   const canvasHeight = containerWidth / aspectRatio;
 
-  previewArea.innerHTML =
-    '<p class="text-gray-400 text-center py-4">Generating preview...</p>';
+  previewArea.innerHTML = `<p class="text-gray-400 text-center py-4">${t('tools:pdfBooklet.msg.generatingPreview')}</p>`;
 
   const totalRounded = isBookletMode
     ? Math.ceil(totalPages / 4) * 4

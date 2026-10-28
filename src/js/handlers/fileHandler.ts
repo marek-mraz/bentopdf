@@ -311,7 +311,7 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
             infoSection.ul.appendChild(createListItem(key, displayValue));
           }
         } else {
-          infoSection.ul.innerHTML = `<li><span class="text-gray-500 italic">- No Info Dictionary data found -</span></li>`;
+          infoSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${t('msg.fileHandler.noInfoDictionaryDataFound')}</span></li>`;
         }
         resultsDiv.appendChild(infoSection.wrapper);
 
@@ -325,7 +325,7 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
             );
           }
         } else {
-          fieldsSection.ul.innerHTML = `<li><span class="text-gray-500 italic">- No interactive form fields found -</span></li>`;
+          fieldsSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${t('msg.fileHandler.noInteractiveFormFieldsFound')}</span></li>`;
         }
         resultsDiv.appendChild(fieldsSection.wrapper);
 
@@ -432,11 +432,11 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
             }
 
             if (xmpSection.ul.children.length === 0) {
-              xmpSection.ul.innerHTML = `<li><span class="text-gray-500 italic">- No parseable XMP properties found -</span></li>`;
+              xmpSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${t('msg.fileHandler.noParseableXmpPropertiesFound')}</span></li>`;
             }
           } catch (xmlError) {
             console.error('Failed to parse XMP XML:', xmlError);
-            xmpSection.ul.innerHTML = `<li><span class="text-red-500 italic">- Error parsing XMP XML. Displaying raw. -</span></li>`;
+            xmpSection.ul.innerHTML = `<li><span class="text-red-500 italic">${t('msg.fileHandler.errorParsingXmpXmlDisplayingRaw')}</span></li>`;
             const pre = document.createElement('pre');
             pre.className =
               'text-xs text-gray-300 whitespace-pre-wrap break-all';
@@ -444,7 +444,7 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
             xmpSection.ul.appendChild(pre);
           }
         } else {
-          xmpSection.ul.innerHTML = `<li><span class="text-gray-500 italic">- No XMP metadata found -</span></li>`;
+          xmpSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${t('msg.fileHandler.noXmpMetadataFound')}</span></li>`;
         }
         resultsDiv.appendChild(xmpSection.wrapper);
 

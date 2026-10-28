@@ -1110,7 +1110,9 @@
       "foundExistingBookmarksReplaceCurrentBook": "Found {{count}} existing bookmarks. Replace current bookmarks?",
       "noExistingBookmarksFoundInThis": "No existing bookmarks found in this PDF.",
       "pdfSavedSuccessfully": "PDF saved successfully!",
-      "errorSavingPdfCheckConsoleFor": "Error saving PDF. Check console for details."
+      "errorSavingPdfCheckConsoleFor": "Error saving PDF. Check console for details.",
+      "confirm": "Confirm",
+      "confirmAction": "Confirm Action"
     },
     "posterizePage": {
       "renderingPreviewForPage": "Rendering preview for page {{pageNum}}...",
@@ -1132,7 +1134,12 @@
     },
     "fileHandler": {
       "keyEGDepartment": "Key (e.g., Department)",
-      "valueEGMarketing": "Value (e.g., Marketing)"
+      "valueEGMarketing": "Value (e.g., Marketing)",
+      "noInfoDictionaryDataFound": "- No Info Dictionary data found -",
+      "noInteractiveFormFieldsFound": "- No interactive form fields found -",
+      "noParseableXmpPropertiesFound": "- No parseable XMP properties found -",
+      "errorParsingXmpXmlDisplayingRaw": "- Error parsing XMP XML. Displaying raw. -",
+      "noXmpMetadataFound": "- No XMP metadata found -"
     },
     "tesseractRuntime": {
       "selfHostedOcrAssetsArePartially": "Self-hosted OCR assets are partially configured. Set {{missing}} together with the other Tesseract asset URLs."
@@ -1148,7 +1155,9 @@
       "complete": "Complete!"
     },
     "pagePreview": {
-      "pageOf": "Page {{pageNumber}} of {{totalPages}}"
+      "pageOf": "Page {{pageNumber}} of {{totalPages}}",
+      "closeEsc": "Close (Esc)",
+      "failedToRenderPage": "Failed to render page"
     },
     "passwordPrompt": {
       "pleaseEnterAPassword": "Please enter a password",
@@ -1166,7 +1175,10 @@
       "validatingOf": "Validating {{value}} of {{count}}: {{name}}",
       "decryptingOf": "Decrypting {{value}} of {{count}}: {{name}}",
       "wrongPasswordFor": "Wrong password for: {{value}}",
-      "retryFailed": "Retry Failed"
+      "retryFailed": "Retry Failed",
+      "passwordForAllFiles": "Password for all files",
+      "enterPasswordsForEachEncryptedFile": "Enter passwords for each encrypted file",
+      "useSamePasswordForAllFiles": "Use same password for all files"
     },
     "ghostscriptLoader": {
       "ghostscriptIsNotConfiguredPleaseConfigur": "Ghostscript is not configured. Please configure it in WASM Settings.",
@@ -1198,7 +1210,9 @@
       "ocrAbortedBeforeAnyPageWas": "OCR aborted before any page was processed"
     },
     "markdownEditor": {
-      "mermaidError": "Mermaid Error: {{error}}"
+      "mermaidError": "Mermaid Error: {{error}}",
+      "toggleSyncScroll": "Toggle sync scroll",
+      "convertNewlinesToLtBrGt": "Convert newlines to &lt;br&gt;"
     },
     "pdfDecrypt": {
       "invalidPdfPassword": "Invalid PDF password."
@@ -1228,6 +1242,15 @@
     },
     "types": {
       "noPdfConnected": "No PDF connected"
+    },
+    "wasmProvider": {
+      "advancedFeatureRequired": "Advanced Feature Required",
+      "externalProcessingModuleNeeded": "External processing module needed",
+      "thisFeatureRequires": "This feature requires",
+      "toBeConfigured": "to be configured.",
+      "featuresEnabledByThisModule": "Features enabled by this module:",
+      "thisModuleIsLicensedUnderAgpl": "This module is licensed under AGPL-3.0. By configuring it, you agree to its license terms.",
+      "configure": "Configure"
     }
   }
 }

@@ -329,8 +329,8 @@ class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900" />
                       ${fieldsHTML}
 </div>
   <div class="flex gap-2 justify-end">
-    <button id="modal-cancel" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700">Cancel</button>
-      <button id="modal-confirm" class="px-4 py-2 rounded btn-gradient text-white">Confirm</button>
+    <button id="modal-cancel" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700">${t('warning.cancel')}</button>
+      <button id="modal-confirm" class="px-4 py-2 rounded btn-gradient text-white">${t('msg.bookmarkPdf.confirm')}</button>
         </div>
         </div>
           `;
@@ -827,11 +827,11 @@ function showConfirmModal(message: string): Promise<boolean> {
 
     modal.innerHTML = `
   <div class="p-6">
-    <h3 class="text-xl font-bold text-gray-800 mb-4">Confirm Action</h3>
+    <h3 class="text-xl font-bold text-gray-800 mb-4">${t('msg.bookmarkPdf.confirmAction')}</h3>
       <p class="text-gray-600 mb-6">${escapeHTML(message)}</p>
         <div class="flex gap-2 justify-end">
-          <button id="modal-cancel" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700">Cancel</button>
-            <button id="modal-confirm" class="px-4 py-2 rounded btn-gradient text-white">Confirm</button>
+          <button id="modal-cancel" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700">${t('warning.cancel')}</button>
+            <button id="modal-confirm" class="px-4 py-2 rounded btn-gradient text-white">${t('msg.bookmarkPdf.confirm')}</button>
               </div>
               </div>
                 `;
@@ -1016,7 +1016,10 @@ resetBtn?.addEventListener('click', async () => {
 
 deleteAllBtn?.addEventListener('click', async () => {
   if (bookmarkTree.length === 0) {
-    await showAlertModal('Info', t('msg.bookmarkPdf.noBookmarksToDelete'));
+    await showAlertModal(
+      t('tools:removeBlankPages.alert.info'),
+      t('msg.bookmarkPdf.noBookmarksToDelete')
+    );
     return;
   }
 
@@ -1314,7 +1317,10 @@ jsonInput?.addEventListener('change', async (e: Event) => {
       t('msg.bookmarkPdf.loadedBookmarksFromJsonNowUpload')
     );
   } catch {
-    await showAlertModal('Error', t('msg.bookmarkPdf.invalidJsonFormat'));
+    await showAlertModal(
+      t('common.error'),
+      t('msg.bookmarkPdf.invalidJsonFormat')
+    );
   }
 });
 
@@ -1774,7 +1780,7 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
 
   const editBtn = document.createElement('button');
   editBtn.className = 'p-1 hover:bg-gray-200 rounded text-gray-700';
-  editBtn.title = 'Edit';
+  editBtn.title = t('common.edit');
   editBtn.innerHTML = '<i data-lucide="edit-2" class="w-4 h-4"></i>';
   editBtn.addEventListener('click', async (e: MouseEvent) => {
     e.stopPropagation();
@@ -1852,7 +1858,7 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
 
   const deleteBtn = document.createElement('button');
   deleteBtn.className = 'p-1 hover:bg-gray-200 rounded text-red-600';
-  deleteBtn.title = 'Delete';
+  deleteBtn.title = t('common.delete');
   deleteBtn.innerHTML = '<i data-lucide="trash-2" class="w-4 h-4"></i>';
   deleteBtn.addEventListener('click', async (e: MouseEvent) => {
     e.stopPropagation();
@@ -1892,7 +1898,10 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
 addTopLevelBtn?.addEventListener('click', async () => {
   const title = titleInput?.value.trim();
   if (!title) {
-    await showAlertModal('Error', t('msg.bookmarkPdf.pleaseEnterATitle'));
+    await showAlertModal(
+      t('common.error'),
+      t('msg.bookmarkPdf.pleaseEnterATitle')
+    );
     return;
   }
 
@@ -1939,7 +1948,7 @@ csvImportHidden?.addEventListener('change', async (e: Event) => {
     saveState();
     renderBookmarkTree();
     await showAlertModal(
-      'Success',
+      t('common.success'),
       t('msg.bookmarkPdf.importedBookmarks', { count: imported.length })
     );
   }
@@ -1951,7 +1960,7 @@ exportCsvBtn?.addEventListener('click', () => {
   exportDropdown?.classList.add('hidden');
 
   if (bookmarkTree.length === 0) {
-    showAlertModal('Error', t('msg.bookmarkPdf.noBookmarksToExport'));
+    showAlertModal(t('common.error'), t('msg.bookmarkPdf.noBookmarksToExport'));
     return;
   }
 
@@ -2058,11 +2067,14 @@ jsonImportHidden?.addEventListener('change', async (e: Event) => {
     saveState();
     renderBookmarkTree();
     await showAlertModal(
-      'Success',
+      t('common.success'),
       t('msg.bookmarkPdf.bookmarksImportedFromJson')
     );
   } catch {
-    await showAlertModal('Error', t('msg.bookmarkPdf.invalidJsonFormat'));
+    await showAlertModal(
+      t('common.error'),
+      t('msg.bookmarkPdf.invalidJsonFormat')
+    );
   }
 
   if (jsonImportHidden) jsonImportHidden.value = '';
@@ -2072,7 +2084,7 @@ exportJsonBtn?.addEventListener('click', () => {
   exportDropdown?.classList.add('hidden');
 
   if (bookmarkTree.length === 0) {
-    showAlertModal('Error', t('msg.bookmarkPdf.noBookmarksToExport'));
+    showAlertModal(t('common.error'), t('msg.bookmarkPdf.noBookmarksToExport'));
     return;
   }
 
@@ -2098,7 +2110,7 @@ extractExistingBtn?.addEventListener('click', async () => {
     }
   } else {
     await showAlertModal(
-      'Info',
+      t('tools:removeBlankPages.alert.info'),
       t('msg.bookmarkPdf.noExistingBookmarksFoundInThis')
     );
   }
@@ -2360,7 +2372,10 @@ downloadBtn?.addEventListener('click', async () => {
     });
     downloadFile(blob, `${originalFileName}.pdf`);
 
-    await showAlertModal('Success', t('msg.bookmarkPdf.pdfSavedSuccessfully'));
+    await showAlertModal(
+      t('common.success'),
+      t('msg.bookmarkPdf.pdfSavedSuccessfully')
+    );
 
     setTimeout(() => {
       resetToUploader();
@@ -2368,7 +2383,7 @@ downloadBtn?.addEventListener('click', async () => {
   } catch (err) {
     console.error(err);
     await showAlertModal(
-      'Error',
+      t('common.error'),
       t('msg.bookmarkPdf.errorSavingPdfCheckConsoleFor')
     );
   }

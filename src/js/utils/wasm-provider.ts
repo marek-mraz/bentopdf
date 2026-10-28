@@ -1,3 +1,4 @@
+import { t } from '../i18n/i18n.js';
 export type WasmPackage = 'pymupdf' | 'ghostscript' | 'cpdf';
 
 interface WasmProviderConfig {
@@ -389,17 +390,17 @@ export function showWasmRequiredDialog(
           </svg>
         </div>
         <div>
-          <h3 class="text-lg font-semibold text-white">Advanced Feature Required</h3>
-          <p class="text-sm text-gray-400">External processing module needed</p>
+          <h3 class="text-lg font-semibold text-white">${t('msg.wasmProvider.advancedFeatureRequired')}</h3>
+          <p class="text-sm text-gray-400">${t('msg.wasmProvider.externalProcessingModuleNeeded')}</p>
         </div>
       </div>
 
       <p class="text-gray-300 mb-4">
-        This feature requires <strong class="text-white">${displayName}</strong> to be configured.
+        ${t('msg.wasmProvider.thisFeatureRequires')} <strong class="text-white">${displayName}</strong> ${t('msg.wasmProvider.toBeConfigured')}
       </p>
 
       <div class="bg-gray-700/50 rounded-lg p-4 mb-4">
-        <p class="text-sm text-gray-400 mb-2">Features enabled by this module:</p>
+        <p class="text-sm text-gray-400 mb-2">${t('msg.wasmProvider.featuresEnabledByThisModule')}</p>
         <ul class="text-sm text-gray-300 space-y-1">
           ${features
             .slice(0, 4)
@@ -413,16 +414,16 @@ export function showWasmRequiredDialog(
       </div>
 
       <p class="text-xs text-gray-500 mb-4">
-        This module is licensed under AGPL-3.0. By configuring it, you agree to its license terms.
+        ${t('msg.wasmProvider.thisModuleIsLicensedUnderAgpl')}
       </p>
     </div>
 
     <div class="border-t border-gray-700 p-4 flex gap-3">
       <button id="wasm-modal-cancel" class="flex-1 px-4 py-2.5 rounded-lg bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors font-medium">
-        Cancel
+        ${t('warning.cancel')}
       </button>
       <button id="wasm-modal-configure" class="flex-1 px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-400 transition-all font-medium">
-        Configure
+        ${t('msg.wasmProvider.configure')}
       </button>
     </div>
   `;

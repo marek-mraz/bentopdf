@@ -196,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (layersArray.length === 0) {
       layersList.innerHTML = `
                 <div class="layers-empty">
-                    <p>This PDF has no layers (OCG).</p>
-                    <p>Add a new layer to get started!</p>
+                    <p>${t('tools:pdfOcg.msg.thisPdfHasNoLayersOcg')}</p>
+                    <p>${t('tools:pdfOcg.msg.addANewLayerToGet')}</p>
                 </div>
             `;
       return;

@@ -1027,7 +1027,7 @@ async function handleInsertPdf(e: Event) {
   } catch (e) {
     console.error('Failed to insert PDF:', e);
     showModal(
-      'Error',
+      t('common.error'),
       t('tools:pdfMultiTool.msg.failedToInsertPdfTheFile'),
       'error'
     );
@@ -1295,7 +1295,7 @@ async function downloadSplitPdfs() {
     downloadFile(zipBlob, 'split-documents.zip');
 
     showModal(
-      'Success',
+      t('common.success'),
       t('tools:pdfMultiTool.msg.downloadedPdfFilesInAZip', {
         count: segments.length,
       }),
@@ -1304,7 +1304,7 @@ async function downloadSplitPdfs() {
   } catch (e) {
     console.error('Failed to create split PDFs:', e);
     showModal(
-      'Error',
+      t('common.error'),
       t('tools:pdfMultiTool.msg.failedToCreateSplitPdfs'),
       'error'
     );
@@ -1383,13 +1383,17 @@ async function downloadPagesAsPdf(indices: number[], filename: string) {
 
     downloadFile(blob, filename);
     showModal(
-      'Success',
+      t('common.success'),
       t('tools:pdfMultiTool.msg.pdfDownloadedSuccessfully'),
       'success'
     );
   } catch (e) {
     console.error('Failed to create PDF:', e);
-    showModal('Error', t('tools:pdfMultiTool.msg.failedToCreatePdf'), 'error');
+    showModal(
+      t('common.error'),
+      t('tools:pdfMultiTool.msg.failedToCreatePdf'),
+      'error'
+    );
   }
 }
 
@@ -1428,7 +1432,10 @@ function updatePageDisplay() {
       const info = card.querySelector(
         '.text-xs.text-gray-400.text-center.mb-2'
       );
-      if (info) info.textContent = `Page ${index + 1} `;
+      if (info)
+        info.textContent = t('tools:pdfMultiTool.msg.page', {
+          value: index + 1,
+        });
 
       // Update selection state
       const selectBtn = card.querySelector(
@@ -1536,7 +1543,7 @@ function updatePageNumbers() {
     // Update visible page number text
     const info = card.querySelector('.text-xs.text-gray-400.text-center.mb-2');
     if (info) {
-      info.textContent = `Page ${index + 1} `;
+      info.textContent = t('tools:pdfMultiTool.msg.page', { value: index + 1 });
     }
 
     // Re-attach event listeners for buttons

@@ -37,7 +37,7 @@ function ensureSingleModal(): HTMLDivElement {
             <i data-lucide="lock" class="w-6 h-6 text-indigo-400"></i>
           </div>
           <div class="flex-1">
-            <h3 id="password-modal-title" class="text-xl font-bold text-white mb-1">Password Required</h3>
+            <h3 id="password-modal-title" class="text-xl font-bold text-white mb-1">${t('tools:changePermissions.alert.passwordRequired')}</h3>
             <p id="password-modal-subtitle" class="text-gray-400 text-sm truncate"></p>
           </div>
         </div>
@@ -45,7 +45,7 @@ function ensureSingleModal(): HTMLDivElement {
           <div class="relative">
             <input type="password" id="password-modal-input"
               class="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="Enter password" autocomplete="off" />
+              placeholder="${t('tools:pdfWorkflow.ui.enterPasswordPlaceholder')}" autocomplete="off" />
             <button id="password-modal-toggle" type="button"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200">
               <i data-lucide="eye" class="w-4 h-4"></i>
@@ -58,11 +58,11 @@ function ensureSingleModal(): HTMLDivElement {
       <div class="flex gap-3 p-4 border-t border-gray-700">
         <button id="password-modal-cancel"
           class="flex-1 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors">
-          Skip
+          ${t('tools:pdfWorkflow.ui.skip')}
         </button>
         <button id="password-modal-submit"
           class="flex-1 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors">
-          Unlock
+          ${t('tools:pdfWorkflow.ui.unlock')}
         </button>
       </div>
     </div>`;
@@ -87,19 +87,19 @@ function ensureBatchModal(): HTMLDivElement {
           </div>
           <div class="flex-1">
             <h3 id="batch-modal-title" class="text-xl font-bold text-white mb-1"></h3>
-            <p class="text-gray-400 text-sm">Enter passwords for each encrypted file</p>
+            <p class="text-gray-400 text-sm">${t('msg.passwordPrompt.enterPasswordsForEachEncryptedFile')}</p>
           </div>
         </div>
         <div class="flex items-center gap-2 mt-3 mb-3">
           <input type="checkbox" id="batch-modal-same-pw" checked
             class="w-4 h-4 rounded bg-gray-700 border-gray-600 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-0 cursor-pointer" />
-          <label for="batch-modal-same-pw" class="text-sm text-gray-300 cursor-pointer select-none">Use same password for all files</label>
+          <label for="batch-modal-same-pw" class="text-sm text-gray-300 cursor-pointer select-none">${t('msg.passwordPrompt.useSamePasswordForAllFiles')}</label>
         </div>
         <div id="batch-modal-shared" class="mb-3">
           <div class="relative">
             <input type="password" id="batch-modal-shared-input"
               class="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="Password for all files" autocomplete="off" />
+              placeholder="${t('msg.passwordPrompt.passwordForAllFiles')}" autocomplete="off" />
             <button id="batch-modal-shared-toggle" type="button"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200">
               <i data-lucide="eye" class="w-4 h-4"></i>
@@ -113,11 +113,11 @@ function ensureBatchModal(): HTMLDivElement {
       <div class="flex gap-3 p-4 border-t border-gray-700 flex-shrink-0">
         <button id="batch-modal-cancel"
           class="flex-1 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors">
-          Skip All
+          ${t('msg.passwordPrompt.skipAll')}
         </button>
         <button id="batch-modal-submit"
           class="flex-1 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors">
-          Unlock All
+          ${t('msg.passwordPrompt.unlockAll')}
         </button>
       </div>
     </div>`;
@@ -253,10 +253,10 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
   input.value = '';
   input.type = 'password';
   submitBtn.disabled = false;
-  submitBtn.textContent = 'Unlock';
+  submitBtn.textContent = t('tools:pdfWorkflow.ui.unlock');
   submitBtn.dataset.originalText = 'Unlock';
   cancelBtn.disabled = false;
-  cancelBtn.textContent = 'Skip';
+  cancelBtn.textContent = t('tools:pdfWorkflow.ui.skip');
 
   modal.classList.remove('hidden');
   modal.classList.add('flex');

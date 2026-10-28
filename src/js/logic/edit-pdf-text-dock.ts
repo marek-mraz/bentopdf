@@ -167,7 +167,7 @@ function setupPagePill(): void {
       go();
     });
     const goBtn = mkBtn('dnavbtn dgo', 'Go to page');
-    goBtn.textContent = 'Go';
+    goBtn.textContent = t('tools:editBookmarks.ui.go');
     goBtn.addEventListener('click', go);
     nav.append(prevB, inp, goBtn, nextB);
     menu.appendChild(nav);
@@ -312,7 +312,7 @@ export function setupFormatDock(): void {
   const alignRow = rowOf(q('fAlign'));
   if (alignRow) alignSlot.appendChild(alignRow);
   const dirLab = div('dlab dsublab');
-  dirLab.textContent = 'Direction';
+  dirLab.textContent = t('tools:editPdfText.direction');
   alignSlot.appendChild(dirLab);
   const dirRow = rowOf(q('fDir'));
   if (dirRow) alignSlot.appendChild(dirRow);
@@ -329,7 +329,7 @@ export function setupFormatDock(): void {
 
   const moreSlot = mkSlot('more');
   const outLab = div('dlab dsublab');
-  outLab.textContent = 'Outline';
+  outLab.textContent = t('tools:editPdfText.outline');
   moreSlot.appendChild(outLab);
   const outlineRow = rowOf(q('fStrokeColor'));
   if (outlineRow) moreSlot.appendChild(outlineRow);

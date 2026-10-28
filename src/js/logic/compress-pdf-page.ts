@@ -826,7 +826,10 @@ document.addEventListener('DOMContentLoaded', () => {
           removeBtn.type = 'button';
           removeBtn.className =
             'ml-4 text-red-400 hover:text-red-300 flex-shrink-0';
-          removeBtn.setAttribute('aria-label', `Remove ${file.name}`);
+          removeBtn.setAttribute(
+            'aria-label',
+            t('tools:compressPdf.msg.remove', { name: file.name })
+          );
           removeBtn.append(createIcon('trash', ''));
           removeBtn.onclick = () => {
             state.files = state.files.filter((f) => f !== file);

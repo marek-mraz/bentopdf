@@ -700,7 +700,7 @@ function renderField(field: FormField): void {
       '#e5e7eb'
     );
     contentEl.style.color = field.textColor || '#000000';
-    contentEl.textContent = field.label || 'Button';
+    contentEl.textContent = field.label || t('tools:createPdfForm.ui.button');
   } else if (field.type === 'signature') {
     contentEl.className =
       'w-full h-full flex items-center justify-center text-gray-400';
@@ -708,8 +708,7 @@ function renderField(field: FormField): void {
       field,
       '#f9fafb'
     );
-    contentEl.innerHTML =
-      '<div class="flex flex-col items-center"><i data-lucide="pen-tool" class="w-6 h-6 mb-1"></i><span class="text-[10px]">Sign Here</span></div>';
+    contentEl.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="pen-tool" class="w-6 h-6 mb-1"></i><span class="text-[10px]">${t('tools:createPdfForm.msg.signHere')}</span></div>`;
     setTimeout(() => (window as LucideWindow).lucide?.createIcons(), 0);
   } else if (field.type === 'date') {
     contentEl.className =
@@ -756,11 +755,11 @@ function renderField(field: FormField): void {
           String(field.name).replace(/[\r\n]+/g, ' '),
           error
         );
-        contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1 text-gray-400"><i data-lucide="qr-code" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">Invalid data</span></div>`;
+        contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1 text-gray-400"><i data-lucide="qr-code" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">${t('tools:createPdfForm.msg.invalidData')}</span></div>`;
         setTimeout(() => (window as LucideWindow).lucide?.createIcons(), 0);
       }
     } else {
-      contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1 text-gray-400"><i data-lucide="qr-code" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">Barcode</span></div>`;
+      contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1 text-gray-400"><i data-lucide="qr-code" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">${t('tools:createPdfForm.ui.barcode')}</span></div>`;
       setTimeout(() => (window as LucideWindow).lucide?.createIcons(), 0);
     }
   }
@@ -1786,7 +1785,7 @@ function showProperties(field: FormField): void {
       if (propSelectedOption) {
         const currentVal = field.defaultValue;
         propSelectedOption.innerHTML =
-          '<option value="">None</option>' +
+          `<option value="">${t('tools:compressPdf.hyperOptions.dpiNone')}</option>` +
           field.options
             ?.map(
               (opt) =>
@@ -1825,7 +1824,9 @@ function showProperties(field: FormField): void {
         const contentEl = fieldWrapper.querySelector(
           '.field-content'
         ) as HTMLElement;
-        if (contentEl) contentEl.textContent = field.label || 'Button';
+        if (contentEl)
+          contentEl.textContent =
+            field.label || t('tools:createPdfForm.ui.button');
       }
     });
 
@@ -2082,8 +2083,7 @@ function showProperties(field: FormField): void {
 
 // Hide properties panel
 function hideProperties(): void {
-  propertiesPanel.innerHTML =
-    '<p class="text-gray-500 text-sm">Select a field to edit properties</p>';
+  propertiesPanel.innerHTML = `<p class="text-gray-500 text-sm">${t('tools:createPdfForm.ui.selectAFieldToEditProperties')}</p>`;
 }
 
 // Delete field
@@ -2721,13 +2721,13 @@ downloadBtn.addEventListener('click', async () => {
     });
     downloadFile(blob, uploadedFileName || 'document.pdf');
     showModal(
-      'Success',
+      t('common.success'),
       t('tools:createPdfForm.msg.yourPdfHasBeenDownloadedSuccessfully'),
       'info',
       () => {
         resetToInitial();
       },
-      'Okay'
+      t('tools:createPdfForm.msg.okay')
     );
   } catch (error) {
     console.error('Error generating PDF:', error);
@@ -2756,7 +2756,7 @@ downloadBtn.addEventListener('click', async () => {
       }
     } else {
       showModal(
-        'Error',
+        t('common.error'),
         t('tools:createPdfForm.msg.errorGeneratingPdf', { errorMessage }),
         'error'
       );
@@ -2818,8 +2818,7 @@ function resetToInitial(): void {
 
   canvas.innerHTML = '';
 
-  propertiesPanel.innerHTML =
-    '<p class="text-gray-500 text-sm">Select a field to edit properties</p>';
+  propertiesPanel.innerHTML = `<p class="text-gray-500 text-sm">${t('tools:createPdfForm.ui.selectAFieldToEditProperties')}</p>`;
 
   updateFieldCount();
 
@@ -3092,7 +3091,7 @@ async function handlePdfUpload(file: File) {
   } catch (error) {
     console.error('Error loading PDF:', error);
     showModal(
-      'Error',
+      t('common.error'),
       t('tools:createPdfForm.msg.errorLoadingPdfFilePleaseTry'),
       'error'
     );

@@ -316,8 +316,8 @@ function displayResults(): void {
     resultsContainer.innerHTML = `
             <div class="bg-gray-700 rounded-lg p-6 text-center border border-gray-600">
                 <i data-lucide="file-x" class="w-12 h-12 mx-auto mb-4 text-gray-400"></i>
-                <h3 class="text-lg font-semibold text-white mb-2">No Signatures Found</h3>
-                <p class="text-gray-400">This PDF does not contain any digital signatures.</p>
+                <h3 class="text-lg font-semibold text-white mb-2">${t('tools:validateSignaturePdf.msg.noSignaturesFound')}</h3>
+                <p class="text-gray-400">${t('tools:validateSignaturePdf.msg.thisPdfDoesNotContainAny')}</p>
             </div>
         `;
     createIcons({ icons });
@@ -445,9 +445,9 @@ function createSignatureCard(
             <div class="flex items-center">
                 ${
                   result.coverageStatus === 'full'
-                    ? '<span class="text-xs bg-green-900 text-green-300 px-2 py-1 rounded">Full Coverage</span>'
+                    ? `<span class="text-xs bg-green-900 text-green-300 px-2 py-1 rounded">${t('tools:validateSignaturePdf.msg.fullCoverage')}</span>`
                     : result.coverageStatus === 'partial'
-                      ? '<span class="text-xs bg-yellow-900 text-yellow-300 px-2 py-1 rounded">Partial Coverage</span>'
+                      ? `<span class="text-xs bg-yellow-900 text-yellow-300 px-2 py-1 rounded">${t('tools:validateSignaturePdf.msg.partialCoverage')}</span>`
                       : ''
                 }${trustBadge}
             </div>
@@ -456,13 +456,13 @@ function createSignatureCard(
         <div class="space-y-3 text-sm">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <p class="text-gray-400">Signed By</p>
+                    <p class="text-gray-400">${t('tools:validateSignaturePdf.msg.signedBy')}</p>
                     <p class="text-white font-medium">${escapeHtml(result.signerName)}</p>
                     ${result.signerOrg ? `<p class="text-gray-400 text-xs">${escapeHtml(result.signerOrg)}</p>` : ''}
                     ${result.signerEmail ? `<p class="text-gray-400 text-xs">${escapeHtml(result.signerEmail)}</p>` : ''}
                 </div>
                 <div>
-                    <p class="text-gray-400">Issuer</p>
+                    <p class="text-gray-400">${t('tools:digitalSignPdf.certIssuer')}</p>
                     <p class="text-white font-medium">${escapeHtml(result.issuer)}</p>
                     ${result.issuerOrg ? `<p class="text-gray-400 text-xs">${escapeHtml(result.issuerOrg)}</p>` : ''}
                 </div>
@@ -472,7 +472,7 @@ function createSignatureCard(
               result.signatureDate
                 ? `
                 <div>
-                    <p class="text-gray-400">Signed On</p>
+                    <p class="text-gray-400">${t('tools:validateSignaturePdf.msg.signedOn')}</p>
                     <p class="text-white">${formatDate(result.signatureDate)}</p>
                 </div>
             `
@@ -481,11 +481,11 @@ function createSignatureCard(
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <p class="text-gray-400">Valid From</p>
+                    <p class="text-gray-400">${t('tools:validateSignaturePdf.msg.validFrom')}</p>
                     <p class="text-white">${formatDate(result.validFrom)}</p>
                 </div>
                 <div>
-                    <p class="text-gray-400">Valid Until</p>
+                    <p class="text-gray-400">${t('tools:validateSignaturePdf.msg.validUntil')}</p>
                     <p class="${result.isExpired ? 'text-red-400' : 'text-white'}">${formatDate(result.validTo)}</p>
                 </div>
             </div>
@@ -494,7 +494,7 @@ function createSignatureCard(
               result.reason
                 ? `
                 <div>
-                    <p class="text-gray-400">Reason</p>
+                    <p class="text-gray-400">${t('tools:digitalSignPdf.reason')}</p>
                     <p class="text-white">${escapeHtml(result.reason)}</p>
                 </div>
             `
@@ -505,7 +505,7 @@ function createSignatureCard(
               result.location
                 ? `
                 <div>
-                    <p class="text-gray-400">Location</p>
+                    <p class="text-gray-400">${t('tools:digitalSignPdf.location')}</p>
                     <p class="text-white">${escapeHtml(result.location)}</p>
                 </div>
             `
@@ -514,12 +514,12 @@ function createSignatureCard(
 
             <details class="mt-2">
                 <summary class="cursor-pointer text-indigo-400 hover:text-indigo-300 text-sm">
-                    Technical Details
+                    ${t('tools:validateSignaturePdf.msg.technicalDetails')}
                 </summary>
                 <div class="mt-2 p-3 bg-gray-800 rounded text-xs space-y-1">
-                    <p><span class="text-gray-400">Serial Number:</span> <span class="text-gray-300 font-mono">${escapeHtml(result.serialNumber)}</span></p>
-                    <p><span class="text-gray-400">Digest Algorithm:</span> <span class="text-gray-300">${escapeHtml(result.algorithms.digest)}</span></p>
-                    <p><span class="text-gray-400">Signature Algorithm:</span> <span class="text-gray-300">${escapeHtml(result.algorithms.signature)}</span></p>
+                    <p><span class="text-gray-400">${t('tools:validateSignaturePdf.msg.serialNumber')}</span> <span class="text-gray-300 font-mono">${escapeHtml(result.serialNumber)}</span></p>
+                    <p><span class="text-gray-400">${t('tools:validateSignaturePdf.msg.digestAlgorithm')}</span> <span class="text-gray-300">${escapeHtml(result.algorithms.digest)}</span></p>
+                    <p><span class="text-gray-400">${t('tools:validateSignaturePdf.msg.signatureAlgorithm')}</span> <span class="text-gray-300">${escapeHtml(result.algorithms.signature)}</span></p>
                     ${result.errorMessage ? `<p class="text-red-400">Error: ${escapeHtml(result.errorMessage)}</p>` : ''}
                     ${result.unsupportedAlgorithmReason ? `<p class="text-yellow-300">${escapeHtml(result.unsupportedAlgorithmReason)}</p>` : ''}
                 </div>

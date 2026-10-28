@@ -91,10 +91,11 @@ function setupEditMenu() {
     scopeSel.dispatchEvent(new Event('change'));
     label.textContent = picked.has('all')
       ? t('tools:editPdfText.ui.editAll')
-      : 'Edit ' +
-        SCOPES.filter(([k]) => picked.has(k))
-          .map(([, l]) => l.replace('Edit ', ''))
-          .join(' + ');
+      : t('tools:editPdfText.msg.edit', {
+          value: SCOPES.filter(([k]) => picked.has(k))
+            .map(([, l]) => l.replace('Edit ', ''))
+            .join(' + '),
+        });
   };
   let open: HTMLDivElement | null = null;
   const caret = editBtn.querySelector('.editcaret');
@@ -338,7 +339,7 @@ function setupDocPanel() {
     title.textContent = t('tools:editPdfText.msg.documentProperties');
     const x = document.createElement('button');
     x.className = 'btn icon';
-    x.title = 'Close';
+    x.title = t('preview.close');
     const xi = document.createElement('i');
     xi.className = 'ph ph-x';
     x.appendChild(xi);

@@ -347,24 +347,24 @@ export class MarkdownEditor {
               <input type="file" accept=".md,.markdown,.txt" id="mdFileInput" style="display: none;" />
               <button class="md-editor-btn md-editor-btn-secondary" id="mdUpload">
                 <i data-lucide="upload"></i>
-                <span data-i18n="tools:markdownToPdf.btnUpload">Select</span>
+                <span data-i18n="tools:markdownToPdf.btnUpload">${t('tools:markdownToPdf.btnUpload')}</span>
               </button>
               <div class="theme-toggle">
                 <i data-lucide="moon" width="16" height="16"></i>
                 <div class="theme-toggle-slider active" id="themeToggle"></div>
                 <i data-lucide="sun" width="16" height="16"></i>
               </div>
-              <button class="md-editor-btn md-editor-btn-secondary" id="mdSyncScroll" title="Toggle sync scroll">
+              <button class="md-editor-btn md-editor-btn-secondary" id="mdSyncScroll" title="${t('msg.markdownEditor.toggleSyncScroll')}">
                 <i data-lucide="git-compare"></i>
-                <span data-i18n="tools:markdownToPdf.btnSyncScroll">Sync Scroll</span>
+                <span data-i18n="tools:markdownToPdf.btnSyncScroll">${t('tools:markdownToPdf.btnSyncScroll')}</span>
               </button>
               <button class="md-editor-btn md-editor-btn-secondary" id="mdSettings">
                 <i data-lucide="settings"></i>
-                <span data-i18n="tools:markdownToPdf.btnSettings">Settings</span>
+                <span data-i18n="tools:markdownToPdf.btnSettings">${t('settings.title')}</span>
               </button>
               <button class="md-editor-btn md-editor-btn-primary" id="mdExport">
                 <i data-lucide="download"></i>
-                <span data-i18n="tools:markdownToPdf.btnExportPdf">Export PDF</span>
+                <span data-i18n="tools:markdownToPdf.btnExportPdf">${t('multiTool.exportPdf')}</span>
               </button>
             </div>
           </div>
@@ -372,13 +372,13 @@ export class MarkdownEditor {
           <div class="md-editor-main">
             <div class="md-editor-pane">
               <div class="md-editor-pane-header">
-                <span data-i18n="tools:markdownToPdf.paneMarkdown">Markdown</span>
+                <span data-i18n="tools:markdownToPdf.paneMarkdown">${t('tools:markdownToPdf.paneMarkdown')}</span>
               </div>
               <textarea class="md-editor-textarea" id="mdTextarea" spellcheck="false"></textarea>
             </div>
             <div class="md-editor-pane">
               <div class="md-editor-pane-header">
-                <span data-i18n="tools:markdownToPdf.panePreview">Preview</span>
+                <span data-i18n="tools:markdownToPdf.panePreview">${t('tools:addWatermark.ui.preview')}</span>
               </div>
               <div class="md-editor-preview" id="mdPreview"></div>
             </div>
@@ -390,36 +390,36 @@ export class MarkdownEditor {
       <div class="md-editor-modal-overlay" id="mdSettingsModal" style="display: none;">
         <div class="md-editor-modal">
           <div class="md-editor-modal-header">
-            <h2 class="md-editor-modal-title" data-i18n="tools:markdownToPdf.settingsTitle">Markdown Settings</h2>
+            <h2 class="md-editor-modal-title" data-i18n="tools:markdownToPdf.settingsTitle">${t('tools:markdownToPdf.settingsTitle')}</h2>
             <button class="md-editor-modal-close" id="mdCloseSettings">
               <i data-lucide="x" width="20" height="20"></i>
             </button>
           </div>
           <div class="md-editor-settings-group">
-            <h3 data-i18n="tools:markdownToPdf.settingsPreset">Preset</h3>
+            <h3 data-i18n="tools:markdownToPdf.settingsPreset">${t('tools:markdownToPdf.settingsPreset')}</h3>
             <select id="mdPreset">
-              <option value="default" selected data-i18n="tools:markdownToPdf.presetDefault">Default (GFM-like)</option>
-              <option value="commonmark" data-i18n="tools:markdownToPdf.presetCommonmark">CommonMark (strict)</option>
-              <option value="zero" data-i18n="tools:markdownToPdf.presetZero">Minimal (no features)</option>
+              <option value="default" selected data-i18n="tools:markdownToPdf.presetDefault">${t('tools:markdownToPdf.presetDefault')}</option>
+              <option value="commonmark" data-i18n="tools:markdownToPdf.presetCommonmark">${t('tools:markdownToPdf.presetCommonmark')}</option>
+              <option value="zero" data-i18n="tools:markdownToPdf.presetZero">${t('tools:markdownToPdf.presetZero')}</option>
             </select>
           </div>
           <div class="md-editor-settings-group">
-            <h3 data-i18n="tools:markdownToPdf.settingsOptions">Markdown Options</h3>
+            <h3 data-i18n="tools:markdownToPdf.settingsOptions">${t('tools:markdownToPdf.settingsOptions')}</h3>
             <label class="md-editor-checkbox">
               <input type="checkbox" id="mdOptHtml" ${this.mdOptions.html ? 'checked' : ''} />
-              <span data-i18n="tools:markdownToPdf.optAllowHtml">Allow HTML tags</span>
+              <span data-i18n="tools:markdownToPdf.optAllowHtml">${t('tools:markdownToPdf.optAllowHtml')}</span>
             </label>
             <label class="md-editor-checkbox">
               <input type="checkbox" id="mdOptBreaks" ${this.mdOptions.breaks ? 'checked' : ''} />
-              <span data-i18n="tools:markdownToPdf.optBreaks">Convert newlines to &lt;br&gt;</span>
+              <span data-i18n="tools:markdownToPdf.optBreaks">${t('msg.markdownEditor.convertNewlinesToLtBrGt')}</span>
             </label>
             <label class="md-editor-checkbox">
               <input type="checkbox" id="mdOptLinkify" ${this.mdOptions.linkify ? 'checked' : ''} />
-              <span data-i18n="tools:markdownToPdf.optLinkify">Auto-convert URLs to links</span>
+              <span data-i18n="tools:markdownToPdf.optLinkify">${t('tools:markdownToPdf.optLinkify')}</span>
             </label>
             <label class="md-editor-checkbox">
               <input type="checkbox" id="mdOptTypographer" ${this.mdOptions.typographer ? 'checked' : ''} />
-              <span data-i18n="tools:markdownToPdf.optTypographer">Typographer (smart quotes, etc.)</span>
+              <span data-i18n="tools:markdownToPdf.optTypographer">${t('tools:markdownToPdf.optTypographer')}</span>
             </label>
           </div>
         </div>

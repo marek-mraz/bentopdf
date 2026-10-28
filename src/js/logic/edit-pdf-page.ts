@@ -140,7 +140,7 @@ function confirmChoice(
     cancelBtn.type = 'button';
     cancelBtn.className =
       'flex-1 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200';
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = t('warning.cancel');
 
     const confirmBtn = document.createElement('button');
     confirmBtn.type = 'button';

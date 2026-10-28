@@ -36,7 +36,8 @@
       "downloadedPdfFilesInAZip": "Downloaded {{count}} PDF files in a ZIP archive.",
       "failedToCreateSplitPdfs": "Failed to create split PDFs.",
       "pdfDownloadedSuccessfully": "PDF downloaded successfully.",
-      "failedToCreatePdf": "Failed to create PDF."
+      "failedToCreatePdf": "Failed to create PDF.",
+      "page": "Page {{value}} "
     }
   },
   "mergePdf": {
@@ -70,6 +71,9 @@
       "mergeFiles": "Merge Files",
       "clickTheMergeButtonToCombine": "Click the merge button to combine all PDFs into a single document",
       "saveYourMergedPdfAllPages": "Save your merged PDF - all pages combined in the order you chose"
+    },
+    "msg": {
+      "page": "Page {{pageNumber}}"
     }
   },
   "splitPdf": {
@@ -306,7 +310,8 @@
       "theseFilesArePasswordProtectedEnter": "These files are password protected: {{value}}. Enter their passwords on the file cards, or remove them, then compress again.",
       "anErrorOccurredDuringCompressionError": "An error occurred during compression. Error: {{value}}",
       "isNotAValidPdfSo": "{{value}} is not a valid PDF, so it was not added.",
-      "theseFilesAreNotValidPdfs": "These files are not valid PDFs, so they were not added: {{value}}."
+      "theseFilesAreNotValidPdfs": "These files are not valid PDFs, so they were not added: {{value}}.",
+      "remove": "Remove {{name}}"
     }
   },
   "pdfEditor": {
@@ -488,7 +493,8 @@
       "customZoom": "Custom Zoom",
       "addATextBox": "Add a text box",
       "documentProperties": "Document Properties",
-      "wasmEngineFailedToInitialize": "WASM engine failed to initialize"
+      "wasmEngineFailedToInitialize": "WASM engine failed to initialize",
+      "edit": "Edit {{value}}"
     }
   },
   "jpgToPdf": {
@@ -1142,7 +1148,10 @@
       "errorLoadingPdfFilePleaseTry": "Error loading PDF file. Please try again with a valid PDF.",
       "areYouSureYouWantTo": "Are you sure you want to reset? All your work will be lost.",
       "fieldNameExistsInPdf": "Field name \"{{name}}\" already exists in this PDF. Please try using a unique name.",
-      "fieldNameExistsInForm": "Field name \"{{name}}\" already exists in this form. Please try using a unique name."
+      "fieldNameExistsInForm": "Field name \"{{name}}\" already exists in this form. Please try using a unique name.",
+      "okay": "Okay",
+      "signHere": "Sign Here",
+      "invalidData": "Invalid data"
     }
   },
   "removeBlankPages": {
@@ -1886,6 +1895,13 @@
     "ui": {
       "documentMetadata": "Document Metadata",
       "copyMetadataJson": "Copy Metadata as JSON"
+    },
+    "msg": {
+      "noInfoDictionaryDataFound": "- No Info Dictionary data found -",
+      "noInteractiveFormFieldsFound": "- No interactive form fields found -",
+      "noParseableXmpPropertiesFound": "- No parseable XMP properties found -",
+      "errorParsingXmpXmlDisplayingRaw": "- Error parsing XMP XML. Displaying raw. -",
+      "noXmpMetadataFound": "- No XMP metadata found -"
     }
   },
   "editMetadata": {
@@ -2463,7 +2479,8 @@
       "groupCSeriesEnvelopes": "C Series (Envelopes)"
     },
     "msg": {
-      "bookletCreatedWithSheets": "Booklet created with {{numSheets}} sheets!"
+      "bookletCreatedWithSheets": "Booklet created with {{numSheets}} sheets!",
+      "generatingPreview": "Generating preview..."
     }
   },
   "xpsToPdf": {
@@ -2886,6 +2903,20 @@
       "theToolExtractsAndParsesAll": "The tool extracts and parses all digital signatures in the document",
       "viewResults": "View Results",
       "seeSignerInformationCertificateValidityA": "See signer information, certificate validity, and signature status"
+    },
+    "msg": {
+      "noSignaturesFound": "No Signatures Found",
+      "thisPdfDoesNotContainAny": "This PDF does not contain any digital signatures.",
+      "signedBy": "Signed By",
+      "validFrom": "Valid From",
+      "validUntil": "Valid Until",
+      "technicalDetails": "Technical Details",
+      "serialNumber": "Serial Number:",
+      "digestAlgorithm": "Digest Algorithm:",
+      "signatureAlgorithm": "Signature Algorithm:",
+      "fullCoverage": "Full Coverage",
+      "partialCoverage": "Partial Coverage",
+      "signedOn": "Signed On"
     }
   },
   "timestampPdf": {
@@ -3119,7 +3150,9 @@
       "couldNotLoadPageCount": "{{value}} • Could not load page count",
       "loadingLayersFrom": "Loading layers from {{name}}...",
       "failedToAddLayer": "Failed to add layer: {{value}}",
-      "failedToSavePdf": "Failed to save PDF: {{value}}"
+      "failedToSavePdf": "Failed to save PDF: {{value}}",
+      "thisPdfHasNoLayersOcg": "This PDF has no layers (OCG).",
+      "addANewLayerToGet": "Add a new layer to get started!"
     }
   },
   "pdfToPdfa": {
