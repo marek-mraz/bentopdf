@@ -224,9 +224,12 @@ async function changePermissions() {
         throw new Error('PASSWORD_REQUIRED', { cause: qpdfError });
       }
 
-      throw new Error('Processing failed: ' + errorMsg || 'Unknown error', {
-        cause: qpdfError,
-      });
+      throw new Error(
+        t('tools:changePermissions.msg.processingFailed', {
+          error: errorMsg || t('common.unknownError'),
+        }),
+        { cause: qpdfError }
+      );
     }
 
     if (loaderText)

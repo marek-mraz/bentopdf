@@ -2286,7 +2286,8 @@
       "processingPdfPermissions": "Spracúvajú sa oprávnenia PDF...",
       "preparingDownload": "Pripravuje sa stiahnutie...",
       "processingResultedInAnEmptyFile": "Výsledkom spracovania je prázdny súbor.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}"
+      "anErrorOccurred": "Vyskytla sa chyba: {{value}}",
+      "processingFailed": "Spracovanie zlyhalo: {{error}}"
     }
   },
   "odtToPdf": {

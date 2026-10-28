@@ -2278,7 +2278,8 @@
       "processingPdfPermissions": "Processing PDF permissions...",
       "preparingDownload": "Preparing download...",
       "processingResultedInAnEmptyFile": "Processing resulted in an empty file.",
-      "anErrorOccurred": "An error occurred: {{value}}"
+      "anErrorOccurred": "An error occurred: {{value}}",
+      "processingFailed": "Processing failed: {{error}}"
     }
   },
   "odtToPdf": {

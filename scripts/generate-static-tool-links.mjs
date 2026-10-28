@@ -12,6 +12,24 @@ const PARTIAL_PATH = path.resolve(
   '../src/partials/tool-links-static.html'
 );
 
+const PAGE_KEYS = JSON.parse(
+  fs.readFileSync(
+    path.resolve(__dirname, '../src/js/config/page-i18n-keys.json'),
+    'utf-8'
+  )
+);
+const toolKey = (slug) =>
+  PAGE_KEYS[slug] || slug.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+// 'Edit & Annotate' -> 'editAnnotate', the key under tools:categories.
+const categoryKey = (name) =>
+  name
+    .split(/[^A-Za-z0-9]+/)
+    .filter(Boolean)
+    .map((w, i) =>
+      i === 0 ? w.toLowerCase() : w[0].toUpperCase() + w.slice(1).toLowerCase()
+    )
+    .join('');
+
 function escapeHtml(value) {
   return value
     .replace(/&/g, '&amp;')
@@ -77,14 +95,14 @@ function generate() {
     if (tools.length === 0) continue;
     for (const t of tools) seen.add(t.slug);
     lines.push(
-      `<div class="col-span-full mt-6 first:mt-0"><h2 class="text-lg font-semibold text-white">${escapeHtml(category.name)}</h2></div>`
+      `<div class="col-span-full mt-6 first:mt-0"><h2 class="text-lg font-semibold text-white" data-i18n="tools:categories.${categoryKey(category.name)}">${escapeHtml(category.name)}</h2></div>`
     );
     for (const tool of tools) {
       toolCount++;
       lines.push(
         `<a href="/${tool.slug}" class="block bg-gray-800 p-4 rounded-lg border border-gray-700 hover:bg-gray-700 transition-colors">` +
-          `<h3 class="text-white font-semibold mb-1">${escapeHtml(tool.name)}</h3>` +
-          `<p class="text-gray-400 text-sm">${escapeHtml(tool.subtitle)}</p>` +
+          `<h3 class="text-white font-semibold mb-1" data-i18n="tools:${toolKey(tool.slug)}.name">${escapeHtml(tool.name)}</h3>` +
+          `<p class="text-gray-400 text-sm" data-i18n="tools:${toolKey(tool.slug)}.subtitle">${escapeHtml(tool.subtitle)}</p>` +
           `</a>`
       );
     }
