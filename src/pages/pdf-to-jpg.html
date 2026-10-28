@@ -209,7 +209,11 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p id="loader-text" class="text-white text-lg font-medium">
+        <p
+          data-i18n="loader.processing"
+          id="loader-text"
+          class="text-white text-lg font-medium"
+        >
           Processing...
         </p>
       </div>
@@ -256,8 +260,16 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Upload PDF</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:editPdfText.howToUpload"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Upload PDF
+            </h3>
+            <p
+              data-i18n="tools:pdfToJpg.ui.selectThePdfFileYouWant"
+              class="text-gray-400"
+            >
               Select the PDF file you want to convert to images
             </p>
           </div>
@@ -269,10 +281,16 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">
+            <h3
+              data-i18n="tools:pdfToJpg.ui.chooseQuality"
+              class="text-lg font-semibold text-white mb-1"
+            >
               Choose Quality
             </h3>
-            <p class="text-gray-400">
+            <p
+              data-i18n="tools:pdfToJpg.ui.selectImageQualityLowMediumHigh"
+              class="text-gray-400"
+            >
               Select image quality (Low, Medium, High, Maximum)
             </p>
           </div>
@@ -284,8 +302,16 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Select Pages</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:pdfToJpg.ui.selectPages"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Select Pages
+            </h3>
+            <p
+              data-i18n="tools:pdfToJpg.ui.convertAllPagesOrChooseSpecific"
+              class="text-gray-400"
+            >
               Convert all pages or choose specific pages to extract
             </p>
           </div>
@@ -297,10 +323,16 @@
             4
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">
+            <h3
+              data-i18n="tools:pdfToJpg.ui.downloadImages"
+              class="text-lg font-semibold text-white mb-1"
+            >
               Download Images
             </h3>
-            <p class="text-gray-400">
+            <p
+              data-i18n="tools:pdfToJpg.ui.saveJpgImagesIndividuallyOrAs"
+              class="text-gray-400"
+            >
               Save JPG images individually or as a ZIP archive
             </p>
           </div>
@@ -321,36 +353,77 @@
           href="pdf-to-png.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">PDF to PNG</h3>
-          <p class="text-gray-400 text-sm">Free online PDF to PNG tool</p>
+          <h3
+            data-i18n="tools:pdfToPng.name"
+            class="text-white font-semibold mb-1"
+          >
+            PDF to PNG
+          </h3>
+          <p data-i18n="tools:pdfToPng.subtitle" class="text-gray-400 text-sm">
+            Free online PDF to PNG tool
+          </p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
-          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
+          <h3
+            data-i18n="tools:compressPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Compress PDF
+          </h3>
+          <p
+            data-i18n="tools:compressPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online compress PDF tool
+          </p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
-          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
+          <h3
+            data-i18n="tools:splitPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Split PDF
+          </h3>
+          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
+            Free online split PDF tool
+          </p>
         </a>
         <a
           href="pdf-to-webp.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">PDF to WebP</h3>
-          <p class="text-gray-400 text-sm">Free online PDF to WebP tool</p>
+          <h3
+            data-i18n="tools:pdfToWebp.name"
+            class="text-white font-semibold mb-1"
+          >
+            PDF to WebP
+          </h3>
+          <p data-i18n="tools:pdfToWebp.subtitle" class="text-gray-400 text-sm">
+            Free online PDF to WebP tool
+          </p>
         </a>
         <a
           href="extract-images.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Extract Images</h3>
-          <p class="text-gray-400 text-sm">Free online extract images tool</p>
+          <h3
+            data-i18n="tools:extractImages.name"
+            class="text-white font-semibold mb-1"
+          >
+            Extract Images
+          </h3>
+          <p
+            data-i18n="tools:extractImages.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online extract images tool
+          </p>
         </a>
       </div>
     </section>

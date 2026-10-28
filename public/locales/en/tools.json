@@ -21,7 +21,10 @@
   "convertToPdf": "Convert to PDF",
   "pdfMultiTool": {
     "name": "PDF Multi Tool",
-    "subtitle": "Merge, Split, Organize, Delete, Rotate, Add Blank Pages, Extract and Duplicate in a unified interface."
+    "subtitle": "Merge, Split, Organize, Delete, Rotate, Add Blank Pages, Extract and Duplicate in a unified interface.",
+    "ui": {
+      "closeFaq": "Close FAQ"
+    }
   },
   "mergePdf": {
     "name": "Merge PDF",
@@ -47,7 +50,13 @@
       "clickDrag": "Click and drag the",
       "iconToChangeOrderFiles": "icon to change the order of the files.",
       "pagesRangeTotal": "Pages (e.g., 1-3, 5) - Total: {{count}}",
-      "leaveBlankAllPages": "Leave blank for all pages"
+      "leaveBlankAllPages": "Leave blank for all pages",
+      "selectOrDragAndDropMultiple": "Select or drag and drop multiple PDF files you want to merge",
+      "arrangeOrder": "Arrange Order",
+      "dragFilesUpOrDownTo": "Drag files up or down to reorder them in your preferred sequence",
+      "mergeFiles": "Merge Files",
+      "clickTheMergeButtonToCombine": "Click the merge button to combine all PDFs into a single document",
+      "saveYourMergedPdfAllPages": "Save your merged PDF - all pages combined in the order you chose"
     }
   },
   "splitPdf": {
@@ -95,7 +104,14 @@
       "singleCombinedPdf": "Single combined PDF",
       "multipleFilesDownloadedTogetherZip": "Multiple files are downloaded together as a ZIP.",
       "onePdfPerRange": "One PDF per range",
-      "onePdfPerPage": "One PDF per page"
+      "onePdfPerPage": "One PDF per page",
+      "selectThePdfFileYouWant": "Select the PDF file you want to split or extract pages from",
+      "chooseSplitMethod": "Choose Split Method",
+      "selectSpecificPagesPageRangesOr": "Select specific pages, page ranges, or split into individual pages",
+      "previewSelect": "Preview & Select",
+      "viewPageThumbnailsAndSelectExactly": "View page thumbnails and select exactly which pages you want",
+      "splitDownload": "Split & Download",
+      "downloadExtractedPagesAsSeparatePdfs": "Download extracted pages as separate PDFs or as a ZIP file"
     }
   },
   "compressPdf": {
@@ -410,7 +426,21 @@
       "wordSpacing": "Word Spacing",
       "horizontalScale": "Horizontal Scale %",
       "firstLineIndent": "First-line Indent",
-      "hangingIndent": "Hanging Indent"
+      "hangingIndent": "Hanging Indent",
+      "selectOrDragAndDropThe": "Select or drag and drop the PDF whose text you want to edit",
+      "everyEditableParagraphIsOutlinedClick": "Every editable paragraph is outlined. Click one and type; text reflows live as you edit",
+      "changeFontsSizeColorAlignmentAnd": "Change fonts, size, color, alignment and spacing, move or replace images, add new text boxes",
+      "downloadACleanPdfWithYour": "Download a clean PDF with your edits baked in, and everything stays on your device",
+      "editAll": "Edit All",
+      "englishUs": "English (US)",
+      "englishUk": "English (UK)",
+      "deutsch": "Deutsch",
+      "franAis": "Français",
+      "espaOl": "Español",
+      "italiano": "Italiano",
+      "portuguS": "Português",
+      "iIiIii": "i. ii. iii.",
+      "iIiIii2": "I. II. III."
     }
   },
   "jpgToPdf": {
@@ -449,7 +479,8 @@
       "nextPage": "Next Page",
       "flatteningCropConvertsPagesTo": "Flattening Crop (converts pages to images)",
       "applyToAllPages": "Apply to all pages",
-      "cropDownload": "Crop & Download"
+      "cropDownload": "Crop & Download",
+      "page1Of1": "Page 1 of 1"
     }
   },
   "extractPages": {
@@ -561,7 +592,9 @@
       "exportJson": "Export JSON",
       "noBookmarksYetAddOne": "No bookmarks yet. Add one above!",
       "savePdfBookmarks": "Save PDF with Bookmarks",
-      "extractExistingBookmarks": "Extract Existing Bookmarks"
+      "extractExistingBookmarks": "Extract Existing Bookmarks",
+      "pdfBookmarkEditor": "PDF Bookmark Editor",
+      "page11": "Page 1 / 1"
     }
   },
   "tableOfContents": {
@@ -578,7 +611,21 @@
     "errorReadingFileWithMessage": "Error reading file: {{message}}",
     "successGeneratedDownloadStarted": "Table of contents generated successfully! Download started.",
     "workerErrorWithMessage": "Error: {{message}}",
-    "workerErrorOccurred": "Worker error occurred. Check console for details."
+    "workerErrorOccurred": "Worker error occurred. Check console for details.",
+    "ui": {
+      "timesRoman": "Times Roman",
+      "timesBold": "Times Bold",
+      "timesItalic": "Times Italic",
+      "timesBoldItalic": "Times Bold Italic",
+      "helvetica": "Helvetica",
+      "helveticaBold": "Helvetica Bold",
+      "helveticaOblique": "Helvetica Oblique",
+      "helveticaBoldOblique": "Helvetica Bold Oblique",
+      "courier": "Courier",
+      "courierBold": "Courier Bold",
+      "courierOblique": "Courier Oblique",
+      "courierBoldOblique": "Courier Bold Oblique"
+    }
   },
   "pageNumbers": {
     "name": "Page Numbers",
@@ -693,7 +740,33 @@
       "batesStarts": "Bates Starts From",
       "fileCounterStarts": "File Counter Starts From",
       "font": "Font",
-      "applyBatesNumbers": "Apply Bates Numbers"
+      "applyBatesNumbers": "Apply Bates Numbers",
+      "exhibit1CaseXyz000001Page": "Exhibit 1 Case XYZ 000001 Page 1",
+      "exhibit1CaseXyz00001Page": "Exhibit 1 Case XYZ 00001 Page 1",
+      "exhibit1CaseXyz0001Page": "Exhibit 1 Case XYZ 0001 Page 1",
+      "exhibit1CaseXyz001Page": "Exhibit 1 Case XYZ 001 Page 1",
+      "exhibit1CaseXyz1Page": "Exhibit 1 Case XYZ 1 Page 1",
+      "exhibit1CaseXyz000001": "Exhibit 1 Case XYZ 000001",
+      "exhibit1CaseXyz00001": "Exhibit 1 Case XYZ 00001",
+      "exhibit1CaseXyz0001": "Exhibit 1 Case XYZ 0001",
+      "exhibit1CaseXyz001": "Exhibit 1 Case XYZ 001",
+      "exhibit1CaseXyz1": "Exhibit 1 Case XYZ 1",
+      "caseXyz000001": "Case XYZ 000001",
+      "caseXyz00001": "Case XYZ 00001",
+      "caseXyz0001": "Case XYZ 0001",
+      "caseXyz001": "Case XYZ 001",
+      "caseXyz1": "Case XYZ 1",
+      "helvetica": "Helvetica",
+      "timesNewRoman": "Times New Roman",
+      "courier": "Courier",
+      "uploadOneOrMorePdfFiles": "Upload one or more PDF files. Drag to reorder for multi-file sequencing.",
+      "configureStyle": "Configure Style",
+      "chooseAPresetOrCreateA": "Choose a preset or create a custom template with placeholders like [BATES], [PAGE], [FILE].",
+      "getYourBatesStampedPdfsInstantly": "Get your bates-stamped PDFs instantly. Multiple files are delivered as a ZIP.",
+      "groupExhibitCaseBatesPage": "Exhibit + Case + Bates + Page",
+      "groupExhibitCaseBates": "Exhibit + Case + Bates",
+      "groupCaseBates": "Case + Bates",
+      "groupBatesNumberOnly": "Bates Number Only"
     }
   },
   "addWatermark": {
@@ -735,7 +808,8 @@
       "bottom": "Bottom",
       "bottomRight": "Bottom Right",
       "flattenWatermark": "Flatten watermark",
-      "bakesWatermarkIntoPagePixels": "Bakes the watermark into page pixels, making it tamper-resistant. Text will no longer be selectable."
+      "bakesWatermarkIntoPagePixels": "Bakes the watermark into page pixels, making it tamper-resistant. Text will no longer be selectable.",
+      "confidential": "CONFIDENTIAL"
     }
   },
   "headerFooter": {
@@ -799,6 +873,12 @@
     "alert": {
       "scannerEffectAppliedSuccessfully": "Scanner effect applied successfully!",
       "failedApplyScannerEffect": "Failed to apply scanner effect. The file might be corrupted."
+    },
+    "ui": {
+      "clickOrDragAndDropYour": "Click or drag and drop your PDF file to begin",
+      "adjustSettings": "Adjust Settings",
+      "customizeTheScannerEffectWithReal": "Customize the scanner effect with real-time preview",
+      "saveYourScannedLookingPdfInstantly": "Save your scanned-looking PDF instantly"
     }
   },
   "adjustColors": {
@@ -820,6 +900,11 @@
     "alert": {
       "colorAdjustmentsAppliedSuccessfully": "Color adjustments applied successfully!",
       "failedApplyColorAdjustments": "Failed to apply color adjustments. The file might be corrupted."
+    },
+    "ui": {
+      "clickOrDragAndDropYour": "Click or drag and drop your PDF file to begin",
+      "fineTuneColorSettingsWithReal": "Fine-tune color settings with real-time preview",
+      "saveYourColorAdjustedPdfInstantly": "Save your color-adjusted PDF instantly"
     }
   },
   "backgroundColor": {
@@ -931,7 +1016,16 @@
       "image": "Image",
       "barcodeField": "Barcode Field",
       "barcode": "Barcode",
-      "downloadPdfForm": "Download PDF Form"
+      "downloadPdfForm": "Download PDF Form",
+      "letter8511": "Letter (8.5\" × 11\")",
+      "a4210mm297mm": "A4 (210mm × 297mm)",
+      "a5148mm210mm": "A5 (148mm × 210mm)",
+      "legal8514": "Legal (8.5\" × 14\")",
+      "tabloid1117": "Tabloid (11\" × 17\")",
+      "a3297mm420mm": "A3 (297mm × 420mm)",
+      "selectAFieldToEditProperties": "Select a field to edit properties",
+      "page1Of1": "Page 1 of 1",
+      "anErrorOccurred": "An error occurred."
     }
   },
   "removeBlankPages": {
@@ -964,6 +1058,9 @@
     },
     "loader": {
       "processingImages": "Processing images..."
+    },
+    "ui": {
+      "jpgPngBmpGifTiffPnm": "JPG, PNG, BMP, GIF, TIFF, PNM, PGM, PBM, PPM, PAM, JXR, JPX, JP2, PSD, SVG, HEIC, WebP"
     }
   },
   "pngToPdf": {
@@ -1050,7 +1147,50 @@
       "creatingPdf": "Creating PDF..."
     },
     "ui": {
-      "startTypingHerePlaceholder": "Start typing here..."
+      "startTypingHerePlaceholder": "Start typing here...",
+      "helveticaSansSerif": "Helvetica (Sans-serif)",
+      "tiroSerif": "Tiro (Serif)",
+      "courierMonospace": "Courier (Monospace)",
+      "timesSerif": "Times (Serif)",
+      "a08411189Mm": "A0 (841 × 1189 mm)",
+      "a1594841Mm": "A1 (594 × 841 mm)",
+      "a2420594Mm": "A2 (420 × 594 mm)",
+      "a6105148Mm": "A6 (105 × 148 mm)",
+      "a774105Mm": "A7 (74 × 105 mm)",
+      "a85274Mm": "A8 (52 × 74 mm)",
+      "a93752Mm": "A9 (37 × 52 mm)",
+      "a102637Mm": "A10 (26 × 37 mm)",
+      "b010001414Mm": "B0 (1000 × 1414 mm)",
+      "b17071000Mm": "B1 (707 × 1000 mm)",
+      "b2500707Mm": "B2 (500 × 707 mm)",
+      "b3353500Mm": "B3 (353 × 500 mm)",
+      "b4250353Mm": "B4 (250 × 353 mm)",
+      "b5176250Mm": "B5 (176 × 250 mm)",
+      "b6125176Mm": "B6 (125 × 176 mm)",
+      "b788125Mm": "B7 (88 × 125 mm)",
+      "b86288Mm": "B8 (62 × 88 mm)",
+      "b94462Mm": "B9 (44 × 62 mm)",
+      "b103144Mm": "B10 (31 × 44 mm)",
+      "c09171297Mm": "C0 (917 × 1297 mm)",
+      "c1648917Mm": "C1 (648 × 917 mm)",
+      "c2458648Mm": "C2 (458 × 648 mm)",
+      "c3324458Mm": "C3 (324 × 458 mm)",
+      "c4229324Mm": "C4 (229 × 324 mm)",
+      "c5162229Mm": "C5 (162 × 229 mm)",
+      "c6114162Mm": "C6 (114 × 162 mm)",
+      "c781114Mm": "C7 (81 × 114 mm)",
+      "c85781Mm": "C8 (57 × 81 mm)",
+      "c94057Mm": "C9 (40 × 57 mm)",
+      "c102840Mm": "C10 (28 × 40 mm)",
+      "letter8511In": "Letter (8.5 × 11 in)",
+      "legal8514In": "Legal (8.5 × 14 in)",
+      "tabloid1117In": "Tabloid (11 × 17 in)",
+      "ledger1711In": "Ledger (17 × 11 in)",
+      "t11171117In": "11×17 (11 × 17 in)",
+      "groupIsoASeries": "ISO A Series",
+      "groupIsoBSeries": "ISO B Series",
+      "groupIsoCSeriesEnvelopes": "ISO C Series (Envelopes)",
+      "groupNorthAmerican": "North American"
     }
   },
   "jsonToPdf": {
@@ -1087,6 +1227,15 @@
     },
     "loader": {
       "converting": "Converting to JPG..."
+    },
+    "ui": {
+      "selectThePdfFileYouWant": "Select the PDF file you want to convert to images",
+      "chooseQuality": "Choose Quality",
+      "selectImageQualityLowMediumHigh": "Select image quality (Low, Medium, High, Maximum)",
+      "selectPages": "Select Pages",
+      "convertAllPagesOrChooseSpecific": "Convert all pages or choose specific pages to extract",
+      "downloadImages": "Download Images",
+      "saveJpgImagesIndividuallyOrAs": "Save JPG images individually or as a ZIP archive"
     }
   },
   "pdfToPng": {
@@ -1201,7 +1350,12 @@
     },
     "ui": {
       "autoDetectedFilenamePlaceholder": "Auto-detected from filename",
-      "actionAdventureSciFiPlaceholder": "Action, Adventure, Sci-Fi"
+      "actionAdventureSciFiPlaceholder": "Action, Adventure, Sci-Fi",
+      "selectThePdfYouWantTo": "Select the PDF you want to convert to a comic book archive",
+      "chooseSettings": "Choose Settings",
+      "pickImageFormatQualityAndOptional": "Pick image format, quality, and optional metadata",
+      "downloadCbz": "Download CBZ",
+      "getYourCbzFileReadyFor": "Get your .cbz file ready for any comic book reader"
     }
   },
   "pdfToGreyscale": {
@@ -1448,7 +1602,8 @@
       "blankPagesMatchSizeFirst": "Blank pages will match the size of the first page in your document.",
       "insertAfterPage": "Insert after page",
       "numberBlankPages": "Number of blank pages",
-      "addBlankPages": "Add Blank Pages"
+      "addBlankPages": "Add Blank Pages",
+      "enter0ToInsertAtThe": "Enter 0 to insert at the beginning."
     }
   },
   "reversePages": {
@@ -1509,7 +1664,8 @@
       "addMargins": "Add Margins",
       "addBorder": "Add Border",
       "borderColor": "Border Color",
-      "createUpPdf": "Create N-Up PDF"
+      "createUpPdf": "Create N-Up PDF",
+      "letter85X11": "Letter (8.5\" x 11\")"
     }
   },
   "combineToSinglePage": {
@@ -1677,7 +1833,9 @@
       "inches": "Inches",
       "pageRangeOptional": "Page Range (optional)",
       "pageRangePlaceholder": "e.g., 1-3, 5",
-      "totalPages": "Total pages:"
+      "totalPages": "Total pages:",
+      "letter": "Letter",
+      "mm": "mm"
     }
   },
   "fixPageSize": {
@@ -1700,7 +1858,10 @@
       "preservesAllContentMayAdd": "Preserves all content, may add margins.",
       "fillCrop": "Fill (Crop)",
       "fillsPageMayCropContent": "Fills the page, may crop content.",
-      "colorMarginsPadding": "Color for margins/padding"
+      "colorMarginsPadding": "Color for margins/padding",
+      "letter8511In": "Letter (8.5 × 11 in)",
+      "legal8514In": "Legal (8.5 × 14 in)",
+      "tabloid1117In": "Tabloid (11 × 17 in)"
     }
   },
   "linearizePdf": {
@@ -1908,6 +2069,16 @@
     "loader": {
       "preparingPreview": "Preparing preview...",
       "generatingHighQualityPdf": "Generating High-Quality PDF..."
+    },
+    "ui": {
+      "uploadWordFiles": "Upload Word Files",
+      "selectOrDragDocxOrDoc": "Select or drag DOCX or DOC files you want to convert",
+      "autoConvert": "Auto Convert",
+      "conversionStartsAutomaticallyProcessingI": "Conversion starts automatically, processing in your browser",
+      "previewResults": "Preview Results",
+      "seeYourConvertedPdfWithPreserved": "See your converted PDF with preserved formatting",
+      "downloadPdfs": "Download PDFs",
+      "saveYourPdfFilesFormattingPerfectly": "Save your PDF files - formatting perfectly preserved"
     }
   },
   "excelToPdf": {
@@ -1979,7 +2150,38 @@
       "gridMode": "Grid Mode",
       "booklet1": "1×2 (Booklet)",
       "autoBestLayout": "Auto (best for layout)",
-      "generatePreview": "Generate Preview"
+      "generatePreview": "Generate Preview",
+      "letter8511": "Letter (8.5\" × 11\")",
+      "legal8514": "Legal (8.5\" × 14\")",
+      "tabloid1117": "Tabloid (11\" × 17\")",
+      "ledger1711": "Ledger (17\" × 11\")",
+      "executive725105": "Executive (7.25\" × 10.5\")",
+      "folio8513": "Folio (8.5\" × 13\")",
+      "t4a016822378Mm": "4A0 (1682 × 2378 mm)",
+      "t2a011891682Mm": "2A0 (1189 × 1682 mm)",
+      "a08411189Mm": "A0 (841 × 1189 mm)",
+      "a1594841Mm": "A1 (594 × 841 mm)",
+      "a2420594Mm": "A2 (420 × 594 mm)",
+      "a6105148Mm": "A6 (105 × 148 mm)",
+      "b010001414Mm": "B0 (1000 × 1414 mm)",
+      "b17071000Mm": "B1 (707 × 1000 mm)",
+      "b2500707Mm": "B2 (500 × 707 mm)",
+      "b3353500Mm": "B3 (353 × 500 mm)",
+      "b4250353Mm": "B4 (250 × 353 mm)",
+      "b5176250Mm": "B5 (176 × 250 mm)",
+      "c09171297Mm": "C0 (917 × 1297 mm)",
+      "c1648917Mm": "C1 (648 × 917 mm)",
+      "c2458648Mm": "C2 (458 × 648 mm)",
+      "c3324458Mm": "C3 (324 × 458 mm)",
+      "c4229324Mm": "C4 (229 × 324 mm)",
+      "c5162229Mm": "C5 (162 × 229 mm)",
+      "c6114162Mm": "C6 (114 × 162 mm)",
+      "c781114Mm": "C7 (81 × 114 mm)",
+      "uploadAPdfAndClickGenerate": "Upload a PDF and click \"Generate Preview\" to see the booklet layout",
+      "groupUsSizes": "US Sizes",
+      "groupASeriesIso216": "A Series (ISO 216)",
+      "groupBSeriesIso216": "B Series (ISO 216)",
+      "groupCSeriesEnvelopes": "C Series (Envelopes)"
     }
   },
   "xpsToPdf": {
@@ -2236,7 +2438,13 @@
       "customCertificateFileOptional": "Custom Certificate File X.509 (Optional)",
       "uploadTrustedCertificateToValidate": "Upload a trusted X.509 certificate to validate against a custom trust source.",
       "uploadCertificatePemCrtCer": "Upload certificate (.pem, .crt, .cer)",
-      "signatureValidationResults": "Signature Validation Results"
+      "signatureValidationResults": "Signature Validation Results",
+      "uploadYourPdf": "Upload Your PDF",
+      "selectADigitallySignedPdfFile": "Select a digitally signed PDF file from your device",
+      "automaticAnalysis": "Automatic Analysis",
+      "theToolExtractsAndParsesAll": "The tool extracts and parses all digital signatures in the document",
+      "viewResults": "View Results",
+      "seeSignerInformationCertificateValidityA": "See signer information, certificate validity, and signature status"
     }
   },
   "timestampPdf": {
@@ -2255,7 +2463,12 @@
     },
     "ui": {
       "internetConnectionRequired": "Internet connection required",
-      "timestampingRequiresContactingSelectedTsa": "Timestamping requires contacting the selected TSA server to obtain a trusted timestamp token."
+      "timestampingRequiresContactingSelectedTsa": "Timestamping requires contacting the selected TSA server to obtain a trusted timestamp token.",
+      "selectThePdfDocumentYouWant": "Select the PDF document you want to timestamp",
+      "chooseTsaServer": "Choose TSA Server",
+      "selectOneOfTheTrustedTsa": "Select one of the trusted TSA servers",
+      "timestampDownload": "Timestamp & Download",
+      "applyTheRfc3161TimestampAnd": "Apply the RFC 3161 timestamp and download your timestamped PDF"
     }
   },
   "emailToPdf": {
@@ -2272,7 +2485,12 @@
       "conversionOptions": "Conversion Options",
       "pageSize": "Page Size",
       "includeCcBccRecipientsIn": "Include CC and BCC recipients in header",
-      "includeEmailAttachmentsList": "Include email attachments list"
+      "includeEmailAttachmentsList": "Include email attachments list",
+      "letter": "Letter",
+      "uploadEmailFile": "Upload Email File",
+      "clickOrDragAndDropYour": "Click or drag and drop your .eml or .msg file to begin",
+      "clickTheConvertButtonToGenerate": "Click the convert button to generate your PDF",
+      "saveYourConvertedPdfFileInstantly": "Save your converted PDF file instantly"
     }
   },
   "fontToOutline": {
@@ -2285,7 +2503,10 @@
       "ensuresConsistentRenderingAcrossAll": "Ensures consistent rendering across all devices",
       "idealPrintReadyPdfs": "Ideal for print-ready PDFs",
       "noteTextNoLongerSelectable": "Note: Text will no longer be selectable or searchable after conversion.",
-      "convertToOutlines": "Convert to Outlines"
+      "convertToOutlines": "Convert to Outlines",
+      "selectYourPdfFileWithEmbedded": "Select your PDF file with embedded fonts",
+      "ghostscriptConvertsAllFontsToVector": "Ghostscript converts all fonts to vector paths",
+      "getYourFontIndependentPdfInstantly": "Get your font-independent PDF instantly"
     }
   },
   "deskewPdf": {
@@ -2310,7 +2531,11 @@
       "better200": "200 (Better)",
       "bestQuality300": "300 (Best Quality)",
       "deskewResults": "Deskew Results",
-      "pagesCorrected": "Pages Corrected:"
+      "pagesCorrected": "Pages Corrected:",
+      "selectYourScannedPdfWithTilted": "Select your scanned PDF with tilted pages",
+      "autoDetect": "Auto-Detect",
+      "opencvAnalyzesAndDetectsSkewAngles": "OpenCV analyzes and detects skew angles",
+      "getYourStraightenedPdfInstantly": "Get your straightened PDF instantly"
     }
   },
   "pdfToWord": {
@@ -2390,7 +2615,9 @@
       "enterNewLayerNamePlaceholder": "Enter new layer name...",
       "addLayer": "Add Layer",
       "downloadModifiedPdf": "Download Modified PDF",
-      "layerNamePlaceholder": "Layer Name"
+      "layerNamePlaceholder": "Layer Name",
+      "loadingLayers": "Loading layers...",
+      "enterNameForTheNewLayer": "Enter name for the new layer:"
     }
   },
   "pdfToPdfa": {
@@ -2560,7 +2787,9 @@
       "certificateUnlocked": "Certificate unlocked",
       "changeCertificate": "Change Certificate",
       "uploadCertificate": "Upload Certificate",
-      "searchLanguages": "Search languages..."
+      "searchLanguages": "Search languages...",
+      "t0Nodes": "0 nodes",
+      "closeFaq": "Close FAQ"
     },
     "processingNode": "Processing {{node}}...",
     "nodeCount_one": "{{count}} node",
@@ -2919,7 +3148,10 @@
     "resetWithDefaults": "Custom overrides cleared. Pre-configured defaults are active.",
     "resetNoDefaults": "All configurations and cached modules have been cleared.",
     "licenseTitle": "License Notice:",
-    "licenseDescription": "The external modules (PyMuPDF, Ghostscript, CoherentPDF) are licensed under AGPL-3.0 or similar copyleft licenses. By configuring and using these modules, you agree to their respective license terms. BentoPDF is compatible with any Ghostscript WASM and PyMuPDF WASM implementation that follows the expected interface."
+    "licenseDescription": "The external modules (PyMuPDF, Ghostscript, CoherentPDF) are licensed under AGPL-3.0 or similar copyleft licenses. By configuring and using these modules, you agree to their respective license terms. BentoPDF is compatible with any Ghostscript WASM and PyMuPDF WASM implementation that follows the expected interface.",
+    "ui": {
+      "ghostscript": "Ghostscript"
+    }
   },
   "pdfOverlay": {
     "name": "PDF Overlay",
@@ -3009,6 +3241,36 @@
     },
     "alert": {
       "failedApplyRedactions": "Failed to apply redactions."
+    }
+  },
+  "compressPdfForEmail": {
+    "ui": {
+      "compressPdfForEmailAttachmentFree": "Compress PDF for Email Attachment Free | BentoPDF"
+    }
+  },
+  "compressPdfTo-100kb": {
+    "ui": {
+      "compressPdfTo100kbFreeOnline": "Compress PDF to 100KB Free Online | BentoPDF"
+    }
+  },
+  "compressPdfTo-1mb": {
+    "ui": {
+      "compressPdfTo1mbFreeOnline": "Compress PDF to 1MB Free Online | BentoPDF"
+    }
+  },
+  "compressPdfTo-200kb": {
+    "ui": {
+      "compressPdfTo200kbFreeOnline": "Compress PDF to 200KB Free Online | BentoPDF"
+    }
+  },
+  "compressPdfTo-2mb": {
+    "ui": {
+      "compressPdfTo2mbFreeOnline": "Compress PDF to 2MB Free Online | BentoPDF"
+    }
+  },
+  "compressPdfTo-500kb": {
+    "ui": {
+      "compressPdfTo500kbFreeOnline": "Compress PDF to 500KB Free Online | BentoPDF"
     }
   }
 }

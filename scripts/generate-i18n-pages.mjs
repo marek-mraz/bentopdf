@@ -86,27 +86,43 @@ function resolveTranslation(langResources, key) {
   return typeof node === 'string' && node ? node : null;
 }
 
+const I18N_ATTRIBUTES = [
+  'placeholder',
+  'title',
+  'aria-label',
+  'alt',
+  'label',
+  'content',
+];
+
 function applyServerTranslations(document, langResources) {
-  document.querySelectorAll('[data-i18n]').forEach((element) => {
-    const key = element.getAttribute('data-i18n');
-    if (!key) return;
-    const translation = resolveTranslation(langResources, key);
-    if (translation) element.textContent = translation;
-  });
+  const roots = [
+    document,
+    ...Array.from(document.querySelectorAll('template'), (tpl) => tpl.content),
+  ];
+  for (const root of roots) {
+    root.querySelectorAll('[data-i18n]').forEach((element) => {
+      const key = element.getAttribute('data-i18n');
+      const translation = key && resolveTranslation(langResources, key);
+      if (translation) element.textContent = translation;
+    });
 
-  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
-    const key = element.getAttribute('data-i18n-placeholder');
-    if (!key) return;
-    const translation = resolveTranslation(langResources, key);
-    if (translation) element.setAttribute('placeholder', translation);
-  });
+    root.querySelectorAll('[data-i18n-linked]').forEach((element) => {
+      const key = element.getAttribute('data-i18n-linked');
+      const translation = key && resolveTranslation(langResources, key);
+      if (translation && !applyLinkedText(element, translation)) {
+        console.warn(`[i18n] Skipped malformed translation: ${key}`);
+      }
+    });
 
-  document.querySelectorAll('[data-i18n-title]').forEach((element) => {
-    const key = element.getAttribute('data-i18n-title');
-    if (!key) return;
-    const translation = resolveTranslation(langResources, key);
-    if (translation) element.setAttribute('title', translation);
-  });
+    for (const attr of I18N_ATTRIBUTES) {
+      root.querySelectorAll(`[data-i18n-${attr}]`).forEach((element) => {
+        const key = element.getAttribute(`data-i18n-${attr}`);
+        const translation = key && resolveTranslation(langResources, key);
+        if (translation) element.setAttribute(attr, translation);
+      });
+    }
+  }
 
   // Tool page FAQs are translated here only; the faq namespace is not loaded
   // at runtime, so English pages keep the text in the HTML.

@@ -226,37 +226,69 @@ export const changeLanguage = (lang: SupportedLanguage): void => {
   window.location.href = newUrl;
 };
 
-// Apply translations to all elements with data-i18n attribute
+// Puts a translated string into an element that contains links or other
+// inline elements: [0]text[/0] stands for its first child element, [1] for
+// the second, and so on. Same rules as scripts/i18n-linked-text.mjs.
+const applyLinkedText = (element: Element, translation: string): boolean => {
+  const children = Array.from(element.children);
+  const nodes: Node[] = [];
+  for (const part of translation.split(/(\[\d+\][^[\]]*\[\/\d+\])/)) {
+    const match = part.match(/^\[(\d+)\]([^[\]]*)\[\/\1\]$/);
+    if (!match) {
+      if (/\[\/?\d+\]/.test(part)) return false;
+      if (part) nodes.push(document.createTextNode(part));
+      continue;
+    }
+    const child = children[Number(match[1])];
+    if (!child) return false;
+    const clone = child.cloneNode(false);
+    clone.textContent = match[2];
+    nodes.push(clone);
+  }
+  element.replaceChildren(...nodes);
+  return true;
+};
+
+const I18N_ATTRIBUTES = [
+  'placeholder',
+  'title',
+  'aria-label',
+  'alt',
+  'label',
+  'content',
+];
+
+// Translates data-i18n* elements in the document and inside <template>s, so
+// UI cloned from a template later is already translated.
 export const applyTranslations = (): void => {
-  document.querySelectorAll('[data-i18n]').forEach((element) => {
-    const key = element.getAttribute('data-i18n');
-    if (key) {
-      const translation = t(key);
-      if (translation && translation !== key) {
-        element.textContent = translation;
-      }
-    }
-  });
+  const roots: ParentNode[] = [
+    document,
+    ...Array.from(document.querySelectorAll('template'), (tpl) => tpl.content),
+  ];
+  const translated = (key: string | null): string | null => {
+    if (!key) return null;
+    const value = t(key);
+    return value && value !== key ? value : null;
+  };
 
-  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
-    const key = element.getAttribute('data-i18n-placeholder');
-    if (key) {
-      const translation = t(key);
-      if (translation && translation !== key) {
-        element.setAttribute('placeholder', translation);
-      }
-    }
-  });
+  for (const root of roots) {
+    root.querySelectorAll('[data-i18n]').forEach((element) => {
+      const value = translated(element.getAttribute('data-i18n'));
+      if (value) element.textContent = value;
+    });
 
-  document.querySelectorAll('[data-i18n-title]').forEach((element) => {
-    const key = element.getAttribute('data-i18n-title');
-    if (key) {
-      const translation = t(key);
-      if (translation && translation !== key) {
-        (element as HTMLElement).title = translation;
-      }
+    root.querySelectorAll('[data-i18n-linked]').forEach((element) => {
+      const value = translated(element.getAttribute('data-i18n-linked'));
+      if (value) applyLinkedText(element, value);
+    });
+
+    for (const attr of I18N_ATTRIBUTES) {
+      root.querySelectorAll(`[data-i18n-${attr}]`).forEach((element) => {
+        const value = translated(element.getAttribute(`data-i18n-${attr}`));
+        if (value) element.setAttribute(attr, value);
+      });
     }
-  });
+  }
 
   document.documentElement.lang = i18next.language;
   document.documentElement.dir = ['ar', 'fa'].includes(i18next.language)

@@ -432,7 +432,11 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p id="loader-text" class="text-white text-lg font-medium">
+        <p
+          data-i18n="loader.processing"
+          id="loader-text"
+          class="text-white text-lg font-medium"
+        >
           Processing...
         </p>
       </div>
@@ -477,8 +481,16 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Upload PDF</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:editPdfText.howToUpload"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Upload PDF
+            </h3>
+            <p
+              data-i18n="tools:pdfToCbz.ui.selectThePdfYouWantTo"
+              class="text-gray-400"
+            >
               Select the PDF you want to convert to a comic book archive
             </p>
           </div>
@@ -490,10 +502,16 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">
+            <h3
+              data-i18n="tools:pdfToCbz.ui.chooseSettings"
+              class="text-lg font-semibold text-white mb-1"
+            >
               Choose Settings
             </h3>
-            <p class="text-gray-400">
+            <p
+              data-i18n="tools:pdfToCbz.ui.pickImageFormatQualityAndOptional"
+              class="text-gray-400"
+            >
               Pick image format, quality, and optional metadata
             </p>
           </div>
@@ -505,8 +523,16 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Download CBZ</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:pdfToCbz.ui.downloadCbz"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Download CBZ
+            </h3>
+            <p
+              data-i18n="tools:pdfToCbz.ui.getYourCbzFileReadyFor"
+              class="text-gray-400"
+            >
               Get your .cbz file ready for any comic book reader
             </p>
           </div>
@@ -526,29 +552,60 @@
           href="pdf-to-jpg.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">PDF to JPG</h3>
-          <p class="text-gray-400 text-sm">Convert PDF pages to JPG images</p>
+          <h3
+            data-i18n="tools:pdfToJpg.name"
+            class="text-white font-semibold mb-1"
+          >
+            PDF to JPG
+          </h3>
+          <p data-i18n="tools:pdfToJpg.subtitle" class="text-gray-400 text-sm">
+            Convert PDF pages to JPG images
+          </p>
         </a>
         <a
           href="pdf-to-png.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">PDF to PNG</h3>
-          <p class="text-gray-400 text-sm">Convert PDF pages to PNG images</p>
+          <h3
+            data-i18n="tools:pdfToPng.name"
+            class="text-white font-semibold mb-1"
+          >
+            PDF to PNG
+          </h3>
+          <p data-i18n="tools:pdfToPng.subtitle" class="text-gray-400 text-sm">
+            Convert PDF pages to PNG images
+          </p>
         </a>
         <a
           href="pdf-to-tiff.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">PDF to TIFF</h3>
-          <p class="text-gray-400 text-sm">Convert PDF pages to TIFF images</p>
+          <h3
+            data-i18n="tools:pdfToTiff.name"
+            class="text-white font-semibold mb-1"
+          >
+            PDF to TIFF
+          </h3>
+          <p data-i18n="tools:pdfToTiff.subtitle" class="text-gray-400 text-sm">
+            Convert PDF pages to TIFF images
+          </p>
         </a>
         <a
           href="extract-images.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Extract Images</h3>
-          <p class="text-gray-400 text-sm">Extract all images from a PDF</p>
+          <h3
+            data-i18n="tools:extractImages.name"
+            class="text-white font-semibold mb-1"
+          >
+            Extract Images
+          </h3>
+          <p
+            data-i18n="tools:extractImages.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Extract all images from a PDF
+          </p>
         </a>
       </div>
     </section>

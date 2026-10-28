@@ -223,10 +223,25 @@
               id="font-family"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             >
-              <option value="helv" selected>Helvetica (Sans-serif)</option>
-              <option value="tiro">Tiro (Serif)</option>
-              <option value="cour">Courier (Monospace)</option>
-              <option value="times">Times (Serif)</option>
+              <option
+                data-i18n="tools:textToPdf.ui.helveticaSansSerif"
+                value="helv"
+                selected
+              >
+                Helvetica (Sans-serif)
+              </option>
+              <option data-i18n="tools:textToPdf.ui.tiroSerif" value="tiro">
+                Tiro (Serif)
+              </option>
+              <option
+                data-i18n="tools:textToPdf.ui.courierMonospace"
+                value="cour"
+              >
+                Courier (Monospace)
+              </option>
+              <option data-i18n="tools:textToPdf.ui.timesSerif" value="times">
+                Times (Serif)
+              </option>
             </select>
           </div>
           <div>
@@ -265,51 +280,154 @@
               id="page-size"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             >
-              <optgroup label="ISO A Series">
-                <option value="A0">A0 (841 × 1189 mm)</option>
-                <option value="A1">A1 (594 × 841 mm)</option>
-                <option value="A2">A2 (420 × 594 mm)</option>
-                <option value="A3">A3 (297 × 420 mm)</option>
-                <option value="A4" selected>A4 (210 × 297 mm)</option>
-                <option value="A5">A5 (148 × 210 mm)</option>
-                <option value="A6">A6 (105 × 148 mm)</option>
-                <option value="A7">A7 (74 × 105 mm)</option>
-                <option value="A8">A8 (52 × 74 mm)</option>
-                <option value="A9">A9 (37 × 52 mm)</option>
-                <option value="A10">A10 (26 × 37 mm)</option>
+              <optgroup
+                data-i18n-label="tools:textToPdf.ui.groupIsoASeries"
+                label="ISO A Series"
+              >
+                <option data-i18n="tools:textToPdf.ui.a08411189Mm" value="A0">
+                  A0 (841 × 1189 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.a1594841Mm" value="A1">
+                  A1 (594 × 841 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.a2420594Mm" value="A2">
+                  A2 (420 × 594 mm)
+                </option>
+                <option data-i18n="shared.a3297420Mm" value="A3">
+                  A3 (297 × 420 mm)
+                </option>
+                <option data-i18n="shared.a4210297Mm" value="A4" selected>
+                  A4 (210 × 297 mm)
+                </option>
+                <option data-i18n="shared.a5148210Mm" value="A5">
+                  A5 (148 × 210 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.a6105148Mm" value="A6">
+                  A6 (105 × 148 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.a774105Mm" value="A7">
+                  A7 (74 × 105 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.a85274Mm" value="A8">
+                  A8 (52 × 74 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.a93752Mm" value="A9">
+                  A9 (37 × 52 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.a102637Mm" value="A10">
+                  A10 (26 × 37 mm)
+                </option>
               </optgroup>
-              <optgroup label="ISO B Series">
-                <option value="B0">B0 (1000 × 1414 mm)</option>
-                <option value="B1">B1 (707 × 1000 mm)</option>
-                <option value="B2">B2 (500 × 707 mm)</option>
-                <option value="B3">B3 (353 × 500 mm)</option>
-                <option value="B4">B4 (250 × 353 mm)</option>
-                <option value="B5">B5 (176 × 250 mm)</option>
-                <option value="B6">B6 (125 × 176 mm)</option>
-                <option value="B7">B7 (88 × 125 mm)</option>
-                <option value="B8">B8 (62 × 88 mm)</option>
-                <option value="B9">B9 (44 × 62 mm)</option>
-                <option value="B10">B10 (31 × 44 mm)</option>
+              <optgroup
+                data-i18n-label="tools:textToPdf.ui.groupIsoBSeries"
+                label="ISO B Series"
+              >
+                <option data-i18n="tools:textToPdf.ui.b010001414Mm" value="B0">
+                  B0 (1000 × 1414 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b17071000Mm" value="B1">
+                  B1 (707 × 1000 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b2500707Mm" value="B2">
+                  B2 (500 × 707 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b3353500Mm" value="B3">
+                  B3 (353 × 500 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b4250353Mm" value="B4">
+                  B4 (250 × 353 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b5176250Mm" value="B5">
+                  B5 (176 × 250 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b6125176Mm" value="B6">
+                  B6 (125 × 176 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b788125Mm" value="B7">
+                  B7 (88 × 125 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b86288Mm" value="B8">
+                  B8 (62 × 88 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b94462Mm" value="B9">
+                  B9 (44 × 62 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.b103144Mm" value="B10">
+                  B10 (31 × 44 mm)
+                </option>
               </optgroup>
-              <optgroup label="ISO C Series (Envelopes)">
-                <option value="C0">C0 (917 × 1297 mm)</option>
-                <option value="C1">C1 (648 × 917 mm)</option>
-                <option value="C2">C2 (458 × 648 mm)</option>
-                <option value="C3">C3 (324 × 458 mm)</option>
-                <option value="C4">C4 (229 × 324 mm)</option>
-                <option value="C5">C5 (162 × 229 mm)</option>
-                <option value="C6">C6 (114 × 162 mm)</option>
-                <option value="C7">C7 (81 × 114 mm)</option>
-                <option value="C8">C8 (57 × 81 mm)</option>
-                <option value="C9">C9 (40 × 57 mm)</option>
-                <option value="C10">C10 (28 × 40 mm)</option>
+              <optgroup
+                data-i18n-label="tools:textToPdf.ui.groupIsoCSeriesEnvelopes"
+                label="ISO C Series (Envelopes)"
+              >
+                <option data-i18n="tools:textToPdf.ui.c09171297Mm" value="C0">
+                  C0 (917 × 1297 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c1648917Mm" value="C1">
+                  C1 (648 × 917 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c2458648Mm" value="C2">
+                  C2 (458 × 648 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c3324458Mm" value="C3">
+                  C3 (324 × 458 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c4229324Mm" value="C4">
+                  C4 (229 × 324 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c5162229Mm" value="C5">
+                  C5 (162 × 229 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c6114162Mm" value="C6">
+                  C6 (114 × 162 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c781114Mm" value="C7">
+                  C7 (81 × 114 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c85781Mm" value="C8">
+                  C8 (57 × 81 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c94057Mm" value="C9">
+                  C9 (40 × 57 mm)
+                </option>
+                <option data-i18n="tools:textToPdf.ui.c102840Mm" value="C10">
+                  C10 (28 × 40 mm)
+                </option>
               </optgroup>
-              <optgroup label="North American">
-                <option value="Letter">Letter (8.5 × 11 in)</option>
-                <option value="Legal">Legal (8.5 × 14 in)</option>
-                <option value="Tabloid">Tabloid (11 × 17 in)</option>
-                <option value="Ledger">Ledger (17 × 11 in)</option>
-                <option value="11x17">11×17 (11 × 17 in)</option>
+              <optgroup
+                data-i18n-label="tools:textToPdf.ui.groupNorthAmerican"
+                label="North American"
+              >
+                <option
+                  data-i18n="tools:textToPdf.ui.letter8511In"
+                  value="Letter"
+                >
+                  Letter (8.5 × 11 in)
+                </option>
+                <option
+                  data-i18n="tools:textToPdf.ui.legal8514In"
+                  value="Legal"
+                >
+                  Legal (8.5 × 14 in)
+                </option>
+                <option
+                  data-i18n="tools:textToPdf.ui.tabloid1117In"
+                  value="Tabloid"
+                >
+                  Tabloid (11 × 17 in)
+                </option>
+                <option
+                  data-i18n="tools:textToPdf.ui.ledger1711In"
+                  value="Ledger"
+                >
+                  Ledger (17 × 11 in)
+                </option>
+                <option
+                  data-i18n="tools:textToPdf.ui.t11171117In"
+                  value="11x17"
+                >
+                  11×17 (11 × 17 in)
+                </option>
               </optgroup>
             </select>
           </div>
@@ -395,7 +513,12 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
+            <h3
+              data-i18n="howItWorks.step1Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Upload File
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -408,7 +531,12 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
+            <h3
+              data-i18n="howItWorks.step2Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Process
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -421,7 +549,12 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
+            <h3
+              data-i18n="howItWorks.step3Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Download
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -443,36 +576,74 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
-          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
+          <h3
+            data-i18n="tools:mergePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Merge PDF
+          </h3>
+          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
+            Free online merge PDF tool
+          </p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
-          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
+          <h3
+            data-i18n="tools:compressPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Compress PDF
+          </h3>
+          <p
+            data-i18n="tools:compressPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online compress PDF tool
+          </p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
-          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
+          <h3
+            data-i18n="tools:splitPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Split PDF
+          </h3>
+          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
+            Free online split PDF tool
+          </p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
-          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
+          <h3
+            data-i18n="tools:pdfEditor.name"
+            class="text-white font-semibold mb-1"
+          >
+            Edit PDF
+          </h3>
+          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
+            Free online edit PDF tool
+          </p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
-          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
+          <h3
+            data-i18n="tools:rotatePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Rotate PDF
+          </h3>
+          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
+            Free online rotate PDF tool
+          </p>
         </a>
       </div>
     </section>

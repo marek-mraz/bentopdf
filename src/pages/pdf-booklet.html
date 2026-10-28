@@ -247,42 +247,191 @@
                   id="paper-size"
                   class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"
                 >
-                  <optgroup label="US Sizes">
-                    <option value="Letter" selected>Letter (8.5" × 11")</option>
-                    <option value="Legal">Legal (8.5" × 14")</option>
-                    <option value="Tabloid">Tabloid (11" × 17")</option>
-                    <option value="Ledger">Ledger (17" × 11")</option>
-                    <option value="Executive">Executive (7.25" × 10.5")</option>
-                    <option value="Folio">Folio (8.5" × 13")</option>
+                  <optgroup
+                    data-i18n-label="tools:pdfBooklet.ui.groupUsSizes"
+                    label="US Sizes"
+                  >
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.letter8511"
+                      value="Letter"
+                      selected
+                    >
+                      Letter (8.5" × 11")
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.legal8514"
+                      value="Legal"
+                    >
+                      Legal (8.5" × 14")
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.tabloid1117"
+                      value="Tabloid"
+                    >
+                      Tabloid (11" × 17")
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.ledger1711"
+                      value="Ledger"
+                    >
+                      Ledger (17" × 11")
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.executive725105"
+                      value="Executive"
+                    >
+                      Executive (7.25" × 10.5")
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.folio8513"
+                      value="Folio"
+                    >
+                      Folio (8.5" × 13")
+                    </option>
                   </optgroup>
-                  <optgroup label="A Series (ISO 216)">
-                    <option value="4A0">4A0 (1682 × 2378 mm)</option>
-                    <option value="2A0">2A0 (1189 × 1682 mm)</option>
-                    <option value="A0">A0 (841 × 1189 mm)</option>
-                    <option value="A1">A1 (594 × 841 mm)</option>
-                    <option value="A2">A2 (420 × 594 mm)</option>
-                    <option value="A3">A3 (297 × 420 mm)</option>
-                    <option value="A4">A4 (210 × 297 mm)</option>
-                    <option value="A5">A5 (148 × 210 mm)</option>
-                    <option value="A6">A6 (105 × 148 mm)</option>
+                  <optgroup
+                    data-i18n-label="tools:pdfBooklet.ui.groupASeriesIso216"
+                    label="A Series (ISO 216)"
+                  >
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.t4a016822378Mm"
+                      value="4A0"
+                    >
+                      4A0 (1682 × 2378 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.t2a011891682Mm"
+                      value="2A0"
+                    >
+                      2A0 (1189 × 1682 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.a08411189Mm"
+                      value="A0"
+                    >
+                      A0 (841 × 1189 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.a1594841Mm"
+                      value="A1"
+                    >
+                      A1 (594 × 841 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.a2420594Mm"
+                      value="A2"
+                    >
+                      A2 (420 × 594 mm)
+                    </option>
+                    <option data-i18n="shared.a3297420Mm" value="A3">
+                      A3 (297 × 420 mm)
+                    </option>
+                    <option data-i18n="shared.a4210297Mm" value="A4">
+                      A4 (210 × 297 mm)
+                    </option>
+                    <option data-i18n="shared.a5148210Mm" value="A5">
+                      A5 (148 × 210 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.a6105148Mm"
+                      value="A6"
+                    >
+                      A6 (105 × 148 mm)
+                    </option>
                   </optgroup>
-                  <optgroup label="B Series (ISO 216)">
-                    <option value="B0">B0 (1000 × 1414 mm)</option>
-                    <option value="B1">B1 (707 × 1000 mm)</option>
-                    <option value="B2">B2 (500 × 707 mm)</option>
-                    <option value="B3">B3 (353 × 500 mm)</option>
-                    <option value="B4">B4 (250 × 353 mm)</option>
-                    <option value="B5">B5 (176 × 250 mm)</option>
+                  <optgroup
+                    data-i18n-label="tools:pdfBooklet.ui.groupBSeriesIso216"
+                    label="B Series (ISO 216)"
+                  >
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.b010001414Mm"
+                      value="B0"
+                    >
+                      B0 (1000 × 1414 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.b17071000Mm"
+                      value="B1"
+                    >
+                      B1 (707 × 1000 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.b2500707Mm"
+                      value="B2"
+                    >
+                      B2 (500 × 707 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.b3353500Mm"
+                      value="B3"
+                    >
+                      B3 (353 × 500 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.b4250353Mm"
+                      value="B4"
+                    >
+                      B4 (250 × 353 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.b5176250Mm"
+                      value="B5"
+                    >
+                      B5 (176 × 250 mm)
+                    </option>
                   </optgroup>
-                  <optgroup label="C Series (Envelopes)">
-                    <option value="C0">C0 (917 × 1297 mm)</option>
-                    <option value="C1">C1 (648 × 917 mm)</option>
-                    <option value="C2">C2 (458 × 648 mm)</option>
-                    <option value="C3">C3 (324 × 458 mm)</option>
-                    <option value="C4">C4 (229 × 324 mm)</option>
-                    <option value="C5">C5 (162 × 229 mm)</option>
-                    <option value="C6">C6 (114 × 162 mm)</option>
-                    <option value="C7">C7 (81 × 114 mm)</option>
+                  <optgroup
+                    data-i18n-label="tools:pdfBooklet.ui.groupCSeriesEnvelopes"
+                    label="C Series (Envelopes)"
+                  >
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.c09171297Mm"
+                      value="C0"
+                    >
+                      C0 (917 × 1297 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.c1648917Mm"
+                      value="C1"
+                    >
+                      C1 (648 × 917 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.c2458648Mm"
+                      value="C2"
+                    >
+                      C2 (458 × 648 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.c3324458Mm"
+                      value="C3"
+                    >
+                      C3 (324 × 458 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.c4229324Mm"
+                      value="C4"
+                    >
+                      C4 (229 × 324 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.c5162229Mm"
+                      value="C5"
+                    >
+                      C5 (162 × 229 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.c6114162Mm"
+                      value="C6"
+                    >
+                      C6 (114 × 162 mm)
+                    </option>
+                    <option
+                      data-i18n="tools:pdfBooklet.ui.c781114Mm"
+                      value="C7"
+                    >
+                      C7 (81 × 114 mm)
+                    </option>
                   </optgroup>
                 </select>
               </div>
@@ -411,7 +560,10 @@
             id="booklet-preview"
             class="bg-gray-900 rounded-lg border border-gray-700 p-4 min-h-[200px] overflow-auto"
           >
-            <p class="text-gray-400 text-center py-8">
+            <p
+              data-i18n="tools:pdfBooklet.ui.uploadAPdfAndClickGenerate"
+              class="text-gray-400 text-center py-8"
+            >
               Upload a PDF and click "Generate Preview" to see the booklet
               layout
             </p>
@@ -478,7 +630,12 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
+            <h3
+              data-i18n="howItWorks.step1Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Upload File
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -491,7 +648,12 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
+            <h3
+              data-i18n="howItWorks.step2Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Process
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -504,7 +666,12 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
+            <h3
+              data-i18n="howItWorks.step3Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Download
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -526,36 +693,74 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
-          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
+          <h3
+            data-i18n="tools:mergePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Merge PDF
+          </h3>
+          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
+            Free online merge PDF tool
+          </p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
-          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
+          <h3
+            data-i18n="tools:compressPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Compress PDF
+          </h3>
+          <p
+            data-i18n="tools:compressPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online compress PDF tool
+          </p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
-          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
+          <h3
+            data-i18n="tools:splitPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Split PDF
+          </h3>
+          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
+            Free online split PDF tool
+          </p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
-          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
+          <h3
+            data-i18n="tools:pdfEditor.name"
+            class="text-white font-semibold mb-1"
+          >
+            Edit PDF
+          </h3>
+          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
+            Free online edit PDF tool
+          </p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
-          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
+          <h3
+            data-i18n="tools:rotatePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Rotate PDF
+          </h3>
+          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
+            Free online rotate PDF tool
+          </p>
         </a>
       </div>
     </section>

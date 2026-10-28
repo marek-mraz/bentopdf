@@ -219,7 +219,11 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p id="loader-text" class="text-white text-lg font-medium">
+        <p
+          data-i18n="loader.processing"
+          id="loader-text"
+          class="text-white text-lg font-medium"
+        >
           Processing...
         </p>
       </div>
@@ -265,8 +269,16 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Upload PDF</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:editPdfText.howToUpload"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Upload PDF
+            </h3>
+            <p
+              data-i18n="tools:timestampPdf.ui.selectThePdfDocumentYouWant"
+              class="text-gray-400"
+            >
               Select the PDF document you want to timestamp
             </p>
           </div>
@@ -278,10 +290,18 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">
+            <h3
+              data-i18n="tools:timestampPdf.ui.chooseTsaServer"
+              class="text-lg font-semibold text-white mb-1"
+            >
               Choose TSA Server
             </h3>
-            <p class="text-gray-400">Select one of the trusted TSA servers</p>
+            <p
+              data-i18n="tools:timestampPdf.ui.selectOneOfTheTrustedTsa"
+              class="text-gray-400"
+            >
+              Select one of the trusted TSA servers
+            </p>
           </div>
         </div>
         <div class="flex items-start gap-4">
@@ -291,10 +311,16 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">
+            <h3
+              data-i18n="tools:timestampPdf.ui.timestampDownload"
+              class="text-lg font-semibold text-white mb-1"
+            >
               Timestamp & Download
             </h3>
-            <p class="text-gray-400">
+            <p
+              data-i18n="tools:timestampPdf.ui.applyTheRfc3161TimestampAnd"
+              class="text-gray-400"
+            >
               Apply the RFC 3161 timestamp and download your timestamped PDF
             </p>
           </div>
@@ -314,36 +340,86 @@
           href="digital-sign-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Digital Signature</h3>
-          <p class="text-gray-400 text-sm">Sign with X.509 certificate</p>
+          <h3
+            data-i18n="tools:digitalSignPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Digital Signature
+          </h3>
+          <p
+            data-i18n="tools:digitalSignPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Sign with X.509 certificate
+          </p>
         </a>
         <a
           href="validate-signature-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Validate Signature</h3>
-          <p class="text-gray-400 text-sm">Verify digital signatures</p>
+          <h3
+            data-i18n="tools:validateSignaturePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Validate Signature
+          </h3>
+          <p
+            data-i18n="tools:validateSignaturePdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Verify digital signatures
+          </p>
         </a>
         <a
           href="protect-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Encrypt PDF</h3>
-          <p class="text-gray-400 text-sm">Password protect your PDF</p>
+          <h3
+            data-i18n="tools:protectPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Encrypt PDF
+          </h3>
+          <p
+            data-i18n="tools:protectPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Password protect your PDF
+          </p>
         </a>
         <a
           href="flatten-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Flatten PDF</h3>
-          <p class="text-gray-400 text-sm">Make annotations permanent</p>
+          <h3
+            data-i18n="tools:flattenPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Flatten PDF
+          </h3>
+          <p
+            data-i18n="tools:flattenPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Make annotations permanent
+          </p>
         </a>
         <a
           href="sanitize-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Sanitize PDF</h3>
-          <p class="text-gray-400 text-sm">Remove hidden data</p>
+          <h3
+            data-i18n="tools:sanitizePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Sanitize PDF
+          </h3>
+          <p
+            data-i18n="tools:sanitizePdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Remove hidden data
+          </p>
         </a>
       </div>
     </section>

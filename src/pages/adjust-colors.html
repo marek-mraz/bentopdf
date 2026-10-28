@@ -349,7 +349,11 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p id="loader-text" class="text-white text-lg font-medium">
+        <p
+          data-i18n="loader.processing"
+          id="loader-text"
+          class="text-white text-lg font-medium"
+        >
           Processing...
         </p>
       </div>
@@ -394,8 +398,16 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="howItWorks.step1Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Upload File
+            </h3>
+            <p
+              data-i18n="tools:adjustColors.ui.clickOrDragAndDropYour"
+              class="text-gray-400"
+            >
               Click or drag and drop your PDF file to begin
             </p>
           </div>
@@ -407,8 +419,16 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Adjust Colors</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:adjustColors.name"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Adjust Colors
+            </h3>
+            <p
+              data-i18n="tools:adjustColors.ui.fineTuneColorSettingsWithReal"
+              class="text-gray-400"
+            >
               Fine-tune color settings with real-time preview
             </p>
           </div>
@@ -420,8 +440,18 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
-            <p class="text-gray-400">Save your color-adjusted PDF instantly</p>
+            <h3
+              data-i18n="howItWorks.step3Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Download
+            </h3>
+            <p
+              data-i18n="tools:adjustColors.ui.saveYourColorAdjustedPdfInstantly"
+              class="text-gray-400"
+            >
+              Save your color-adjusted PDF instantly
+            </p>
           </div>
         </div>
       </div>
@@ -439,36 +469,86 @@
           href="pdf-to-greyscale.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">PDF to Greyscale</h3>
-          <p class="text-gray-400 text-sm">Free online greyscale tool</p>
+          <h3
+            data-i18n="tools:pdfToGreyscale.name"
+            class="text-white font-semibold mb-1"
+          >
+            PDF to Greyscale
+          </h3>
+          <p
+            data-i18n="tools:pdfToGreyscale.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online greyscale tool
+          </p>
         </a>
         <a
           href="invert-colors.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Invert Colors</h3>
-          <p class="text-gray-400 text-sm">Free online invert colors tool</p>
+          <h3
+            data-i18n="tools:invertColors.name"
+            class="text-white font-semibold mb-1"
+          >
+            Invert Colors
+          </h3>
+          <p
+            data-i18n="tools:invertColors.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online invert colors tool
+          </p>
         </a>
         <a
           href="scanner-effect.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Scanner Effect</h3>
-          <p class="text-gray-400 text-sm">Make PDFs look scanned</p>
+          <h3
+            data-i18n="tools:scannerEffect.name"
+            class="text-white font-semibold mb-1"
+          >
+            Scanner Effect
+          </h3>
+          <p
+            data-i18n="tools:scannerEffect.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Make PDFs look scanned
+          </p>
         </a>
         <a
           href="background-color.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Background Color</h3>
-          <p class="text-gray-400 text-sm">Change PDF background</p>
+          <h3
+            data-i18n="tools:backgroundColor.name"
+            class="text-white font-semibold mb-1"
+          >
+            Background Color
+          </h3>
+          <p
+            data-i18n="tools:backgroundColor.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Change PDF background
+          </p>
         </a>
         <a
           href="text-color.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Text Color</h3>
-          <p class="text-gray-400 text-sm">Change PDF text color</p>
+          <h3
+            data-i18n="tools:changeTextColor.name"
+            class="text-white font-semibold mb-1"
+          >
+            Text Color
+          </h3>
+          <p
+            data-i18n="tools:changeTextColor.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Change PDF text color
+          </p>
         </a>
       </div>
     </section>

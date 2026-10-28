@@ -315,7 +315,11 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p id="loader-text" class="text-white text-lg font-medium">
+        <p
+          data-i18n="loader.processing"
+          id="loader-text"
+          class="text-white text-lg font-medium"
+        >
           Processing...
         </p>
       </div>
@@ -363,8 +367,16 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Upload PDFs</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="multiTool.uploadPdfs"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Upload PDFs
+            </h3>
+            <p
+              data-i18n="tools:mergePdf.ui.selectOrDragAndDropMultiple"
+              class="text-gray-400"
+            >
               Select or drag and drop multiple PDF files you want to merge
             </p>
           </div>
@@ -376,8 +388,16 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Arrange Order</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:mergePdf.ui.arrangeOrder"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Arrange Order
+            </h3>
+            <p
+              data-i18n="tools:mergePdf.ui.dragFilesUpOrDownTo"
+              class="text-gray-400"
+            >
               Drag files up or down to reorder them in your preferred sequence
             </p>
           </div>
@@ -389,8 +409,16 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Merge Files</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:mergePdf.ui.mergeFiles"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Merge Files
+            </h3>
+            <p
+              data-i18n="tools:mergePdf.ui.clickTheMergeButtonToCombine"
+              class="text-gray-400"
+            >
               Click the merge button to combine all PDFs into a single document
             </p>
           </div>
@@ -402,8 +430,16 @@
             4
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="howItWorks.step3Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Download
+            </h3>
+            <p
+              data-i18n="tools:mergePdf.ui.saveYourMergedPdfAllPages"
+              class="text-gray-400"
+            >
               Save your merged PDF - all pages combined in the order you chose
             </p>
           </div>
@@ -424,36 +460,80 @@
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
-          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
+          <h3
+            data-i18n="tools:splitPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Split PDF
+          </h3>
+          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
+            Free online split PDF tool
+          </p>
         </a>
         <a
           href="organize-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Organize PDF</h3>
-          <p class="text-gray-400 text-sm">Free online organize PDF tool</p>
+          <h3
+            data-i18n="tools:duplicateOrganize.name"
+            class="text-white font-semibold mb-1"
+          >
+            Organize PDF
+          </h3>
+          <p
+            data-i18n="tools:duplicateOrganize.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online organize PDF tool
+          </p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
-          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
+          <h3
+            data-i18n="tools:compressPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Compress PDF
+          </h3>
+          <p
+            data-i18n="tools:compressPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online compress PDF tool
+          </p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
-          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
+          <h3
+            data-i18n="tools:rotatePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Rotate PDF
+          </h3>
+          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
+            Free online rotate PDF tool
+          </p>
         </a>
         <a
           href="delete-pages.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Delete Pages</h3>
-          <p class="text-gray-400 text-sm">Free online delete pages tool</p>
+          <h3
+            data-i18n="tools:deletePages.name"
+            class="text-white font-semibold mb-1"
+          >
+            Delete Pages
+          </h3>
+          <p
+            data-i18n="tools:deletePages.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online delete pages tool
+          </p>
         </a>
       </div>
     </section>

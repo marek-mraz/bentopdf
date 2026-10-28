@@ -194,12 +194,42 @@
               id="pageSizeSelect"
               class="w-full bg-gray-600 border border-gray-500 text-white rounded px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
             >
-              <option value="letter">Letter (8.5" × 11")</option>
-              <option value="a4">A4 (210mm × 297mm)</option>
-              <option value="a5">A5 (148mm × 210mm)</option>
-              <option value="legal">Legal (8.5" × 14")</option>
-              <option value="tabloid">Tabloid (11" × 17")</option>
-              <option value="a3">A3 (297mm × 420mm)</option>
+              <option
+                data-i18n="tools:createPdfForm.ui.letter8511"
+                value="letter"
+              >
+                Letter (8.5" × 11")
+              </option>
+              <option
+                data-i18n="tools:createPdfForm.ui.a4210mm297mm"
+                value="a4"
+              >
+                A4 (210mm × 297mm)
+              </option>
+              <option
+                data-i18n="tools:createPdfForm.ui.a5148mm210mm"
+                value="a5"
+              >
+                A5 (148mm × 210mm)
+              </option>
+              <option
+                data-i18n="tools:createPdfForm.ui.legal8514"
+                value="legal"
+              >
+                Legal (8.5" × 14")
+              </option>
+              <option
+                data-i18n="tools:createPdfForm.ui.tabloid1117"
+                value="tabloid"
+              >
+                Tabloid (11" × 17")
+              </option>
+              <option
+                data-i18n="tools:createPdfForm.ui.a3297mm420mm"
+                value="a3"
+              >
+                A3 (297mm × 420mm)
+              </option>
               <option data-i18n="tools:createPdfForm.ui.custom" value="custom">
                 Custom
               </option>
@@ -299,7 +329,10 @@
                 >
               </h2>
               <div id="propertiesPanel" class="space-y-3">
-                <p class="text-gray-500 text-sm">
+                <p
+                  data-i18n="tools:createPdfForm.ui.selectAFieldToEditProperties"
+                  class="text-gray-500 text-sm"
+                >
                   Select a field to edit properties
                 </p>
               </div>
@@ -340,7 +373,10 @@
                 >
                   <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 </button>
-                <span id="pageIndicator" class="text-sm text-gray-300 px-2"
+                <span
+                  data-i18n="tools:createPdfForm.ui.page1Of1"
+                  id="pageIndicator"
+                  class="text-sm text-gray-300 px-2"
                   >Page 1 of 1</span
                 >
                 <button
@@ -635,7 +671,12 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
+            <h3
+              data-i18n="howItWorks.step1Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Upload File
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -648,7 +689,12 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
+            <h3
+              data-i18n="howItWorks.step2Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Process
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -661,7 +707,12 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
+            <h3
+              data-i18n="howItWorks.step3Title"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              Download
+            </h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -683,36 +734,74 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
-          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
+          <h3
+            data-i18n="tools:mergePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Merge PDF
+          </h3>
+          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
+            Free online merge PDF tool
+          </p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
-          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
+          <h3
+            data-i18n="tools:compressPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Compress PDF
+          </h3>
+          <p
+            data-i18n="tools:compressPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Free online compress PDF tool
+          </p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
-          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
+          <h3
+            data-i18n="tools:splitPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Split PDF
+          </h3>
+          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
+            Free online split PDF tool
+          </p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
-          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
+          <h3
+            data-i18n="tools:pdfEditor.name"
+            class="text-white font-semibold mb-1"
+          >
+            Edit PDF
+          </h3>
+          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
+            Free online edit PDF tool
+          </p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
-          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
+          <h3
+            data-i18n="tools:rotatePdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Rotate PDF
+          </h3>
+          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
+            Free online rotate PDF tool
+          </p>
         </a>
       </div>
     </section>
@@ -859,13 +948,22 @@
         class="bg-gray-800 rounded-lg shadow-2xl max-w-md w-full mx-4 border border-gray-700"
       >
         <div class="p-6">
-          <h3 id="errorModalTitle" class="text-xl font-bold text-white mb-3">
+          <h3
+            data-i18n="common.error"
+            id="errorModalTitle"
+            class="text-xl font-bold text-white mb-3"
+          >
             Error
           </h3>
-          <p id="errorModalMessage" class="text-gray-300 mb-6">
+          <p
+            data-i18n="tools:createPdfForm.ui.anErrorOccurred"
+            id="errorModalMessage"
+            class="text-gray-300 mb-6"
+          >
             An error occurred.
           </p>
           <button
+            data-i18n="preview.close"
             id="errorModalClose"
             class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded transition-colors"
           >

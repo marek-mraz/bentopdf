@@ -21,7 +21,10 @@
   "convertToPdf": "Previesť do PDF",
   "pdfMultiTool": {
     "name": "Multifunkčný nástroj PDF",
-    "subtitle": "Zlúčiť, rozdeliť, organizovať, mazať, otáčať, pridávať prázdne strany, extrahovať a duplikovať v jednotnom rozhraní."
+    "subtitle": "Zlúčiť, rozdeliť, organizovať, mazať, otáčať, pridávať prázdne strany, extrahovať a duplikovať v jednotnom rozhraní.",
+    "ui": {
+      "closeFaq": "Zavrieť časté otázky"
+    }
   },
   "mergePdf": {
     "name": "Zlúčiť PDF",
@@ -47,7 +50,13 @@
       "clickDrag": "Kliknite a potiahnite ikonu",
       "iconToChangeOrderFiles": "a zmeňte tak poradie súborov.",
       "pagesRangeTotal": "Strany (napr. 1-3, 5) – celkom: {{count}}",
-      "leaveBlankAllPages": "Prázdne pole = všetky strany"
+      "leaveBlankAllPages": "Prázdne pole = všetky strany",
+      "selectOrDragAndDropMultiple": "Vyberte alebo pretiahnite viac PDF súborov, ktoré chcete zlúčiť",
+      "arrangeOrder": "Usporiadať poradie",
+      "dragFilesUpOrDownTo": "Ťahaním súborov nahor alebo nadol zmeníte ich poradie",
+      "mergeFiles": "Zlúčiť súbory",
+      "clickTheMergeButtonToCombine": "Kliknutím na tlačidlo zlúčenia spojíte všetky PDF do jedného dokumentu",
+      "saveYourMergedPdfAllPages": "Uložte zlúčené PDF – všetky strany spojené v poradí, ktoré ste zvolili"
     }
   },
   "splitPdf": {
@@ -95,7 +104,14 @@
       "singleCombinedPdf": "Jedno spojené PDF",
       "multipleFilesDownloadedTogetherZip": "Viacero súborov sa stiahne spolu ako ZIP.",
       "onePdfPerRange": "Samostatné PDF pre každý rozsah",
-      "onePdfPerPage": "Samostatné PDF pre každú stranu"
+      "onePdfPerPage": "Samostatné PDF pre každú stranu",
+      "selectThePdfFileYouWant": "Vyberte PDF súbor, ktorý chcete rozdeliť alebo z ktorého chcete extrahovať strany",
+      "chooseSplitMethod": "Zvoliť spôsob rozdelenia",
+      "selectSpecificPagesPageRangesOr": "Vyberte konkrétne strany, rozsahy strán alebo rozdeľte na jednotlivé strany",
+      "previewSelect": "Náhľad a výber",
+      "viewPageThumbnailsAndSelectExactly": "Pozrite si miniatúry strán a vyberte presne tie, ktoré chcete",
+      "splitDownload": "Rozdeliť a stiahnuť",
+      "downloadExtractedPagesAsSeparatePdfs": "Stiahnite extrahované strany ako samostatné PDF alebo ako súbor ZIP"
     }
   },
   "compressPdf": {
@@ -410,7 +426,21 @@
       "wordSpacing": "Medzery medzi slovami",
       "horizontalScale": "Vodorovná mierka %",
       "firstLineIndent": "Odsadenie prvého riadka",
-      "hangingIndent": "Predsadenie"
+      "hangingIndent": "Predsadenie",
+      "selectOrDragAndDropThe": "Vyberte alebo pretiahnite PDF, ktorého text chcete upraviť",
+      "everyEditableParagraphIsOutlinedClick": "Každý upraviteľný odsek je ohraničený. Kliknite naň a píšte; text sa počas úprav priebežne preformátuje",
+      "changeFontsSizeColorAlignmentAnd": "Meňte písma, veľkosť, farbu, zarovnanie a riadkovanie, presúvajte alebo nahrádzajte obrázky, pridávajte nové textové polia",
+      "downloadACleanPdfWithYour": "Stiahnite čisté PDF so zapracovanými úpravami; všetko zostáva vo vašom zariadení",
+      "editAll": "Upraviť všetko",
+      "englishUs": "Angličtina (USA)",
+      "englishUk": "Angličtina (UK)",
+      "deutsch": "Nemčina",
+      "franAis": "Francúzština",
+      "espaOl": "Španielčina",
+      "italiano": "Taliančina",
+      "portuguS": "Portugalčina",
+      "iIiIii": "i. ii. iii.",
+      "iIiIii2": "I. II. III."
     }
   },
   "jpgToPdf": {
@@ -449,7 +479,8 @@
       "nextPage": "Nasledujúca strana",
       "flatteningCropConvertsPagesTo": "Trvalé orezanie (prevedie strany na obrázky)",
       "applyToAllPages": "Použiť na všetky strany",
-      "cropDownload": "Orezať a stiahnuť"
+      "cropDownload": "Orezať a stiahnuť",
+      "page1Of1": "Strana 1 z 1"
     }
   },
   "extractPages": {
@@ -561,7 +592,9 @@
       "exportJson": "Exportovať JSON",
       "noBookmarksYetAddOne": "Zatiaľ žiadne záložky. Pridajte prvú vyššie!",
       "savePdfBookmarks": "Uložiť PDF so záložkami",
-      "extractExistingBookmarks": "Extrahovať existujúce záložky"
+      "extractExistingBookmarks": "Extrahovať existujúce záložky",
+      "pdfBookmarkEditor": "Editor záložiek PDF",
+      "page11": "Strana 1 / 1"
     }
   },
   "tableOfContents": {
@@ -578,7 +611,21 @@
     "errorReadingFileWithMessage": "Chyba pri čítaní súboru: {{message}}",
     "successGeneratedDownloadStarted": "Obsah bol úspešne vygenerovaný! Sťahovanie začalo.",
     "workerErrorWithMessage": "Chyba: {{message}}",
-    "workerErrorOccurred": "Vyskytla sa chyba pracovného vlákna (worker). Podrobnosti nájdete v konzole."
+    "workerErrorOccurred": "Vyskytla sa chyba pracovného vlákna (worker). Podrobnosti nájdete v konzole.",
+    "ui": {
+      "timesRoman": "Times Roman",
+      "timesBold": "Times tučné",
+      "timesItalic": "Times kurzíva",
+      "timesBoldItalic": "Times tučná kurzíva",
+      "helvetica": "Helvetica",
+      "helveticaBold": "Helvetica tučné",
+      "helveticaOblique": "Helvetica šikmé",
+      "helveticaBoldOblique": "Helvetica tučné šikmé",
+      "courier": "Courier",
+      "courierBold": "Courier tučné",
+      "courierOblique": "Courier šikmé",
+      "courierBoldOblique": "Courier tučné šikmé"
+    }
   },
   "pageNumbers": {
     "name": "Čísla strán",
@@ -693,7 +740,33 @@
       "batesStarts": "Batesovo číslo začína od",
       "fileCounterStarts": "Počítadlo súborov začína od",
       "font": "Písmo",
-      "applyBatesNumbers": "Použiť Batesovo číslovanie"
+      "applyBatesNumbers": "Použiť Batesovo číslovanie",
+      "exhibit1CaseXyz000001Page": "Príloha 1 Vec XYZ 000001 Strana 1",
+      "exhibit1CaseXyz00001Page": "Príloha 1 Vec XYZ 00001 Strana 1",
+      "exhibit1CaseXyz0001Page": "Príloha 1 Vec XYZ 0001 Strana 1",
+      "exhibit1CaseXyz001Page": "Príloha 1 Vec XYZ 001 Strana 1",
+      "exhibit1CaseXyz1Page": "Príloha 1 Vec XYZ 1 Strana 1",
+      "exhibit1CaseXyz000001": "Príloha 1 Vec XYZ 000001",
+      "exhibit1CaseXyz00001": "Príloha 1 Vec XYZ 00001",
+      "exhibit1CaseXyz0001": "Príloha 1 Vec XYZ 0001",
+      "exhibit1CaseXyz001": "Príloha 1 Vec XYZ 001",
+      "exhibit1CaseXyz1": "Príloha 1 Vec XYZ 1",
+      "caseXyz000001": "Vec XYZ 000001",
+      "caseXyz00001": "Vec XYZ 00001",
+      "caseXyz0001": "Vec XYZ 0001",
+      "caseXyz001": "Vec XYZ 001",
+      "caseXyz1": "Vec XYZ 1",
+      "helvetica": "Helvetica",
+      "timesNewRoman": "Times New Roman",
+      "courier": "Courier",
+      "uploadOneOrMorePdfFiles": "Nahrajte jeden alebo viac PDF súborov. Ťahaním zmeníte poradie pri číslovaní viacerých súborov.",
+      "configureStyle": "Nastaviť štýl",
+      "chooseAPresetOrCreateA": "Vyberte predvoľbu alebo vytvorte vlastnú šablónu so zástupnými značkami ako [BATES], [PAGE], [FILE].",
+      "getYourBatesStampedPdfsInstantly": "PDF s Batesovým číslovaním dostanete okamžite. Viac súborov sa doručí ako ZIP.",
+      "groupExhibitCaseBatesPage": "Príloha + vec + Bates + strana",
+      "groupExhibitCaseBates": "Príloha + vec + Bates",
+      "groupCaseBates": "Vec + Bates",
+      "groupBatesNumberOnly": "Iba Batesovo číslo"
     }
   },
   "addWatermark": {
@@ -735,7 +808,8 @@
       "bottom": "Dole",
       "bottomRight": "Vpravo dole",
       "flattenWatermark": "Zlúčiť vodoznak so stranou",
-      "bakesWatermarkIntoPagePixels": "Vodoznak sa natrvalo vloží do obrazu strany, takže ho nemožno ľahko odstrániť. Text už nebude možné označiť."
+      "bakesWatermarkIntoPagePixels": "Vodoznak sa natrvalo vloží do obrazu strany, takže ho nemožno ľahko odstrániť. Text už nebude možné označiť.",
+      "confidential": "DÔVERNÉ"
     }
   },
   "headerFooter": {
@@ -799,6 +873,12 @@
     "alert": {
       "scannerEffectAppliedSuccessfully": "Efekt skenera bol úspešne použitý!",
       "failedApplyScannerEffect": "Efekt skenera sa nepodarilo použiť. Súbor môže byť poškodený."
+    },
+    "ui": {
+      "clickOrDragAndDropYour": "Kliknite alebo pretiahnite PDF súbor pre začiatok",
+      "adjustSettings": "Upraviť nastavenia",
+      "customizeTheScannerEffectWithReal": "Prispôsobte efekt skenera so živým náhľadom",
+      "saveYourScannedLookingPdfInstantly": "Okamžite uložte PDF, ktoré vyzerá ako naskenované"
     }
   },
   "adjustColors": {
@@ -820,6 +900,11 @@
     "alert": {
       "colorAdjustmentsAppliedSuccessfully": "Farby boli úspešne upravené!",
       "failedApplyColorAdjustments": "Farby sa nepodarilo upraviť. Súbor môže byť poškodený."
+    },
+    "ui": {
+      "clickOrDragAndDropYour": "Kliknite alebo pretiahnite PDF súbor pre začiatok",
+      "fineTuneColorSettingsWithReal": "Dolaďte nastavenia farieb so živým náhľadom",
+      "saveYourColorAdjustedPdfInstantly": "Okamžite uložte PDF s upravenými farbami"
     }
   },
   "backgroundColor": {
@@ -931,7 +1016,16 @@
       "image": "Obrázok",
       "barcodeField": "Pole čiarového kódu",
       "barcode": "Čiarový kód",
-      "downloadPdfForm": "Stiahnuť PDF formulár"
+      "downloadPdfForm": "Stiahnuť PDF formulár",
+      "letter8511": "Letter (8,5\" × 11\")",
+      "a4210mm297mm": "A4 (210 mm × 297 mm)",
+      "a5148mm210mm": "A5 (148 mm × 210 mm)",
+      "legal8514": "Legal (8,5\" × 14\")",
+      "tabloid1117": "Tabloid (11\" × 17\")",
+      "a3297mm420mm": "A3 (297 mm × 420 mm)",
+      "selectAFieldToEditProperties": "Vyberte pole na úpravu vlastností",
+      "page1Of1": "Strana 1 z 1",
+      "anErrorOccurred": "Vyskytla sa chyba."
     }
   },
   "removeBlankPages": {
@@ -964,6 +1058,9 @@
     },
     "loader": {
       "processingImages": "Spracúvajú sa obrázky..."
+    },
+    "ui": {
+      "jpgPngBmpGifTiffPnm": "JPG, PNG, BMP, GIF, TIFF, PNM, PGM, PBM, PPM, PAM, JXR, JPX, JP2, PSD, SVG, HEIC, WebP"
     }
   },
   "pngToPdf": {
@@ -1050,7 +1147,50 @@
       "creatingPdf": "Vytvára sa PDF..."
     },
     "ui": {
-      "startTypingHerePlaceholder": "Začnite písať..."
+      "startTypingHerePlaceholder": "Začnite písať...",
+      "helveticaSansSerif": "Helvetica (bezpätkové)",
+      "tiroSerif": "Tiro (pätkové)",
+      "courierMonospace": "Courier (neproporcionálne)",
+      "timesSerif": "Times (pätkové)",
+      "a08411189Mm": "A0 (841 × 1189 mm)",
+      "a1594841Mm": "A1 (594 × 841 mm)",
+      "a2420594Mm": "A2 (420 × 594 mm)",
+      "a6105148Mm": "A6 (105 × 148 mm)",
+      "a774105Mm": "A7 (74 × 105 mm)",
+      "a85274Mm": "A8 (52 × 74 mm)",
+      "a93752Mm": "A9 (37 × 52 mm)",
+      "a102637Mm": "A10 (26 × 37 mm)",
+      "b010001414Mm": "B0 (1000 × 1414 mm)",
+      "b17071000Mm": "B1 (707 × 1000 mm)",
+      "b2500707Mm": "B2 (500 × 707 mm)",
+      "b3353500Mm": "B3 (353 × 500 mm)",
+      "b4250353Mm": "B4 (250 × 353 mm)",
+      "b5176250Mm": "B5 (176 × 250 mm)",
+      "b6125176Mm": "B6 (125 × 176 mm)",
+      "b788125Mm": "B7 (88 × 125 mm)",
+      "b86288Mm": "B8 (62 × 88 mm)",
+      "b94462Mm": "B9 (44 × 62 mm)",
+      "b103144Mm": "B10 (31 × 44 mm)",
+      "c09171297Mm": "C0 (917 × 1297 mm)",
+      "c1648917Mm": "C1 (648 × 917 mm)",
+      "c2458648Mm": "C2 (458 × 648 mm)",
+      "c3324458Mm": "C3 (324 × 458 mm)",
+      "c4229324Mm": "C4 (229 × 324 mm)",
+      "c5162229Mm": "C5 (162 × 229 mm)",
+      "c6114162Mm": "C6 (114 × 162 mm)",
+      "c781114Mm": "C7 (81 × 114 mm)",
+      "c85781Mm": "C8 (57 × 81 mm)",
+      "c94057Mm": "C9 (40 × 57 mm)",
+      "c102840Mm": "C10 (28 × 40 mm)",
+      "letter8511In": "Letter (8,5 × 11 in)",
+      "legal8514In": "Legal (8,5 × 14 in)",
+      "tabloid1117In": "Tabloid (11 × 17 in)",
+      "ledger1711In": "Ledger (17 × 11 in)",
+      "t11171117In": "11×17 (11 × 17 in)",
+      "groupIsoASeries": "Rad ISO A",
+      "groupIsoBSeries": "Rad ISO B",
+      "groupIsoCSeriesEnvelopes": "Rad ISO C (obálky)",
+      "groupNorthAmerican": "Severoamerické"
     }
   },
   "jsonToPdf": {
@@ -1087,6 +1227,15 @@
     },
     "loader": {
       "converting": "Konvertovanie do JPG..."
+    },
+    "ui": {
+      "selectThePdfFileYouWant": "Vyberte PDF súbor, ktorý chcete konvertovať na obrázky",
+      "chooseQuality": "Zvoliť kvalitu",
+      "selectImageQualityLowMediumHigh": "Vyberte kvalitu obrázkov (nízka, stredná, vysoká, maximálna)",
+      "selectPages": "Vybrať strany",
+      "convertAllPagesOrChooseSpecific": "Konvertujte všetky strany alebo vyberte konkrétne strany na extrakciu",
+      "downloadImages": "Stiahnuť obrázky",
+      "saveJpgImagesIndividuallyOrAs": "Uložte obrázky JPG jednotlivo alebo ako archív ZIP"
     }
   },
   "pdfToPng": {
@@ -1201,7 +1350,12 @@
     },
     "ui": {
       "autoDetectedFilenamePlaceholder": "Automaticky zistené z názvu súboru",
-      "actionAdventureSciFiPlaceholder": "akčný, dobrodružný, sci-fi"
+      "actionAdventureSciFiPlaceholder": "akčný, dobrodružný, sci-fi",
+      "selectThePdfYouWantTo": "Vyberte PDF, ktoré chcete konvertovať na komiksový archív",
+      "chooseSettings": "Zvoliť nastavenia",
+      "pickImageFormatQualityAndOptional": "Vyberte formát obrázkov, kvalitu a voliteľné metadáta",
+      "downloadCbz": "Stiahnuť CBZ",
+      "getYourCbzFileReadyFor": "Súbor .cbz pripravený pre akúkoľvek čítačku komiksov"
     }
   },
   "pdfToGreyscale": {
@@ -1448,7 +1602,8 @@
       "blankPagesMatchSizeFirst": "Prázdne strany budú mať rovnakú veľkosť ako prvá strana dokumentu.",
       "insertAfterPage": "Vložiť za stranu",
       "numberBlankPages": "Počet prázdnych strán",
-      "addBlankPages": "Pridať prázdne strany"
+      "addBlankPages": "Pridať prázdne strany",
+      "enter0ToInsertAtThe": "Zadajte 0 pre vloženie na začiatok."
     }
   },
   "reversePages": {
@@ -1509,7 +1664,8 @@
       "addMargins": "Pridať okraje",
       "addBorder": "Pridať rámik",
       "borderColor": "Farba rámika",
-      "createUpPdf": "Vytvoriť PDF N-Up"
+      "createUpPdf": "Vytvoriť PDF N-Up",
+      "letter85X11": "Letter (8,5\" × 11\")"
     }
   },
   "combineToSinglePage": {
@@ -1677,7 +1833,9 @@
       "inches": "Palce",
       "pageRangeOptional": "Rozsah strán (voliteľné)",
       "pageRangePlaceholder": "napr. 1-3, 5",
-      "totalPages": "Počet strán:"
+      "totalPages": "Počet strán:",
+      "letter": "Letter",
+      "mm": "mm"
     }
   },
   "fixPageSize": {
@@ -1700,7 +1858,10 @@
       "preservesAllContentMayAdd": "Zachová celý obsah, môže pridať okraje.",
       "fillCrop": "Vyplniť (orezať)",
       "fillsPageMayCropContent": "Vyplní stranu, môže orezať obsah.",
-      "colorMarginsPadding": "Farba okrajov"
+      "colorMarginsPadding": "Farba okrajov",
+      "letter8511In": "Letter (8,5 × 11 in)",
+      "legal8514In": "Legal (8,5 × 14 in)",
+      "tabloid1117In": "Tabloid (11 × 17 in)"
     }
   },
   "linearizePdf": {
@@ -1908,6 +2069,16 @@
     "loader": {
       "preparingPreview": "Pripravuje sa náhľad...",
       "generatingHighQualityPdf": "Generuje sa PDF vo vysokej kvalite..."
+    },
+    "ui": {
+      "uploadWordFiles": "Nahrať súbory Word",
+      "selectOrDragDocxOrDoc": "Vyberte alebo pretiahnite súbory DOCX alebo DOC, ktoré chcete konvertovať",
+      "autoConvert": "Automatická konverzia",
+      "conversionStartsAutomaticallyProcessingI": "Konverzia začne automaticky a prebieha vo vašom prehliadači",
+      "previewResults": "Náhľad výsledkov",
+      "seeYourConvertedPdfWithPreserved": "Pozrite si skonvertované PDF so zachovaným formátovaním",
+      "downloadPdfs": "Stiahnuť PDF",
+      "saveYourPdfFilesFormattingPerfectly": "Uložte PDF súbory – formátovanie dokonale zachované"
     }
   },
   "excelToPdf": {
@@ -1979,7 +2150,38 @@
       "gridMode": "Režim mriežky",
       "booklet1": "1×2 (brožúra)",
       "autoBestLayout": "Automaticky (najlepšie rozloženie)",
-      "generatePreview": "Vygenerovať náhľad"
+      "generatePreview": "Vygenerovať náhľad",
+      "letter8511": "Letter (8,5\" × 11\")",
+      "legal8514": "Legal (8,5\" × 14\")",
+      "tabloid1117": "Tabloid (11\" × 17\")",
+      "ledger1711": "Ledger (17\" × 11\")",
+      "executive725105": "Executive (7,25\" × 10,5\")",
+      "folio8513": "Folio (8,5\" × 13\")",
+      "t4a016822378Mm": "4A0 (1682 × 2378 mm)",
+      "t2a011891682Mm": "2A0 (1189 × 1682 mm)",
+      "a08411189Mm": "A0 (841 × 1189 mm)",
+      "a1594841Mm": "A1 (594 × 841 mm)",
+      "a2420594Mm": "A2 (420 × 594 mm)",
+      "a6105148Mm": "A6 (105 × 148 mm)",
+      "b010001414Mm": "B0 (1000 × 1414 mm)",
+      "b17071000Mm": "B1 (707 × 1000 mm)",
+      "b2500707Mm": "B2 (500 × 707 mm)",
+      "b3353500Mm": "B3 (353 × 500 mm)",
+      "b4250353Mm": "B4 (250 × 353 mm)",
+      "b5176250Mm": "B5 (176 × 250 mm)",
+      "c09171297Mm": "C0 (917 × 1297 mm)",
+      "c1648917Mm": "C1 (648 × 917 mm)",
+      "c2458648Mm": "C2 (458 × 648 mm)",
+      "c3324458Mm": "C3 (324 × 458 mm)",
+      "c4229324Mm": "C4 (229 × 324 mm)",
+      "c5162229Mm": "C5 (162 × 229 mm)",
+      "c6114162Mm": "C6 (114 × 162 mm)",
+      "c781114Mm": "C7 (81 × 114 mm)",
+      "uploadAPdfAndClickGenerate": "Nahrajte PDF a kliknite na „Vytvoriť náhľad“, aby ste videli rozloženie brožúry",
+      "groupUsSizes": "Americké formáty",
+      "groupASeriesIso216": "Rad A (ISO 216)",
+      "groupBSeriesIso216": "Rad B (ISO 216)",
+      "groupCSeriesEnvelopes": "Rad C (obálky)"
     }
   },
   "xpsToPdf": {
@@ -2236,7 +2438,13 @@
       "customCertificateFileOptional": "Vlastný súbor certifikátu X.509 (voliteľné)",
       "uploadTrustedCertificateToValidate": "Nahrajte dôveryhodný certifikát X.509 na overenie voči vlastnému zdroju dôvery.",
       "uploadCertificatePemCrtCer": "Nahrať certifikát (.pem, .crt, .cer)",
-      "signatureValidationResults": "Výsledky overenia podpisov"
+      "signatureValidationResults": "Výsledky overenia podpisov",
+      "uploadYourPdf": "Nahrajte svoje PDF",
+      "selectADigitallySignedPdfFile": "Vyberte digitálne podpísaný PDF súbor zo svojho zariadenia",
+      "automaticAnalysis": "Automatická analýza",
+      "theToolExtractsAndParsesAll": "Nástroj vyextrahuje a rozoberie všetky digitálne podpisy v dokumente",
+      "viewResults": "Zobraziť výsledky",
+      "seeSignerInformationCertificateValidityA": "Pozrite si údaje o podpisujúcom, platnosť certifikátu a stav podpisu"
     }
   },
   "timestampPdf": {
@@ -2255,7 +2463,12 @@
     },
     "ui": {
       "internetConnectionRequired": "Vyžaduje sa pripojenie na internet",
-      "timestampingRequiresContactingSelectedTsa": "Pridanie časovej pečiatky vyžaduje spojenie s vybraným serverom TSA, ktorý vydá dôveryhodný token časovej pečiatky."
+      "timestampingRequiresContactingSelectedTsa": "Pridanie časovej pečiatky vyžaduje spojenie s vybraným serverom TSA, ktorý vydá dôveryhodný token časovej pečiatky.",
+      "selectThePdfDocumentYouWant": "Vyberte PDF dokument, ktorému chcete pridať časovú pečiatku",
+      "chooseTsaServer": "Zvoliť server TSA",
+      "selectOneOfTheTrustedTsa": "Vyberte jeden z dôveryhodných serverov TSA",
+      "timestampDownload": "Časová pečiatka a stiahnutie",
+      "applyTheRfc3161TimestampAnd": "Použite časovú pečiatku RFC 3161 a stiahnite PDF s časovou pečiatkou"
     }
   },
   "emailToPdf": {
@@ -2272,7 +2485,12 @@
       "conversionOptions": "Možnosti prevodu",
       "pageSize": "Veľkosť strany",
       "includeCcBccRecipientsIn": "Zahrnúť do hlavičky príjemcov kópie a skrytej kópie",
-      "includeEmailAttachmentsList": "Zahrnúť zoznam príloh e-mailu"
+      "includeEmailAttachmentsList": "Zahrnúť zoznam príloh e-mailu",
+      "letter": "Letter",
+      "uploadEmailFile": "Nahrať e-mailový súbor",
+      "clickOrDragAndDropYour": "Kliknite alebo pretiahnite súbor .eml alebo .msg pre začiatok",
+      "clickTheConvertButtonToGenerate": "Kliknutím na tlačidlo konverzie vytvoríte PDF",
+      "saveYourConvertedPdfFileInstantly": "Okamžite uložte skonvertovaný PDF súbor"
     }
   },
   "fontToOutline": {
@@ -2285,7 +2503,10 @@
       "ensuresConsistentRenderingAcrossAll": "Zabezpečí rovnaké zobrazenie na všetkých zariadeniach",
       "idealPrintReadyPdfs": "Ideálne pre PDF pripravené na tlač",
       "noteTextNoLongerSelectable": "Poznámka: Po prevode už text nebude možné označiť ani vyhľadávať.",
-      "convertToOutlines": "Previesť na krivky"
+      "convertToOutlines": "Previesť na krivky",
+      "selectYourPdfFileWithEmbedded": "Vyberte PDF súbor s vloženými písmami",
+      "ghostscriptConvertsAllFontsToVector": "Ghostscript prevedie všetky písma na vektorové krivky",
+      "getYourFontIndependentPdfInstantly": "PDF nezávislé od písiem dostanete okamžite"
     }
   },
   "deskewPdf": {
@@ -2310,7 +2531,11 @@
       "better200": "200 (lepšie)",
       "bestQuality300": "300 (najlepšia kvalita)",
       "deskewResults": "Výsledky narovnania",
-      "pagesCorrected": "Narovnané strany:"
+      "pagesCorrected": "Narovnané strany:",
+      "selectYourScannedPdfWithTilted": "Vyberte naskenované PDF s naklonenými stranami",
+      "autoDetect": "Automatická detekcia",
+      "opencvAnalyzesAndDetectsSkewAngles": "OpenCV analyzuje a zistí uhly naklonenia",
+      "getYourStraightenedPdfInstantly": "Vyrovnané PDF dostanete okamžite"
     }
   },
   "pdfToWord": {
@@ -2390,7 +2615,9 @@
       "enterNewLayerNamePlaceholder": "Zadajte názov novej vrstvy...",
       "addLayer": "Pridať vrstvu",
       "downloadModifiedPdf": "Stiahnuť upravené PDF",
-      "layerNamePlaceholder": "Názov vrstvy"
+      "layerNamePlaceholder": "Názov vrstvy",
+      "loadingLayers": "Načítavajú sa vrstvy...",
+      "enterNameForTheNewLayer": "Zadajte názov novej vrstvy:"
     }
   },
   "pdfToPdfa": {
@@ -2560,7 +2787,9 @@
       "certificateUnlocked": "Certifikát je odomknutý",
       "changeCertificate": "Zmeniť certifikát",
       "uploadCertificate": "Nahrať certifikát",
-      "searchLanguages": "Hľadať jazyky..."
+      "searchLanguages": "Hľadať jazyky...",
+      "t0Nodes": "0 uzlov",
+      "closeFaq": "Zavrieť časté otázky"
     },
     "processingNode": "Spracúva sa: {{node}}...",
     "nodeCount_one": "{{count}} uzol",
@@ -2915,7 +3144,10 @@
     "resetWithDefaults": "Vlastné prepísania boli vymazané. Predkonfigurované hodnoty sú aktívne.",
     "resetNoDefaults": "Všetky konfigurácie a moduly v medzipamäti boli vymazané.",
     "licenseTitle": "Upozornenie o licencii:",
-    "licenseDescription": "Externé moduly (PyMuPDF, Ghostscript, CoherentPDF) sú licencované pod licenciou AGPL-3.0 alebo podobnými \"copyleft\" licenciami. Konfiguráciou a používaním týchto modulov súhlasíte s ich príslušnými licenčnými podmienkami. BentoPDF je kompatibilné so žiadnou implementáciou Ghostscript WASM a PyMuPDF WASM, ktorá nasleduje očakávané rozhranie."
+    "licenseDescription": "Externé moduly (PyMuPDF, Ghostscript, CoherentPDF) sú licencované pod licenciou AGPL-3.0 alebo podobnými \"copyleft\" licenciami. Konfiguráciou a používaním týchto modulov súhlasíte s ich príslušnými licenčnými podmienkami. BentoPDF je kompatibilné so žiadnou implementáciou Ghostscript WASM a PyMuPDF WASM, ktorá nasleduje očakávané rozhranie.",
+    "ui": {
+      "ghostscript": "Ghostscript"
+    }
   },
   "pdfOverlay": {
     "name": "Prekrytie PDF",
@@ -3005,6 +3237,36 @@
     },
     "alert": {
       "failedApplyRedactions": "Začiernenie sa nepodarilo použiť."
+    }
+  },
+  "compressPdfForEmail": {
+    "ui": {
+      "compressPdfForEmailAttachmentFree": "Komprimovať PDF pre prílohu e-mailu zadarmo | BentoPDF"
+    }
+  },
+  "compressPdfTo-100kb": {
+    "ui": {
+      "compressPdfTo100kbFreeOnline": "Komprimovať PDF na 100 KB zadarmo online | BentoPDF"
+    }
+  },
+  "compressPdfTo-1mb": {
+    "ui": {
+      "compressPdfTo1mbFreeOnline": "Komprimovať PDF na 1 MB zadarmo online | BentoPDF"
+    }
+  },
+  "compressPdfTo-200kb": {
+    "ui": {
+      "compressPdfTo200kbFreeOnline": "Komprimovať PDF na 200 KB zadarmo online | BentoPDF"
+    }
+  },
+  "compressPdfTo-2mb": {
+    "ui": {
+      "compressPdfTo2mbFreeOnline": "Komprimovať PDF na 2 MB zadarmo online | BentoPDF"
+    }
+  },
+  "compressPdfTo-500kb": {
+    "ui": {
+      "compressPdfTo500kbFreeOnline": "Komprimovať PDF na 500 KB zadarmo online | BentoPDF"
     }
   }
 }

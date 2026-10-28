@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary Meta Tags -->
-    <title>BentoPDF - Free Online PDF Tools | Privacy-First PDF Toolkit</title>
+    <title data-i18n="home.bentopdfFreeOnlinePdfToolsPrivacy">
+      BentoPDF - Free Online PDF Tools | Privacy-First PDF Toolkit
+    </title>
     <meta
       name="title"
       content="BentoPDF - Free Online PDF Tools | Privacy-First PDF Toolkit"
@@ -130,7 +132,7 @@
               clip-rule="evenodd"
             />
           </svg>
-          <span>Sponsor</span>
+          <span data-i18n="home.sponsor">Sponsor</span>
         </a>
       </div>
     </div>
@@ -338,6 +340,7 @@
                 class="bg-gray-800 px-2.5 py-1.5 rounded-md text-xs font-semibold text-gray-300 border border-gray-700 shadow-sm"
               ></kbd>
               <button
+                data-i18n-title="home.keyboardShortcuts"
                 id="open-shortcuts-btn"
                 class="p-1 hover:bg-gray-600 rounded-md text-gray-400 hover:text-white transition-colors"
                 title="Keyboard Shortcuts"
@@ -397,10 +400,18 @@
         <div
           class="bg-gray-800 max-w-sm w-full p-6 rounded-lg border border-gray-700 shadow-xl text-center"
         >
-          <h3 id="alert-title" class="text-xl font-bold text-white mb-2">
+          <h3
+            data-i18n="alert.title"
+            id="alert-title"
+            class="text-xl font-bold text-white mb-2"
+          >
             Alert
           </h3>
-          <p id="alert-message" class="text-gray-300 mb-6 whitespace-pre-line">
+          <p
+            data-i18n="home.thisIsAnAlertMessage"
+            id="alert-message"
+            class="text-gray-300 mb-6 whitespace-pre-line"
+          >
             This is an alert message.
           </p>
           <button
@@ -420,15 +431,19 @@
           class="bg-white text-black rounded-lg shadow-xl w-full max-w-4xl h-[90vh] flex flex-col"
         >
           <div class="p-4 border-b flex justify-between items-center">
-            <h3 class="text-xl font-bold">Document Preview</h3>
+            <h3 data-i18n="preview.title" class="text-xl font-bold">
+              Document Preview
+            </h3>
             <div class="flex gap-4">
               <button
+                data-i18n="preview.downloadAsPdf"
                 id="preview-download-btn"
                 class="btn bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-indigo-700"
               >
                 Download as PDF
               </button>
               <button
+                data-i18n="preview.close"
                 id="preview-close-btn"
                 class="btn bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-700"
               >
@@ -462,6 +477,7 @@
               </div>
               <div class="flex-1">
                 <h3
+                  data-i18n="tools:changePermissions.alert.passwordRequired"
                   id="password-modal-title"
                   class="text-xl font-bold text-white mb-1"
                 >
@@ -476,6 +492,7 @@
             <div class="mt-4">
               <div class="relative">
                 <input
+                  data-i18n-placeholder="tools:pdfWorkflow.ui.enterPasswordPlaceholder"
                   type="password"
                   id="password-modal-input"
                   class="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
@@ -498,12 +515,14 @@
           </div>
           <div class="flex gap-3 p-4 border-t border-gray-700">
             <button
+              data-i18n="tools:pdfWorkflow.ui.skip"
               id="password-modal-cancel"
               class="flex-1 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
             >
               Skip
             </button>
             <button
+              data-i18n="tools:pdfWorkflow.ui.unlock"
               id="password-modal-submit"
               class="flex-1 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors"
             >
@@ -559,6 +578,7 @@
               class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600 flex items-center justify-center mb-4"
             >
               <img
+                data-i18n-alt="compliance.gdpr.title"
                 src="/images/gdpr.svg"
                 alt="GDPR compliance"
                 class="w-full h-full"
@@ -584,6 +604,7 @@
               class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600 flex items-center justify-center mb-4"
             >
               <img
+                data-i18n-alt="compliance.ccpa.title"
                 src="/images/ccpa.svg"
                 alt="CCPA compliance"
                 class="w-full h-full"
@@ -609,6 +630,7 @@
               class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600 flex items-center justify-center mb-4"
             >
               <img
+                data-i18n-alt="compliance.hipaa.title"
                 src="/images/hipaa.svg"
                 alt="HIPAA compliance"
                 class="w-full h-full"
@@ -643,7 +665,7 @@
         </h2>
         <div class="lp-grid lp-grid--3 lp-cross">
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote data-i18n="home.myDadIsAVeryFrequent" class="lp-quote">
               My dad is a very frequent user at 70+ yo and I never ever received
               a call or a question or a complaint about this app, unlike many
               others 😂 it just works and never gives headaches of any kind!
@@ -659,7 +681,10 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote
+              data-i18n="home.iWorkInIndigenousHealthcareI"
+              class="lp-quote"
+            >
               I work in indigenous healthcare. … I need total confidentiality of
               my data, as you can imagine, and I need to split pdfs. Bento is
               the first time this trivial task has become possible
@@ -676,7 +701,7 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote data-i18n="home.reallyAwesomeToolIMIn" class="lp-quote">
               Really awesome tool. I’m in the legal field and have been stuck
               with Adobe because they do have pretty robust redaction tools,
               although it is super clunky and resource intensive. Bento is
@@ -693,7 +718,10 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote
+              data-i18n="home.bentopdfProvidesToolsThatIHave"
+              class="lp-quote"
+            >
               BentoPDF provides tools that I have ended up using on a daily
               basis, and I can do it secure in the knowledge that my documents
               are remaining private. It just works.
@@ -709,7 +737,7 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote data-i18n="home.hugeFanOfBentoPdfWe" class="lp-quote">
               Huge fan of Bento PDF. We don't have a decent PDF suite at work so
               most of my colleagues turn to online tools that are likely to
               collect your data. I selfhosted Bento for my team and their
@@ -726,7 +754,7 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote data-i18n="home.iVeUsedItBeforeFor" class="lp-quote">
               I've used it before for a job application! I needed to send them
               sensitive data. Tysm! Great intuitive UI, does what it says, and
               it's fast. 5/5
@@ -742,7 +770,10 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote
+              data-i18n="home.bentopdfIsFantasticINeverKnew"
+              class="lp-quote"
+            >
               BentoPDF is fantastic, I never knew something like this existed. …
               I fired Bento up and was done in under a minute.
             </blockquote>
@@ -757,7 +788,10 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote
+              data-i18n="home.aGreatOpenSourceSoftwareTool"
+              class="lp-quote"
+            >
               A great open source software tool that has helped me deal with
               PDF's on numerous occasions. Support and use this project. It
               needs the love and attention to grow even bigger.
@@ -773,7 +807,10 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote
+              data-i18n="home.fantasticProjectTheWorkflowBuilderLitera"
+              class="lp-quote"
+            >
               Fantastic project. The workflow builder literally just saved me
               half a day of my life so huge thanks.
             </blockquote>
@@ -788,7 +825,7 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote data-i18n="home.thankYouSoMuchForThis" class="lp-quote">
               Thank you so much for this. We just started using it at our
               school.
             </blockquote>
@@ -803,7 +840,10 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote
+              data-i18n="home.myFirstReactionAfterTryingBento"
+              class="lp-quote"
+            >
               My first reaction after trying Bento was "this is magic, how does
               this work?"
             </blockquote>
@@ -818,7 +858,10 @@
             </figcaption>
           </figure>
           <figure class="lp-cell lp-quote-cell">
-            <blockquote class="lp-quote">
+            <blockquote
+              data-i18n="home.bentopdfHasCovered100OfMy"
+              class="lp-quote"
+            >
               BentoPDF has covered 100% of my PDF needs and represents
               impressive software engineering indeed!
             </blockquote>
@@ -1029,6 +1072,7 @@
 
       <!-- Scroll to Top Button -->
       <button
+        data-i18n-aria-label="home.scrollToTop"
         id="scroll-to-top-btn"
         class="fixed bottom-12 right-8 bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 translate-y-10 invisible z-40"
         aria-label="Scroll to top"

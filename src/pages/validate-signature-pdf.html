@@ -223,7 +223,11 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p id="loader-text" class="text-white text-lg font-medium">
+        <p
+          data-i18n="loader.processing"
+          id="loader-text"
+          class="text-white text-lg font-medium"
+        >
           Processing...
         </p>
       </div>
@@ -269,10 +273,16 @@
             1
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">
+            <h3
+              data-i18n="tools:validateSignaturePdf.ui.uploadYourPdf"
+              class="text-lg font-semibold text-white mb-1"
+            >
               Upload Your PDF
             </h3>
-            <p class="text-gray-400">
+            <p
+              data-i18n="tools:validateSignaturePdf.ui.selectADigitallySignedPdfFile"
+              class="text-gray-400"
+            >
               Select a digitally signed PDF file from your device
             </p>
           </div>
@@ -284,10 +294,16 @@
             2
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">
+            <h3
+              data-i18n="tools:validateSignaturePdf.ui.automaticAnalysis"
+              class="text-lg font-semibold text-white mb-1"
+            >
               Automatic Analysis
             </h3>
-            <p class="text-gray-400">
+            <p
+              data-i18n="tools:validateSignaturePdf.ui.theToolExtractsAndParsesAll"
+              class="text-gray-400"
+            >
               The tool extracts and parses all digital signatures in the
               document
             </p>
@@ -300,8 +316,16 @@
             3
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-semibold text-white mb-1">View Results</h3>
-            <p class="text-gray-400">
+            <h3
+              data-i18n="tools:validateSignaturePdf.ui.viewResults"
+              class="text-lg font-semibold text-white mb-1"
+            >
+              View Results
+            </h3>
+            <p
+              data-i18n="tools:validateSignaturePdf.ui.seeSignerInformationCertificateValidityA"
+              class="text-gray-400"
+            >
               See signer information, certificate validity, and signature status
             </p>
           </div>
@@ -322,22 +346,52 @@
           href="digital-sign-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Digital Signature</h3>
-          <p class="text-gray-400 text-sm">Add cryptographic signature</p>
+          <h3
+            data-i18n="tools:digitalSignPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Digital Signature
+          </h3>
+          <p
+            data-i18n="tools:digitalSignPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Add cryptographic signature
+          </p>
         </a>
         <a
           href="protect-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">Encrypt PDF</h3>
-          <p class="text-gray-400 text-sm">Password protect PDF</p>
+          <h3
+            data-i18n="tools:protectPdf.name"
+            class="text-white font-semibold mb-1"
+          >
+            Encrypt PDF
+          </h3>
+          <p
+            data-i18n="tools:protectPdf.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Password protect PDF
+          </p>
         </a>
         <a
           href="view-metadata.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3 class="text-white font-semibold mb-1">View Metadata</h3>
-          <p class="text-gray-400 text-sm">Inspect PDF properties</p>
+          <h3
+            data-i18n="tools:viewMetadata.name"
+            class="text-white font-semibold mb-1"
+          >
+            View Metadata
+          </h3>
+          <p
+            data-i18n="tools:viewMetadata.subtitle"
+            class="text-gray-400 text-sm"
+          >
+            Inspect PDF properties
+          </p>
         </a>
       </div>
     </section>
