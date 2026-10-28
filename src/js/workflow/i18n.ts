@@ -1,4 +1,5 @@
 import { t } from '../i18n/i18n';
+import { pageI18nKey } from '../config/page-i18n-key';
 import type { NodeCategory } from './types';
 import type { NodeRegistryEntry } from './nodes/registry';
 
@@ -17,10 +18,6 @@ const SPECIAL_NODE_KEYS: Record<string, string> = {
   DownloadPDFNode: 'tools:pdfWorkflow.specialNodes.download',
   DownloadZipNode: 'tools:pdfWorkflow.specialNodes.download',
 };
-
-function toCamelCase(str: string): string {
-  return str.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
-}
 
 // i18next answers a missing 'tools:a.b' with 'a.b', without the namespace.
 function translateOrFallback(key: string, fallback: string): string {
@@ -44,7 +41,7 @@ export function translateNodeLabel(
   }
   if (entry.toolPageId) {
     return translateOrFallback(
-      `tools:${toCamelCase(entry.toolPageId)}.name`,
+      `tools:${pageI18nKey(entry.toolPageId)}.name`,
       entry.label
     );
   }
@@ -61,7 +58,7 @@ export function translateNodeDescription(
   }
   if (entry.toolPageId) {
     return translateOrFallback(
-      `tools:${toCamelCase(entry.toolPageId)}.subtitle`,
+      `tools:${pageI18nKey(entry.toolPageId)}.subtitle`,
       entry.description
     );
   }

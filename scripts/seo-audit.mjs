@@ -73,7 +73,12 @@ const LOCALE_DIRS = new Set(
     .filter((d) => fs.statSync(path.join(LOCALES_DIR, d)).isDirectory())
 );
 
-const KEY_MAPPING = { index: 'home', 404: 'notFound' };
+const KEY_MAPPING = JSON.parse(
+  fs.readFileSync(
+    path.resolve(__dirname, '../src/js/config/page-i18n-keys.json'),
+    'utf-8'
+  )
+);
 const toCamelCase = (str) =>
   str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 

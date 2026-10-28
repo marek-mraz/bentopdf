@@ -22,6 +22,13 @@ const toCamelCase = (str) => {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 };
 
+const KEY_MAPPING = JSON.parse(
+  fs.readFileSync(
+    path.resolve(__dirname, '../src/js/config/page-i18n-keys.json'),
+    'utf-8'
+  )
+);
+
 const toolsByLang = {};
 for (const lang of languages) {
   const toolsPath = path.join(LOCALES_DIR, lang, 'tools.json');
@@ -32,7 +39,7 @@ for (const lang of languages) {
 
 function alternateLangsFor(pageName) {
   if (pageName === 'index') return languages;
-  const translationKey = toCamelCase(pageName);
+  const translationKey = KEY_MAPPING[pageName] || toCamelCase(pageName);
   return languages.filter(
     (l) => l === 'en' || Boolean(toolsByLang[l][translationKey])
   );

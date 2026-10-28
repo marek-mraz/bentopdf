@@ -1,0 +1,15 @@
+{
+  "index": "home",
+  "404": "notFound",
+  "edit-pdf": "pdfEditor",
+  "organize-pdf": "duplicateOrganize",
+  "bookmark": "editBookmarks",
+  "text-color": "changeTextColor",
+  "form-filler": "pdfFormFiller",
+  "form-creator": "createPdfForm",
+  "txt-to-pdf": "textToPdf",
+  "overlay-pdf": "pdfOverlay",
+  "pdf-layers": "pdfOcg",
+  "combine-single-page": "combineToSinglePage",
+  "pdf-to-zip": "pdfsToZip"
+}
