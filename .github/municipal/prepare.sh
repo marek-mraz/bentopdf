@@ -21,9 +21,11 @@
 # Usage (repo root of a throwaway checkout):
 #   prepare.sh <ocr_languages> [source_url]
 set -euo pipefail
-# Multi-arch digests; refresh with: docker buildx imagetools inspect <image>
-NODE_IMAGE=mirror.gcr.io/library/node:26-alpine@sha256:40cd011b55415bc894e45b02fdd5a5dfde056921b7d23a64c74f80497af48797
-NGINX_IMAGE=quay.io/nginx/nginx-unprivileged:alpine-slim@sha256:a2ae214d0266826427b804b0513dce20c9c93b862f1593203f9e6b50be9c2689
+# Multi-arch digests on version tags (quay.io deletes a digest once no tag
+# points at it, so a rolling tag like alpine-slim breaks the pin within weeks).
+# Refresh with: docker buildx imagetools inspect <image>
+NODE_IMAGE=mirror.gcr.io/library/node:26.12.1-alpine3.24@sha256:40cd011b55415bc894e45b02fdd5a5dfde056921b7d23a64c74f80497af48797
+NGINX_IMAGE=quay.io/nginx/nginx-unprivileged:1.31.8-alpine3.24-slim@sha256:629d3227f39ec10201345e420e2d9d430e463a9893d374b515a8eb6541e71938
 OCR_LANGS=$1
 SOURCE_URL=${2:-https://github.com/${GITHUB_REPOSITORY:-marek-mraz/bentopdf}}
 HERE=$(cd "$(dirname "$0")" && pwd)
