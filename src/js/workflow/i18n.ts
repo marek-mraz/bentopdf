@@ -1,5 +1,9 @@
 import { t } from '../i18n/i18n';
 import { pageI18nKey } from '../config/page-i18n-key';
+import {
+  tesseractLanguageName,
+  tesseractLanguages,
+} from '../config/tesseract-languages';
 import type { NodeCategory } from './types';
 import type { NodeRegistryEntry } from './nodes/registry';
 
@@ -85,6 +89,8 @@ export function translateControlOption(
   value: string,
   label: string
 ): string {
+  if (controlKey === 'language' && Object.hasOwn(tesseractLanguages, value))
+    return tesseractLanguageName(value as keyof typeof tesseractLanguages);
   const slug = value.replace(/[^A-Za-z0-9_-]/g, '_');
   return translateOrFallback(
     `tools:pdfWorkflow.options.${controlKey}.${slug}`,

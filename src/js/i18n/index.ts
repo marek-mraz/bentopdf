@@ -1,5 +1,6 @@
 export {
   initI18n,
+  onPageReady,
   t,
   changeLanguage,
   applyTranslations,

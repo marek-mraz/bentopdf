@@ -23,7 +23,7 @@ import type {
   ViewerCommandsPlugin,
   RedactionPluginLite,
 } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const FREETEXT_SUBTYPE = 3;
 
@@ -242,11 +242,7 @@ function removeFileEntry(documentId: string) {
   }
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });
@@ -431,14 +427,12 @@ async function handleFiles(files: FileList) {
           const documentId = activeDocuments.getActiveDocumentId();
           const pendingCount = redactionPlugin?.getState().pendingCount ?? 0;
           if (redactionPlugin && pendingCount > 0) {
-            const marks =
-              pendingCount === 1
-                ? "1 redaction mark that hasn't"
-                : `${pendingCount} redaction marks that haven't`;
             const shouldApply = await confirmChoice(
-              'Apply redactions?',
-              `This document has ${marks} been applied. Until a mark is applied, the content under it is still in the file. Apply all marks and download?`,
-              'Apply and download'
+              t('tools:pdfEditor.msg.applyRedactionsTitle'),
+              t('tools:pdfEditor.msg.applyRedactionsMessage', {
+                count: pendingCount,
+              }),
+              t('tools:pdfEditor.msg.applyAndDownload')
             );
             if (!shouldApply) return;
             try {
@@ -509,9 +503,9 @@ async function handleFiles(files: FileList) {
             });
             if (exported.isEncrypted) {
               const shouldDownload = await confirmChoice(
-                'Encrypted file',
-                "Your redactions are applied to the pages, but this file is encrypted, so BentoPDF can't also remove copies of the redacted text from its properties, bookmarks, and attachments. For a full cleanup, redact an unencrypted copy and add a password afterwards with Protect PDF. Download anyway?",
-                'Download anyway'
+                t('tools:pdfEditor.msg.encryptedFileTitle'),
+                t('tools:pdfEditor.msg.encryptedFileMessage'),
+                t('tools:pdfEditor.msg.downloadAnyway')
               );
               if (!shouldDownload) return;
             } else {

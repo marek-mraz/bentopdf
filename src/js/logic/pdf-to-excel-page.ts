@@ -4,7 +4,7 @@ import { createIcons, icons } from 'lucide';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import * as XLSX from 'xlsx';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 let file: File | null = null;
 
 const updateUI = () => {
@@ -115,13 +115,17 @@ async function convert() {
 
     if (allTables.length === 1) {
       const worksheet = XLSX.utils.aoa_to_sheet(allTables[0].rows);
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Table');
+      XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        t('tools:pdfToExcel.msg.sheetTable')
+      );
     } else {
       allTables.forEach((table, idx) => {
-        const sheetName = `Table ${idx + 1} (Page ${table.page})`.substring(
-          0,
-          31
-        );
+        const sheetName = t('tools:pdfToExcel.msg.sheetTableOnPage', {
+          number: idx + 1,
+          page: table.page,
+        }).substring(0, 31);
         const worksheet = XLSX.utils.aoa_to_sheet(table.rows);
         XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
       });
@@ -142,7 +146,7 @@ async function convert() {
     );
   } catch (e) {
     console.error(e);
-    const message = e instanceof Error ? e.message : 'Unknown error';
+    const message = e instanceof Error ? e.message : t('common.unknownError');
     showAlert(
       t('common.error'),
       t('tools:pdfToExcel.msg.failedToConvertPdfToExcel', { error: message })
@@ -152,7 +156,7 @@ async function convert() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

@@ -1,3 +1,5 @@
+import i18next, { t } from '../i18n/i18n';
+
 export const tesseractLanguages = {
   eng: 'English',
   afr: 'Afrikaans',
@@ -102,3 +104,42 @@ export const tesseractLanguages = {
   vie: 'Vietnamese',
   yid: 'Yiddish',
 };
+
+// Intl has no tag for these Tesseract codes; the name comes from the base language.
+const INTL_TAGS: Record<string, string> = {
+  chi_sim: 'zh-Hans',
+  chi_tra: 'zh-Hant',
+  frk: 'de',
+  ita_old: 'it',
+  kat_old: 'ka',
+  spa_old: 'es',
+};
+const NAME_SUFFIX_KEYS: Record<string, string> = {
+  frk: 'msg.tesseract.fraktur',
+  ita_old: 'msg.tesseract.old',
+  kat_old: 'msg.tesseract.old',
+  spa_old: 'msg.tesseract.old',
+};
+
+// Language names in the UI language; English keeps the Tesseract labels above.
+export function tesseractLanguageName(
+  code: keyof typeof tesseractLanguages
+): string {
+  const lang = i18next.language || 'en';
+  if (lang.startsWith('en')) return tesseractLanguages[code];
+  try {
+    const name = new Intl.DisplayNames([lang], {
+      type: 'language',
+      fallback: 'none',
+    }).of(INTL_TAGS[code] ?? code.replace('_', '-'));
+    if (name) {
+      const capitalized =
+        name.charAt(0).toLocaleUpperCase(lang) + name.slice(1);
+      const suffixKey = NAME_SUFFIX_KEYS[code];
+      return suffixKey ? t(suffixKey, { name: capitalized }) : capitalized;
+    }
+  } catch {
+    // Unknown tag in this browser: fall back to the English label.
+  }
+  return tesseractLanguages[code];
+}

@@ -25,7 +25,7 @@ export class PdfToMarkdownNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'PDF to Markdown');
+    const pdfInputs = requirePdfInput(inputs, this.label);
     const allPdfs = extractAllPdfs(pdfInputs);
 
     if (allPdfs.length === 1) {

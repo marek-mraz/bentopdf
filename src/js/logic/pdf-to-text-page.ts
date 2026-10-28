@@ -5,16 +5,12 @@ import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import type { PyMuPDFInstance } from '@/types';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 let files: File[] = [];
 let pymupdf: PyMuPDFInstance | null = null;
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

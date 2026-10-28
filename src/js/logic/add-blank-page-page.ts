@@ -5,7 +5,7 @@ import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { AddBlankPageState } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: AddBlankPageState = {
   file: null,
@@ -222,7 +222,7 @@ function handleFileSelect(files: FileList | null) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

@@ -6,7 +6,7 @@ import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import { escapeHtml } from '../utils/helpers.js';
 import '../utils/setup-pdf-worker.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 // State
 const pageState: {
@@ -254,7 +254,7 @@ function updatePreviewPanel() {
 
     div.innerHTML = `
             <div class="relative">
-                <img src="${thumbnail}" alt="Page ${pageIndex + 1}" class="rounded-md shadow-md max-w-full h-auto">
+                <img src="${thumbnail}" alt="${t('tools:removeBlankPages.msg.pageAlt', { num: pageIndex + 1 })}" class="rounded-md shadow-md max-w-full h-auto">
                 <div class="absolute top-1 left-1 bg-indigo-600 text-white text-xs px-2 py-1 rounded-md font-semibold shadow-lg z-10 pointer-events-none">
                     ${pageIndex + 1}
                 </div>
@@ -348,7 +348,7 @@ async function processRemoveBlankPages() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const detectBtn = document.getElementById('detect-btn');

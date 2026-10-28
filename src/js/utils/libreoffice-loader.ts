@@ -7,6 +7,7 @@
 
 import { WorkerBrowserConverter } from '@matbee/libreoffice-converter/browser';
 import type { InputFormat } from '@matbee/libreoffice-converter/browser';
+import { t } from '../i18n/i18n.js';
 
 const LIBREOFFICE_LOCAL_PATH = import.meta.env.BASE_URL + 'libreoffice-wasm/';
 
@@ -72,7 +73,7 @@ export class LibreOfficeConverter {
       progressCallback?.({
         phase: 'loading',
         percent: 0,
-        message: 'Loading conversion engine...',
+        message: t('msg.libreofficeLoader.loadingEngine'),
       });
 
       const [sofficeWasmUrl, sofficeDataUrl] = await Promise.all([
@@ -99,7 +100,10 @@ export class LibreOfficeConverter {
           message: string;
         }) => {
           if (progressCallback && !this.initialized) {
-            const simplifiedMessage = `Loading conversion engine (${Math.round(info.percent)}%)...`;
+            const simplifiedMessage = t(
+              'msg.libreofficeLoader.loadingEnginePercent',
+              { percent: Math.round(info.percent) }
+            );
             progressCallback({
               phase: info.phase as LoadProgress['phase'],
               percent: info.percent,
@@ -122,7 +126,7 @@ export class LibreOfficeConverter {
       progressCallback?.({
         phase: 'ready',
         percent: 100,
-        message: 'Conversion engine ready!',
+        message: t('msg.libreofficeLoader.engineReady'),
       });
 
       // Null out the callback to prevent any late-firing progress updates

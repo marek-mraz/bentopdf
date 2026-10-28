@@ -6,6 +6,7 @@ import { requirePdfInput, extractAllPdfs } from '../types';
 import { downloadFile } from '../../utils/helpers.js';
 import { loadPyMuPDF } from '../../utils/pymupdf-loader.js';
 import { wfError } from '../errors';
+import { t } from '../../i18n/i18n';
 
 export class PdfToXlsxNode extends BaseWorkflowNode {
   readonly category = 'Output' as const;
@@ -54,13 +55,17 @@ export class PdfToXlsxNode extends BaseWorkflowNode {
 
     if (allTables.length === 1) {
       const ws = XLSX.utils.aoa_to_sheet(allTables[0].rows);
-      XLSX.utils.book_append_sheet(wb, ws, 'Table');
+      XLSX.utils.book_append_sheet(
+        wb,
+        ws,
+        t('tools:pdfToExcel.msg.sheetTable')
+      );
     } else {
       allTables.forEach((table, idx) => {
-        const sheetName = `Table ${idx + 1} (Page ${table.page})`.substring(
-          0,
-          31
-        );
+        const sheetName = t('tools:pdfToExcel.msg.sheetTableOnPage', {
+          number: idx + 1,
+          page: table.page,
+        }).substring(0, 31);
         const ws = XLSX.utils.aoa_to_sheet(table.rows);
         XLSX.utils.book_append_sheet(wb, ws, sheetName);
       });
@@ -77,7 +82,7 @@ export class PdfToXlsxNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'PDF to Excel');
+    const pdfInputs = requirePdfInput(inputs, this.label);
     const allPdfs = extractAllPdfs(pdfInputs);
 
     if (allPdfs.length === 1) {

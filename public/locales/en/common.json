@@ -1112,7 +1112,24 @@
       "pdfSavedSuccessfully": "PDF saved successfully!",
       "errorSavingPdfCheckConsoleFor": "Error saving PDF. Check console for details.",
       "confirm": "Confirm",
-      "confirmAction": "Confirm Action"
+      "confirmAction": "Confirm Action",
+      "addChildBookmark": "Add Child Bookmark",
+      "clickButtonThenPdf": "Click the button above, then click on the PDF where you want the bookmark to jump to",
+      "clickOnPdfToPickLocation": "Click on PDF to Pick Location",
+      "custom": "Custom...",
+      "destination": "Destination",
+      "editBookmark": "Edit Bookmark",
+      "enterBookmarkTitle": "Enter bookmark title",
+      "fitPage": "Fit Page",
+      "inherit": "Inherit",
+      "pageN": "Page {{num}}",
+      "preview": "Preview",
+      "setCustomDestination": "Set custom destination",
+      "style": "Style",
+      "title": "Title",
+      "xPosition": "X Position",
+      "yPosition": "Y Position",
+      "zoomPercent": "Zoom(%)"
     },
     "posterizePage": {
       "renderingPreviewForPage": "Rendering preview for page {{pageNum}}...",
@@ -1139,7 +1156,13 @@
       "noInteractiveFormFieldsFound": "- No interactive form fields found -",
       "noParseableXmpPropertiesFound": "- No parseable XMP properties found -",
       "errorParsingXmpXmlDisplayingRaw": "- Error parsing XMP XML. Displaying raw. -",
-      "noXmpMetadataFound": "- No XMP metadata found -"
+      "noXmpMetadataFound": "- No XMP metadata found -",
+      "altContainer": "(alt container)",
+      "emptyResource": "(Empty Resource)",
+      "infoDictionary": "Info Dictionary",
+      "interactiveFormFields": "Interactive Form Fields",
+      "notSet": "- Not Set -",
+      "xmpMetadata": "XMP Metadata"
     },
     "tesseractRuntime": {
       "selfHostedOcrAssetsArePartially": "Self-hosted OCR assets are partially configured. Set {{missing}} together with the other Tesseract asset URLs."
@@ -1178,7 +1201,9 @@
       "retryFailed": "Retry Failed",
       "passwordForAllFiles": "Password for all files",
       "enterPasswordsForEachEncryptedFile": "Enter passwords for each encrypted file",
-      "useSamePasswordForAllFiles": "Use same password for all files"
+      "useSamePasswordForAllFiles": "Use same password for all files",
+      "enterPasswordForOrSkip": "Please enter a password for {{name}} or skip it",
+      "password": "Password"
     },
     "ghostscriptLoader": {
       "ghostscriptIsNotConfiguredPleaseConfigur": "Ghostscript is not configured. Please configure it in WASM Settings.",
@@ -1215,7 +1240,8 @@
       "convertNewlinesToLtBrGt": "Convert newlines to &lt;br&gt;"
     },
     "pdfDecrypt": {
-      "invalidPdfPassword": "Invalid PDF password."
+      "invalidPdfPassword": "Invalid PDF password.",
+      "notConfigured": "not configured."
     },
     "loadPdfDocument": {
       "couldNotRemoveLeftoverDataFrom": "Could not remove leftover data from the PDF."
@@ -1224,7 +1250,8 @@
       "readingCsvFile": "Reading CSV file...",
       "creatingTable": "Creating table...",
       "finalizingPdf": "Finalizing PDF...",
-      "complete": "Complete!"
+      "complete": "Complete!",
+      "failedToParseCsv": "Failed to parse CSV: {{message}}"
     },
     "imageInputUtils": {
       "failedToProcessHeicFile": "Failed to process HEIC file: {{name}}",
@@ -1250,7 +1277,68 @@
       "toBeConfigured": "to be configured.",
       "featuresEnabledByThisModule": "Features enabled by this module:",
       "thisModuleIsLicensedUnderAgpl": "This module is licensed under AGPL-3.0. By configuring it, you agree to its license terms.",
-      "configure": "Configure"
+      "configure": "Configure",
+      "invalidUrl": "Invalid URL",
+      "noUrlConfigured": "No URL configured",
+      "urlMustStartWithHttp": "URL must start with http:// or https://",
+      "invalidUrlFormat": "Invalid URL format. Please enter a valid URL (e.g., https://example.com/wasm/)",
+      "fileNotFound": "Could not find {{file}} at the specified URL (HTTP {{status}}). Make sure the file exists.",
+      "fileNotReadable": "File exists but could not be read. Check CORS configuration.",
+      "unexpectedContentType": "The URL returned unexpected content type: {{contentType}}. Expected a JavaScript file.",
+      "networkErrorConnect": "Network error: Could not connect to the URL. Check that the URL is correct and the server allows CORS requests.",
+      "networkError": "Network error: {{message}}",
+      "pymupdfName": "PyMuPDF (Document Processing)",
+      "ghostscriptName": "Ghostscript (PDF/A Conversion)",
+      "cpdfName": "CoherentPDF (Bookmarks & Metadata)",
+      "featurePdfToImages": "PDF to Images (High Quality)",
+      "featurePdfToDocx": "PDF to DOCX",
+      "featurePdfToExcel": "PDF to Excel/CSV",
+      "featureEbooksToPdf": "EPUB/MOBI/FB2/XPS/CBZ to PDF",
+      "featurePdfaConversion": "PDF/A Conversion",
+      "featureAttachments": "Add/Edit/Extract Attachments",
+      "featurePdfMetadata": "PDF Metadata",
+      "moreFeatures_one": "+ {{count}} more...",
+      "moreFeatures_other": "+ {{count}} more..."
+    },
+    "compress": {
+      "engineStopped": "The compression engine stopped unexpectedly.",
+      "notAValidPdf": "This file is not a valid PDF.",
+      "unexpectedReply": "Unexpected reply from the engine.",
+      "unreadableResult": "The compression engine returned an unreadable result."
+    },
+    "libreofficeLoader": {
+      "loadingEngine": "Loading conversion engine...",
+      "loadingEnginePercent": "Loading conversion engine ({{percent}}%)...",
+      "engineReady": "Conversion engine ready!"
+    },
+    "sanitize": {
+      "flattenForms": "flatten forms",
+      "removeJavascript": "remove JavaScript",
+      "removeEmbeddedFiles": "remove embedded files",
+      "removeLayers": "remove layers",
+      "removeLinks": "remove links",
+      "removeStructureTree": "remove the structure tree",
+      "removeMarkInfo": "remove MarkInfo",
+      "removeFonts": "remove fonts"
+    },
+    "tesseractLanguageAvailability": {
+      "onlyBundles": "This BentoPDF build only bundles OCR data for {{languages}}.",
+      "notAvailable": "The requested OCR language is not available: {{languages}}.",
+      "chooseBundled": "Choose one of the bundled languages or rebuild the air-gapped bundle with the missing language added to --ocr-languages."
+    },
+    "compareContent": {
+      "annotationAdded": "Added {{type}} annotation",
+      "annotationAddedWithLabel": "Added {{type}} annotation: \"{{label}}\"",
+      "annotationRemoved": "Removed {{type}} annotation",
+      "annotationRemovedWithLabel": "Removed {{type}} annotation: \"{{label}}\"",
+      "backgroundChanged": "Page background or layout changed",
+      "imageAdded": "Added image ({{size}})",
+      "imageRemoved": "Removed image ({{size}})",
+      "imageResized": "Image resized from {{before}} to {{after}}"
+    },
+    "tesseract": {
+      "fraktur": "{{name}} (Fraktur)",
+      "old": "{{name}} (Old)"
     }
   }
 }

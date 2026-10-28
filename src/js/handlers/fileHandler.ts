@@ -279,14 +279,14 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
           }
         };
 
-        const infoSection = createSection('Info Dictionary');
+        const infoSection = createSection(t('msg.fileHandler.infoDictionary'));
         if (info && Object.keys(info).length > 0) {
           for (const key in info) {
             const value = (info as Record<string, unknown>)[key];
             let displayValue: string;
 
             if (value === null || typeof value === 'undefined') {
-              displayValue = '- Not Set -';
+              displayValue = t('msg.fileHandler.notSet');
             } else if (
               typeof value === 'object' &&
               'name' in (value as object) &&
@@ -315,11 +315,13 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
         }
         resultsDiv.appendChild(infoSection.wrapper);
 
-        const fieldsSection = createSection('Interactive Form Fields');
+        const fieldsSection = createSection(
+          t('msg.fileHandler.interactiveFormFields')
+        );
         if (fieldObjects && Object.keys(fieldObjects).length > 0) {
           for (const fieldName in fieldObjects) {
             const field = fieldObjects[fieldName][0] as Record<string, unknown>;
-            const value = field.fieldValue || '- Not Set -';
+            const value = field.fieldValue || t('msg.fileHandler.notSet');
             fieldsSection.ul.appendChild(
               createListItem(fieldName, String(value))
             );
@@ -383,7 +385,7 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
               continue;
             }
             if (key === 'rdf:Alt') {
-              key = '(alt container)';
+              key = t('msg.fileHandler.altContainer');
             }
 
             if (
@@ -391,7 +393,11 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
               elementChildren.length === 0
             ) {
               ulElement.appendChild(
-                createXmpListItem(key, '(Empty Resource)', indentLevel)
+                createXmpListItem(
+                  key,
+                  t('msg.fileHandler.emptyResource'),
+                  indentLevel
+                )
               );
               continue;
             }
@@ -413,7 +419,7 @@ async function handleSinglePdfUpload(toolId: string, file: File) {
           }
         };
 
-        const xmpSection = createSection('XMP Metadata');
+        const xmpSection = createSection(t('msg.fileHandler.xmpMetadata'));
         if (rawXmpString) {
           try {
             const parser = new DOMParser();

@@ -6,7 +6,7 @@ import {
   removeUnreferencedObjects,
 } from '../utils/load-pdf-document.js';
 import { escapeHtml } from '../utils/helpers.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 // State management
 const pageState: { pdfDoc: PDFDocument | null; file: File | null } = {
@@ -173,7 +173,7 @@ async function processRemoveAnnotations() {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

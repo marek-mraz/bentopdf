@@ -89,7 +89,7 @@ export class DigitalSignNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Digital Sign');
+    const pdfInputs = requirePdfInput(inputs, this.label);
     if (!this.certData) throw new Error(wfError('digitalSignNoCertificate'));
 
     const reasonCtrl = this.controls['reason'] as

@@ -4,12 +4,12 @@ import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
 import { convertXmlToPdf } from '../utils/xml-to-pdf.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const ACCEPTED_EXTENSIONS = ['.xml'];
 const FILETYPE_NAME = 'XML';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');
@@ -152,7 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       hideLoader();
-      const message = err instanceof Error ? err.message : 'Unknown error';
+      const message =
+        err instanceof Error ? err.message : t('common.unknownError');
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
         t('common.error'),

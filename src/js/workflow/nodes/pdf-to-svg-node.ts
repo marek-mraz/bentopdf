@@ -19,7 +19,7 @@ export class PdfToSvgNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'PDF to SVG');
+    const pdfInputs = requirePdfInput(inputs, this.label);
     const allPdfs = extractAllPdfs(pdfInputs);
     const pymupdf = await loadPyMuPDF();
 

@@ -38,7 +38,7 @@ export class OCRNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'OCR');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const langCtrl = this.controls['language'] as
       | ClassicPreset.InputControl<'text'>

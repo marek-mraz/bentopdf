@@ -19,6 +19,7 @@ import {
 import { flattenFormsInDoc } from './flatten-annotations.js';
 import { parseContentOperations } from './pdf-content-tokens.js';
 import type { ContentOperation, PDFDocumentInternal } from '@/types';
+import { t } from '../i18n/i18n.js';
 
 function getCatalogDict(pdfDoc: PDFDocument): PDFDict {
   return pdfDoc.catalog;
@@ -964,7 +965,7 @@ export async function sanitizePdf(
           'Could not remove AcroForm:',
           getErrorMessage(removeError)
         );
-        skipped.push('flatten forms');
+        skipped.push(t('msg.sanitize.flattenForms'));
       }
     }
   }
@@ -982,7 +983,7 @@ export async function sanitizePdf(
       removeJavascriptFromDoc(pdfDoc);
     } catch (e: unknown) {
       console.warn(`Could not remove JavaScript: ${getErrorMessage(e)}`);
-      skipped.push('remove JavaScript');
+      skipped.push(t('msg.sanitize.removeJavascript'));
     }
   }
 
@@ -991,7 +992,7 @@ export async function sanitizePdf(
       removeEmbeddedFilesFromDoc(pdfDoc);
     } catch (e: unknown) {
       console.warn(`Could not remove embedded files: ${getErrorMessage(e)}`);
-      skipped.push('remove embedded files');
+      skipped.push(t('msg.sanitize.removeEmbeddedFiles'));
     }
   }
 
@@ -1000,7 +1001,7 @@ export async function sanitizePdf(
       removeLayersFromDoc(pdfDoc);
     } catch (e: unknown) {
       console.warn(`Could not remove layers: ${getErrorMessage(e)}`);
-      skipped.push('remove layers');
+      skipped.push(t('msg.sanitize.removeLayers'));
     }
   }
 
@@ -1009,7 +1010,7 @@ export async function sanitizePdf(
       removeLinksFromDoc(pdfDoc);
     } catch (e: unknown) {
       console.warn(`Could not remove links: ${getErrorMessage(e)}`);
-      skipped.push('remove links');
+      skipped.push(t('msg.sanitize.removeLinks'));
     }
   }
 
@@ -1018,7 +1019,7 @@ export async function sanitizePdf(
       removeStructureTreeFromDoc(pdfDoc);
     } catch (e: unknown) {
       console.warn(`Could not remove structure tree: ${getErrorMessage(e)}`);
-      skipped.push('remove the structure tree');
+      skipped.push(t('msg.sanitize.removeStructureTree'));
     }
   }
 
@@ -1027,7 +1028,7 @@ export async function sanitizePdf(
       removeMarkInfoFromDoc(pdfDoc);
     } catch (e: unknown) {
       console.warn(`Could not remove MarkInfo: ${getErrorMessage(e)}`);
-      skipped.push('remove MarkInfo');
+      skipped.push(t('msg.sanitize.removeMarkInfo'));
     }
   }
 
@@ -1036,7 +1037,7 @@ export async function sanitizePdf(
       removeFontsFromDoc(pdfDoc);
     } catch (e: unknown) {
       console.warn(`Could not remove fonts: ${getErrorMessage(e)}`);
-      skipped.push('remove fonts');
+      skipped.push(t('msg.sanitize.removeFonts'));
     }
   }
 

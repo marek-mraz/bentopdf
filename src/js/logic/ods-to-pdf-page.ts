@@ -6,12 +6,12 @@ import {
   getLibreOfficeConverter,
   type LoadProgress,
 } from '../utils/libreoffice-loader.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const ACCEPTED_EXTENSIONS = ['.ods'];
 const FILETYPE_NAME = 'ODS';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   state.files = [];
 
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
@@ -155,7 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       hideLoader();
-      const message = err instanceof Error ? err.message : 'Unknown error';
+      const message =
+        err instanceof Error ? err.message : t('common.unknownError');
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
         t('common.error'),

@@ -28,7 +28,7 @@ export class ExtractPagesNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Extract Pages');
+    const pdfInputs = requirePdfInput(inputs, this.label);
     const allPdfs = extractAllPdfs(pdfInputs);
 
     const pagesCtrl = this.controls['pages'] as

@@ -474,9 +474,9 @@ export async function promptAndDecryptBatch(
           <i data-lucide="file-lock" class="w-4 h-4 text-indigo-400 flex-shrink-0" data-icon-idx="${i}"></i>
           <span class="text-sm text-gray-300 truncate flex-1" title="${esc(name)}">${esc(name)}</span>
           <div class="flex items-center gap-1.5 flex-shrink-0">
-            <input type="password" data-pw-idx="${i}" placeholder="Password"
+            <input type="password" data-pw-idx="${i}" placeholder="${t('msg.passwordPrompt.password')}"
               class="w-32 bg-gray-600 border border-gray-500 text-gray-200 rounded px-2 py-1 text-xs focus:ring-1 focus:ring-indigo-500 focus:border-transparent" autocomplete="off" />
-            <button type="button" data-skip-idx="${i}" title="Skip this file"
+            <button type="button" data-skip-idx="${i}" title="${t('msg.passwordPrompt.skipThisFile')}"
               class="p-1 rounded text-gray-400 hover:text-red-400 hover:bg-gray-600 transition-colors">
               <i data-lucide="x" class="w-3.5 h-3.5"></i>
             </button>
@@ -663,8 +663,10 @@ export async function promptAndDecryptBatch(
         if (!password) {
           if (errorEl) {
             const msg = useSame
-              ? 'Please enter a password'
-              : `Please enter a password for ${fileNames[i]} or skip it`;
+              ? t('msg.passwordPrompt.pleaseEnterAPassword')
+              : t('msg.passwordPrompt.enterPasswordForOrSkip', {
+                  name: fileNames[i],
+                });
             errorEl.textContent = msg;
             errorEl.classList.remove('hidden');
           }

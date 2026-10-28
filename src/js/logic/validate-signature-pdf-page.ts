@@ -4,7 +4,7 @@ import { readFileAsArrayBuffer, formatBytes } from '../utils/helpers.js';
 import { validatePdfSignatures } from './validate-signature-pdf.js';
 import forge from 'node-forge';
 import { SignatureValidationResult, ValidateSignatureState } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const state: ValidateSignatureState = {
   pdfFile: null,
@@ -262,7 +262,8 @@ function updateCertDisplay(): void {
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-green-400';
   metaSpan.innerHTML =
-    '<i data-lucide="check-circle" class="inline w-3 h-3 mr-1"></i>Trusted certificate loaded';
+    '<i data-lucide="check-circle" class="inline w-3 h-3 mr-1"></i>' +
+    t('tools:validateSignaturePdf.msg.trustedCertificateLoaded');
 
   infoContainer.append(nameSpan, metaSpan);
 
@@ -337,10 +338,10 @@ function displayResults(): void {
 
   let summaryHtml = `
         <p class="text-gray-300">
-            <span class="font-semibold text-white">${state.results.length}</span> 
-            signature${state.results.length > 1 ? 's' : ''} found
+            <span class="font-semibold text-white">${state.results.length}</span>
+            ${t('tools:validateSignaturePdf.msg.signaturesFound', { count: state.results.length })}
             <span class="text-gray-500">•</span>
-            <span class="${validCount === state.results.length ? 'text-green-400' : 'text-yellow-400'}">${validCount} valid</span>
+            <span class="${validCount === state.results.length ? 'text-green-400' : 'text-yellow-400'}">${t('tools:validateSignaturePdf.msg.validCount', { count: validCount })}</span>
         </p>
     `;
 
@@ -348,7 +349,10 @@ function displayResults(): void {
     summaryHtml += `
             <p class="text-xs text-gray-400 mt-1">
                 <i data-lucide="shield-check" class="inline w-3 h-3 mr-1"></i>
-                Trust verification: ${trustVerified}/${state.results.length} signatures verified against custom certificate
+                ${t('tools:validateSignaturePdf.msg.trustVerification', {
+                  verified: trustVerified,
+                  total: state.results.length,
+                })}
             </p>
         `;
   }
@@ -373,46 +377,49 @@ function createSignatureCard(
 
   let statusColor = 'text-green-400';
   let statusIcon = 'check-circle';
-  let statusText = 'Valid Signature';
+  let statusText = t('tools:validateSignaturePdf.msg.validSignature');
 
   if (!result.isValid) {
     if (result.cryptoVerificationStatus === 'unsupported') {
       statusColor = 'text-yellow-400';
       statusIcon = 'alert-triangle';
-      statusText = 'Unverified — Unsupported Signature Algorithm';
+      statusText = t(
+        'tools:validateSignaturePdf.msg.unverifiedUnsupportedAlgorithm'
+      );
     } else if (
       result.cryptoVerified === true &&
       result.coverageStatus === 'partial'
     ) {
       statusColor = 'text-yellow-400';
       statusIcon = 'alert-triangle';
-      statusText = 'Modified After Signing (signed part intact)';
+      statusText = t('tools:validateSignaturePdf.msg.modifiedAfterSigning');
     } else {
       statusColor = 'text-red-400';
       statusIcon = 'x-circle';
       statusText =
         result.cryptoVerified === false
-          ? 'Invalid — Cryptographic Verification Failed'
-          : 'Invalid Signature';
+          ? t('tools:validateSignaturePdf.msg.invalidCryptoFailed')
+          : t('tools:validateSignaturePdf.msg.invalidSignature');
     }
   } else if (result.usesInsecureDigest) {
     statusColor = 'text-red-400';
     statusIcon = 'x-circle';
-    statusText = 'Insecure Digest (MD5 / SHA-1)';
+    statusText = t('tools:validateSignaturePdf.msg.insecureDigest');
   } else if (result.isExpired) {
     statusColor = 'text-yellow-400';
     statusIcon = 'alert-triangle';
-    statusText = 'Certificate Expired';
+    statusText = t('tools:validateSignaturePdf.msg.certificateExpired');
   } else if (!result.isTrusted) {
     statusColor = 'text-yellow-400';
     statusIcon = 'alert-triangle';
     statusText = result.isSelfSigned
-      ? 'Self-Signed — Signer Identity Not Verified'
-      : 'Signature Intact — Signer Identity Not Verified';
+      ? t('tools:validateSignaturePdf.msg.selfSignedNotVerified')
+      : t('tools:validateSignaturePdf.msg.intactNotVerified');
   }
 
   const formatDate = (date: Date) => {
-    if (!date || date.getTime() === 0) return 'Unknown';
+    if (!date || date.getTime() === 0)
+      return t('tools:validateSignaturePdf.msg.unknown');
     return date.toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'short',
@@ -425,11 +432,9 @@ function createSignatureCard(
   let trustBadge = '';
   if (state.trustedCert) {
     if (result.isTrusted) {
-      trustBadge =
-        '<span class="text-xs bg-green-900 text-green-300 px-2 py-1 rounded ml-2"><i data-lucide="shield-check" class="inline w-3 h-3 mr-1"></i>Trusted</span>';
+      trustBadge = `<span class="text-xs bg-green-900 text-green-300 px-2 py-1 rounded ml-2"><i data-lucide="shield-check" class="inline w-3 h-3 mr-1"></i>${t('tools:validateSignaturePdf.msg.trusted')}</span>`;
     } else {
-      trustBadge =
-        '<span class="text-xs bg-gray-600 text-gray-300 px-2 py-1 rounded ml-2"><i data-lucide="shield-x" class="inline w-3 h-3 mr-1"></i>Not in trust chain</span>';
+      trustBadge = `<span class="text-xs bg-gray-600 text-gray-300 px-2 py-1 rounded ml-2"><i data-lucide="shield-x" class="inline w-3 h-3 mr-1"></i>${t('tools:validateSignaturePdf.msg.notInTrustChain')}</span>`;
     }
   }
 
@@ -438,7 +443,7 @@ function createSignatureCard(
             <div class="flex items-center gap-3">
                 <i data-lucide="${statusIcon}" class="w-6 h-6 ${statusColor}"></i>
                 <div>
-                    <h3 class="font-semibold text-white">Signature ${index + 1}</h3>
+                    <h3 class="font-semibold text-white">${t('tools:validateSignaturePdf.msg.signatureN', { num: index + 1 })}</h3>
                     <p class="text-sm ${statusColor}">${statusText}</p>
                 </div>
             </div>
@@ -520,7 +525,7 @@ function createSignatureCard(
                     <p><span class="text-gray-400">${t('tools:validateSignaturePdf.msg.serialNumber')}</span> <span class="text-gray-300 font-mono">${escapeHtml(result.serialNumber)}</span></p>
                     <p><span class="text-gray-400">${t('tools:validateSignaturePdf.msg.digestAlgorithm')}</span> <span class="text-gray-300">${escapeHtml(result.algorithms.digest)}</span></p>
                     <p><span class="text-gray-400">${t('tools:validateSignaturePdf.msg.signatureAlgorithm')}</span> <span class="text-gray-300">${escapeHtml(result.algorithms.signature)}</span></p>
-                    ${result.errorMessage ? `<p class="text-red-400">Error: ${escapeHtml(result.errorMessage)}</p>` : ''}
+                    ${result.errorMessage ? `<p class="text-red-400">${t('common.error')}: ${escapeHtml(result.errorMessage)}</p>` : ''}
                     ${result.unsupportedAlgorithmReason ? `<p class="text-yellow-300">${escapeHtml(result.unsupportedAlgorithmReason)}</p>` : ''}
                 </div>
             </details>
@@ -536,8 +541,4 @@ function escapeHtml(str: string): string {
   return div.innerHTML;
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);

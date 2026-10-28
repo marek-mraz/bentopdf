@@ -22,7 +22,7 @@ export class InvertColorsNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Invert Colors');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     return {
       pdf: await processBatch(pdfInputs, async (input) => {

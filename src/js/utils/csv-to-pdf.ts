@@ -85,7 +85,11 @@ export async function convertCsvToPdf(
         }
       },
       error: (error) => {
-        reject(new Error(`Failed to parse CSV: ${error.message}`));
+        reject(
+          new Error(
+            t('msg.csvToPdf.failedToParseCsv', { message: error.message })
+          )
+        );
       },
     });
   });

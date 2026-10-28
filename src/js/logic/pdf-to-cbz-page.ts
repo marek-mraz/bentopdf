@@ -10,7 +10,7 @@ import { createIcons, icons } from 'lucide';
 import JSZip from 'jszip';
 import * as pdfjsLib from 'pdfjs-dist';
 import { PDFPageProxy } from 'pdfjs-dist';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import {
   generateComicInfoXml,
   generateMetadataOpf,
@@ -292,7 +292,7 @@ async function convert() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setInputValidity(
         yearInput,
         !isNaN(year) && year >= 1900 && year <= 2100,
-        'Year must be between 1900 and 2100'
+        t('tools:pdfToCbz.msg.yearRange')
       );
     });
   }
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setInputValidity(
         ratingInput,
         !isNaN(rating) && rating >= 0 && rating <= 5,
-        'Rating must be between 0 and 5'
+        t('tools:pdfToCbz.msg.ratingRange')
       );
     });
   }
@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setInputValidity(
         numberInput,
         !isNaN(parseFloat(val)) && parseFloat(val) >= 0,
-        'Must be a positive number'
+        t('tools:pdfToCbz.msg.positiveNumber')
       );
     });
   }
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setInputValidity(
         volumeInput,
         !isNaN(vol) && vol >= 1,
-        'Must be a positive integer'
+        t('tools:pdfToCbz.msg.positiveInteger')
       );
     });
   }

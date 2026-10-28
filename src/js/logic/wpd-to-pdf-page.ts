@@ -7,12 +7,12 @@ import {
   type LoadProgress,
 } from '../utils/libreoffice-loader.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const ACCEPTED_EXTENSIONS = ['.wpd'];
 const FILETYPE_NAME = 'WPD';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   state.files = [];
 
   const fileInput = document.getElementById('file-input') as HTMLInputElement;

@@ -8,7 +8,7 @@ import {
   WasmProvider,
 } from '../utils/wasm-provider.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const worker = new Worker(
   import.meta.env.BASE_URL + 'workers/edit-attachments.worker.js'
@@ -372,7 +372,7 @@ async function handleFileSelect(files: FileList | null) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

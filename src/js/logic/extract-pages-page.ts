@@ -9,7 +9,7 @@ import { PDFDocument } from 'pdf-lib';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import JSZip from 'jszip';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 interface ExtractState {
   file: File | null;
@@ -23,11 +23,7 @@ const extractState: ExtractState = {
   totalPages: 0,
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

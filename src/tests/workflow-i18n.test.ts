@@ -7,6 +7,7 @@ vi.mock('heic2any', () => ({ default: vi.fn() }));
 // Behaves like i18next after init: English strings, and a missing
 // 'tools:a.b' comes back as 'a.b'.
 vi.mock('../js/i18n/i18n', () => ({
+  default: { language: 'en' },
   t: (key: string, options?: Record<string, unknown>) => {
     const path = key.slice(key.indexOf(':') + 1);
     let value = path

@@ -1,7 +1,7 @@
 import '@phosphor-icons/web/regular';
 import { createIcons, icons } from 'lucide';
 import { showAlert, showLoader, hideLoader } from '../ui.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import {
   fallbackFontLanguages,
@@ -64,10 +64,26 @@ function menuItem(
   return item;
 }
 
-const SCOPES: [string, string, string][] = [
-  ['text', 'Edit Text', 'ph-text-t'],
-  ['image', 'Edit Images', 'ph-image'],
-  ['shape', 'Edit Shapes', 'ph-shapes'],
+// [scope, menu label key, short label key, icon]
+const SCOPES: [string, string, string, string][] = [
+  [
+    'text',
+    'tools:editPdfText.msg.editText',
+    'tools:editPdfText.filterText',
+    'ph-text-t',
+  ],
+  [
+    'image',
+    'tools:editPdfText.msg.editImages',
+    'tools:editPdfText.filterImages',
+    'ph-image',
+  ],
+  [
+    'shape',
+    'tools:editPdfText.msg.editShapes',
+    'tools:editPdfText.filterShapes',
+    'ph-shapes',
+  ],
 ];
 
 function setupEditMenu() {
@@ -93,7 +109,7 @@ function setupEditMenu() {
       ? t('tools:editPdfText.ui.editAll')
       : t('tools:editPdfText.msg.edit', {
           value: SCOPES.filter(([k]) => picked.has(k))
-            .map(([, l]) => l.replace('Edit ', ''))
+            .map(([, , short]) => t(short))
             .join(' + '),
         });
   };
@@ -122,7 +138,7 @@ function setupEditMenu() {
       menu.replaceChildren();
       menu.appendChild(
         menuItem(
-          'Edit All',
+          t('tools:editPdfText.ui.editAll'),
           picked.has('all'),
           () => {
             picked = new Set(['all']);
@@ -132,10 +148,10 @@ function setupEditMenu() {
           'ph-selection-all'
         )
       );
-      for (const [key, lbl, glyph] of SCOPES) {
+      for (const [key, lbl, , glyph] of SCOPES) {
         menu.appendChild(
           menuItem(
-            lbl,
+            t(lbl),
             picked.has(key),
             () => {
               if (picked.has('all')) picked.clear();
@@ -215,16 +231,26 @@ function setupZoomMenu() {
     }
     menu.appendChild(document.createElement('hr'));
     menu.appendChild(
-      zoomRow('Fit to Page', false, 'ph-arrows-out', () => {
-        fitPage();
-        menu.remove();
-      })
+      zoomRow(
+        t('tools:editPdfText.msg.fitToPage'),
+        false,
+        'ph-arrows-out',
+        () => {
+          fitPage();
+          menu.remove();
+        }
+      )
     );
     menu.appendChild(
-      zoomRow('Fit to Width', false, 'ph-arrows-out-line-horizontal', () => {
-        document.getElementById('zoomFit')?.click();
-        menu.remove();
-      })
+      zoomRow(
+        t('tools:editBookmarks.ui.fitToWidth'),
+        false,
+        'ph-arrows-out-line-horizontal',
+        () => {
+          document.getElementById('zoomFit')?.click();
+          menu.remove();
+        }
+      )
     );
     menu.appendChild(document.createElement('hr'));
     const form = document.createElement('form');
@@ -350,38 +376,55 @@ function setupDocPanel() {
     const inch = (pt: number) => (pt / 72).toFixed(2);
     const groups: [string, [string, string][]][] = [
       [
-        'Description',
+        t('tools:editPdfText.msg.description'),
         [
-          ['File', desc.meta.name],
-          ['Title', f.Title || '—'],
-          ['Author', f.Author || '—'],
-          ['Subject', f.Subject || '—'],
-          ['Keywords', f.Keywords || '—'],
-          ['Created', f.CreationDate ? formatPdfDate(f.CreationDate) : '—'],
-          ['Modified', f.ModDate ? formatPdfDate(f.ModDate) : '—'],
-          ['Application', f.Creator || '—'],
+          [t('tools:editPdfText.msg.file'), desc.meta.name],
+          [t('tools:editMetadata.ui.title'), f.Title || '—'],
+          [t('tools:editMetadata.ui.author'), f.Author || '—'],
+          [t('tools:editMetadata.ui.subject'), f.Subject || '—'],
+          [t('tools:editPdfText.msg.keywords'), f.Keywords || '—'],
+          [
+            t('tools:editPdfText.msg.created'),
+            f.CreationDate ? formatPdfDate(f.CreationDate) : '—',
+          ],
+          [
+            t('tools:editPdfText.msg.modified'),
+            f.ModDate ? formatPdfDate(f.ModDate) : '—',
+          ],
+          [t('tools:editPdfText.msg.application'), f.Creator || '—'],
         ],
       ],
       [
-        'Advanced',
+        t('tools:editPdfText.msg.advanced'),
         [
-          ['PDF Producer', f.Producer || '—'],
-          ['File Size', `${(desc.meta.size / 1024).toFixed(0)} KB`],
+          [t('tools:editPdfText.msg.pdfProducer'), f.Producer || '—'],
           [
-            'Page Size',
+            t('tools:editPdfText.msg.fileSize'),
+            `${(desc.meta.size / 1024).toFixed(0)} KB`,
+          ],
+          [
+            t('tools:textToPdf.pageSize'),
             desc.pageSize
               ? `${inch(desc.pageSize.w)} × ${inch(desc.pageSize.h)} in`
               : '—',
           ],
-          ['Number of Pages', desc.info?.pages ? String(desc.info.pages) : '—'],
+          [
+            t('tools:editPdfText.msg.numberOfPages'),
+            desc.info?.pages ? String(desc.info.pages) : '—',
+          ],
           ...(desc.info?.signatures
-            ? ([['Signatures', String(desc.info.signatures)]] as [
+            ? ([
+                [
+                  t('tools:editPdfText.msg.signatures'),
+                  String(desc.info.signatures),
+                ],
+              ] as [string, string][])
+            : []),
+          ...(desc.pdfa
+            ? ([[t('tools:editPdfText.msg.conformance'), 'PDF/A']] as [
                 string,
                 string,
               ][])
-            : []),
-          ...(desc.pdfa
-            ? ([['Conformance', 'PDF/A']] as [string, string][])
             : []),
         ],
       ],
@@ -1049,8 +1092,4 @@ function initializePage() {
   });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);

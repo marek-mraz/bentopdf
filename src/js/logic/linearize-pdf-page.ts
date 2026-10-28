@@ -9,7 +9,7 @@ import { icons, createIcons } from 'lucide';
 import JSZip from 'jszip';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
 import { LinearizePdfState, QpdfInstanceExtended } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: LinearizePdfState = {
   files: [],
@@ -193,9 +193,11 @@ async function linearizePdf() {
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     downloadFile(zipBlob, 'linearized-pdfs.zip');
 
-    let alertMessage = `${successCount} PDF(s) linearized successfully.`;
+    let alertMessage = t('tools:linearizePdf.msg.linearizedSuccessfully', {
+      count: successCount,
+    });
     if (errorCount > 0) {
-      alertMessage += ` ${errorCount} file(s) failed.`;
+      alertMessage += ` ${t('tools:linearizePdf.msg.filesFailed', { count: errorCount })}`;
     }
     showAlert(t('alert.processingComplete'), alertMessage, 'success', () => {
       resetState();
@@ -214,7 +216,7 @@ async function linearizePdf() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

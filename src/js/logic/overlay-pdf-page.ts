@@ -7,7 +7,7 @@ import {
 } from '../utils/helpers.js';
 import { icons, createIcons } from 'lucide';
 import type { OverlayPdfState, QpdfInstanceExtended } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: OverlayPdfState = {
   baseFile: null,
@@ -257,7 +257,7 @@ function setupDropZone(
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const baseDropZone = document.getElementById('base-drop-zone');
   const baseInput = document.getElementById(
     'base-file-input'

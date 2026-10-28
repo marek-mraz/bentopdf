@@ -1,6 +1,7 @@
 import forge from 'node-forge';
 import { SignatureValidationResult } from '@/types';
 import type { ExtractedSignatureWithError, PdfValueSpan } from '@/types';
+import { t } from '../i18n/i18n';
 
 const INSECURE_DIGEST_OIDS = new Set<string>([
   '1.2.840.113549.2.5',
@@ -320,14 +321,17 @@ export async function validateSignature(
   const result: SignatureValidationResult = {
     signatureIndex: signature.index,
     isValid: false,
-    signerName: 'Unknown',
-    issuer: 'Unknown',
+    signerName: t('tools:validateSignaturePdf.msg.unknown'),
+    issuer: t('tools:validateSignaturePdf.msg.unknown'),
     validFrom: new Date(0),
     validTo: new Date(0),
     isExpired: false,
     isSelfSigned: false,
     isTrusted: false,
-    algorithms: { digest: 'Unknown', signature: 'Unknown' },
+    algorithms: {
+      digest: t('tools:validateSignaturePdf.msg.unknown'),
+      signature: t('tools:validateSignaturePdf.msg.unknown'),
+    },
     serialNumber: '',
     byteRange: signature.byteRange,
     coverageStatus: 'unknown',
@@ -363,7 +367,9 @@ export async function validateSignature(
     };
 
     if (!p7.certificates || p7.certificates.length === 0) {
-      result.errorMessage = 'No certificates found in signature';
+      result.errorMessage = t(
+        'tools:validateSignaturePdf.msg.noCertificatesFound'
+      );
       return result;
     }
 
@@ -382,10 +388,14 @@ export async function validateSignature(
     const issuerCN = signerCert.issuer.getField('CN');
     const issuerO = signerCert.issuer.getField('O');
 
-    result.signerName = (subjectCN?.value as string) ?? 'Unknown';
+    result.signerName =
+      (subjectCN?.value as string) ??
+      t('tools:validateSignaturePdf.msg.unknown');
     result.signerOrg = subjectO?.value as string | undefined;
     result.signerEmail = subjectE?.value as string | undefined;
-    result.issuer = (issuerCN?.value as string) ?? 'Unknown';
+    result.issuer =
+      (issuerCN?.value as string) ??
+      t('tools:validateSignaturePdf.msg.unknown');
     result.issuerOrg = issuerO?.value as string | undefined;
     result.validFrom = signerCert.validity.notBefore;
     result.validTo = signerCert.validity.notAfter;
@@ -487,7 +497,8 @@ export async function validateSignature(
       result.unsupportedAlgorithmReason = verification.reason;
     } else if (verification.status === 'failed') {
       result.errorMessage =
-        verification.reason || 'Cryptographic verification failed';
+        verification.reason ||
+        t('tools:validateSignaturePdf.msg.cryptoVerificationFailed');
     }
 
     result.isValid =
@@ -496,7 +507,9 @@ export async function validateSignature(
       !result.usesInsecureDigest;
   } catch (e) {
     result.errorMessage =
-      e instanceof Error ? e.message : 'Failed to parse signature';
+      e instanceof Error
+        ? e.message
+        : t('tools:validateSignaturePdf.msg.failedToParseSignature');
   }
 
   return result;
@@ -597,7 +610,9 @@ function getDigestAlgorithmName(oid: string): string {
     '2.16.840.1.101.3.4.2.3': 'SHA-512',
     '2.16.840.1.101.3.4.2.4': 'SHA-224',
   };
-  return digestAlgorithms[oid] || oid || 'Unknown';
+  return (
+    digestAlgorithms[oid] || oid || t('tools:validateSignaturePdf.msg.unknown')
+  );
 }
 
 function getSignatureAlgorithmName(oid: string): string {
@@ -613,7 +628,11 @@ function getSignatureAlgorithmName(oid: string): string {
     '1.2.840.10045.4.3.3': 'ECDSA with SHA-384',
     '1.2.840.10045.4.3.4': 'ECDSA with SHA-512',
   };
-  return signatureAlgorithms[oid] || oid || 'Unknown';
+  return (
+    signatureAlgorithms[oid] ||
+    oid ||
+    t('tools:validateSignaturePdf.msg.unknown')
+  );
 }
 
 interface SignerInfoFields {

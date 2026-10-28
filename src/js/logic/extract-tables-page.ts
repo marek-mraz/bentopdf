@@ -4,7 +4,7 @@ import { createIcons, icons } from 'lucide';
 import JSZip from 'jszip';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 let file: File | null = null;
 
 const updateUI = () => {
@@ -208,7 +208,7 @@ async function extract() {
     }
   } catch (e) {
     console.error(e);
-    const message = e instanceof Error ? e.message : 'Unknown error';
+    const message = e instanceof Error ? e.message : t('common.unknownError');
     showAlert(
       t('common.error'),
       t('tools:extractTables.msg.failedToExtractTables', { error: message })
@@ -218,7 +218,7 @@ async function extract() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

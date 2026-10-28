@@ -25,7 +25,7 @@ import {
   computeComparisonForPair,
   getComparisonCacheKey,
 } from './compare-render.ts';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: CompareState = {
   pdfDoc1: null,
@@ -404,13 +404,13 @@ function renderChangeList() {
   list.classList.remove('hidden');
 
   const typeLabels: Record<string, string> = {
-    added: 'Added',
-    removed: 'Deleted',
-    modified: 'Modified',
-    moved: 'Moved',
-    'style-changed': 'Style Changed',
-    'page-added': 'Page Added',
-    'page-removed': 'Page Removed',
+    added: t('tools:comparePdfs.added'),
+    removed: t('tools:comparePdfs.deleted'),
+    modified: t('tools:comparePdfs.msg.modifiedLabel'),
+    moved: t('tools:comparePdfs.ui.moved'),
+    'style-changed': t('tools:comparePdfs.msg.styleChangedLabel'),
+    'page-added': t('tools:comparePdfs.msg.pageAdded'),
+    'page-removed': t('tools:comparePdfs.msg.pageRemoved'),
   };
 
   const grouped = new Map<
@@ -804,7 +804,7 @@ async function handleFileInput(
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const backBtn = getElement<HTMLButtonElement>('back-to-tools');
 
   if (backBtn) {

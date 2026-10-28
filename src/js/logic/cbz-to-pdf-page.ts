@@ -6,7 +6,7 @@ import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import type { PyMuPDFInstance } from '@/types';
 import JSZip from 'jszip';
 import { PDFDocument } from 'pdf-lib';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const EXTENSIONS = ['.cbz', '.cbr'];
 const TOOL_NAME = 'CBZ';
@@ -109,13 +109,19 @@ async function convertImageToPng(
         if (pngBlob) {
           resolve(pngBlob);
         } else {
-          reject(new Error(`Failed to convert ${filename} to PNG`));
+          reject(
+            new Error(
+              t('tools:cbzToPdf.msg.failedToConvertToPng', { name: filename })
+            )
+          );
         }
       }, 'image/png');
     };
     img.onerror = () => {
       URL.revokeObjectURL(url);
-      reject(new Error(`Failed to load image: ${filename}`));
+      reject(
+        new Error(t('tools:cbzToPdf.msg.failedToLoadImage', { name: filename }))
+      );
     };
     img.src = url;
   });
@@ -204,7 +210,7 @@ async function convertCbrToPdf(file: File): Promise<Blob> {
   return await pymupdf.convertToPdf(file, { filetype: 'cbz' });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

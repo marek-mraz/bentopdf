@@ -7,7 +7,7 @@ import {
 } from '../utils/helpers.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { sanitizeTranslationHtml } from '../utils/translation-html.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import {
   signPdf,
   parsePfxFile,
@@ -787,8 +787,4 @@ async function processSignature(): Promise<void> {
   }
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);

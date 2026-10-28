@@ -59,7 +59,7 @@ export class SanitizeNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Sanitize');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const getBool = (key: string, fallback: string) => {
       const ctrl = this.controls[key] as

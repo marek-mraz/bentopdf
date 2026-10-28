@@ -7,7 +7,7 @@ import {
 } from '../utils/helpers.js';
 import { icons, createIcons } from 'lucide';
 import { EncryptPdfState, QpdfInstanceExtended } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: EncryptPdfState = {
   file: null,
@@ -170,7 +170,9 @@ async function encryptPdf() {
       throw new Error(
         t('tools:protectPdf.msg.encryptionFailed', {
           value:
-            qpdfError instanceof Error ? qpdfError.message : 'Unknown error',
+            qpdfError instanceof Error
+              ? qpdfError.message
+              : t('common.unknownError'),
         }),
         { cause: qpdfError }
       );
@@ -193,10 +195,9 @@ async function encryptPdf() {
 
     if (loaderModal) loaderModal.classList.add('hidden');
 
-    let successMessage = 'PDF encrypted successfully with 256-bit AES!';
+    let successMessage = t('tools:protectPdf.msg.encryptedSuccessfully');
     if (!hasDistinctOwnerPassword) {
-      successMessage +=
-        ' Note: Without a separate owner password, the PDF has no usage restrictions.';
+      successMessage += ` ${t('tools:protectPdf.msg.noOwnerPasswordNote')}`;
     }
 
     showAlert(t('common.success'), successMessage, 'success', () => {
@@ -234,7 +235,7 @@ async function encryptPdf() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

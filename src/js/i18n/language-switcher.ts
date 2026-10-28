@@ -51,10 +51,7 @@ export const createLanguageSwitcher = (): HTMLElement => {
   searchWrapper.className =
     'p-2 border-b border-gray-700 bg-gray-800 flex-shrink-0';
 
-  const searchPlaceholder =
-    t('nav.searchLanguage') !== 'nav.searchLanguage'
-      ? t('nav.searchLanguage')
-      : 'Search language…';
+  const searchPlaceholder = t('nav.searchLanguage');
 
   const searchInput = document.createElement('input');
   searchInput.type = 'search';
@@ -76,11 +73,7 @@ export const createLanguageSwitcher = (): HTMLElement => {
 
   const emptyState = document.createElement('p');
   emptyState.className = 'hidden px-4 py-3 text-sm text-gray-400 text-center';
-  const emptyText =
-    t('nav.noLanguagesFound') !== 'nav.noLanguagesFound'
-      ? t('nav.noLanguagesFound')
-      : 'No languages found';
-  emptyState.textContent = emptyText;
+  emptyState.textContent = t('nav.noLanguagesFound');
 
   const options: HTMLButtonElement[] = [];
   supportedLanguages.forEach((lang) => {
@@ -176,18 +169,9 @@ export const injectLanguageSwitcher = (): void => {
   const footer = document.querySelector('footer');
   if (!footer) return;
 
-  const headings = footer.querySelectorAll('h3');
-  let followUsColumn: HTMLElement | null = null;
-
-  headings.forEach((h3) => {
-    if (
-      h3.textContent?.trim() === 'Follow Us' ||
-      h3.textContent?.trim() === 'Folgen Sie uns' ||
-      h3.textContent?.trim() === 'Theo dõi chúng tôi'
-    ) {
-      followUsColumn = h3.parentElement;
-    }
-  });
+  const followUsColumn = footer.querySelector<HTMLElement>(
+    'h3[data-i18n="footer.followUs"]'
+  )?.parentElement;
 
   if (followUsColumn) {
     const socialIconsContainer = followUsColumn.querySelector('.space-x-4');

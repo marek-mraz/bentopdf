@@ -6,7 +6,7 @@ import { loadPyMuPDF, isPyMuPDFAvailable } from '../utils/pymupdf-loader.js';
 import type { PyMuPDFInstance } from '@/types';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { showWasmRequiredDialog } from '../utils/wasm-provider.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 let pymupdf: PyMuPDFInstance | null = null;
 let files: File[] = [];
@@ -186,7 +186,7 @@ async function convert() {
     }
   } catch (e) {
     console.error(e);
-    const message = e instanceof Error ? e.message : 'Unknown error';
+    const message = e instanceof Error ? e.message : t('common.unknownError');
     showAlert(
       t('common.error'),
       t('tools:pdfToSvg.msg.failedToConvertPdfToSvg', { error: message })
@@ -196,7 +196,7 @@ async function convert() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

@@ -151,6 +151,23 @@ const loadI18n = async (): Promise<typeof i18next> => {
   return i18next;
 };
 
+// Page scripts start here instead of on DOMContentLoaded: DOMContentLoaded
+// fires before the page language is fetched, and t() would answer in English.
+export const onPageReady = (init: () => unknown): void => {
+  const run = () => {
+    initI18n().then(
+      () => init(),
+      (error) => {
+        console.error('[i18n] Translations failed to load:', error);
+        init();
+      }
+    );
+  };
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', run, { once: true });
+  else run();
+};
+
 // Before initI18n() finishes (e.g. a loader shown on page start), answer from
 // the bundled English strings instead of returning undefined.
 const englishFallback = (

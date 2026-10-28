@@ -1,6 +1,6 @@
 import { createIcons, icons } from 'lucide';
 import { showAlert, showLoader, hideLoader } from '../ui.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import {
   readFileAsArrayBuffer,
   formatBytes,
@@ -247,7 +247,8 @@ async function processTimestamp(): Promise<void> {
     resetState();
   } catch (error) {
     console.error('Timestamp error:', error);
-    const message = error instanceof Error ? error.message : 'Unknown error';
+    const message =
+      error instanceof Error ? error.message : t('common.unknownError');
     showAlert(
       t('tools:timestampPdf.alert.timestampFailed'),
       t('tools:timestampPdf.msg.failedToTimestampPdfPleaseTry', {
@@ -259,4 +260,4 @@ async function processTimestamp(): Promise<void> {
   }
 }
 
-document.addEventListener('DOMContentLoaded', initializePage);
+onPageReady(initializePage);

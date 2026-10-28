@@ -230,7 +230,7 @@ export async function renderPage(
     renderMissingPage(
       canvas,
       placeholderId,
-      `Page ${pageNum} does not exist in this PDF.`
+      t('tools:comparePdfs.pageNotExist', { page: pageNum })
     );
     return { model: null, exists: false };
   }
@@ -329,7 +329,7 @@ export async function loadComparisonPage(
       renderMissingPage(
         renderTarget.canvas,
         renderTarget.placeholderId,
-        'No paired page for this side.'
+        t('tools:comparePdfs.noPairedPage')
       );
     }
     return { model: null, exists: false };

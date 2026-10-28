@@ -49,7 +49,7 @@ export class RemoveBlankPagesNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Remove Blank Pages');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const threshCtrl = this.controls['threshold'] as
       | ClassicPreset.InputControl<'number'>

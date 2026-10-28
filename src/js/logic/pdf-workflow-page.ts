@@ -51,17 +51,13 @@ import {
 import { getControlSpec } from '@/js/workflow/nodes/control-specs';
 import { isToolDisabled } from '@/js/utils/disabled-tools.js';
 import { IMAGE_ACCEPT } from '@/js/utils/image-input-utils.js';
-import { initI18n, t } from '../i18n/i18n';
+import { initI18n, t, onPageReady } from '../i18n/i18n';
 
 let workflowEditor: WorkflowEditor | null = null;
 let selectedNodeId: string | null = null;
 let deleteNodeHandler: EventListener | null = null;
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 async function initializePage() {
   const container = document.getElementById('rete-container');

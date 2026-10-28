@@ -4,13 +4,13 @@ import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const FILETYPE = 'xps';
 const EXTENSIONS = ['.xps', '.oxps'];
 const TOOL_NAME = 'XPS';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

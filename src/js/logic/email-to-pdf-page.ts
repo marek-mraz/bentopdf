@@ -4,12 +4,12 @@ import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
 import { parseEmailFile, renderEmailToHtml } from './email-to-pdf.js';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const EXTENSIONS = ['.eml', '.msg'];
 const TOOL_NAME = 'Email';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');
@@ -88,7 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (state.files.length === 0) {
         showAlert(
           t('alert.noFiles'),
-          t('tools:emailToPdf.msg.pleaseSelectAtLeastOneFile', { TOOL_NAME })
+          t('tools:emailToPdf.msg.pleaseSelectAtLeastOneFile', {
+            TOOL_NAME: t('tools:emailToPdf.msg.toolName'),
+          })
         );
         return;
       }
@@ -208,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
           t('alert.conversionComplete'),
           t('tools:emailToPdf.msg.successfullyConvertedFileSToPdf', {
             count: state.files.length,
-            TOOL_NAME,
+            TOOL_NAME: t('tools:emailToPdf.msg.toolName'),
           }),
           'success',
           () => resetState()

@@ -4,7 +4,7 @@ import { icons, createIcons } from 'lucide';
 import { SanitizePdfState } from '@/types';
 import { sanitizePdf } from '../utils/sanitize.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: SanitizePdfState = {
   file: null,
@@ -188,7 +188,7 @@ async function runSanitize() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

@@ -147,7 +147,7 @@ export async function decryptPdfBytes(
     console.info(
       `${DECRYPT_LOG_PREFIX} CoherentPDF is not configured, skipping to PyMuPDF`
     );
-    errors.push('CoherentPDF: not configured.');
+    errors.push(`CoherentPDF: ${t('msg.pdfDecrypt.notConfigured')}`);
   }
 
   if (isPyMuPDFAvailable()) {
@@ -168,7 +168,7 @@ export async function decryptPdfBytes(
     }
   } else {
     console.warn(`${DECRYPT_LOG_PREFIX} PyMuPDF is not configured`);
-    errors.push('PyMuPDF: not configured.');
+    errors.push(`PyMuPDF: ${t('msg.pdfDecrypt.notConfigured')}`);
   }
 
   throw new Error(errors.join('\n'));

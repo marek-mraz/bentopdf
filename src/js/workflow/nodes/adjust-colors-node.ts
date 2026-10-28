@@ -55,7 +55,7 @@ export class AdjustColorsNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Adjust Colors');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const getNum = (key: string, fallback: number) => {
       const ctrl = this.controls[key] as

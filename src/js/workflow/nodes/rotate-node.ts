@@ -24,7 +24,7 @@ export class RotateNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Rotate');
+    const pdfInputs = requirePdfInput(inputs, this.label);
     const angleControl = this.controls['angle'] as
       | ClassicPreset.InputControl<'text'>
       | undefined;

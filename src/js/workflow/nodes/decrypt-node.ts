@@ -24,7 +24,7 @@ export class DecryptNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Decrypt');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const passCtrl = this.controls['password'] as
       | ClassicPreset.InputControl<'text'>

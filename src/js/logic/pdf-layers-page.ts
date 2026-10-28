@@ -1,5 +1,5 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import {
   downloadFile,
   escapeHtml,
@@ -41,7 +41,7 @@ let currentDoc: PyMuPDFDocument | null = null;
 const layersMap = new Map<number, LayerData>();
 let nextDisplayOrder = 0;
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');
@@ -214,12 +214,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="layer-item" data-number="${layer.number}" style="padding-left: ${layer.depth * 24 + 8}px;">
                 <label class="layer-toggle">
                     <input type="checkbox" ${layer.on ? 'checked' : ''} ${layer.locked ? 'disabled' : ''} data-xref="${layer.xref}" />
-                    <span class="layer-name">${layer.depth > 0 ? '└ ' : ''}${escapeHtml(layer.text || `Layer ${layer.number}`)}</span>
+                    <span class="layer-name">${layer.depth > 0 ? '└ ' : ''}${escapeHtml(layer.text || t('tools:pdfOcg.msg.layerNumber', { number: layer.number }))}</span>
                     ${layer.locked ? '<span class="layer-locked">🔒</span>' : ''}
                 </label>
                 <div class="layer-actions">
-                    ${!layer.locked ? `<button class="layer-add-child" data-xref="${layer.xref}" title="Add child layer">+</button>` : ''}
-                    ${!layer.locked ? `<button class="layer-delete" data-xref="${layer.xref}" title="Delete layer">✕</button>` : ''}
+                    ${!layer.locked ? `<button class="layer-add-child" data-xref="${layer.xref}" title="${escapeHtml(t('tools:pdfOcg.msg.addChildLayerTitle'))}">+</button>` : ''}
+                    ${!layer.locked ? `<button class="layer-delete" data-xref="${layer.xref}" title="${escapeHtml(t('tools:pdfOcg.msg.deleteLayerTitle'))}">✕</button>` : ''}
                 </div>
             </div>
         `
@@ -291,8 +291,10 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         const childName = await promptForInput(
-          'Add Child Layer',
-          `Enter name for child layer under "${parentLayer?.text || 'Layer'}":`
+          t('tools:pdfOcg.msg.addChildLayer'),
+          t('tools:pdfOcg.msg.enterChildLayerName', {
+            parent: parentLayer?.text || t('tools:pdfOcg.msg.layer'),
+          })
         );
 
         if (!childName || !childName.trim()) return;

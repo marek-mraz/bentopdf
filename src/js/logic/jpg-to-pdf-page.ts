@@ -7,7 +7,7 @@ import {
   getSelectedQuality,
   compressImageFile,
 } from '../utils/image-compress.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const SUPPORTED_FORMATS = '.jpg,.jpeg,.jp2,.jpx';
 const SUPPORTED_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/jp2'];
@@ -15,11 +15,7 @@ const SUPPORTED_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/jp2'];
 let files: File[] = [];
 let pymupdf: PyMuPDFInstance | null = null;
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

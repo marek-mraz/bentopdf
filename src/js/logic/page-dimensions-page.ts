@@ -12,7 +12,7 @@ import {
   UniqueSizeEntry,
 } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: PageDimensionsState = {
   file: null,
@@ -89,17 +89,17 @@ function renderSummary() {
   let summaryHTML = `
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
       <div class="bg-gray-900 border border-gray-700 rounded-lg p-4">
-        <p class="text-sm text-gray-400 mb-1">Total Pages</p>
+        <p class="text-sm text-gray-400 mb-1">${t('tools:pageDimensions.msg.totalPages')}</p>
         <p class="text-2xl font-bold text-white">${stats.totalPages}</p>
       </div>
       <div class="bg-gray-900 border border-gray-700 rounded-lg p-4">
-        <p class="text-sm text-gray-400 mb-1">Unique Page Sizes</p>
+        <p class="text-sm text-gray-400 mb-1">${t('tools:pageDimensions.msg.uniquePageSizes')}</p>
         <p class="text-2xl font-bold text-white">${stats.uniqueSizesCount}</p>
       </div>
       <div class="bg-gray-900 border border-gray-700 rounded-lg p-4">
-        <p class="text-sm text-gray-400 mb-1">Document Type</p>
+        <p class="text-sm text-gray-400 mb-1">${t('tools:pageDimensions.msg.documentType')}</p>
         <p class="text-2xl font-bold ${stats.hasMixedSizes ? 'text-yellow-400' : 'text-green-400'}">
-          ${stats.hasMixedSizes ? 'Mixed Sizes' : 'Uniform'}
+          ${stats.hasMixedSizes ? t('tools:pageDimensions.msg.mixedSizes') : t('tools:pageDimensions.msg.uniform')}
         </p>
       </div>
     </div>
@@ -111,13 +111,13 @@ function renderSummary() {
         <div class="flex items-start gap-3">
           <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0"></i>
           <div>
-            <h4 class="text-yellow-200 font-semibold mb-2">Mixed Page Sizes Detected</h4>
-            <p class="text-sm text-gray-300 mb-3">This document contains pages with different dimensions:</p>
+            <h4 class="text-yellow-200 font-semibold mb-2">${t('tools:pageDimensions.msg.mixedPageSizesDetected')}</h4>
+            <p class="text-sm text-gray-300 mb-3">${t('tools:pageDimensions.msg.differentDimensions')}</p>
             <ul class="space-y-1 text-sm text-gray-300">
               ${stats.uniqueSizes
                 .map(
                   (size: UniqueSizeEntry) => `
-                <li>• ${size.label}: ${size.count} page${size.count > 1 ? 's' : ''}</li>
+                <li>• ${size.label}: ${t('tools:pageDimensions.msg.pageCount', { count: size.count })}</li>
               `
                 )
                 .join('')}
@@ -197,14 +197,14 @@ function exportToCSV() {
   const unit = unitsSelect?.value || 'pt';
 
   const headers = [
-    'Page #',
-    `Width (${unit})`,
-    `Height (${unit})`,
-    'Standard Size',
-    'Orientation',
-    'Aspect Ratio',
-    `Area (${unit}²)`,
-    'Rotation',
+    t('tools:pageDimensions.ui.page'),
+    t('tools:pageDimensions.msg.widthUnit', { unit }),
+    t('tools:pageDimensions.msg.heightUnit', { unit }),
+    t('tools:pageDimensions.ui.standardSize'),
+    t('toolPage.orientation'),
+    t('tools:pageDimensions.ui.aspectRatio'),
+    `${t('tools:pageDimensions.ui.area')} (${unit}²)`,
+    t('tools:pageDimensions.ui.rotation'),
   ];
   const csvRows = [headers.join(',')];
 
@@ -253,7 +253,8 @@ function analyzeAndDisplayDimensions() {
       pageNum: index + 1,
       width,
       height,
-      orientation: width > height ? 'Landscape' : 'Portrait',
+      orientation:
+        width > height ? t('toolPage.landscape') : t('toolPage.portrait'),
       standardSize: getStandardPageName(width, height),
       rotation: rotation,
     });
@@ -358,7 +359,7 @@ async function handleFileSelect(files: FileList | null) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const backBtn = document.getElementById('back-to-tools');

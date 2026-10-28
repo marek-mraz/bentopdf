@@ -6,7 +6,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 interface BookletState {
   file: File | null;
@@ -365,7 +365,11 @@ async function generatePreview() {
           ctx.font = '10px sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('(blank)', x + slotWidth / 2, y + slotHeight / 2);
+          ctx.fillText(
+            t('tools:pdfBooklet.msg.blank'),
+            x + slotWidth / 2,
+            y + slotHeight / 2
+          );
         }
       }
     }
@@ -374,12 +378,13 @@ async function generatePreview() {
     ctx.font = 'bold 10px sans-serif';
     ctx.textAlign = 'right';
     ctx.textBaseline = 'top';
-    const sideLabel = isBookletMode ? (isFront ? 'Front' : 'Back') : '';
-    ctx.fillText(
-      `Sheet ${Math.floor(sheetIndex / (isBookletMode ? 2 : 1)) + 1} ${sideLabel}`,
-      canvasWidth - 6,
-      4
-    );
+    const sheetNumber = Math.floor(sheetIndex / (isBookletMode ? 2 : 1)) + 1;
+    const sheetLabel = !isBookletMode
+      ? t('tools:pdfBooklet.msg.sheet', { number: sheetNumber })
+      : isFront
+        ? t('tools:pdfBooklet.msg.sheetFront', { number: sheetNumber })
+        : t('tools:pdfBooklet.msg.sheetBack', { number: sheetNumber });
+    ctx.fillText(sheetLabel, canvasWidth - 6, 4);
 
     previewArea.appendChild(canvas);
   }
@@ -556,7 +561,7 @@ function handleFileSelect(files: FileList | null) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const previewBtn = document.getElementById('preview-btn');

@@ -2,9 +2,9 @@ import { showLoader, hideLoader, showAlert } from '../ui.js';
 import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   state.files = [];
 
   const fileInput = document.getElementById('file-input') as HTMLInputElement;

@@ -2,7 +2,7 @@
 import { createIcons, icons } from 'lucide';
 import { getPDFDocument } from '../utils/helpers.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 let viewerIframe: HTMLIFrameElement | null = null;
 let viewerReady = false;
@@ -285,7 +285,7 @@ async function processAndDownloadForm() {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

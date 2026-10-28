@@ -11,7 +11,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { DeletePagesState } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const deleteState: DeletePagesState = {
   file: null,
@@ -21,11 +21,7 @@ const deleteState: DeletePagesState = {
   pagesToDelete: new Set(),
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

@@ -15,7 +15,7 @@ import { repairPdfFile } from './repair-pdf.js';
 import { partitionIncomingFiles } from '../utils/multi-tool-file-input.js';
 import { convertImagesToPdfFile } from '../utils/images-to-pdf-lib.js';
 
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
 
@@ -162,17 +162,7 @@ function hideLoading() {
   if (loader) loader.classList.add('hidden');
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('PDF Multi Tool: DOMContentLoaded');
-    initializeTool();
-  });
-} else {
-  console.log(
-    'PDF Multi Tool: DOMContentLoaded already fired, initializing immediately'
-  );
-  initializeTool();
-}
+onPageReady(initializeTool);
 
 function initializeTool() {
   console.log('PDF Multi Tool: Initializing...');

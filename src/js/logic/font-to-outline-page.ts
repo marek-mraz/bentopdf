@@ -7,7 +7,7 @@ import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { icons, createIcons } from 'lucide';
 import JSZip from 'jszip';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 interface FontToOutlineState {
   files: File[];
@@ -180,12 +180,14 @@ async function processFiles() {
     console.error(e);
     if (loaderModal) loaderModal.classList.add('hidden');
     const errorMessage =
-      e instanceof Error ? e.message : 'An unexpected error occurred.';
+      e instanceof Error
+        ? e.message
+        : t('tools:fontToOutline.msg.unexpectedError');
     showAlert(t('common.error'), errorMessage);
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

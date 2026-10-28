@@ -6,9 +6,9 @@ import {
   getLibreOfficeConverter,
   type LoadProgress,
 } from '../utils/libreoffice-loader.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   state.files = [];
 
   const fileInput = document.getElementById('file-input') as HTMLInputElement;

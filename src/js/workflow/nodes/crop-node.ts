@@ -36,7 +36,7 @@ export class CropNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Crop');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const getNum = (key: string) => {
       const ctrl = this.controls[key] as

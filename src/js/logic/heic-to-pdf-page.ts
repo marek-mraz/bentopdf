@@ -3,7 +3,7 @@ import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { createIcons, icons } from 'lucide';
 import heic2any from 'heic2any';
 import { PDFDocument as PDFLibDocument } from 'pdf-lib';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 let files: File[] = [];
 
@@ -116,7 +116,7 @@ async function convert() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const addMoreBtn = document.getElementById('add-more-btn');

@@ -7,7 +7,7 @@ import JSZip from 'jszip';
 import Sortable from 'sortablejs';
 import { FileEntry, Position, StylePreset } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const FONT_MAP: Record<string, keyof typeof StandardFonts> = {
   Helvetica: 'Helvetica',
@@ -55,11 +55,7 @@ const STYLE_PRESETS: Record<string, StylePreset> = {
 
 const files: FileEntry[] = [];
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });
@@ -344,11 +340,33 @@ function updatePreview() {
     for (const entry of files) {
       const name = entry.file.name.replace(/\.pdf$/i, '');
       lines.push(
-        `File ${fileCounter}, Page 1: ${formatBatesText(template, batesCounter, 1, fileCounter, name, padding)}`
+        t('tools:batesNumbering.msg.previewLine', {
+          file: fileCounter,
+          page: 1,
+          text: formatBatesText(
+            template,
+            batesCounter,
+            1,
+            fileCounter,
+            name,
+            padding
+          ),
+        })
       );
       if (entry.pageCount > 1) {
         lines.push(
-          `File ${fileCounter}, Page 2: ${formatBatesText(template, batesCounter + 1, 2, fileCounter, name, padding)}`
+          t('tools:batesNumbering.msg.previewLine', {
+            file: fileCounter,
+            page: 2,
+            text: formatBatesText(
+              template,
+              batesCounter + 1,
+              2,
+              fileCounter,
+              name,
+              padding
+            ),
+          })
         );
       }
       batesCounter += entry.pageCount;
@@ -359,7 +377,18 @@ function updatePreview() {
     const lastBates = batesCounter - 1;
     lines.push('...');
     lines.push(
-      `File ${fileStart + files.length - 1}, Page ${lastEntry.pageCount}: ${formatBatesText(template, lastBates, lastEntry.pageCount, fileStart + files.length - 1, lastName, padding)}`
+      t('tools:batesNumbering.msg.previewLine', {
+        file: fileStart + files.length - 1,
+        page: lastEntry.pageCount,
+        text: formatBatesText(
+          template,
+          lastBates,
+          lastEntry.pageCount,
+          fileStart + files.length - 1,
+          lastName,
+          padding
+        ),
+      })
     );
   }
 

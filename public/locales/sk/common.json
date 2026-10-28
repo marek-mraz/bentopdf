@@ -1112,7 +1112,24 @@
       "pdfSavedSuccessfully": "PDF bolo úspešne uložené!",
       "errorSavingPdfCheckConsoleFor": "Chyba pri ukladaní PDF. Podrobnosti nájdete v konzole.",
       "confirm": "Potvrdiť",
-      "confirmAction": "Potvrdenie akcie"
+      "confirmAction": "Potvrdenie akcie",
+      "addChildBookmark": "Pridať podradenú záložku",
+      "clickButtonThenPdf": "Kliknite na tlačidlo vyššie a potom kliknite do PDF na miesto, kam má záložka smerovať",
+      "clickOnPdfToPickLocation": "Kliknutím do PDF vyberte miesto",
+      "custom": "Vlastná...",
+      "destination": "Cieľ",
+      "editBookmark": "Upraviť záložku",
+      "enterBookmarkTitle": "Zadajte názov záložky",
+      "fitPage": "Prispôsobiť stranu",
+      "inherit": "Zdediť",
+      "pageN": "Strana {{num}}",
+      "preview": "Náhľad",
+      "setCustomDestination": "Nastaviť vlastný cieľ",
+      "style": "Štýl",
+      "title": "Názov",
+      "xPosition": "Pozícia X",
+      "yPosition": "Pozícia Y",
+      "zoomPercent": "Priblíženie (%)"
     },
     "posterizePage": {
       "renderingPreviewForPage": "Vykresľuje sa náhľad strany {{pageNum}}...",
@@ -1139,7 +1156,13 @@
       "noInteractiveFormFieldsFound": "- Nenašli sa žiadne interaktívne polia formulára -",
       "noParseableXmpPropertiesFound": "- Nenašli sa žiadne čitateľné vlastnosti XMP -",
       "errorParsingXmpXmlDisplayingRaw": "- Chyba pri čítaní XMP XML. Zobrazuje sa nespracované. -",
-      "noXmpMetadataFound": "- Nenašli sa žiadne metadáta XMP -"
+      "noXmpMetadataFound": "- Nenašli sa žiadne metadáta XMP -",
+      "altContainer": "(alternatívny kontajner)",
+      "emptyResource": "(Prázdny zdroj)",
+      "infoDictionary": "Informačný slovník",
+      "interactiveFormFields": "Interaktívne polia formulára",
+      "notSet": "- Nenastavené -",
+      "xmpMetadata": "Metadáta XMP"
     },
     "tesseractRuntime": {
       "selfHostedOcrAssetsArePartially": "Vlastné súbory OCR sú nastavené len čiastočne. Nastavte {{missing}} spolu s ostatnými URL súborov Tesseract."
@@ -1178,7 +1201,9 @@
       "retryFailed": "Zopakovať neúspešné",
       "passwordForAllFiles": "Heslo pre všetky súbory",
       "enterPasswordsForEachEncryptedFile": "Zadajte heslá pre jednotlivé zašifrované súbory",
-      "useSamePasswordForAllFiles": "Použiť rovnaké heslo pre všetky súbory"
+      "useSamePasswordForAllFiles": "Použiť rovnaké heslo pre všetky súbory",
+      "enterPasswordForOrSkip": "Zadajte heslo pre {{name}} alebo súbor preskočte",
+      "password": "Heslo"
     },
     "ghostscriptLoader": {
       "ghostscriptIsNotConfiguredPleaseConfigur": "Ghostscript nie je nastavený. Nastavte ho v Nastaveniach WASM.",
@@ -1215,7 +1240,8 @@
       "convertNewlinesToLtBrGt": "Prevádzať nové riadky na &lt;br&gt;"
     },
     "pdfDecrypt": {
-      "invalidPdfPassword": "Neplatné heslo PDF."
+      "invalidPdfPassword": "Neplatné heslo PDF.",
+      "notConfigured": "nie je nakonfigurované."
     },
     "loadPdfDocument": {
       "couldNotRemoveLeftoverDataFrom": "Z PDF sa nepodarilo odstrániť zvyškové dáta."
@@ -1224,7 +1250,8 @@
       "readingCsvFile": "Číta sa súbor CSV...",
       "creatingTable": "Vytvára sa tabuľka...",
       "finalizingPdf": "Dokončuje sa PDF...",
-      "complete": "Hotovo!"
+      "complete": "Hotovo!",
+      "failedToParseCsv": "Nepodarilo sa spracovať CSV: {{message}}"
     },
     "imageInputUtils": {
       "failedToProcessHeicFile": "Súbor HEIC sa nepodarilo spracovať: {{name}}",
@@ -1250,7 +1277,70 @@
       "toBeConfigured": "nastavený.",
       "featuresEnabledByThisModule": "Funkcie, ktoré tento modul sprístupní:",
       "thisModuleIsLicensedUnderAgpl": "Tento modul je licencovaný pod AGPL-3.0. Jeho nastavením súhlasíte s jeho licenčnými podmienkami.",
-      "configure": "Nastaviť"
+      "configure": "Nastaviť",
+      "invalidUrl": "Neplatná URL adresa",
+      "noUrlConfigured": "Nie je nastavená žiadna URL adresa",
+      "urlMustStartWithHttp": "URL adresa musí začínať na http:// alebo https://",
+      "invalidUrlFormat": "Neplatný formát URL adresy. Zadajte platnú URL adresu (napr. https://example.com/wasm/)",
+      "fileNotFound": "Na zadanej URL adrese sa nepodarilo nájsť súbor {{file}} (HTTP {{status}}). Skontrolujte, či súbor existuje.",
+      "fileNotReadable": "Súbor existuje, ale nepodarilo sa ho prečítať. Skontrolujte nastavenie CORS.",
+      "unexpectedContentType": "URL adresa vrátila neočakávaný typ obsahu: {{contentType}}. Očakával sa súbor JavaScript.",
+      "networkErrorConnect": "Chyba siete: Nepodarilo sa pripojiť k URL adrese. Skontrolujte, či je URL adresa správna a či server povoľuje požiadavky CORS.",
+      "networkError": "Chyba siete: {{message}}",
+      "pymupdfName": "PyMuPDF (spracovanie dokumentov)",
+      "ghostscriptName": "Ghostscript (konverzia do PDF/A)",
+      "cpdfName": "CoherentPDF (záložky a metadáta)",
+      "featurePdfToImages": "PDF do obrázkov (vysoká kvalita)",
+      "featurePdfToDocx": "PDF do DOCX",
+      "featurePdfToExcel": "PDF do Excelu/CSV",
+      "featureEbooksToPdf": "EPUB/MOBI/FB2/XPS/CBZ do PDF",
+      "featurePdfaConversion": "Konverzia do PDF/A",
+      "featureAttachments": "Pridanie, úprava a extrakcia príloh",
+      "featurePdfMetadata": "Metadáta PDF",
+      "moreFeatures_one": "+ {{count}} ďalšia...",
+      "moreFeatures_few": "+ {{count}} ďalšie...",
+      "moreFeatures_many": "+ {{count}} ďalších...",
+      "moreFeatures_other": "+ {{count}} ďalších..."
+    },
+    "compress": {
+      "engineStopped": "Kompresný nástroj sa neočakávane zastavil.",
+      "notAValidPdf": "Tento súbor nie je platný PDF súbor.",
+      "unexpectedReply": "Neočakávaná odpoveď od kompresného nástroja.",
+      "unreadableResult": "Kompresný nástroj vrátil nečitateľný výsledok."
+    },
+    "libreofficeLoader": {
+      "loadingEngine": "Načítava sa konverzný nástroj...",
+      "loadingEnginePercent": "Načítava sa konverzný nástroj ({{percent}} %)...",
+      "engineReady": "Konverzný nástroj je pripravený!"
+    },
+    "sanitize": {
+      "flattenForms": "zlúčenie formulárových polí so stranou",
+      "removeJavascript": "odstránenie JavaScriptu",
+      "removeEmbeddedFiles": "odstránenie vložených súborov",
+      "removeLayers": "odstránenie vrstiev",
+      "removeLinks": "odstránenie odkazov",
+      "removeStructureTree": "odstránenie stromu štruktúry",
+      "removeMarkInfo": "odstránenie MarkInfo",
+      "removeFonts": "odstránenie písiem"
+    },
+    "tesseractLanguageAvailability": {
+      "onlyBundles": "Táto zostava BentoPDF obsahuje údaje OCR iba pre {{languages}}.",
+      "notAvailable": "Požadovaný jazyk OCR nie je k dispozícii: {{languages}}.",
+      "chooseBundled": "Vyberte jeden z dostupných jazykov alebo znova zostavte offline balík s chýbajúcim jazykom pridaným do --ocr-languages."
+    },
+    "compareContent": {
+      "annotationAdded": "Pridaná anotácia {{type}}",
+      "annotationAddedWithLabel": "Pridaná anotácia {{type}}: „{{label}}“",
+      "annotationRemoved": "Odstránená anotácia {{type}}",
+      "annotationRemovedWithLabel": "Odstránená anotácia {{type}}: „{{label}}“",
+      "backgroundChanged": "Zmenilo sa pozadie alebo rozloženie strany",
+      "imageAdded": "Pridaný obrázok ({{size}})",
+      "imageRemoved": "Odstránený obrázok ({{size}})",
+      "imageResized": "Veľkosť obrázka zmenená z {{before}} na {{after}}"
+    },
+    "tesseract": {
+      "fraktur": "{{name}} (fraktúra)",
+      "old": "{{name}} (stará)"
     }
   }
 }

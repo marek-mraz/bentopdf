@@ -137,7 +137,8 @@
       "noBookmarksFoundAtTheSelected": "Na zvolenej úrovni sa nenašli žiadne záložky.",
       "nMustBeAtLeast1": "N musí byť aspoň 1.",
       "noPagesWereSelectedForSplitting": "Na rozdelenie neboli vybrané žiadne strany.",
-      "thePdfHasPagesWhichIs": "PDF má {{totalPages}} strán, čo nie je deliteľné číslom {{nValue}}. Posledné PDF bude obsahovať strán: {{remainder}}."
+      "thePdfHasPagesWhichIs": "PDF má {{totalPages}} strán, čo nie je deliteľné číslom {{nValue}}. Posledné PDF bude obsahovať strán: {{remainder}}.",
+      "noPdfDocumentLoaded": "Nie je načítaný žiadny PDF dokument."
     }
   },
   "compressPdf": {
@@ -350,7 +351,16 @@
       "removingRedactedTextFrom": "Odstraňuje sa začiernený text z údajov dokumentu..."
     },
     "msg": {
-      "downloadEditedPdf": "Stiahnuť upravené PDF"
+      "downloadEditedPdf": "Stiahnuť upravené PDF",
+      "applyAndDownload": "Použiť a stiahnuť",
+      "applyRedactionsMessage_few": "Tento dokument obsahuje {{count}} značky začiernenia, ktoré ešte neboli použité. Kým značku nepoužijete, obsah pod ňou zostáva v súbore. Chcete použiť všetky značky a stiahnuť súbor?",
+      "applyRedactionsMessage_many": "Tento dokument obsahuje {{count}} značiek začiernenia, ktoré ešte neboli použité. Kým značku nepoužijete, obsah pod ňou zostáva v súbore. Chcete použiť všetky značky a stiahnuť súbor?",
+      "applyRedactionsMessage_one": "Tento dokument obsahuje 1 značku začiernenia, ktorá ešte nebola použitá. Kým značku nepoužijete, obsah pod ňou zostáva v súbore. Chcete použiť všetky značky a stiahnuť súbor?",
+      "applyRedactionsMessage_other": "Tento dokument obsahuje {{count}} značiek začiernenia, ktoré ešte neboli použité. Kým značku nepoužijete, obsah pod ňou zostáva v súbore. Chcete použiť všetky značky a stiahnuť súbor?",
+      "applyRedactionsTitle": "Použiť začiernenia?",
+      "downloadAnyway": "Napriek tomu stiahnuť",
+      "encryptedFileMessage": "Začiernenia sú použité na stranách, ale tento súbor je šifrovaný, takže BentoPDF nemôže odstrániť kópie začierneného textu z jeho vlastností, záložiek a príloh. Na úplné vyčistenie začiernite nešifrovanú kópiu a heslo pridajte až potom pomocou nástroja Zašifrovať PDF. Napriek tomu stiahnuť?",
+      "encryptedFileTitle": "Šifrovaný súbor"
     }
   },
   "editPdfText": {
@@ -510,7 +520,42 @@
       "addATextBox": "Pridať textové pole",
       "documentProperties": "Vlastnosti dokumentu",
       "wasmEngineFailedToInitialize": "Engine WASM sa nepodarilo inicializovať",
-      "edit": "Upraviť {{value}}"
+      "edit": "Upraviť {{value}}",
+      "action": "Akcia",
+      "advanced": "Rozšírené",
+      "alignObjects": "Zarovnanie objektov",
+      "application": "Aplikácia",
+      "character": "Znak",
+      "closePanel": "Zavrieť panel",
+      "conformance": "Súlad so štandardom",
+      "created": "Vytvorené",
+      "decreaseSize": "Zmenšiť veľkosť",
+      "description": "Popis",
+      "doneBackToTools": "Hotovo – späť na nástroje",
+      "editImages": "Upraviť obrázky",
+      "editScope": "Rozsah úprav",
+      "editShapes": "Upraviť tvary",
+      "editText": "Upraviť text",
+      "editTool": "Nástroj úprav",
+      "file": "Súbor",
+      "fileSize": "Veľkosť súboru",
+      "firstIndent": "Odsadenie prvého riadka",
+      "fitToPage": "Prispôsobiť strane",
+      "goToPage": "Prejsť na stranu",
+      "hScale": "Vodorovná mierka %",
+      "increaseSize": "Zväčšiť veľkosť",
+      "keywords": "Kľúčové slová",
+      "line": "Riadok",
+      "modified": "Upravené",
+      "more": "Viac",
+      "numberOfPages": "Počet strán",
+      "paragraph": "Odsek",
+      "pathStroke": "Obrys cesty",
+      "pdfProducer": "Tvorca PDF",
+      "selectFont": "Vyberte písmo",
+      "signatures": "Podpisy",
+      "toggleStyle": "Prepnúť štýl",
+      "word": "Slovo"
     }
   },
   "jpgToPdf": {
@@ -860,7 +905,8 @@
       "fileSummary_one": "{{count}} súbor • strán celkom: {{totalPages}}",
       "fileSummary_few": "{{count}} súbory • strán celkom: {{totalPages}}",
       "fileSummary_many": "{{count}} súboru • strán celkom: {{totalPages}}",
-      "fileSummary_other": "{{count}} súborov • strán celkom: {{totalPages}}"
+      "fileSummary_other": "{{count}} súborov • strán celkom: {{totalPages}}",
+      "previewLine": "Súbor {{file}}, strana {{page}}: {{text}}"
     }
   },
   "addWatermark": {
@@ -1169,7 +1215,67 @@
       "fieldNameExistsInForm": "Pole s názvom „{{name}}“ už v tomto formulári existuje. Použite jedinečný názov.",
       "okay": "OK",
       "signHere": "Podpíšte tu",
-      "invalidData": "Neplatné údaje"
+      "invalidData": "Neplatné údaje",
+      "action": "Akcia",
+      "alignCenter": "Na stred",
+      "alignLeft": "Vľavo",
+      "alignRight": "Vpravo",
+      "alignment": "Zarovnanie",
+      "barcodeFormat": "Formát čiarového kódu",
+      "barcodeHintAnyData": "Ľubovoľný text, URL alebo údaje",
+      "barcodeHintCode128": "Znaky ASCII (písmená, číslice, symboly)",
+      "barcodeHintCode39": "Veľké písmená A-Z, číslice 0-9 a - . $ / + % MEDZERA",
+      "barcodeHintDigits": "Presne {{min}} alebo {{max}} číslic",
+      "barcodeValue": "Hodnota čiarového kódu",
+      "borderColor": "Farba okraja",
+      "browserNote": "Poznámka k prehliadaču:",
+      "browserNoteText": "Firefox a Chrome môžu počas výberu zobraziť formát vlastného výberu dátumu. Správny formát sa použije po dokončení zadávania dátumu.",
+      "checkedState": "Začiarknuté",
+      "clickToUploadImage": "Kliknutím nahrajte obrázok",
+      "customFormat": "Vlastný formát",
+      "customFormatPlaceholder": "napr. {{example}}",
+      "dateFormat": "Formát dátumu",
+      "deleteField": "Odstrániť pole",
+      "descriptionForScreenReaders": "Popis pre čítačky obrazovky",
+      "divideIntoBoxes": "Rozdeliť do políčok (0 = vypnuté)",
+      "exampleOfCurrentFormat": "Ukážka aktuálneho formátu:",
+      "existingRadioGroups": "Existujúce skupiny prepínačov",
+      "exportValue": "Exportovaná hodnota",
+      "fieldName": "Názov poľa",
+      "groupNameParenthesized": "(názov skupiny)",
+      "groupNameSameForGroup": "Názov skupiny (rovnaký pre celú skupinu)",
+      "hide": "Skryť",
+      "hideBorder": "Skryť okraj",
+      "imageFieldNote": "Kliknutím na toto pole v PDF sa otvorí výber súboru na nahratie obrázka.",
+      "javascriptCode": "Kód JavaScript",
+      "label": "Popis",
+      "labelPrompt": "Popis / výzva",
+      "maxLengthUnlimited": "Maximálna dĺžka (0 = bez obmedzenia)",
+      "multiLine": "Viacriadkové",
+      "none": "Žiadna",
+      "openUrl": "Otvoriť URL",
+      "optionN": "Možnosť {{num}}",
+      "optionsOnePerLine": "Možnosti (jedna na riadok alebo oddelené čiarkou)",
+      "printForm": "Vytlačiť formulár",
+      "readOnly": "Iba na čítanie",
+      "required": "Povinné",
+      "resetForm": "Vynulovať formulár",
+      "runJavascript": "Spustiť JavaScript",
+      "selectAField": "Vyberte pole...",
+      "selectExistingGroup": "-- Vyberte existujúcu skupinu --",
+      "selectToAddToExistingGroup": "Výberom pridáte tento prepínač do existujúcej skupiny",
+      "selectedOption": "Vybraná možnosť",
+      "show": "Zobraziť",
+      "showHideField": "Zobraziť/skryť pole",
+      "signatureFieldsNote": "Podpisové polia sú podpisové polia AcroForm a zobrazia sa len v pokročilom prehliadači PDF.",
+      "targetField": "Cieľové pole",
+      "textColor": "Farba textu",
+      "toggle": "Prepnúť",
+      "tooltipHelpText": "Popis / pomocný text",
+      "transparentBackground": "Priehľadné pozadie",
+      "useFormFillerForOptions": "Na skutočné vyplnenie alebo zmenu možností použite nástroj Vypĺňanie PDF formulárov.",
+      "value": "Hodnota",
+      "visibility": "Viditeľnosť"
     }
   },
   "removeBlankPages": {
@@ -1195,7 +1301,8 @@
     "msg": {
       "foundBlankPageSClickOn": "Nájdené prázdne strany: {{count}}. Kliknutím na stranu zrušíte jej výber.",
       "removingBlankPageS": "Odstraňujú sa prázdne strany: {{count}}...",
-      "removedBlankPageSSuccessfully": "Úspešne odstránené prázdne strany: {{count}}!"
+      "removedBlankPageSSuccessfully": "Úspešne odstránené prázdne strany: {{count}}!",
+      "pageAlt": "Strana {{num}}"
     }
   },
   "imageToPdf": {
@@ -1217,6 +1324,9 @@
     "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov PNG.",
     "alert": {
       "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len obrázky PNG."
+    },
+    "msg": {
+      "couldNotLoadImage": "Súbor sa nepodarilo načítať ako obrázok. Môže byť poškodený."
     }
   },
   "webpToPdf": {
@@ -1224,6 +1334,9 @@
     "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov WebP.",
     "alert": {
       "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len obrázky WebP."
+    },
+    "msg": {
+      "couldNotLoadImage": "Zadaný súbor sa nepodarilo načítať ako obrázok. Môže byť poškodený."
     }
   },
   "svgToPdf": {
@@ -1513,7 +1626,11 @@
       "getYourCbzFileReadyFor": "Súbor .cbz pripravený pre akúkoľvek čítačku komiksov"
     },
     "msg": {
-      "pdfHasNoPages": "PDF nemá žiadne strany"
+      "pdfHasNoPages": "PDF nemá žiadne strany",
+      "yearRange": "Rok musí byť v rozsahu 1900 až 2100",
+      "ratingRange": "Hodnotenie musí byť v rozsahu 0 až 5",
+      "positiveNumber": "Musí to byť kladné číslo",
+      "positiveInteger": "Musí to byť kladné celé číslo"
     }
   },
   "pdfToGreyscale": {
@@ -1623,7 +1740,8 @@
       "mixPages": "Zmiešať strany"
     },
     "msg": {
-      "pdfFilesSelected": "Vybrané PDF súbory: {{count}}"
+      "pdfFilesSelected": "Vybrané PDF súbory: {{count}}",
+      "errorMixingPdfs": "Pri striedavom spájaní PDF súborov sa vyskytla chyba."
     }
   },
   "duplexCollate": {
@@ -1714,7 +1832,8 @@
       "extractionCompletedAttachmentSInZip": "Extrakcia dokončená! Prílohy v súbore ZIP: {{count}} ({{value}}). Sťahovanie sa začalo.",
       "pdfFileSSelected": "Vybrané PDF súbory: {{count}}",
       "extractingAttachmentsFromFileS": "Extrahujú sa prílohy zo súborov: {{count}}...",
-      "errorReadingFiles": "Chyba pri čítaní súborov: {{error}}"
+      "errorReadingFiles": "Chyba pri čítaní súborov: {{error}}",
+      "unknownWorkerError": "Vo worker procese sa vyskytla neznáma chyba."
     }
   },
   "editAttachments": {
@@ -1925,7 +2044,13 @@
       "noInteractiveFormFieldsFound": "- Nenašli sa žiadne interaktívne polia formulára -",
       "noParseableXmpPropertiesFound": "- Nenašli sa žiadne čitateľné vlastnosti XMP -",
       "errorParsingXmpXmlDisplayingRaw": "- Chyba pri čítaní XMP XML. Zobrazuje sa nespracované. -",
-      "noXmpMetadataFound": "- Nenašli sa žiadne metadáta XMP -"
+      "noXmpMetadataFound": "- Nenašli sa žiadne metadáta XMP -",
+      "altContainer": "(alternatívny kontajner)",
+      "emptyResource": "(Prázdny zdroj)",
+      "infoDictionary": "Informačný slovník",
+      "interactiveFormFields": "Interaktívne polia formulára",
+      "notSet": "- Nenastavené -",
+      "xmpMetadata": "Metadáta XMP"
     }
   },
   "editMetadata": {
@@ -2040,7 +2165,23 @@
     },
     "msg": {
       "indexingPdf1PageOf": "Indexuje sa PDF 1, strana {{pageNumber}} z {{totalPages}}...",
-      "indexingPdf2PageOf": "Indexuje sa PDF 2, strana {{pageNumber}} z {{totalPages}}..."
+      "indexingPdf2PageOf": "Indexuje sa PDF 2, strana {{pageNumber}} z {{totalPages}}...",
+      "replacedText": "„{{before}}“ nahradené textom „{{after}}“",
+      "removedText": "Odstránené „{{text}}“",
+      "addedText": "Pridané „{{text}}“",
+      "movedText": "Presunuté „{{text}}“",
+      "styleChanged_one": "Zmenený štýl ({{count}} oblasť)",
+      "styleChanged_few": "Zmenený štýl ({{count}} oblasti)",
+      "styleChanged_many": "Zmenený štýl ({{count}} oblasti)",
+      "styleChanged_other": "Zmenený štýl ({{count}} oblastí)",
+      "fontChange": "Písmo: {{before}} → {{after}}",
+      "fontSizeChange": "Veľkosť písma: {{before}} → {{after}}",
+      "pageOnlyInFirst": "Strana {{page}} existuje iba v prvom PDF.",
+      "pageOnlyInSecond": "Strana {{page}} existuje iba v druhom PDF.",
+      "modifiedLabel": "Upravené",
+      "styleChangedLabel": "Zmenený štýl",
+      "pageAdded": "Pridaná strana",
+      "pageRemoved": "Odstránená strana"
     }
   },
   "posterizePdf": {
@@ -2125,7 +2266,15 @@
       "optimizing": "Optimalizuje sa {{name}} ({{value}}/{{count}})...",
       "processingFailedFor": "Spracovanie {{name}} zlyhalo.",
       "noPdfFilesCouldBeLinearized": "Žiadne PDF sa nepodarilo linearizovať.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}."
+      "anErrorOccurred": "Vyskytla sa chyba: {{value}}.",
+      "filesFailed_few": "{{count}} súbory zlyhali.",
+      "filesFailed_many": "{{count}} súborov zlyhalo.",
+      "filesFailed_one": "{{count}} súbor zlyhal.",
+      "filesFailed_other": "{{count}} súborov zlyhalo.",
+      "linearizedSuccessfully_few": "{{count}} PDF súbory boli úspešne linearizované.",
+      "linearizedSuccessfully_many": "{{count}} PDF súborov bolo úspešne linearizovaných.",
+      "linearizedSuccessfully_one": "{{count}} PDF súbor bol úspešne linearizovaný.",
+      "linearizedSuccessfully_other": "{{count}} PDF súborov bolo úspešne linearizovaných."
     }
   },
   "pageDimensions": {
@@ -2144,6 +2293,21 @@
       "aspectRatio": "Pomer strán",
       "area": "Plocha",
       "rotation": "Otočenie"
+    },
+    "msg": {
+      "differentDimensions": "Tento dokument obsahuje strany s rôznymi rozmermi:",
+      "documentType": "Typ dokumentu",
+      "heightUnit": "Výška ({{unit}})",
+      "mixedPageSizesDetected": "Zistené rôzne veľkosti strán",
+      "mixedSizes": "Rôzne veľkosti",
+      "pageCount_few": "{{count}} strany",
+      "pageCount_many": "{{count}} strany",
+      "pageCount_one": "{{count}} strana",
+      "pageCount_other": "{{count}} strán",
+      "totalPages": "Počet strán",
+      "uniform": "Jednotná",
+      "uniquePageSizes": "Rôzne veľkosti strán",
+      "widthUnit": "Šírka ({{unit}})"
     }
   },
   "removeRestrictions": {
@@ -2245,7 +2409,8 @@
       "flatteningPdf": "PDF sa zlučuje do jednej vrstvy...",
       "flatteningMultiplePdfs": "Viac PDF sa zlučuje do jednej vrstvy...",
       "flattening": "Zlučuje sa {{value}}/{{count}}: {{name}}...",
-      "processedPdfs": "Spracované PDF: {{processedCount}}."
+      "processedPdfs": "Spracované PDF: {{processedCount}}.",
+      "unexpectedError": "Vyskytla sa neočakávaná chyba."
     }
   },
   "removeMetadata": {
@@ -2303,7 +2468,9 @@
       "preparingDownload": "Pripravuje sa stiahnutie...",
       "processingResultedInAnEmptyFile": "Výsledkom spracovania je prázdny súbor.",
       "anErrorOccurred": "Vyskytla sa chyba: {{value}}",
-      "processingFailed": "Spracovanie zlyhalo: {{error}}"
+      "processingFailed": "Spracovanie zlyhalo: {{error}}",
+      "decryptedSuccessfully": "PDF bolo úspešne dešifrované! Všetko šifrovanie a obmedzenia boli odstránené.",
+      "permissionsChanged": "Oprávnenia PDF boli úspešne zmenené!"
     }
   },
   "odtToPdf": {
@@ -2505,7 +2672,11 @@
     },
     "msg": {
       "bookletCreatedWithSheets": "Brožúra bola vytvorená, počet hárkov: {{numSheets}}!",
-      "generatingPreview": "Vytvára sa náhľad..."
+      "generatingPreview": "Vytvára sa náhľad...",
+      "blank": "(prázdna)",
+      "sheet": "List {{number}}",
+      "sheetBack": "List {{number}} – zadná strana",
+      "sheetFront": "List {{number}} – predná strana"
     }
   },
   "xpsToPdf": {
@@ -2578,7 +2749,9 @@
       "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
       "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
       "successfullyConvertedFileSToPdf": "Do PDF boli úspešne skonvertované súbory {{TOOL_NAME}}: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
+      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}",
+      "failedToConvertToPng": "Súbor {{name}} sa nepodarilo previesť do PNG",
+      "failedToLoadImage": "Nepodarilo sa načítať obrázok: {{name}}"
     }
   },
   "wpdToPdf": {
@@ -2783,7 +2956,9 @@
     "msg": {
       "scanningPageOf": "Prehľadáva sa strana {{value}} z {{pageCount}}...",
       "extractedTableSToExcel": "Tabuľky extrahované do Excelu: {{count}}!",
-      "failedToConvertPdfToExcel": "PDF sa nepodarilo skonvertovať do Excelu. {{error}}"
+      "failedToConvertPdfToExcel": "PDF sa nepodarilo skonvertovať do Excelu. {{error}}",
+      "sheetTable": "Tabuľka",
+      "sheetTableOnPage": "Tabuľka {{number}} (strana {{page}})"
     }
   },
   "pdfToText": {
@@ -2902,7 +3077,8 @@
       "noCertificateFoundInPemFile": "V súbore PEM sa nenašiel žiadny certifikát",
       "noPrivateKeyFoundInPem": "V súbore PEM sa nenašiel žiadny súkromný kľúč",
       "invalidTsaUrlTheTimestampAuthority": "Neplatná URL TSA. Autorita časových pečiatok musí mať platnú URL http:// alebo https://.",
-      "thisTsaEndpointUsesHttpThe": "Tento server TSA používa HTTP ({{tsaUrl}}). Prehliadač blokuje nezabezpečené požiadavky z tejto stránky HTTPS. Zvoľte TSA s adresou HTTPS alebo pri builde nastavte VITE_CORS_PROXY_URL, aby sa požiadavka preposlala cez vašu proxy."
+      "thisTsaEndpointUsesHttpThe": "Tento server TSA používa HTTP ({{tsaUrl}}). Prehliadač blokuje nezabezpečené požiadavky z tejto stránky HTTPS. Zvoľte TSA s adresou HTTPS alebo pri builde nastavte VITE_CORS_PROXY_URL, aby sa požiadavka preposlala cez vašu proxy.",
+      "unknown": "Neznámy"
     }
   },
   "validateSignaturePdf": {
@@ -2941,7 +3117,33 @@
       "signatureAlgorithm": "Podpisový algoritmus:",
       "fullCoverage": "Pokrýva celý dokument",
       "partialCoverage": "Pokrýva časť dokumentu",
-      "signedOn": "Podpísané dňa"
+      "signedOn": "Podpísané dňa",
+      "certificateExpired": "Platnosť certifikátu vypršala",
+      "cryptoVerificationFailed": "Kryptografické overenie zlyhalo",
+      "failedToParseSignature": "Podpis sa nepodarilo spracovať",
+      "insecureDigest": "Nezabezpečený odtlačok (MD5 / SHA-1)",
+      "intactNotVerified": "Podpis je neporušený — totožnosť podpisovateľa nie je overená",
+      "invalidCryptoFailed": "Neplatný — kryptografické overenie zlyhalo",
+      "invalidSignature": "Neplatný podpis",
+      "modifiedAfterSigning": "Zmenený po podpísaní (podpísaná časť je neporušená)",
+      "noCertificatesFound": "V podpise sa nenašli žiadne certifikáty",
+      "notInTrustChain": "Nie je v reťazci dôvery",
+      "selfSignedNotVerified": "Podpísaný sám sebou — totožnosť podpisovateľa nie je overená",
+      "signatureN": "Podpis {{num}}",
+      "signaturesFound_few": "podpisy nájdené",
+      "signaturesFound_many": "podpisu nájdeného",
+      "signaturesFound_one": "podpis nájdený",
+      "signaturesFound_other": "podpisov nájdených",
+      "trustVerification": "Overenie dôvery: {{verified}}/{{total}} podpisov overených voči vlastnému certifikátu",
+      "trusted": "Dôveryhodný",
+      "trustedCertificateLoaded": "Dôveryhodný certifikát je načítaný",
+      "unknown": "Neznáme",
+      "unverifiedUnsupportedAlgorithm": "Neoverený — nepodporovaný podpisový algoritmus",
+      "validCount_few": "{{count}} platné",
+      "validCount_many": "{{count}} platného",
+      "validCount_one": "{{count}} platný",
+      "validCount_other": "{{count}} platných",
+      "validSignature": "Platný podpis"
     }
   },
   "timestampPdf": {
@@ -3000,7 +3202,16 @@
       "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
       "successfullyConvertedFileSToPdf": "Do PDF boli úspešne skonvertované súbory {{TOOL_NAME}}: {{count}}.",
       "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}",
-      "unsupportedFileType": "Nepodporovaný typ súboru: .{{ext}}"
+      "unsupportedFileType": "Nepodporovaný typ súboru: .{{ext}}",
+      "toolName": "e-mail",
+      "unknownSender": "Neznámy odosielateľ",
+      "noSubject": "(Bez predmetu)",
+      "unknownDate": "Neznámy dátum",
+      "unknownRecipient": "Neznámy",
+      "fromLabel": "Od:",
+      "toLabel": "Komu:",
+      "dateLabel": "Dátum:",
+      "attachmentsHeading": "Prílohy ({{count}})"
     }
   },
   "fontToOutline": {
@@ -3022,7 +3233,8 @@
       "convertingFontsToOutlines": "Písma sa prevádzajú na krivky...",
       "processingMultiplePdfs": "Spracúva sa viac PDF...",
       "processing": "Spracúva sa {{value}}/{{count}}: {{name}}...",
-      "processedPdfs": "Spracované PDF: {{processedCount}}."
+      "processedPdfs": "Spracované PDF: {{processedCount}}.",
+      "unexpectedError": "Vyskytla sa neočakávaná chyba."
     }
   },
   "deskewPdf": {
@@ -3177,7 +3389,13 @@
       "failedToAddLayer": "Vrstvu sa nepodarilo pridať: {{value}}",
       "failedToSavePdf": "PDF sa nepodarilo uložiť: {{value}}",
       "thisPdfHasNoLayersOcg": "Toto PDF nemá žiadne vrstvy (OCG).",
-      "addANewLayerToGet": "Začnite pridaním novej vrstvy!"
+      "addANewLayerToGet": "Začnite pridaním novej vrstvy!",
+      "addChildLayer": "Pridať podradenú vrstvu",
+      "enterChildLayerName": "Zadajte názov podradenej vrstvy pod vrstvou „{{parent}}“:",
+      "layer": "Vrstva",
+      "layerNumber": "Vrstva {{number}}",
+      "addChildLayerTitle": "Pridať podradenú vrstvu",
+      "deleteLayerTitle": "Odstrániť vrstvu"
     }
   },
   "pdfToPdfa": {
@@ -3790,7 +4008,15 @@
       "preparingDownload": "Pripravuje sa stiahnutie...",
       "decrypting": "Dešifruje sa {{name}} ({{value}}/{{count}})...",
       "noPdfFilesCouldBeDecrypted": "Žiadne PDF sa nepodarilo dešifrovať. Heslo môže byť nesprávne.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}"
+      "anErrorOccurred": "Vyskytla sa chyba: {{value}}",
+      "decryptedSuccessfully_few": "{{count}} PDF súbory boli úspešne dešifrované.",
+      "decryptedSuccessfully_many": "{{count}} PDF súborov bolo úspešne dešifrovaných.",
+      "decryptedSuccessfully_one": "{{count}} PDF súbor bol úspešne dešifrovaný.",
+      "decryptedSuccessfully_other": "{{count}} PDF súborov bolo úspešne dešifrovaných.",
+      "filesFailed_few": "{{count}} súbory zlyhali.",
+      "filesFailed_many": "{{count}} súborov zlyhalo.",
+      "filesFailed_one": "{{count}} súbor zlyhal.",
+      "filesFailed_other": "{{count}} súborov zlyhalo."
     }
   },
   "protectPdf": {
@@ -3822,7 +4048,9 @@
       "encryptionFailed": "Šifrovanie zlyhalo: {{value}}",
       "preparingDownload": "Pripravuje sa stiahnutie...",
       "encryptionResultedInAnEmptyFile": "Výsledkom šifrovania je prázdny súbor.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}"
+      "anErrorOccurred": "Vyskytla sa chyba: {{value}}",
+      "encryptedSuccessfully": "PDF bolo úspešne zašifrované pomocou 256-bitového AES!",
+      "noOwnerPasswordNote": "Poznámka: Bez samostatného hesla vlastníka nemá PDF žiadne obmedzenia používania."
     }
   },
   "cropper": {

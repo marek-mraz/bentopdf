@@ -13,16 +13,12 @@ import {
   isValidImageFile,
   preprocessImageFile,
 } from '@/js/utils/image-input-utils.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 let files: File[] = [];
 let pymupdf: PyMuPDFInstance | null = null;
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

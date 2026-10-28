@@ -46,6 +46,9 @@
     "ui": {
       "pagesRangeTotal": "Pages (ex. : 1-3, 5) - Total : {{count}}",
       "leaveBlankAllPages": "Laisser vide pour toutes les pages"
+    },
+    "msg": {
+      "page": "Page {{pageNumber}}"
     }
   },
   "splitPdf": {

@@ -13,7 +13,7 @@ import {
   loadPdfDocument,
   removeUnreferencedObjects,
 } from '../utils/load-pdf-document.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: FlattenPdfState = {
   files: [],
@@ -213,12 +213,14 @@ async function flattenPdf() {
     console.error(e);
     if (loaderModal) loaderModal.classList.add('hidden');
     const errorMessage =
-      e instanceof Error ? e.message : 'An unexpected error occurred.';
+      e instanceof Error
+        ? e.message
+        : t('tools:flattenPdf.msg.unexpectedError');
     showAlert(t('common.error'), errorMessage);
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

@@ -9,7 +9,7 @@ import {
   type PageNumberFormat,
 } from '../utils/pdf-operations.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 interface PageState {
   file: File | null;
@@ -21,11 +21,7 @@ const pageState: PageState = {
   pdfDoc: null,
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

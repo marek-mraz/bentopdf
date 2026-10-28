@@ -3,7 +3,7 @@ import { formatBytes, formatIsoDate } from '../utils/helpers.js';
 import { createIcons, icons } from 'lucide';
 import { ViewMetadataState } from '@/types';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: ViewMetadataState = {
   file: null,
@@ -129,7 +129,7 @@ function appendXmpNodes(
       continue;
     }
     if (key === 'rdf:Alt') {
-      key = '(alt container)';
+      key = t('tools:viewMetadata.msg.altContainer');
     }
 
     if (
@@ -137,7 +137,11 @@ function appendXmpNodes(
       elementChildren.length === 0
     ) {
       ulElement.appendChild(
-        createXmpListItem(key, '(Empty Resource)', indentLevel)
+        createXmpListItem(
+          key,
+          t('tools:viewMetadata.msg.emptyResource'),
+          indentLevel
+        )
       );
       continue;
     }
@@ -180,14 +184,16 @@ async function displayMetadata() {
     const rawXmpString = metadata ? metadata.getRaw() : null;
 
     // Info Dictionary Section
-    const infoSection = createSection('Info Dictionary');
+    const infoSection = createSection(
+      t('tools:viewMetadata.msg.infoDictionary')
+    );
     if (info && Object.keys(info).length > 0) {
       for (const key in info) {
         const value = (info as Record<string, unknown>)[key];
         let displayValue: string;
 
         if (value === null || typeof value === 'undefined') {
-          displayValue = '- Not Set -';
+          displayValue = t('tools:viewMetadata.msg.notSet');
         } else if (
           typeof value === 'object' &&
           value !== null &&
@@ -218,13 +224,15 @@ async function displayMetadata() {
     metadataDisplay.appendChild(infoSection.wrapper);
 
     // Interactive Form Fields Section
-    const fieldsSection = createSection('Interactive Form Fields');
+    const fieldsSection = createSection(
+      t('tools:viewMetadata.msg.interactiveFormFields')
+    );
     if (fieldObjects && Object.keys(fieldObjects).length > 0) {
       for (const fieldName in fieldObjects) {
         const field = (
           fieldObjects as Record<string, Array<{ fieldValue?: unknown }>>
         )[fieldName][0];
-        const value = field.fieldValue || '- Not Set -';
+        const value = field.fieldValue || t('tools:viewMetadata.msg.notSet');
         fieldsSection.ul.appendChild(createListItem(fieldName, String(value)));
       }
     } else {
@@ -233,7 +241,7 @@ async function displayMetadata() {
     metadataDisplay.appendChild(fieldsSection.wrapper);
 
     // XMP Metadata Section
-    const xmpSection = createSection('XMP Metadata');
+    const xmpSection = createSection(t('tools:viewMetadata.msg.xmpMetadata'));
     if (rawXmpString) {
       try {
         const parser = new DOMParser();
@@ -351,7 +359,7 @@ function handleFileSelect(files: FileList | null) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const copyBtn = document.getElementById('copy-metadata');

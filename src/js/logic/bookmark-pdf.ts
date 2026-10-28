@@ -33,7 +33,7 @@ import {
   PDF_COLOR_MAP,
 } from '@/types';
 
-import { t } from '../i18n/i18n.js';
+import { t, onPageReady } from '../i18n/i18n.js';
 
 const modalContainer = document.getElementById(
   'modal-container'
@@ -264,21 +264,21 @@ placeholder="${escapeHTML(field.placeholder || '')}" />
         <div class="flex items-center gap-2">
           <label class="flex items-center gap-1 text-xs">
             <input type="checkbox" id="modal-use-destination" class="w-4 h-4" ${hasDestination ? 'checked' : ''}>
-              <span class="text-gray-700">Set custom destination</span>
+              <span class="text-gray-700">${t('msg.bookmarkPdf.setCustomDestination')}</span>
                 </label>
                 </div>
                 <div id="destination-controls" class="${hasDestination ? '' : 'hidden'} space-y-2">
                   <div class="grid grid-cols-2 gap-2">
                     <div>
-                    <label class="text-xs text-gray-600">Page</label>
+                    <label class="text-xs text-gray-600">${t('common.page')}</label>
                       <input type="number" id="modal-dest-page" min="1" max="${escapeHTML(String(field.maxPages || 1))}" value="${escapeHTML(String(defaultValues.destPage || field.page || 1))}"
 class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900" step="1" />
   </div>
   <div>
-  <label class="text-xs text-gray-600">Zoom(%)</label>
+  <label class="text-xs text-gray-600">${t('msg.bookmarkPdf.zoomPercent')}</label>
     <select id="modal-dest-zoom" class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900">
-      <option value="">Inherit</option>
-        <option value="0">Fit Page</option>
+      <option value="">${t('msg.bookmarkPdf.inherit')}</option>
+        <option value="0">${t('msg.bookmarkPdf.fitPage')}</option>
           <option value="50">50%</option>
             <option value="75">75%</option>
               <option value="100">100%</option>
@@ -290,20 +290,20 @@ class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900" st
                       </div>
                       <div class="grid grid-cols-2 gap-2">
                         <div>
-                        <label class="text-xs text-gray-600">X Position</label>
+                        <label class="text-xs text-gray-600">${t('msg.bookmarkPdf.xPosition')}</label>
                           <input type="number" id="modal-dest-x" value="0" step="10"
 class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900" />
   </div>
   <div>
-  <label class="text-xs text-gray-600">Y Position</label>
+  <label class="text-xs text-gray-600">${t('msg.bookmarkPdf.yPosition')}</label>
     <input type="number" id="modal-dest-y" value="0" step="10"
 class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900" />
   </div>
   </div>
   <button id="modal-pick-destination" class="w-full px-3 py-2 btn-gradient text-white rounded text-xs !flex items-center justify-center gap-1">
-    <i data-lucide="crosshair" class="w-3 h-3"></i> Click on PDF to Pick Location
+    <i data-lucide="crosshair" class="w-3 h-3"></i> ${t('msg.bookmarkPdf.clickOnPdfToPickLocation')}
       </button>
-      <p class="text-xs text-gray-500 italic">Click the button above, then click on the PDF where you want the bookmark to jump to</p>
+      <p class="text-xs text-gray-500 italic">${t('msg.bookmarkPdf.clickButtonThenPdf')}</p>
         </div>
         </div>
         </div>
@@ -313,7 +313,7 @@ class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900" />
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700 mb-2">${escapeHTML(field.label)}</label>
             <div id="modal-preview" class="style-preview bg-gray-50">
-              <span id="preview-text" style="font-size: 16px;">Preview Text</span>
+              <span id="preview-text" style="font-size: 16px;">${t('msg.bookmarkPdf.previewText')}</span>
                 </div>
                 </div>
                   `;
@@ -356,7 +356,9 @@ class="w-full px-2 py-1 border border-gray-300 rounded text-sm text-gray-900" />
           '#modal-color-picker'
         ) as HTMLInputElement | null;
 
-        const titleVal = titleInputEl ? titleInputEl.value : 'Preview Text';
+        const titleVal = titleInputEl
+          ? titleInputEl.value
+          : t('msg.bookmarkPdf.previewText');
         const color = colorSelectEl ? colorSelectEl.value : '';
         const style = styleSelectEl ? styleSelectEl.value : '';
 
@@ -697,7 +699,7 @@ function cancelDestinationPicking(): void {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   initializeGlobalShortcuts();
 
   const canvasEl = document.getElementById(
@@ -1712,7 +1714,7 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
 
   titleDiv.innerHTML = `
                 <span class="text-sm block ${styleClass} ${textColorClass}" ${customColorStyle}>${escapeHTML(node.title)}${destinationIcon}</span>
-                <span class="text-xs text-gray-500">Page ${escapeHTML(String(node.page))}</span>
+                <span class="text-xs text-gray-500">${escapeHTML(t('msg.bookmarkPdf.pageN', { num: node.page }))}</span>
             `;
 
   titleDiv.addEventListener('click', async () => {
@@ -1751,12 +1753,12 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
   addChildBtn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i>';
   addChildBtn.addEventListener('click', async (e: MouseEvent) => {
     e.stopPropagation();
-    const result = await showInputModal('Add Child Bookmark', [
+    const result = await showInputModal(t('msg.bookmarkPdf.addChildBookmark'), [
       {
         type: 'text',
         name: 'title',
-        label: 'Title',
-        placeholder: 'Enter bookmark title',
+        label: t('msg.bookmarkPdf.title'),
+        placeholder: t('msg.bookmarkPdf.enterBookmarkTitle'),
       },
     ]);
     if (result && result.title) {
@@ -1785,47 +1787,50 @@ function createNodeElement(node: BookmarkNode, level = 0): HTMLLIElement {
   editBtn.addEventListener('click', async (e: MouseEvent) => {
     e.stopPropagation();
     const result = await showInputModal(
-      'Edit Bookmark',
+      t('msg.bookmarkPdf.editBookmark'),
       [
         {
           type: 'text',
           name: 'title',
-          label: 'Title',
-          placeholder: 'Enter bookmark title',
+          label: t('msg.bookmarkPdf.title'),
+          placeholder: t('msg.bookmarkPdf.enterBookmarkTitle'),
         },
         {
           type: 'select',
           name: 'color',
-          label: 'Color',
+          label: t('toolPage.color'),
           options: [
-            { value: '', label: 'None' },
-            { value: 'red', label: 'Red' },
-            { value: 'blue', label: 'Blue' },
-            { value: 'green', label: 'Green' },
-            { value: 'yellow', label: 'Yellow' },
-            { value: 'purple', label: 'Purple' },
-            { value: 'custom', label: 'Custom...' },
+            { value: '', label: t('tools:editBookmarks.ui.none') },
+            { value: 'red', label: t('tools:editBookmarks.ui.red') },
+            { value: 'blue', label: t('tools:editBookmarks.ui.blue') },
+            { value: 'green', label: t('tools:editBookmarks.ui.green') },
+            { value: 'yellow', label: t('tools:editBookmarks.ui.yellow') },
+            { value: 'purple', label: t('tools:editBookmarks.ui.purple') },
+            { value: 'custom', label: t('msg.bookmarkPdf.custom') },
           ],
         },
         {
           type: 'select',
           name: 'style',
-          label: 'Style',
+          label: t('msg.bookmarkPdf.style'),
           options: [
-            { value: '', label: 'Normal' },
-            { value: 'bold', label: 'Bold' },
-            { value: 'italic', label: 'Italic' },
-            { value: 'bold-italic', label: 'Bold & Italic' },
+            { value: '', label: t('tools:editBookmarks.ui.normal') },
+            { value: 'bold', label: t('tools:editBookmarks.ui.bold') },
+            { value: 'italic', label: t('tools:editBookmarks.ui.italic') },
+            {
+              value: 'bold-italic',
+              label: t('tools:editBookmarks.ui.boldItalic'),
+            },
           ],
         },
         {
           type: 'destination',
           name: 'destination',
-          label: 'Destination',
+          label: t('msg.bookmarkPdf.destination'),
           page: node.page,
           maxPages: pdfJsDoc ? pdfJsDoc.numPages : 1,
         },
-        { type: 'preview', label: 'Preview' },
+        { type: 'preview', label: t('msg.bookmarkPdf.preview') },
       ],
       {
         title: node.title,

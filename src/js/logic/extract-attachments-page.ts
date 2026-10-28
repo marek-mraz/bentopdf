@@ -8,7 +8,7 @@ import {
   WasmProvider,
 } from '../utils/wasm-provider.js';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const worker = new Worker(
   import.meta.env.BASE_URL + 'workers/extract-attachments.worker.js'
@@ -131,7 +131,8 @@ worker.onmessage = function (e) {
       resetState();
     });
   } else if (e.data.status === 'error') {
-    const errorMessage = e.data.message || 'Unknown error occurred in worker.';
+    const errorMessage =
+      e.data.message || t('tools:extractAttachments.msg.unknownWorkerError');
     console.error('Worker Error:', errorMessage);
 
     if (errorMessage.includes('No attachments were found')) {
@@ -300,7 +301,7 @@ function handleFileSelect(files: FileList | null) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

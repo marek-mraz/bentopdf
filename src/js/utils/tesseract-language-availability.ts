@@ -1,4 +1,8 @@
-import { tesseractLanguages } from '../config/tesseract-languages.js';
+import {
+  tesseractLanguageName,
+  tesseractLanguages,
+} from '../config/tesseract-languages.js';
+import { t } from '../i18n/i18n.js';
 
 export const TESSERACT_AVAILABLE_LANGUAGES_ENV_KEY =
   'VITE_TESSERACT_AVAILABLE_LANGUAGES' as const;
@@ -31,8 +35,9 @@ function normalizeLanguageCodes(value: string | string[]): string[] {
 }
 
 function formatLanguageLabel(code: string): string {
-  const label = tesseractLanguages[code as TesseractLanguageCode];
-  return label ? `${label} (${code})` : code;
+  return Object.hasOwn(tesseractLanguages, code)
+    ? `${tesseractLanguageName(code as TesseractLanguageCode)} (${code})`
+    : code;
 }
 
 export function resolveConfiguredTesseractAvailableLanguages(
@@ -50,9 +55,12 @@ export function getAvailableTesseractLanguageEntries(
   env: TesseractAvailabilityEnv = getDefaultEnv()
 ): Array<[TesseractLanguageCode, string]> {
   const configuredLanguages = resolveConfiguredTesseractAvailableLanguages(env);
-  const allEntries = Object.entries(tesseractLanguages) as Array<
-    [TesseractLanguageCode, string]
-  >;
+  const allEntries = (
+    Object.keys(tesseractLanguages) as TesseractLanguageCode[]
+  ).map((code): [TesseractLanguageCode, string] => [
+    code,
+    tesseractLanguageName(code),
+  ]);
 
   if (!configuredLanguages) {
     return allEntries;
@@ -89,9 +97,13 @@ function buildUnsupportedLanguageMessage(
   const availableText = formatTesseractLanguageList(availableLanguages);
 
   return [
-    `This BentoPDF build only bundles OCR data for ${availableText}.`,
-    `The requested OCR language is not available: ${unavailableText}.`,
-    'Choose one of the bundled languages or rebuild the air-gapped bundle with the missing language added to --ocr-languages.',
+    t('msg.tesseractLanguageAvailability.onlyBundles', {
+      languages: availableText,
+    }),
+    t('msg.tesseractLanguageAvailability.notAvailable', {
+      languages: unavailableText,
+    }),
+    t('msg.tesseractLanguageAvailability.chooseBundled'),
   ].join(' ');
 }
 

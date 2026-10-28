@@ -6,7 +6,7 @@ import {
   downloadFile,
 } from '../utils/helpers.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import {
   loadPdfDocument,
   removeUnreferencedObjects,
@@ -25,11 +25,7 @@ const signState: SignState = {
   blobUrl: null,
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

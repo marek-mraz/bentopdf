@@ -5,7 +5,7 @@ import { createIcons, icons } from 'lucide';
 import { downloadFile } from '../utils/helpers';
 import { isWasmAvailable } from '../config/wasm-cdn-config.js';
 import { showWasmRequiredDialog } from '../utils/wasm-provider.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 interface DeskewResult {
   totalPages: number;
@@ -292,4 +292,4 @@ function initPage(): void {
   createIcons({ icons });
 }
 
-document.addEventListener('DOMContentLoaded', initPage);
+onPageReady(initPage);

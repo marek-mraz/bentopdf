@@ -7,7 +7,7 @@ import {
 } from '../utils/helpers.js';
 import { icons, createIcons } from 'lucide';
 import { RemoveRestrictionsState, QpdfInstanceExtended } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: RemoveRestrictionsState = {
   file: null,
@@ -148,7 +148,7 @@ async function removeRestrictions() {
 
       throw new Error(
         t('tools:removeRestrictions.msg.failedToRemoveRestrictions', {
-          value: qpdfMsg || 'Unknown error',
+          value: qpdfMsg || t('common.unknownError'),
         }),
         { cause: qpdfError }
       );
@@ -213,7 +213,7 @@ async function removeRestrictions() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

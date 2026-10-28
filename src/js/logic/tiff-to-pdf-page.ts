@@ -8,7 +8,7 @@ import { createIcons, icons } from 'lucide';
 import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import { decode } from 'tiff';
 import { tiffIfdToRgba } from '../utils/tiff-utils.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 let files: File[] = [];
 
@@ -168,7 +168,7 @@ async function convert() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const addMoreBtn = document.getElementById('add-more-btn');

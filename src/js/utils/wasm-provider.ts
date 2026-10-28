@@ -153,7 +153,7 @@ class WasmProviderManager {
     const normalizedUrl = withTrailingSlash(url);
     const host = hostnameOf(normalizedUrl);
     if (!host) {
-      throw new Error('Invalid URL');
+      throw new Error(t('msg.wasmProvider.invalidUrl'));
     }
     const envDefault = this.getEnvDefault(packageName);
     if (envDefault && normalizedUrl === withTrailingSlash(envDefault)) {
@@ -197,7 +197,7 @@ class WasmProviderManager {
   ): Promise<{ valid: boolean; error?: string }> {
     const testUrl = url || this.config[packageName];
     if (!testUrl) {
-      return { valid: false, error: 'No URL configured' };
+      return { valid: false, error: t('msg.wasmProvider.noUrlConfigured') };
     }
 
     try {
@@ -205,14 +205,13 @@ class WasmProviderManager {
       if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
         return {
           valid: false,
-          error: 'URL must start with http:// or https://',
+          error: t('msg.wasmProvider.urlMustStartWithHttp'),
         };
       }
     } catch {
       return {
         valid: false,
-        error:
-          'Invalid URL format. Please enter a valid URL (e.g., https://example.com/wasm/)',
+        error: t('msg.wasmProvider.invalidUrlFormat'),
       };
     }
 
@@ -242,7 +241,10 @@ class WasmProviderManager {
       if (!response.ok) {
         return {
           valid: false,
-          error: `Could not find ${testFile} at the specified URL (HTTP ${response.status}). Make sure the file exists.`,
+          error: t('msg.wasmProvider.fileNotFound', {
+            file: testFile,
+            status: response.status,
+          }),
         };
       }
 
@@ -254,7 +256,7 @@ class WasmProviderManager {
         } catch {
           return {
             valid: false,
-            error: `File exists but could not be read. Check CORS configuration.`,
+            error: t('msg.wasmProvider.fileNotReadable'),
           };
         }
       }
@@ -268,7 +270,9 @@ class WasmProviderManager {
       ) {
         return {
           valid: false,
-          error: `The URL returned unexpected content type: ${contentType}. Expected a JavaScript file.`,
+          error: t('msg.wasmProvider.unexpectedContentType', {
+            contentType,
+          }),
         };
       }
 
@@ -278,7 +282,8 @@ class WasmProviderManager {
 
       return { valid: true };
     } catch (e: unknown) {
-      const errorMessage = e instanceof Error ? e.message : 'Unknown error';
+      const errorMessage =
+        e instanceof Error ? e.message : t('common.unknownError');
 
       if (
         errorMessage.includes('Failed to fetch') ||
@@ -286,14 +291,13 @@ class WasmProviderManager {
       ) {
         return {
           valid: false,
-          error:
-            'Network error: Could not connect to the URL. Check that the URL is correct and the server allows CORS requests.',
+          error: t('msg.wasmProvider.networkErrorConnect'),
         };
       }
 
       return {
         valid: false,
-        error: `Network error: ${errorMessage}`,
+        error: t('msg.wasmProvider.networkError', { message: errorMessage }),
       };
     }
   }
@@ -323,9 +327,9 @@ class WasmProviderManager {
 
   getPackageDisplayName(packageName: WasmPackage): string {
     const names: Record<WasmPackage, string> = {
-      pymupdf: 'PyMuPDF (Document Processing)',
-      ghostscript: 'Ghostscript (PDF/A Conversion)',
-      cpdf: 'CoherentPDF (Bookmarks & Metadata)',
+      pymupdf: t('msg.wasmProvider.pymupdfName'),
+      ghostscript: t('msg.wasmProvider.ghostscriptName'),
+      cpdf: t('msg.wasmProvider.cpdfName'),
     };
     return names[packageName];
   }
@@ -333,29 +337,32 @@ class WasmProviderManager {
   getPackageFeatures(packageName: WasmPackage): string[] {
     const features: Record<WasmPackage, string[]> = {
       pymupdf: [
-        'PDF to Text',
-        'PDF to Markdown',
-        'PDF to SVG',
-        'PDF to Images (High Quality)',
-        'PDF to DOCX',
-        'PDF to Excel/CSV',
-        'Extract Images',
-        'Extract Tables',
-        'EPUB/MOBI/FB2/XPS/CBZ to PDF',
-        'Deskew PDF',
-        'PDF Layers',
+        t('tools:pdfToText.name'),
+        t('tools:pdfToMarkdown.name'),
+        t('tools:pdfToSvg.name'),
+        t('msg.wasmProvider.featurePdfToImages'),
+        t('msg.wasmProvider.featurePdfToDocx'),
+        t('msg.wasmProvider.featurePdfToExcel'),
+        t('tools:extractImages.name'),
+        t('tools:extractTables.ui.extractTables'),
+        t('msg.wasmProvider.featureEbooksToPdf'),
+        t('tools:deskewPdf.name'),
+        t('pages.pdfSecurity.pdfLayers'),
       ],
-      ghostscript: ['PDF/A Conversion', 'Font to Outline'],
+      ghostscript: [
+        t('msg.wasmProvider.featurePdfaConversion'),
+        t('tools:fontToOutline.name'),
+      ],
       cpdf: [
-        'Merge PDF',
-        'Alternate Merge',
-        'Split by Bookmarks',
-        'Table of Contents',
-        'PDF to JSON',
-        'JSON to PDF',
-        'Add/Edit/Extract Attachments',
-        'Edit Bookmarks',
-        'PDF Metadata',
+        t('tools:mergePdf.name'),
+        t('pages.pdfMergeSplit.alternateMerge'),
+        t('tools:splitPdf.ui.splitBookmarks'),
+        t('tools:tableOfContents.name'),
+        t('tools:pdfToJson.name'),
+        t('tools:jsonToPdf.name'),
+        t('msg.wasmProvider.featureAttachments'),
+        t('tools:editBookmarks.name'),
+        t('msg.wasmProvider.featurePdfMetadata'),
       ],
     };
     return features[packageName];
@@ -409,7 +416,7 @@ export function showWasmRequiredDialog(
                 `<li class="flex items-center gap-2"><span class="text-green-400">✓</span> ${f}</li>`
             )
             .join('')}
-          ${features.length > 4 ? `<li class="text-gray-500">+ ${features.length - 4} more...</li>` : ''}
+          ${features.length > 4 ? `<li class="text-gray-500">${t('msg.wasmProvider.moreFeatures', { count: features.length - 4 })}</li>` : ''}
         </ul>
       </div>
 

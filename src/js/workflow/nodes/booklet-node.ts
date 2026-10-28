@@ -40,7 +40,7 @@ export class BookletNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Booklet');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const getText = (key: string, fallback: string) => {
       const ctrl = this.controls[key] as

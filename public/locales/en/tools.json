@@ -137,7 +137,8 @@
       "noBookmarksFoundAtTheSelected": "No bookmarks found at the selected level.",
       "nMustBeAtLeast1": "N must be at least 1.",
       "noPagesWereSelectedForSplitting": "No pages were selected for splitting.",
-      "thePdfHasPagesWhichIs": "The PDF has {{totalPages}} pages, which is not evenly divisible by {{nValue}}. The last PDF will contain {{remainder}} page(s)."
+      "thePdfHasPagesWhichIs": "The PDF has {{totalPages}} pages, which is not evenly divisible by {{nValue}}. The last PDF will contain {{remainder}} page(s).",
+      "noPdfDocumentLoaded": "No PDF document loaded."
     }
   },
   "compressPdf": {
@@ -350,7 +351,14 @@
       "removingRedactedTextFrom": "Removing redacted text from document data..."
     },
     "msg": {
-      "downloadEditedPdf": "Download Edited PDF"
+      "downloadEditedPdf": "Download Edited PDF",
+      "applyAndDownload": "Apply and download",
+      "applyRedactionsMessage_one": "This document has 1 redaction mark that hasn't been applied. Until a mark is applied, the content under it is still in the file. Apply all marks and download?",
+      "applyRedactionsMessage_other": "This document has {{count}} redaction marks that haven't been applied. Until a mark is applied, the content under it is still in the file. Apply all marks and download?",
+      "applyRedactionsTitle": "Apply redactions?",
+      "downloadAnyway": "Download anyway",
+      "encryptedFileMessage": "Your redactions are applied to the pages, but this file is encrypted, so BentoPDF can't also remove copies of the redacted text from its properties, bookmarks, and attachments. For a full cleanup, redact an unencrypted copy and add a password afterwards with Protect PDF. Download anyway?",
+      "encryptedFileTitle": "Encrypted file"
     }
   },
   "editPdfText": {
@@ -510,7 +518,42 @@
       "addATextBox": "Add a text box",
       "documentProperties": "Document Properties",
       "wasmEngineFailedToInitialize": "WASM engine failed to initialize",
-      "edit": "Edit {{value}}"
+      "edit": "Edit {{value}}",
+      "action": "Action",
+      "advanced": "Advanced",
+      "alignObjects": "Align Objects",
+      "application": "Application",
+      "character": "Character",
+      "closePanel": "Close panel",
+      "conformance": "Conformance",
+      "created": "Created",
+      "decreaseSize": "Decrease size",
+      "description": "Description",
+      "doneBackToTools": "Done — back to tools",
+      "editImages": "Edit Images",
+      "editScope": "Edit Scope",
+      "editShapes": "Edit Shapes",
+      "editText": "Edit Text",
+      "editTool": "Edit tool",
+      "file": "File",
+      "fileSize": "File Size",
+      "firstIndent": "First Indent",
+      "fitToPage": "Fit to Page",
+      "goToPage": "Go to page",
+      "hScale": "H-Scale %",
+      "increaseSize": "Increase size",
+      "keywords": "Keywords",
+      "line": "Line",
+      "modified": "Modified",
+      "more": "More",
+      "numberOfPages": "Number of Pages",
+      "paragraph": "Paragraph",
+      "pathStroke": "Path Stroke",
+      "pdfProducer": "PDF Producer",
+      "selectFont": "Select Font",
+      "signatures": "Signatures",
+      "toggleStyle": "Toggle style",
+      "word": "Word"
     }
   },
   "jpgToPdf": {
@@ -858,7 +901,8 @@
     "msg": {
       "batesNumbersAppliedSuccessfullyThrough": "Bates numbers applied successfully! ({{batesStart}} through {{value}})",
       "fileSummary_one": "{{count}} file • {{totalPages}} total pages",
-      "fileSummary_other": "{{count}} files • {{totalPages}} total pages"
+      "fileSummary_other": "{{count}} files • {{totalPages}} total pages",
+      "previewLine": "File {{file}}, Page {{page}}: {{text}}"
     }
   },
   "addWatermark": {
@@ -1167,7 +1211,67 @@
       "fieldNameExistsInForm": "Field name \"{{name}}\" already exists in this form. Please try using a unique name.",
       "okay": "Okay",
       "signHere": "Sign Here",
-      "invalidData": "Invalid data"
+      "invalidData": "Invalid data",
+      "action": "Action",
+      "alignCenter": "Center",
+      "alignLeft": "Left",
+      "alignRight": "Right",
+      "alignment": "Alignment",
+      "barcodeFormat": "Barcode Format",
+      "barcodeHintAnyData": "Any text, URL, or data",
+      "barcodeHintCode128": "ASCII characters (letters, numbers, symbols)",
+      "barcodeHintCode39": "Uppercase A-Z, digits 0-9, and - . $ / + % SPACE",
+      "barcodeHintDigits": "Exactly {{min}} or {{max}} digits",
+      "barcodeValue": "Barcode Value",
+      "borderColor": "Border Color",
+      "browserNote": "Browser Note:",
+      "browserNoteText": "Firefox and Chrome may show their native date picker format during selection. The correct format will apply when you finish entering the date.",
+      "checkedState": "Checked State",
+      "clickToUploadImage": "Click to Upload Image",
+      "customFormat": "Custom Format",
+      "customFormatPlaceholder": "e.g. {{example}}",
+      "dateFormat": "Date Format",
+      "deleteField": "Delete Field",
+      "descriptionForScreenReaders": "Description for screen readers",
+      "divideIntoBoxes": "Divide into boxes (0 to disable)",
+      "exampleOfCurrentFormat": "Example of current format:",
+      "existingRadioGroups": "Existing Radio Groups",
+      "exportValue": "Export Value",
+      "fieldName": "Field Name",
+      "groupNameParenthesized": "(Group Name)",
+      "groupNameSameForGroup": "Group Name (Must be same for group)",
+      "hide": "Hide",
+      "hideBorder": "Hide Border",
+      "imageFieldNote": "Clicking this field in the PDF will open a file picker to upload an image.",
+      "javascriptCode": "Javascript Code",
+      "label": "Label",
+      "labelPrompt": "Label / Prompt",
+      "maxLengthUnlimited": "Max Length (0 for unlimited)",
+      "multiLine": "Multi-line",
+      "none": "None",
+      "openUrl": "Open URL",
+      "optionN": "Option {{num}}",
+      "optionsOnePerLine": "Options (One per line or comma separated)",
+      "printForm": "Print Form",
+      "readOnly": "Read Only",
+      "required": "Required",
+      "resetForm": "Reset Form",
+      "runJavascript": "Run Javascript",
+      "selectAField": "Select a field...",
+      "selectExistingGroup": "-- Select existing group --",
+      "selectToAddToExistingGroup": "Select to add this button to an existing group",
+      "selectedOption": "Selected Option",
+      "show": "Show",
+      "showHideField": "Show/Hide Field",
+      "signatureFieldsNote": "Signature fields are AcroForm signature fields and would only be visible in an advanced PDF viewer.",
+      "targetField": "Target Field",
+      "textColor": "Text Color",
+      "toggle": "Toggle",
+      "tooltipHelpText": "Tooltip / Help Text",
+      "transparentBackground": "Transparent Background",
+      "useFormFillerForOptions": "To actually fill or change the options, use our PDF Form Filler tool.",
+      "value": "Value",
+      "visibility": "Visibility"
     }
   },
   "removeBlankPages": {
@@ -1193,7 +1297,8 @@
     "msg": {
       "foundBlankPageSClickOn": "Found {{count}} blank page(s). Click on a page to deselect it.",
       "removingBlankPageS": "Removing {{count}} blank page(s)...",
-      "removedBlankPageSSuccessfully": "Removed {{count}} blank page(s) successfully!"
+      "removedBlankPageSSuccessfully": "Removed {{count}} blank page(s) successfully!",
+      "pageAlt": "Page {{num}}"
     }
   },
   "imageToPdf": {
@@ -1215,6 +1320,9 @@
     "subtitle": "Create a PDF from one or more PNG images.",
     "alert": {
       "someFilesWereSkipped": "Some files were skipped. Only PNG images are allowed."
+    },
+    "msg": {
+      "couldNotLoadImage": "The provided file could not be loaded as an image. It may be corrupted."
     }
   },
   "webpToPdf": {
@@ -1222,6 +1330,9 @@
     "subtitle": "Create a PDF from one or more WebP images.",
     "alert": {
       "someFilesWereSkipped": "Some files were skipped. Only WebP images are allowed."
+    },
+    "msg": {
+      "couldNotLoadImage": "The provided file could not be loaded as an image. It may be corrupted."
     }
   },
   "svgToPdf": {
@@ -1511,7 +1622,11 @@
       "getYourCbzFileReadyFor": "Get your .cbz file ready for any comic book reader"
     },
     "msg": {
-      "pdfHasNoPages": "PDF has no pages"
+      "pdfHasNoPages": "PDF has no pages",
+      "yearRange": "Year must be between 1900 and 2100",
+      "ratingRange": "Rating must be between 0 and 5",
+      "positiveNumber": "Must be a positive number",
+      "positiveInteger": "Must be a positive integer"
     }
   },
   "pdfToGreyscale": {
@@ -1621,7 +1736,8 @@
       "mixPages": "Mix Pages"
     },
     "msg": {
-      "pdfFilesSelected": "{{count}} PDF files selected"
+      "pdfFilesSelected": "{{count}} PDF files selected",
+      "errorMixingPdfs": "An error occurred while mixing the PDFs."
     }
   },
   "duplexCollate": {
@@ -1712,7 +1828,8 @@
       "extractionCompletedAttachmentSInZip": "Extraction completed! {{count}} attachment(s) in zip file ({{value}}). Download started.",
       "pdfFileSSelected": "{{count}} PDF file(s) selected",
       "extractingAttachmentsFromFileS": "Extracting attachments from {{count}} file(s)...",
-      "errorReadingFiles": "Error reading files: {{error}}"
+      "errorReadingFiles": "Error reading files: {{error}}",
+      "unknownWorkerError": "Unknown error occurred in worker."
     }
   },
   "editAttachments": {
@@ -1917,7 +2034,13 @@
       "noInteractiveFormFieldsFound": "- No interactive form fields found -",
       "noParseableXmpPropertiesFound": "- No parseable XMP properties found -",
       "errorParsingXmpXmlDisplayingRaw": "- Error parsing XMP XML. Displaying raw. -",
-      "noXmpMetadataFound": "- No XMP metadata found -"
+      "noXmpMetadataFound": "- No XMP metadata found -",
+      "altContainer": "(alt container)",
+      "emptyResource": "(Empty Resource)",
+      "infoDictionary": "Info Dictionary",
+      "interactiveFormFields": "Interactive Form Fields",
+      "notSet": "- Not Set -",
+      "xmpMetadata": "XMP Metadata"
     }
   },
   "editMetadata": {
@@ -2032,7 +2155,21 @@
     },
     "msg": {
       "indexingPdf1PageOf": "Indexing PDF 1 page {{pageNumber}} of {{totalPages}}...",
-      "indexingPdf2PageOf": "Indexing PDF 2 page {{pageNumber}} of {{totalPages}}..."
+      "indexingPdf2PageOf": "Indexing PDF 2 page {{pageNumber}} of {{totalPages}}...",
+      "replacedText": "Replaced \"{{before}}\" with \"{{after}}\"",
+      "removedText": "Removed \"{{text}}\"",
+      "addedText": "Added \"{{text}}\"",
+      "movedText": "Moved \"{{text}}\"",
+      "styleChanged_one": "Style changed ({{count}} region)",
+      "styleChanged_other": "Style changed ({{count}} regions)",
+      "fontChange": "Font: {{before}} → {{after}}",
+      "fontSizeChange": "Font size: {{before}} → {{after}}",
+      "pageOnlyInFirst": "Page {{page}} exists only in the first PDF.",
+      "pageOnlyInSecond": "Page {{page}} exists only in the second PDF.",
+      "modifiedLabel": "Modified",
+      "styleChangedLabel": "Style Changed",
+      "pageAdded": "Page Added",
+      "pageRemoved": "Page Removed"
     }
   },
   "posterizePdf": {
@@ -2117,7 +2254,11 @@
       "optimizing": "Optimizing {{name}} ({{value}}/{{count}})...",
       "processingFailedFor": "Processing failed for {{name}}.",
       "noPdfFilesCouldBeLinearized": "No PDF files could be linearized.",
-      "anErrorOccurred": "An error occurred: {{value}}."
+      "anErrorOccurred": "An error occurred: {{value}}.",
+      "filesFailed_one": "{{count}} file failed.",
+      "filesFailed_other": "{{count}} files failed.",
+      "linearizedSuccessfully_one": "{{count}} PDF linearized successfully.",
+      "linearizedSuccessfully_other": "{{count}} PDFs linearized successfully."
     }
   },
   "pageDimensions": {
@@ -2136,6 +2277,19 @@
       "aspectRatio": "Aspect Ratio",
       "area": "Area",
       "rotation": "Rotation"
+    },
+    "msg": {
+      "differentDimensions": "This document contains pages with different dimensions:",
+      "documentType": "Document Type",
+      "heightUnit": "Height ({{unit}})",
+      "mixedPageSizesDetected": "Mixed Page Sizes Detected",
+      "mixedSizes": "Mixed Sizes",
+      "pageCount_one": "{{count}} page",
+      "pageCount_other": "{{count}} pages",
+      "totalPages": "Total Pages",
+      "uniform": "Uniform",
+      "uniquePageSizes": "Unique Page Sizes",
+      "widthUnit": "Width ({{unit}})"
     }
   },
   "removeRestrictions": {
@@ -2237,7 +2391,8 @@
       "flatteningPdf": "Flattening PDF...",
       "flatteningMultiplePdfs": "Flattening multiple PDFs...",
       "flattening": "Flattening {{value}}/{{count}}: {{name}}...",
-      "processedPdfs": "Processed {{processedCount}} PDFs."
+      "processedPdfs": "Processed {{processedCount}} PDFs.",
+      "unexpectedError": "An unexpected error occurred."
     }
   },
   "removeMetadata": {
@@ -2295,7 +2450,9 @@
       "preparingDownload": "Preparing download...",
       "processingResultedInAnEmptyFile": "Processing resulted in an empty file.",
       "anErrorOccurred": "An error occurred: {{value}}",
-      "processingFailed": "Processing failed: {{error}}"
+      "processingFailed": "Processing failed: {{error}}",
+      "decryptedSuccessfully": "PDF decrypted successfully! All encryption and restrictions removed.",
+      "permissionsChanged": "PDF permissions changed successfully!"
     }
   },
   "odtToPdf": {
@@ -2497,7 +2654,11 @@
     },
     "msg": {
       "bookletCreatedWithSheets": "Booklet created with {{numSheets}} sheets!",
-      "generatingPreview": "Generating preview..."
+      "generatingPreview": "Generating preview...",
+      "blank": "(blank)",
+      "sheet": "Sheet {{number}}",
+      "sheetBack": "Sheet {{number}} Back",
+      "sheetFront": "Sheet {{number}} Front"
     }
   },
   "xpsToPdf": {
@@ -2570,7 +2731,9 @@
       "successfullyConvertedToPdf": "Successfully converted {{name}} to PDF.",
       "converting2": "Converting {{value}}/{{count}}: {{name}}...",
       "successfullyConvertedFileSToPdf": "Successfully converted {{count}} {{TOOL_NAME}} file(s) to PDF.",
-      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}"
+      "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}",
+      "failedToConvertToPng": "Failed to convert {{name}} to PNG",
+      "failedToLoadImage": "Failed to load image: {{name}}"
     }
   },
   "wpdToPdf": {
@@ -2775,7 +2938,9 @@
     "msg": {
       "scanningPageOf": "Scanning page {{value}} of {{pageCount}}...",
       "extractedTableSToExcel": "Extracted {{count}} table(s) to Excel!",
-      "failedToConvertPdfToExcel": "Failed to convert PDF to Excel. {{error}}"
+      "failedToConvertPdfToExcel": "Failed to convert PDF to Excel. {{error}}",
+      "sheetTable": "Table",
+      "sheetTableOnPage": "Table {{number}} (Page {{page}})"
     }
   },
   "pdfToText": {
@@ -2894,7 +3059,8 @@
       "noCertificateFoundInPemFile": "No certificate found in PEM file",
       "noPrivateKeyFoundInPem": "No private key found in PEM file",
       "invalidTsaUrlTheTimestampAuthority": "Invalid TSA URL. The timestamp authority must be a valid http:// or https:// URL.",
-      "thisTsaEndpointUsesHttpThe": "This TSA endpoint uses HTTP ({{tsaUrl}}). The browser blocks insecure requests from this HTTPS page. Either choose a TSA with an HTTPS endpoint or configure VITE_CORS_PROXY_URL at build time so the request can be relayed through your proxy."
+      "thisTsaEndpointUsesHttpThe": "This TSA endpoint uses HTTP ({{tsaUrl}}). The browser blocks insecure requests from this HTTPS page. Either choose a TSA with an HTTPS endpoint or configure VITE_CORS_PROXY_URL at build time so the request can be relayed through your proxy.",
+      "unknown": "Unknown"
     }
   },
   "validateSignaturePdf": {
@@ -2933,7 +3099,29 @@
       "signatureAlgorithm": "Signature Algorithm:",
       "fullCoverage": "Full Coverage",
       "partialCoverage": "Partial Coverage",
-      "signedOn": "Signed On"
+      "signedOn": "Signed On",
+      "certificateExpired": "Certificate Expired",
+      "cryptoVerificationFailed": "Cryptographic verification failed",
+      "failedToParseSignature": "Failed to parse signature",
+      "insecureDigest": "Insecure Digest (MD5 / SHA-1)",
+      "intactNotVerified": "Signature Intact — Signer Identity Not Verified",
+      "invalidCryptoFailed": "Invalid — Cryptographic Verification Failed",
+      "invalidSignature": "Invalid Signature",
+      "modifiedAfterSigning": "Modified After Signing (signed part intact)",
+      "noCertificatesFound": "No certificates found in signature",
+      "notInTrustChain": "Not in trust chain",
+      "selfSignedNotVerified": "Self-Signed — Signer Identity Not Verified",
+      "signatureN": "Signature {{num}}",
+      "signaturesFound_one": "signature found",
+      "signaturesFound_other": "signatures found",
+      "trustVerification": "Trust verification: {{verified}}/{{total}} signatures verified against custom certificate",
+      "trusted": "Trusted",
+      "trustedCertificateLoaded": "Trusted certificate loaded",
+      "unknown": "Unknown",
+      "unverifiedUnsupportedAlgorithm": "Unverified — Unsupported Signature Algorithm",
+      "validCount_one": "{{count}} valid",
+      "validCount_other": "{{count}} valid",
+      "validSignature": "Valid Signature"
     }
   },
   "timestampPdf": {
@@ -2992,7 +3180,16 @@
       "converting": "Converting {{value}}/{{count}}: {{name}}...",
       "successfullyConvertedFileSToPdf": "Successfully converted {{count}} {{TOOL_NAME}} file(s) to PDF.",
       "anErrorOccurredDuringConversionError": "An error occurred during conversion. Error: {{value}}",
-      "unsupportedFileType": "Unsupported file type: .{{ext}}"
+      "unsupportedFileType": "Unsupported file type: .{{ext}}",
+      "toolName": "Email",
+      "unknownSender": "Unknown Sender",
+      "noSubject": "(No Subject)",
+      "unknownDate": "Unknown Date",
+      "unknownRecipient": "Unknown",
+      "fromLabel": "From:",
+      "toLabel": "To:",
+      "dateLabel": "Date:",
+      "attachmentsHeading": "Attachments ({{count}})"
     }
   },
   "fontToOutline": {
@@ -3014,7 +3211,8 @@
       "convertingFontsToOutlines": "Converting fonts to outlines...",
       "processingMultiplePdfs": "Processing multiple PDFs...",
       "processing": "Processing {{value}}/{{count}}: {{name}}...",
-      "processedPdfs": "Processed {{processedCount}} PDFs."
+      "processedPdfs": "Processed {{processedCount}} PDFs.",
+      "unexpectedError": "An unexpected error occurred."
     }
   },
   "deskewPdf": {
@@ -3169,7 +3367,13 @@
       "failedToAddLayer": "Failed to add layer: {{value}}",
       "failedToSavePdf": "Failed to save PDF: {{value}}",
       "thisPdfHasNoLayersOcg": "This PDF has no layers (OCG).",
-      "addANewLayerToGet": "Add a new layer to get started!"
+      "addANewLayerToGet": "Add a new layer to get started!",
+      "addChildLayer": "Add Child Layer",
+      "enterChildLayerName": "Enter name for child layer under \"{{parent}}\":",
+      "layer": "Layer",
+      "layerNumber": "Layer {{number}}",
+      "addChildLayerTitle": "Add child layer",
+      "deleteLayerTitle": "Delete layer"
     }
   },
   "pdfToPdfa": {
@@ -3786,7 +3990,11 @@
       "preparingDownload": "Preparing download...",
       "decrypting": "Decrypting {{name}} ({{value}}/{{count}})...",
       "noPdfFilesCouldBeDecrypted": "No PDF files could be decrypted. The password may be incorrect.",
-      "anErrorOccurred": "An error occurred: {{value}}"
+      "anErrorOccurred": "An error occurred: {{value}}",
+      "decryptedSuccessfully_one": "{{count}} PDF decrypted successfully.",
+      "decryptedSuccessfully_other": "{{count}} PDFs decrypted successfully.",
+      "filesFailed_one": "{{count}} file failed.",
+      "filesFailed_other": "{{count}} files failed."
     }
   },
   "protectPdf": {
@@ -3818,7 +4026,9 @@
       "encryptionFailed": "Encryption failed: {{value}}",
       "preparingDownload": "Preparing download...",
       "encryptionResultedInAnEmptyFile": "Encryption resulted in an empty file.",
-      "anErrorOccurred": "An error occurred: {{value}}"
+      "anErrorOccurred": "An error occurred: {{value}}",
+      "encryptedSuccessfully": "PDF encrypted successfully with 256-bit AES!",
+      "noOwnerPasswordNote": "Note: Without a separate owner password, the PDF has no usage restrictions."
     }
   },
   "cropper": {

@@ -41,7 +41,7 @@ export class NUpNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'N-Up');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const nCtrl = this.controls['pagesPerSheet'] as
       | ClassicPreset.InputControl<'number'>

@@ -10,7 +10,7 @@ import { createIcons, icons } from 'lucide';
 import JSZip from 'jszip';
 import * as pdfjsLib from 'pdfjs-dist';
 import { PDFPageProxy } from 'pdfjs-dist';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import type Vips from 'wasm-vips';
 import wasmUrl from 'wasm-vips/vips.wasm?url';
 import type { TiffOptions } from '@/types';
@@ -377,7 +377,7 @@ async function convert() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

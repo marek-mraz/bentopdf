@@ -7,7 +7,7 @@ import {
 } from '../utils/helpers.js';
 import { icons, createIcons } from 'lucide';
 import { ChangePermissionsState, QpdfInstanceExtended } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: ChangePermissionsState = {
   file: null,
@@ -251,10 +251,9 @@ async function changePermissions() {
 
     if (loaderModal) loaderModal.classList.add('hidden');
 
-    let successMessage = 'PDF permissions changed successfully!';
+    let successMessage = t('tools:changePermissions.msg.permissionsChanged');
     if (!shouldEncrypt) {
-      successMessage =
-        'PDF decrypted successfully! All encryption and restrictions removed.';
+      successMessage = t('tools:changePermissions.msg.decryptedSuccessfully');
     }
 
     showAlert(t('common.success'), successMessage, 'success', () => {
@@ -305,7 +304,7 @@ async function changePermissions() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

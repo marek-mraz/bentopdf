@@ -29,7 +29,7 @@ export class EncryptNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Encrypt');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     const getText = (key: string) => {
       const ctrl = this.controls[key] as

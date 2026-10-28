@@ -4,7 +4,7 @@ import { fixPageSize as fixPageSizeCore } from '../utils/pdf-operations';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { icons, createIcons } from 'lucide';
 import { FixPageSizeState } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: FixPageSizeState = {
   file: null,
@@ -161,7 +161,7 @@ async function fixPageSize() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

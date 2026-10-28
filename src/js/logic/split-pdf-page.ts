@@ -1,5 +1,5 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import { createIcons, icons } from 'lucide';
 import * as pdfjsLib from 'pdfjs-dist';
 import {
@@ -32,7 +32,7 @@ import {
   extractPagesWithQpdf,
 } from '../utils/split-pdf-helpers.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   let visualSelectorRendered = false;
   let isSplitting = false;
 
@@ -315,7 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputPath = '/split-input.pdf';
 
     try {
-      if (!state.pdfDoc) throw new Error('No PDF document loaded.');
+      if (!state.pdfDoc)
+        throw new Error(t('tools:splitPdf.msg.noPdfDocumentLoaded'));
       const srcDoc = state.pdfDoc;
 
       const totalPages = srcDoc.getPageCount();

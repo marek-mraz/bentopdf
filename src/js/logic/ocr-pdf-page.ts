@@ -1,4 +1,7 @@
-import { tesseractLanguages } from '../config/tesseract-languages.js';
+import {
+  tesseractLanguageName,
+  tesseractLanguages,
+} from '../config/tesseract-languages.js';
 import { showAlert } from '../ui.js';
 import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
@@ -10,7 +13,7 @@ import {
   resolveConfiguredTesseractAvailableLanguages,
   UnsupportedOcrLanguageError,
 } from '../utils/tesseract-language-availability.js';
-import { initI18n, t } from '../i18n/index.js';
+import { initI18n, t, onPageReady } from '../i18n/index.js';
 
 const pageState: OcrState = {
   file: null,
@@ -285,7 +288,7 @@ function populateLanguageList() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', async function () {
+onPageReady(async function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById(
@@ -373,9 +376,9 @@ document.addEventListener('DOMContentLoaded', async function () {
       const selected = Array.from(
         langList.querySelectorAll('.lang-checkbox:checked')
       ).map(function (cb) {
-        return tesseractLanguages[
+        return tesseractLanguageName(
           (cb as HTMLInputElement).value as keyof typeof tesseractLanguages
-        ];
+        );
       });
 
       if (selectedLangsDisplay) {

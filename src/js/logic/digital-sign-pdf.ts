@@ -439,8 +439,10 @@ export function getCertificateInfo(certificate: forge.pki.Certificate): {
   const issuerCN = certificate.issuer.getField('CN');
 
   return {
-    subject: (subjectCN?.value as string) ?? 'Unknown',
-    issuer: (issuerCN?.value as string) ?? 'Unknown',
+    subject:
+      (subjectCN?.value as string) ?? t('tools:digitalSignPdf.msg.unknown'),
+    issuer:
+      (issuerCN?.value as string) ?? t('tools:digitalSignPdf.msg.unknown'),
     validFrom: certificate.validity.notBefore,
     validTo: certificate.validity.notAfter,
     serialNumber: certificate.serialNumber,

@@ -8,7 +8,7 @@ import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import { CropperState, CropPercentages } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const cropperState: CropperState = {
   pdfDoc: null,
@@ -19,11 +19,7 @@ const cropperState: CropperState = {
   file: null,
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

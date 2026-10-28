@@ -7,7 +7,7 @@ import {
   loadPdfDocument,
   removeUnreferencedObjects,
 } from '../utils/load-pdf-document.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 interface PageState {
   file: File | null;
@@ -190,7 +190,7 @@ async function removeMetadata() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+onPageReady(function () {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

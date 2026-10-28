@@ -10,6 +10,7 @@ import type {
   HyperWasmResult,
 } from 'hyper-compress-wasm';
 import type { HyperCompressRequest, HyperCompressResponse } from '@/types';
+import { t } from '../i18n/i18n.js';
 
 export const COMPRESS_LEVELS: readonly CompressLevel[] = [
   'low',
@@ -127,17 +128,14 @@ function getHyperWorker(): Worker {
       worker,
       new HyperError(
         'engine_error',
-        e.message || 'The compression engine stopped unexpectedly.'
+        e.message || t('msg.compress.engineStopped')
       )
     );
   };
   worker.onmessageerror = () => {
     discardHyperWorker(
       worker,
-      new HyperError(
-        'engine_error',
-        'The compression engine returned an unreadable result.'
-      )
+      new HyperError('engine_error', t('msg.compress.unreadableResult'))
     );
   };
   hyperWorker = worker;
@@ -161,14 +159,14 @@ export async function compressWithHyper(
   options: HyperWasmOptions
 ): Promise<HyperWasmResult> {
   if (!hasPdfHeader(pdf)) {
-    throw new HyperError('engine_error', 'This file is not a valid PDF.');
+    throw new HyperError('engine_error', t('msg.compress.notAValidPdf'));
   }
   const message = await postToHyper(
     (id) => ({ id, type: 'compress', bytes: pdf, options }),
     pdf
   );
   if (message.type !== 'result') {
-    throw new HyperError('engine_error', 'Unexpected reply from the engine.');
+    throw new HyperError('engine_error', t('msg.compress.unexpectedReply'));
   }
   return message.result;
 }
@@ -182,7 +180,7 @@ export async function verifyHyperPassword(
     pdf
   );
   if (message.type !== 'verified') {
-    throw new HyperError('engine_error', 'Unexpected reply from the engine.');
+    throw new HyperError('engine_error', t('msg.compress.unexpectedReply'));
   }
   return message.valid;
 }

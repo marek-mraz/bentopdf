@@ -7,12 +7,12 @@ import {
   type LoadProgress,
 } from '../utils/libreoffice-loader.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const ACCEPTED_EXTENSIONS = ['.vsd', '.vsdx'];
 const FILETYPE_NAME = 'VSD';
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   state.files = [];
 
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
@@ -144,7 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       hideLoader();
-      const message = err instanceof Error ? err.message : 'Unknown error';
+      const message =
+        err instanceof Error ? err.message : t('common.unknownError');
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
         t('common.error'),

@@ -9,7 +9,7 @@ import { createIcons, icons } from 'lucide';
 import { PDFDocument } from 'pdf-lib';
 import { applyGreyscale } from '../utils/image-effects.js';
 import * as pdfjsLib from 'pdfjs-dist';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import '../utils/setup-pdf-worker.js';
 
@@ -162,7 +162,7 @@ async function convert() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');

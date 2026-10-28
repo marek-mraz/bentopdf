@@ -26,7 +26,7 @@ export class FlattenNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'Flatten');
+    const pdfInputs = requirePdfInput(inputs, this.label);
 
     return {
       pdf: await processBatch(pdfInputs, async (input) => {

@@ -22,7 +22,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const pageState: AddWatermarkState = {
   file: null,
@@ -59,11 +59,7 @@ let cachedPdfjsDoc: pdfjsLib.PDFDocumentProxy | null = null;
 const pageWatermarks: Map<number, PageWatermarkConfig> = new Map();
 let applyToAllPages = true;
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializePage);
-} else {
-  initializePage();
-}
+onPageReady(initializePage);
 
 function initializePage() {
   createIcons({ icons });

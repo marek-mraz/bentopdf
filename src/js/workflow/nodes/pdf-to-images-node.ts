@@ -88,7 +88,7 @@ export class PdfToImagesNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, 'PDF to Images');
+    const pdfInputs = requirePdfInput(inputs, this.label);
     const allPdfs = extractAllPdfs(pdfInputs);
 
     const fmtCtrl = this.controls['format'] as

@@ -27,7 +27,7 @@ import {
   targetSizeToBytes,
   verifyHyperPassword,
 } from '../utils/compress.js';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 type OptionChangeHandler = (
   key: keyof HyperCompressOptions,
@@ -555,7 +555,7 @@ function createIcon(name: string, className: string): HTMLElement {
   return icon;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const compressOptions = document.getElementById('compress-options');

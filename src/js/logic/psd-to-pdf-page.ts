@@ -4,7 +4,7 @@ import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import type { PyMuPDFInstance } from '@/types';
-import { t } from '../i18n/i18n';
+import { t, onPageReady } from '../i18n/i18n';
 
 const ACCEPTED_EXTENSIONS = ['.psd'];
 const FILETYPE_NAME = 'PSD';
@@ -18,7 +18,7 @@ async function ensurePyMuPDF(): Promise<PyMuPDFInstance> {
   return pymupdf;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+onPageReady(() => {
   const fileInput = document.getElementById('file-input') as HTMLInputElement;
   const dropZone = document.getElementById('drop-zone');
   const processBtn = document.getElementById('process-btn');
@@ -121,7 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) {
       hideLoader();
-      const message = err instanceof Error ? err.message : 'Unknown error';
+      const message =
+        err instanceof Error ? err.message : t('common.unknownError');
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
         t('common.error'),
