@@ -1,0 +1,79 @@
+diff --git a/core/fpdfapi/edit/cpdf_text_redactor.cpp b/core/fpdfapi/edit/cpdf_text_redactor.cpp
+index e40999a..b203c67 100644
+--- a/core/fpdfapi/edit/cpdf_text_redactor.cpp
++++ b/core/fpdfapi/edit/cpdf_text_redactor.cpp
+@@ -238,12 +238,14 @@ CFX_FloatRect GlyphBBoxInPage(const CPDF_TextObject* to,
+                               CPDF_Font* font,
+                               uint32_t code,
+                               const CPDF_TextObject::Item& it,
++                              const CFX_Matrix& text_matrix,
+                               const CFX_Matrix& parent_to_page) {
+   CFX_FloatRect glyph_box = GlyphLocalBox(to, font, code, it);
+ 
+   // Text matrix to page space (for this text object), then parent to page.
+-  const CFX_Matrix tm = to->GetTextMatrix();
+-  glyph_box = tm.TransformRect(glyph_box);
++  // Municipal backport of embedpdf/pdfium 4993c7c: the matrix the object was
++  // parsed with, never the one RedactTextObjectMulti() is about to write.
++  glyph_box = text_matrix.TransformRect(glyph_box);
+   return parent_to_page.TransformRect(glyph_box);
+ }
+ 
+@@ -348,7 +350,12 @@ RedactOutcome RedactTextObjectMulti(CPDF_TextObject* to,
+       break;
+     }
+   }
++  // Every glyph is hit-tested against the matrix the object was parsed with;
++  // the leading shift is applied once, after the walk. Shifting the matrix at
++  // the first kept glyph displaced every later glyph box, so a second region
++  // on the same line removed the wrong glyphs and left marked text in place.
+   const CFX_Matrix tm_for_orientation = to->GetTextMatrix();
++  CFX_Matrix final_tm = tm_for_orientation;
+   auto local_to_page = [&](const CFX_PointF& p) {
+     return parent_to_page.Transform(tm_for_orientation.Transform(p));
+   };
+@@ -388,7 +395,8 @@ RedactOutcome RedactTextObjectMulti(CPDF_TextObject* to,
+     bool hit;
+     if (!oriented) {
+       const CFX_FloatRect gbox =
+-          GlyphBBoxInPage(to, font, it.char_code_, it, parent_to_page);
++          GlyphBBoxInPage(to, font, it.char_code_, it, tm_for_orientation,
++                          parent_to_page);
+       hit = IntersectsAny(gbox, region_bboxes);
+     } else {
+       // The glyph's exact oriented cell: the SAME local box the AABB path
+@@ -435,11 +443,9 @@ RedactOutcome RedactTextObjectMulti(CPDF_TextObject* to,
+       }
+ 
+       if (leading_offset_user != 0.0f) {
+-        CFX_Matrix tm = to->GetTextMatrix();
+         // Move along the text X axis in user space (handles rotation).
+-        tm.e += leading_offset_user * tm.a;
+-        tm.f += leading_offset_user * tm.b;
+-        to->SetTextMatrix(tm);
++        final_tm.e += leading_offset_user * final_tm.a;
++        final_tm.f += leading_offset_user * final_tm.b;
+       }
+     } else {
+       // Between kept runs: emit an inter-run kerning.
+@@ -487,8 +493,7 @@ RedactOutcome RedactTextObjectMulti(CPDF_TextObject* to,
+   to->SetDirty(true);
+   // Re-assert Tm to ensure downstream writers notice a change even when the
+   // numeric value is identical after float ops.
+-  CFX_Matrix tm = to->GetTextMatrix();
+-  to->SetTextMatrix(tm);
++  to->SetTextMatrix(final_tm);
+ 
+   return any_removed ? RedactOutcome::kModified : RedactOutcome::kUnchanged;
+ }
+@@ -967,7 +972,9 @@ RedactResult RedactHolder(CPDF_Page* page_for_cache,
+           continue;
+ 
+         const CFX_Matrix placement = fo->form_matrix();
+-        const CFX_Matrix next_to_page = to_page * placement;
++        // Municipal backport of embedpdf/pdfium 4993c7c: CFX_Matrix composes
++        // left-to-right; apply the placement before the parent's transform.
++        const CFX_Matrix next_to_page = placement * to_page;
+         const RedactResult form_result =
+             RedactHolder(page_for_cache, form, regions, region_bboxes,
+                          path_redactor, next_to_page, true, fill_black);

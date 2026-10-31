@@ -12,7 +12,8 @@ na ne aplikujú automaticky.
 | `runtime-config.sh` | beží pri štarte kontajnera a zapíše `BRAND_NAME`, `FOOTER_TEXT`, `SITE_URL` z env do `/etc/nginx/tmp/municipal.conf`; nginx ich dosadí do odpovedí |
 | `verify.sh` | spustí hotový image s vlastným názvom a overí CSP na každej odpovedi, pribalené súbory, názov a že nezostal žiadny zástupný text |
 | `build-local.sh` | lokálny build z commitnutého HEAD: export, `prepare.sh`, `docker build`, `verify.sh` |
-| `verify-engine.sh` | zbuilduje PDF engine (`vendor/bentopdf-pdfium`) zo zdrojákov bez cache a porovná sha256 s vendorovaným tarballom; ~1 h, aj ako workflow **Verify PDF engine** |
+| `verify-engine.sh` | zbuilduje PDF engine zo zdrojákov bez cache (upstream + `engine/*.patch`) a porovná sha256 s tarballom v `engine/`; `WRITE=1` ho tam zapíše; ~1 h, aj ako workflow **Verify PDF engine** |
+| `check-redaction.mjs` | spustí PDF engine na vygenerovanom PDF s dvomi označeniami na jednom riadku (aj s neviditeľnou OCR vrstvou) a skontroluje, že zmizol presne označený text; s druhým argumentom ho spustí s JS iného enginu a porovná importy; `prepare.sh` ho spúšťa pri každom builde |
 
 ## Aktualizácia z upstreamu
 
@@ -78,6 +79,46 @@ Apache-2.0, fonty OFL-1.1. Pri AGPL nasadení je pribalenie v poriadku;
 zdrojový kód je verejný a odkazuje naň päta stránky. Licencie pribalených
 balíkov sú v image pod `/wasm/licenses/`.
 
+## PDF engine a začierňovanie
+
+Engine od upstreamu (do 051abe5b72a9, PDFium embedpdf fce2b00) pri dvoch
+označeniach na jednom riadku textu posunul text uprostred spracovania a
+ďalšie znaky porovnával s posunutými pozíciami: označený text zostal v
+súbore pod čiernym obdĺžnikom a zmizol neoznačený text vedľa neho. Opravené
+je v embedpdf/pdfium 4993c7c (13. 9. 2026); upstream fork
+`bentopdf-pdfium-viewer` ho zatiaľ nemá. `engine/redaction-walk.patch` je
+backport tej opravy (len výpočet pozícií a poradie matíc pri Form XObject).
+
+Ten istý engine zapisoval každý začiernený obrázok ako 8-bit RGB bez
+straty: naskenovaná strana (JPEG) po začiernení narástla asi 3×.
+`engine/redaction-images.patch` zachová tvar zdroja: JPEG zostane JPEG s
+kvantizačnými tabuľkami a vzorkovaním pôvodného súboru (JPEG 2000 dostane
+JPEG kvalitu 90), šedý obrázok zostane šedý, čiernobiely 1-bitový. Pixely
+pod označením sa vymažú pred zakódovaním. Pri farebnom JPEG zasiahne
+farba okolia do okraja vymazanej plochy, pri bežnom vzorkovaní 4:2:0 do
+16 px (artefakt JPEG, zakrytý čiernym obdĺžnikom), obsah spod označenia sa
+do súboru nedostane. Keď libjpeg hlavičku pôvodného JPEG neprečíta, obrázok
+dostane JPEG kvalitu 90. Upstream
+to rieši od embedpdf/pdfium 1e0c74a / c41fec2 (október 2026) prekódovaním
+len dotknutých blokov.
+
+Prehliadač volá `editcore.wasm` cez JS, ktoré má `bentopdf-viewer` zabalené
+z upstream buildu. Patch preto nesmie zmeniť importy wasm (Emscripten ich
+pomenuje podľa počtu volaní, napr. volania v `setjmp()` rámci).
+`check-redaction.mjs` spustí nový engine s JS z pôvodného, porovná importy aj
+s kópiou JS vo `bentopdf-viewer` a zastaví build, keď sa líšia.
+
+`prepare.sh` (krok 2a) dá do image engine z `engine/`, overí ho cez
+`check-redaction.mjs` (text aj obrázky, po uložení a znovuotvorení) a zastaví
+build, keď upstream prejde na nový engine:
+
+```bash
+node .github/municipal/check-redaction.mjs vendor/bentopdf-pdfium/*.tgz  # opravil upstream obe chyby?
+WRITE=1 bash .github/municipal/verify-engine.sh   # nie: zbuilduje engine/ s patchmi
+# áno (OK): zmazať engine/, oba patche a krok 2a
+# len jednu: zmazať patch tej opravenej, potom WRITE=1 verify-engine.sh
+```
+
 ## Binárne súbory tretích strán
 
 Do image idú hotové binárky, ktoré sa nedajú prečítať ako zdrojový kód (WASM,
@@ -96,7 +137,7 @@ Pôvod súborov v zozname bol overený 23. 10. 2026:
 
 | Súbor | Overenie |
 |---|---|
-| `vendor/bentopdf-pdfium` | `verify-engine.sh` ho zostaví zo zdroja a porovná bit po bite |
+| `vendor/bentopdf-pdfium` | v image je `engine/bentopdf-pdfium-<rev>.tgz`: upstream engine + `engine/redaction-walk.patch` a `engine/redaction-images.patch`; `verify-engine.sh` ho zostaví zo zdroja a porovná bit po bite |
 | `vendor/hyper-compress-wasm` | zhodný s npm 1.0.3, podpísaná proveniencia (GitHub Actions, alam00000/bentopdf-hyper-compress) |
 | `public/libreoffice-wasm` | zhodný s npm `@matbee/libreoffice-converter` 2.3.1, podpísaná proveniencia |
 | `public/qpdf.wasm` | zhodný s npm `@neslinesli93/qpdf-wasm` 0.3.0 |

@@ -1,0 +1,451 @@
+diff --git a/core/fpdfapi/edit/cpdf_text_redactor.cpp b/core/fpdfapi/edit/cpdf_text_redactor.cpp
+index e40999a..d369d2c 100644
+--- a/core/fpdfapi/edit/cpdf_text_redactor.cpp
++++ b/core/fpdfapi/edit/cpdf_text_redactor.cpp
+@@ -27,6 +27,7 @@
+ #include "core/fpdfapi/page/cpdf_dib.h"
+ #include "core/fpdfapi/page/cpdf_image.h"
+ #include "core/fpdfapi/page/cpdf_imageobject.h"
++#include "core/fpdfapi/parser/cpdf_array.h"
+ #include "core/fpdfapi/parser/cpdf_document.h"
+ #include "core/fpdfapi/parser/cpdf_name.h"
+ #include "core/fpdfapi/parser/cpdf_number.h"
+@@ -844,14 +845,84 @@ static RedactResult RedactImageObject(
+     }
+   }
+ 
+-  // Build main image dict (decoded RGB).
++  // Municipal backport of embedpdf/pdfium 1e0c74a / c41fec2 (simplified):
++  // keep the source's shape where the pixels allow it. A JPEG (or JPEG 2000)
++  // stays a JPEG, gray stays gray, black and white stays 1 bit. Writing every
++  // redacted image as 8-bit RGB made a scanned page about 3x bigger.
++  const size_t num_px = static_cast<size_t>(W) * static_cast<size_t>(H);
++  bool gray = true;
++  for (size_t i = 0; i < num_px && gray; ++i) {
++    gray = out_rgb[3 * i] == out_rgb[3 * i + 1] &&
++           out_rgb[3 * i] == out_rgb[3 * i + 2];
++  }
++  bool bilevel = gray && is_1bit && !process_alpha;
++  for (size_t i = 0; i < num_px && bilevel; ++i) {
++    bilevel = out_rgb[3 * i] == 0x00 || out_rgb[3 * i] == 0xFF;
++  }
++  bool was_jpeg = false;
++  bool was_dct = false;
++  if (RetainPtr<const CPDF_Dictionary> sdict = image->GetStream()
++                                                   ? image->GetStream()->GetDict()
++                                                   : nullptr) {
++    RetainPtr<const CPDF_Object> filter = sdict->GetDirectObjectFor("Filter");
++    ByteString last;
++    if (const CPDF_Array* filters = filter ? filter->AsArray() : nullptr) {
++      if (!filters->IsEmpty()) {
++        last = filters->GetByteStringAt(filters->size() - 1);
++      }
++    } else if (filter) {
++      last = filter->GetString();
++    }
++    was_dct = last == "DCTDecode" || last == "DCT";
++    was_jpeg = was_dct || last == "JPXDecode";
++  }
++
++  DataVector<uint8_t> samples;
++  if (bilevel) {
++    // DeviceGray, 1 bit per pixel, rows padded to a byte: 0 black, 1 white.
++    const size_t stride = (static_cast<size_t>(W) + 7) / 8;
++    samples.resize(stride * static_cast<size_t>(H));
++    for (int y = 0; y < H; ++y) {
++      for (int x = 0; x < W; ++x) {
++        const size_t i = static_cast<size_t>(y) * static_cast<size_t>(W) + x;
++        if (out_rgb[3 * i]) {
++          samples[static_cast<size_t>(y) * stride + x / 8] |=
++              static_cast<uint8_t>(0x80 >> (x % 8));
++        }
++      }
++    }
++  } else if (gray) {
++    samples.resize(num_px);
++    for (size_t i = 0; i < num_px; ++i) {
++      samples[i] = out_rgb[3 * i];
++    }
++  }
++  DataVector<uint8_t> jpeg;
++  if (was_jpeg && !bilevel) {
++    // A JPEG source lends its quantization tables; JPEG 2000 gets quality 90.
++    RetainPtr<CPDF_StreamAcc> acc;
++    if (was_dct) {
++      acc = pdfium::MakeRetain<CPDF_StreamAcc>(image->GetStream());
++      acc->LoadAllDataFiltered();
++    }
++    const bool dct = acc && acc->GetImageDecoder() == "DCTDecode";
++    jpeg = fxcodec::JpegModule::Encode(
++        gray ? samples : out_rgb, W, H, gray ? 1 : 3, /*quality=*/90,
++        dct ? acc->GetSpan() : pdfium::span<const uint8_t>());
++  }
++  const bool write_jpeg = !jpeg.empty();
++
++  // Build main image dict.
+   RetainPtr<CPDF_Dictionary> ndict = doc->New<CPDF_Dictionary>();
+   ndict->SetNewFor<CPDF_Name>("Type", "XObject");
+   ndict->SetNewFor<CPDF_Name>("Subtype", "Image");
+   ndict->SetNewFor<CPDF_Number>("Width", W);
+   ndict->SetNewFor<CPDF_Number>("Height", H);
+-  ndict->SetNewFor<CPDF_Name>("ColorSpace", "DeviceRGB");
+-  ndict->SetNewFor<CPDF_Number>("BitsPerComponent", 8);
++  ndict->SetNewFor<CPDF_Name>("ColorSpace", gray ? "DeviceGray" : "DeviceRGB");
++  ndict->SetNewFor<CPDF_Number>("BitsPerComponent", bilevel ? 1 : 8);
++  if (write_jpeg) {
++    ndict->SetNewFor<CPDF_Name>("Filter", "DCTDecode");
++  }
+ 
+   // If we have/kept alpha, attach a soft mask.
+   if (process_alpha) {
+@@ -869,8 +940,11 @@ static RedactResult RedactImageObject(
+     ndict->SetFor("SMask", pdfium::MakeRetain<CPDF_Reference>(doc, smask_objnum));
+   }
+ 
+-  const bool ok = image->OverwriteStreamInPlace(std::move(out_rgb), std::move(ndict),
+-                                                /*data_is_decoded=*/true);
++  DataVector<uint8_t> data = write_jpeg ? std::move(jpeg)
++                             : gray     ? std::move(samples)
++                                        : std::move(out_rgb);
++  const bool ok = image->OverwriteStreamInPlace(
++      std::move(data), std::move(ndict), /*data_is_decoded=*/!write_jpeg);
+   if (ok) {
+     image->ResetCache(page);
+     page->ClearRenderContext();
+diff --git a/core/fxcodec/jpeg/jpeg_common.c b/core/fxcodec/jpeg/jpeg_common.c
+index d2798f6..fb3c489 100644
+--- a/core/fxcodec/jpeg/jpeg_common.c
++++ b/core/fxcodec/jpeg/jpeg_common.c
+@@ -7,6 +7,8 @@
+ #include "core/fxcodec/jpeg/jpeg_common.h"
+ #include "core/fxcrt/compiler_specific.h"
+ 
++#include <stdlib.h>
++
+ // This is a thin C wrapper around the JPEG API to avoid calling setjmp() from
+ // C++ code.
+ 
+@@ -87,6 +89,218 @@ void jpeg_common_error_fatal(j_common_ptr cinfo) {
+   longjmp(pCommon->jmpbuf, -1);
+ }
+ 
++struct JpegEncoder {
++  struct jpeg_error_mgr error_mgr;
++  jmp_buf jmpbuf;
++  struct jpeg_compress_struct cinfo;
++  struct jpeg_destination_mgr dest_mgr;
++  struct jpeg_decompress_struct like_info;
++  struct jpeg_source_mgr like_src;
++  const unsigned char* pixels;
++  unsigned int width;
++  unsigned int height;
++  int components;
++  int quality;
++  const unsigned char* like;
++  unsigned long like_size;
++  unsigned char* buf;
++  size_t buf_size;
++};
++typedef struct JpegEncoder JpegEncoder;
++
++static void jpeg_encode_error_exit(j_common_ptr cinfo) {
++  longjmp(((JpegEncoder*)cinfo->client_data)->jmpbuf, -1);
++}
++
++static void jpeg_encode_dest_init(j_compress_ptr cinfo) {
++  JpegEncoder* enc = (JpegEncoder*)cinfo->client_data;
++  enc->buf_size = 65536;
++  enc->buf = (unsigned char*)malloc(enc->buf_size);
++  if (!enc->buf) {
++    jpeg_encode_error_exit((j_common_ptr)cinfo);
++  }
++  enc->dest_mgr.next_output_byte = enc->buf;
++  enc->dest_mgr.free_in_buffer = enc->buf_size;
++}
++
++// Called when the whole buffer is full: double it.
++static boolean jpeg_encode_dest_grow(j_compress_ptr cinfo) {
++  JpegEncoder* enc = (JpegEncoder*)cinfo->client_data;
++  unsigned char* grown = (unsigned char*)realloc(enc->buf, enc->buf_size * 2);
++  if (!grown) {
++    jpeg_encode_error_exit((j_common_ptr)cinfo);
++  }
++  enc->buf = grown;
++  // SAFETY: `grown` holds 2 * buf_size bytes.
++  UNSAFE_BUFFERS(enc->dest_mgr.next_output_byte = grown + enc->buf_size);
++  enc->dest_mgr.free_in_buffer = enc->buf_size;
++  enc->buf_size *= 2;
++  return TRUE;
++}
++
++static void jpeg_encode_dest_term(j_compress_ptr cinfo) {}
++
++static void jpeg_encode_like_noop(j_decompress_ptr cinfo) {}
++
++static boolean jpeg_encode_like_fill(j_decompress_ptr cinfo) {
++  return FALSE;
++}
++
++static void jpeg_encode_like_skip(j_decompress_ptr cinfo, long num) {
++  if (num <= 0) {
++    return;
++  }
++  if (num > (long)cinfo->src->bytes_in_buffer) {
++    jpeg_encode_error_exit((j_common_ptr)cinfo);
++  }
++  // SAFETY: checked against bytes_in_buffer above.
++  UNSAFE_BUFFERS(cinfo->src->next_input_byte += num);
++  cinfo->src->bytes_in_buffer -= num;
++}
++
++// Copies the quantization tables (and, RGB to RGB, the chroma sampling) of the
++// JPEG in `like` into the compressor, so a re-encode keeps the source's size
++// and look.
++static void jpeg_encode_copy_like(JpegEncoder* enc,
++                                  const unsigned char* like,
++                                  unsigned long like_size) {
++  struct jpeg_decompress_struct* d = &enc->like_info;
++  struct jpeg_compress_struct* c = &enc->cinfo;
++  d->err = &enc->error_mgr;
++  d->client_data = enc;
++  jpeg_create_decompress(d);
++  enc->like_src.init_source = jpeg_encode_like_noop;
++  enc->like_src.fill_input_buffer = jpeg_encode_like_fill;
++  enc->like_src.skip_input_data = jpeg_encode_like_skip;
++  enc->like_src.resync_to_restart = jpeg_resync_to_restart;
++  enc->like_src.term_source = jpeg_encode_like_noop;
++  enc->like_src.next_input_byte = like;
++  enc->like_src.bytes_in_buffer = like_size;
++  d->src = &enc->like_src;
++  if (jpeg_read_header(d, TRUE) == JPEG_HEADER_OK) {
++    for (int ci = 0; ci < c->num_components && ci < 2; ++ci) {
++      const int src_ci = ci < d->num_components ? ci : 0;
++      const int tbl = d->comp_info[src_ci].quant_tbl_no;
++      const JQUANT_TBL* t =
++          tbl >= 0 && tbl < NUM_QUANT_TBLS ? d->quant_tbl_ptrs[tbl] : NULL;
++      if (!t) {
++        break;
++      }
++      unsigned int basic[DCTSIZE2];
++      for (int k = 0; k < DCTSIZE2; ++k) {
++        basic[k] = t->quantval[k];
++      }
++      jpeg_add_quant_table(c, ci, basic, 100, TRUE);
++    }
++    if (c->num_components == 3 && d->num_components == 3) {
++      for (int ci = 0; ci < 3; ++ci) {
++        c->comp_info[ci].h_samp_factor = d->comp_info[ci].h_samp_factor;
++        c->comp_info[ci].v_samp_factor = d->comp_info[ci].v_samp_factor;
++      }
++    }
++  }
++  jpeg_destroy_decompress(d);
++}
++
++// All libjpeg calls of an encode. External linkage and noinline keep it a
++// separate void(ptr, ptr) function: see jpeg_encode_frame().
++__attribute__((noinline)) void jpeg_common_encode_run(JpegEncoder* enc, const unsigned char* pixels) {
++  jpeg_create_compress(&enc->cinfo);
++  enc->dest_mgr.init_destination = jpeg_encode_dest_init;
++  enc->dest_mgr.empty_output_buffer = jpeg_encode_dest_grow;
++  enc->dest_mgr.term_destination = jpeg_encode_dest_term;
++  enc->cinfo.dest = &enc->dest_mgr;
++  enc->cinfo.image_width = enc->width;
++  enc->cinfo.image_height = enc->height;
++  enc->cinfo.input_components = enc->components;
++  enc->cinfo.in_color_space = enc->components == 1 ? JCS_GRAYSCALE : JCS_RGB;
++  jpeg_set_defaults(&enc->cinfo);
++  jpeg_set_quality(&enc->cinfo, enc->quality, TRUE);
++  if (enc->like && enc->like_size) {
++    jpeg_encode_copy_like(enc, enc->like, enc->like_size);
++  }
++  jpeg_start_compress(&enc->cinfo, TRUE);
++  const size_t stride = (size_t)enc->width * (size_t)enc->components;
++  while (enc->cinfo.next_scanline < enc->height) {
++    JSAMPROW row;
++    // SAFETY: the caller passes `height` rows of `stride` bytes.
++    UNSAFE_BUFFERS(row = (JSAMPROW)(pixels + enc->cinfo.next_scanline * stride));
++    jpeg_write_scanlines(&enc->cinfo, &row, 1);
++  }
++  jpeg_finish_compress(&enc->cinfo);
++  jpeg_destroy_compress(&enc->cinfo);
++}
++
++// The setjmp() frame holds exactly one call. Under Emscripten each call in it
++// becomes an invoke_* import, the imports are named by how often they are
++// called, and the viewer ships prebuilt JS for upstream's names: one more
++// void(ptr, ptr) call (13 already, next 6) keeps every name in place.
++__attribute__((noinline)) static boolean jpeg_encode_frame(JpegEncoder* enc) {
++  if (setjmp(enc->jmpbuf) == -1) {
++    return FALSE;
++  }
++  jpeg_common_encode_run(enc, enc->pixels);
++  return TRUE;
++}
++
++static boolean jpeg_encode_once(const unsigned char* pixels,
++                                unsigned int width,
++                                unsigned int height,
++                                int components,
++                                int quality,
++                                const unsigned char* like,
++                                unsigned long like_size,
++                                unsigned char** out,
++                                unsigned long* out_size) {
++  JpegEncoder* enc = (JpegEncoder*)calloc(1, sizeof(JpegEncoder));
++  if (!enc) {
++    return FALSE;
++  }
++  enc->pixels = pixels;
++  enc->width = width;
++  enc->height = height;
++  enc->components = components;
++  enc->quality = quality;
++  enc->like = like;
++  enc->like_size = like_size;
++  // Set up by hand like the decoders: jpeg_std_error() links exit().
++  enc->error_mgr.error_exit = jpeg_encode_error_exit;
++  enc->error_mgr.emit_message = jpeg_common_error_do_nothing_int;
++  enc->error_mgr.output_message = jpeg_common_error_do_nothing;
++  enc->error_mgr.format_message = jpeg_common_error_do_nothing_char;
++  enc->error_mgr.reset_error_mgr = jpeg_common_error_do_nothing;
++  enc->cinfo.err = &enc->error_mgr;
++  enc->cinfo.client_data = enc;
++  const boolean ok = jpeg_encode_frame(enc);
++  if (ok) {
++    *out = enc->buf;
++    *out_size = (unsigned long)(enc->buf_size - enc->dest_mgr.free_in_buffer);
++  } else {
++    jpeg_destroy_decompress(&enc->like_info);
++    jpeg_destroy_compress(&enc->cinfo);
++    free(enc->buf);
++  }
++  free(enc);
++  return ok;
++}
++
++boolean jpeg_common_encode(const unsigned char* pixels,
++                           unsigned int width,
++                           unsigned int height,
++                           int components,
++                           int quality,
++                           const unsigned char* like,
++                           unsigned long like_size,
++                           unsigned char** out,
++                           unsigned long* out_size) {
++  // A source header libjpeg rejects only costs its tables: retry with
++  // `quality` instead of writing the image uncompressed.
++  return jpeg_encode_once(pixels, width, height, components, quality, like,
++                          like_size, out, out_size) ||
++         (like && jpeg_encode_once(pixels, width, height, components, quality,
++                                   NULL, 0, out, out_size));
++}
++
+ #if BUILDFLAG(IS_WIN)
+ void jpeg_common_dest_do_nothing(j_compress_ptr cinfo) {}
+ 
+diff --git a/core/fxcodec/jpeg/jpeg_common.h b/core/fxcodec/jpeg/jpeg_common.h
+index b82ea60..5079c7f 100644
+--- a/core/fxcodec/jpeg/jpeg_common.h
++++ b/core/fxcodec/jpeg/jpeg_common.h
+@@ -61,6 +61,23 @@ void jpeg_common_error_do_nothing_int(j_common_ptr cinfo, int arg);
+ void jpeg_common_error_do_nothing_char(j_common_ptr cinfo, char* arg);
+ void jpeg_common_error_fatal(j_common_ptr cinfo);
+ 
++// Encodes `height` rows of 8-bit gray (`components` 1) or RGB (3) pixels as a
++// baseline JPEG. With `like` (a JPEG, `like_size` bytes) its quantization
++// tables and chroma sampling are reused, else `quality`. On success `*out` is
++// a malloc()ed buffer of `*out_size` bytes the caller frees.
++struct JpegEncoder;
++void jpeg_common_encode_run(struct JpegEncoder* enc,
++                            const unsigned char* pixels);
++boolean jpeg_common_encode(const unsigned char* pixels,
++                           unsigned int width,
++                           unsigned int height,
++                           int components,
++                           int quality,
++                           const unsigned char* like,
++                           unsigned long like_size,
++                           unsigned char** out,
++                           unsigned long* out_size);
++
+ #if BUILDFLAG(IS_WIN)
+ void jpeg_common_dest_do_nothing(j_compress_ptr cinfo);
+ boolean jpeg_common_dest_empty(j_compress_ptr cinfo);
+diff --git a/core/fxcodec/jpeg/jpegmodule.cpp b/core/fxcodec/jpeg/jpegmodule.cpp
+index 02b60f9..6a1337a 100644
+--- a/core/fxcodec/jpeg/jpegmodule.cpp
++++ b/core/fxcodec/jpeg/jpegmodule.cpp
+@@ -6,6 +6,8 @@
+ 
+ #include "core/fxcodec/jpeg/jpegmodule.h"
+ 
++#include <stdlib.h>
++
+ #include <memory>
+ #include <optional>
+ #include <type_traits>
+@@ -376,6 +378,34 @@ std::optional<JpegModule::ImageInfo> JpegModule::LoadInfo(
+   return info;
+ }
+ 
++// static
++DataVector<uint8_t> JpegModule::Encode(pdfium::span<const uint8_t> pixels,
++                                       int width,
++                                       int height,
++                                       int components,
++                                       int quality,
++                                       pdfium::span<const uint8_t> like) {
++  if (width <= 0 || height <= 0 || (components != 1 && components != 3)) {
++    return {};
++  }
++  FX_SAFE_SIZE_T size = width;
++  size *= height;
++  size *= components;
++  if (!size.IsValid() || size.ValueOrDie() != pixels.size()) {
++    return {};
++  }
++  unsigned char* out = nullptr;
++  unsigned long out_size = 0;
++  if (!jpeg_common_encode(pixels.data(), width, height, components, quality,
++                          like.data(), like.size(), &out, &out_size)) {
++    return {};
++  }
++  // SAFETY: jpeg_common_encode() wrote `out_size` bytes to `out`.
++  DataVector<uint8_t> result(out, UNSAFE_BUFFERS(out + out_size));
++  free(out);
++  return result;
++}
++
+ #if BUILDFLAG(IS_WIN)
+ bool JpegModule::JpegEncode(const RetainPtr<const CFX_DIBBase>& pSource,
+                             uint8_t** dest_buf,
+diff --git a/core/fxcodec/jpeg/jpegmodule.h b/core/fxcodec/jpeg/jpegmodule.h
+index b24b65b..a6c941e 100644
+--- a/core/fxcodec/jpeg/jpegmodule.h
++++ b/core/fxcodec/jpeg/jpegmodule.h
+@@ -14,6 +14,7 @@
+ #include <optional>
+ 
+ #include "build/build_config.h"
++#include "core/fxcrt/data_vector.h"
+ #include "core/fxcrt/span.h"
+ 
+ #if BUILDFLAG(IS_WIN)
+@@ -47,6 +48,16 @@ class JpegModule {
+   static std::optional<ImageInfo> LoadInfo(
+       pdfium::span<const uint8_t> src_span);
+ 
++  // 8-bit gray (`components` 1) or RGB (3) rows, top row first, to a baseline
++  // JPEG with the quantization tables and chroma sampling of `like` (a JPEG),
++  // or `quality` when `like` is empty or unreadable; empty on failure.
++  static DataVector<uint8_t> Encode(pdfium::span<const uint8_t> pixels,
++                                    int width,
++                                    int height,
++                                    int components,
++                                    int quality,
++                                    pdfium::span<const uint8_t> like);
++
+ #if BUILDFLAG(IS_WIN)
+   UNSAFE_BUFFER_USAGE static bool JpegEncode(
+       const RetainPtr<const CFX_DIBBase>& pSource,

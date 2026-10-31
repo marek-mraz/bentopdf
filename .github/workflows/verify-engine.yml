@@ -1,8 +1,8 @@
 name: Verify PDF engine
 
-# Rebuilds vendor/bentopdf-pdfium from source without cache and fails unless
-# the result is bit-identical to the vendored tarball. Run after every
-# upstream sync that changes vendor/.
+# Rebuilds the PDF engine the image ships (.github/municipal/engine/, else
+# vendor/bentopdf-pdfium) from source without cache and fails unless the
+# result is bit-identical. Run after every upstream sync that changes vendor/.
 on:
   workflow_dispatch:
 

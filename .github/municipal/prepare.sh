@@ -74,6 +74,26 @@ for tgz in "$TMP"/bundle/*.tgz; do
     'package/LICENSE*' 'package/COPYING*' 'package/package.json' 2>/dev/null || true
 done
 
+# 2a. PDF engine: upstream's engine plus engine/*.patch, built and verified by
+# verify-engine.sh. The engine bundled up to 051abe5b72a9 left marked text in
+# the file when two redaction marks shared a line. A new upstream engine stops
+# the build until someone checks it (check-redaction.mjs) and patches it if
+# needed: WRITE=1 verify-engine.sh, or delete the patch once upstream has it.
+# The check runs the patched wasm under upstream's editcore.js, as the
+# viewer does with its prebuilt copy of that JS.
+ENGINE_REV=$(tr -d '\r\n' < vendor/bentopdf-pdfium/.upstream-version)
+ENGINE="$HERE/engine/bentopdf-pdfium-$ENGINE_REV.tgz"
+VENDORED="vendor/bentopdf-pdfium/bentopdf-pdfium-$ENGINE_REV.tgz"
+[ -f "$ENGINE" ] || { echo "prepare.sh: no $ENGINE for upstream engine $ENGINE_REV (see step 2a)" >&2; exit 1; }
+[ -f "$VENDORED" ] || { echo "prepare.sh: $VENDORED not found" >&2; exit 1; }
+VIEWER="vendor/bentopdf-viewer/bentopdf-viewer-$(tr -d '\r\n' < vendor/bentopdf-viewer/.upstream-version).tgz"
+node "$HERE/check-redaction.mjs" "$ENGINE" "$VENDORED" "$VIEWER"
+cp "$ENGINE" "$VENDORED"
+INTEGRITY="sha512-$(openssl dgst -sha512 -binary "$VENDORED" | base64 -w0)" \
+  perl -0pi -e 's#("node_modules/bentopdf-pdfium":\s*\{[^}]*?"integrity":\s*")[^"]+#$1$ENV{INTEGRITY}#' package-lock.json
+grep -qF "$(openssl dgst -sha512 -binary "$VENDORED" | base64 -w0)" package-lock.json \
+  || { echo "package-lock.json: bentopdf-pdfium integrity not updated" >&2; exit 1; }
+
 # 2b. Third-party binaries: everything bundled above plus the WASM, viewers and
 # engine tarballs upstream commits. OCR data for languages not chosen in this
 # build may be missing from the image; nothing may differ or be new.
