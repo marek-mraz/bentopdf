@@ -38,7 +38,7 @@ for path in '//evil.example/' '/\evil.example/' '/%5Cevil.example/' '/en//evil.e
   check "no off-site redirect for $path" $r "Location: $to"
 done
 
-assets="gs/gs.wasm cpdf/coherentpdf.browser.min.js ocr/worker.min.js ocr/fonts/NotoSans-Regular.ttf"
+assets="gs/gs.wasm cpdf/coherentpdf.browser.min.js ocr/worker.min.js ocr/fonts/NotoSans-Regular.ttf embedpdf/fonts-latin@1.0.0/fonts/NotoSans-Regular.ttf"
 for lang in ${OCR_LANGS//,/ }; do assets="$assets ocr/lang-data/$lang.traineddata.gz"; done
 for f in $assets; do
   if curl -fs -o /dev/null "$URL/wasm/$f"; then r=ok; else r=bad; fi

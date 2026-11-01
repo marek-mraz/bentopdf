@@ -1,6 +1,12 @@
-const FONT_CDN =
+// A path such as /wasm/embedpdf resolves against the page, so the fonts come
+// from the host that served it. Redaction needs them: without the fallback
+// font the engine measures glyphs of non-embedded fonts wrongly and leaves
+// marked text in the file.
+const FONT_CDN = new URL(
   import.meta.env.VITE_EMBEDPDF_FONTS_URL ||
-  'https://cdn.jsdelivr.net/npm/@embedpdf';
+    'https://cdn.jsdelivr.net/npm/@embedpdf',
+  location.href
+).href.replace(/\/$/, '');
 
 const CHARSET = {
   ANSI: 0,

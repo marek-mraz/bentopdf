@@ -91,7 +91,10 @@ for f in $(grep -oE "fonts-[a-z]+@[0-9.]+/fonts/[^']+" src/js/config/editor-font
   mkdir -p "public/wasm/embedpdf/$pkg"
   tar xzf "$tgz" -C "public/wasm/embedpdf/$pkg" --strip-components=1 "package/${f#*/}" package/LICENSE
 done
-echo "VITE_EMBEDPDF_FONTS_URL=$WASM_URL/embedpdf" > .env.production
+# A path, not $WASM_URL: the page resolves it against its own host. An
+# absolute SITE_URL breaks on any other host name (CSP blocks the cross-origin
+# font) and redaction then misses glyphs of non-embedded fonts.
+echo "VITE_EMBEDPDF_FONTS_URL=/wasm/embedpdf" > .env.production
 
 # Keep each bundled package's license and manifest next to its files.
 for tgz in "$TMP"/bundle/*.tgz; do
