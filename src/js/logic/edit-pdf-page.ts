@@ -21,7 +21,14 @@ import type {
   DocManagerPlugin,
   FreeTextSystemFontAnnotation,
   ViewerCommandsPlugin,
+  PendingRedactionItem,
+  RedactionGlyph,
   RedactionPluginLite,
+  RedactionMarkRect,
+  RedactionTextDocument,
+  RedactionTextEngine,
+  RedactionTextSlice,
+  RedactionTextSource,
 } from '@/types';
 import { t, onPageReady } from '../i18n/i18n';
 
@@ -78,6 +85,10 @@ export function trackAppliedRedactions(
     appliedTexts: (documentId) => [
       ...(appliedByDoc.get(documentId)?.values() ?? []),
     ],
+    setPendingText: (documentId, id, text) => {
+      const pending = pendingByDoc.get(documentId);
+      if (pending?.has(id)) pending.set(id, text);
+    },
     forget: (documentId) => {
       pendingByDoc.delete(documentId);
       appliedByDoc.delete(documentId);
@@ -98,6 +109,76 @@ export function redactionScrubTerms(
     }
   }
   return [...terms.values()].sort((a, b) => b.length - a.length);
+}
+
+const centerInside = (glyph: RedactionGlyph, rect: RedactionMarkRect) => {
+  const x = glyph.origin.x + glyph.size.width / 2;
+  const y = glyph.origin.y + glyph.size.height / 2;
+  return (
+    x >= rect.origin.x &&
+    x <= rect.origin.x + rect.size.width &&
+    y >= rect.origin.y &&
+    y <= rect.origin.y + rect.size.height
+  );
+};
+
+// Area marks (and marks loaded from the file) carry no text, so the document
+// data scrub would not know what they covered. Read it from the page before
+// the marks are applied. A glyph counts when its center is inside a mark, so
+// a neighbour that only touches the edge cannot make the term too long to
+// match its copies elsewhere in the file.
+export async function readTextUnderMarks(
+  engine: RedactionTextEngine,
+  doc: RedactionTextDocument,
+  items: PendingRedactionItem[]
+): Promise<Map<string, string>> {
+  const found = new Map<string, string>();
+  const byPage = new Map<number, PendingRedactionItem[]>();
+  for (const item of items) {
+    if (item.text || item.page === undefined) continue;
+    if (!item.rects?.length && !item.rect) continue;
+    byPage.set(item.page, [...(byPage.get(item.page) ?? []), item]);
+  }
+  for (const [pageIndex, pageItems] of byPage) {
+    const page = doc.pages[pageIndex];
+    if (!page) continue;
+    const glyphs = await engine.getPageGlyphs(doc, page).toPromise();
+    for (const item of pageItems) {
+      const rects = item.rects?.length ? item.rects : [item.rect!];
+      const slices: RedactionTextSlice[] = [];
+      let start = -1;
+      let last = -1;
+      glyphs.forEach((glyph, i) => {
+        if (!glyph) return; // empty glyphs (spaces, line ends) keep a run open
+        if (rects.some((rect) => centerInside(glyph, rect))) {
+          if (start < 0) start = i;
+          last = i;
+        } else if (start >= 0) {
+          slices.push({
+            pageIndex,
+            charIndex: start,
+            charCount: last - start + 1,
+          });
+          start = -1;
+        }
+      });
+      if (start >= 0) {
+        slices.push({
+          pageIndex,
+          charIndex: start,
+          charCount: last - start + 1,
+        });
+      }
+      if (slices.length === 0) continue;
+      const texts = await engine.getTextSlices(doc, slices).toPromise();
+      const text = texts
+        .map((t) => t.trim())
+        .filter(Boolean)
+        .join('\n');
+      if (text) found.set(item.id, text);
+    }
+  }
+  return found;
 }
 
 export async function scrubRedactedText(
@@ -435,6 +516,32 @@ async function handleFiles(files: FileList) {
               t('tools:pdfEditor.msg.applyAndDownload')
             );
             if (!shouldApply) return;
+            if (documentId && redactionTracker) {
+              try {
+                const source = registry as unknown as RedactionTextSource;
+                const doc = source.getStore().getState().core.documents[
+                  documentId
+                ]?.document;
+                const items = Object.values(
+                  redactionPlugin.getState().pending ?? {}
+                ).flat();
+                if (doc) {
+                  const texts = await readTextUnderMarks(
+                    source.getEngine(),
+                    doc,
+                    items
+                  );
+                  for (const [id, text] of texts) {
+                    redactionTracker.setPendingText(documentId, id, text);
+                  }
+                }
+              } catch (err) {
+                console.error(
+                  'Reading the text under redaction marks failed:',
+                  err
+                );
+              }
+            }
             try {
               await redactionPlugin.commitAllPending().toPromise();
             } catch (err) {
