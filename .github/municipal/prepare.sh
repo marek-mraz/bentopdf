@@ -40,8 +40,35 @@ trap 'rm -rf "$TMP"' EXIT
 # and the i18n page generator hard-code "BentoPDF". Handles and URLs
 # (@BentoPDF, x.com/BentoPDF, BentoPDF.com) stay; blog/ is upstream's author blog.
 grep -rlZ BentoPDF -- *.html src/pages src/partials public/locales \
-    src/js/sw-register.ts scripts/generate-i18n-pages.mjs scripts/enhance-seo-pages.mjs \
+    src/js/sw-register.ts src/js/logic/edit-pdf-page.ts src/js/utils/tesseract-language-availability.ts \
+    scripts/generate-i18n-pages.mjs scripts/enhance-seo-pages.mjs \
   | BRAND="$BRAND" xargs -0 -r perl -pi -e 's/(?<![@\/])BentoPDF(?!\.com)/$ENV{BRAND}/g'
+# 1b. Page translations are keyed by sha1 of the English text, so a page text
+# that named BentoPDF no longer finds its translation after step 1 and shows
+# in English (486 texts, FAQ answers included). Add each translation under the
+# key of the renamed text too.
+BRAND="$BRAND" node - <<'JS'
+const fs = require('fs');
+const { createHash } = require('crypto');
+const id = (t) => createHash('sha1').update(t).digest('hex').slice(0, 12);
+const rename = (t) => t.replace(/(?<![@/])BentoPDF(?!\.com)/g, process.env.BRAND);
+const source = JSON.parse(fs.readFileSync('translations/source.json', 'utf8'));
+const moved = [];
+for (const [key, entry] of Object.entries(source)) {
+  const text = typeof entry === 'string' ? entry : entry.text;
+  if (id(text) !== key) throw new Error(`translations/source.json: ${key} is not sha1 of its text; upstream changed the keys`);
+  if (rename(text) !== text) moved.push([key, id(rename(text))]);
+}
+if (!moved.length) throw new Error('translations/source.json: no text names BentoPDF; check step 1b');
+for (const lang of fs.readdirSync('translations')) {
+  const file = `translations/${lang}/content.json`;
+  if (!fs.existsSync(file)) continue;
+  const content = JSON.parse(fs.readFileSync(file, 'utf8'));
+  for (const [from, to] of moved) if (typeof content[from] === 'string') content[to] = rename(content[from]);
+  fs.writeFileSync(file, JSON.stringify(content));
+}
+console.log(`prepare.sh: ${moved.length} page texts re-keyed for the brand placeholder`);
+JS
 
 # 2. PyMuPDF, Ghostscript, CoherentPDF, Tesseract (+ language data, OCR fonts).
 # CDNs answer 503 now and then; curl retries those via this .curlrc.
