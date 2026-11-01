@@ -2,8 +2,10 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type {
   PendingRedactionChange,
   PendingRedactionItem,
+  RedactionGlyph,
   RedactionPluginEvent,
   RedactionPluginLite,
+  RedactionTextEngine,
 } from '../js/types/edit-pdf-redaction-type.js';
 
 const { redactDocumentData } = vi.hoisted(() => ({
@@ -21,8 +23,12 @@ vi.mock('../js/utils/disabled-tools.js', () => ({
   getEditorDisabledCategories: (): string[] => [],
 }));
 
-const { trackAppliedRedactions, redactionScrubTerms, scrubRedactedText } =
-  await import('../js/logic/edit-pdf-page.js');
+const {
+  trackAppliedRedactions,
+  redactionScrubTerms,
+  scrubRedactedText,
+  readTextUnderMarks,
+} = await import('../js/logic/edit-pdf-page.js');
 
 function mockRedactionPlugin() {
   const pendingListeners = new Set<(event: PendingRedactionChange) => void>();
@@ -144,6 +150,109 @@ describe('trackAppliedRedactions', () => {
     viewer.apply('doc');
     viewer.mark('doc', item);
     expect(tracker.appliedTexts('doc')).toEqual([]);
+  });
+});
+
+describe('readTextUnderMarks', () => {
+  // One line per row of the page, 10 pt per character, 20 pt per row; spaces
+  // are empty glyphs, as the engine reports them.
+  function fakeEngine(lines: string[]) {
+    const text = lines.join('\r\n');
+    const glyphs: (RedactionGlyph | undefined)[] = [];
+    let row = 0;
+    let col = 0;
+    for (const c of text) {
+      if (c === '\n') {
+        row++;
+        col = 0;
+        glyphs.push(undefined);
+        continue;
+      }
+      glyphs.push(
+        c === ' ' || c === '\r'
+          ? undefined
+          : {
+              origin: { x: col * 10, y: row * 20 },
+              size: { width: 10, height: 12 },
+            }
+      );
+      col++;
+    }
+    const engine: RedactionTextEngine = {
+      getPageGlyphs: () => ({ toPromise: async () => glyphs }),
+      getTextSlices: (_doc, slices) => ({
+        toPromise: async () =>
+          slices.map((s) => text.slice(s.charIndex, s.charIndex + s.charCount)),
+      }),
+    };
+    return engine;
+  }
+  const doc = { pages: [{ index: 0 }] };
+  const rect = (x: number, y: number, width: number, height: number) => ({
+    origin: { x, y },
+    size: { width, height },
+  });
+
+  it('reads the words an area mark covers, spaces included', async () => {
+    const engine = fakeEngine(['Name Jane Doe born 1970']);
+    const found = await readTextUnderMarks(engine, doc, [
+      { id: 'a', kind: 'area', page: 0, rect: rect(50, 0, 80, 12) },
+    ]);
+    expect(found.get('a')).toBe('Jane Doe');
+  });
+
+  it('skips a neighbour that only touches the mark edge', async () => {
+    const engine = fakeEngine(['Name Jane Doe born']);
+    const found = await readTextUnderMarks(engine, doc, [
+      { id: 'a', kind: 'area', page: 0, rect: rect(38, 0, 94, 12) },
+    ]);
+    expect(found.get('a')).toBe('Jane Doe');
+  });
+
+  it('returns one line per covered row and skips marks that have text', async () => {
+    const engine = fakeEngine(['Jane Doe', 'Main St 5', 'keep']);
+    const found = await readTextUnderMarks(engine, doc, [
+      { id: 'a', kind: 'area', page: 0, rect: rect(0, 0, 90, 32) },
+      {
+        id: 'b',
+        kind: 'text',
+        text: 'Jane',
+        page: 0,
+        rect: rect(0, 0, 40, 12),
+      },
+      { id: 'c', kind: 'area', page: 0, rect: rect(0, 60, 90, 12) },
+      { id: 'd', kind: 'area', page: 3, rect: rect(0, 0, 90, 12) },
+    ]);
+    expect(found.get('a')).toBe('Jane Doe\r\nMain St 5');
+    expect(redactionScrubTerms(found.values())).toEqual([
+      'Main St 5',
+      'Jane Doe',
+    ]);
+    expect([...found.keys()]).toEqual(['a']);
+  });
+
+  it('uses the segment rects of a text mark loaded without its text', async () => {
+    const engine = fakeEngine(['Name Jane Doe born']);
+    const found = await readTextUnderMarks(engine, doc, [
+      {
+        id: 'a',
+        kind: 'text',
+        page: 0,
+        rect: rect(0, 0, 180, 12),
+        rects: [rect(50, 0, 80, 12)],
+      },
+    ]);
+    expect(found.get('a')).toBe('Jane Doe');
+  });
+
+  it('hands the text to the tracker, which reports it once applied', () => {
+    const viewer = mockRedactionPlugin();
+    const tracker = trackAppliedRedactions(viewer.plugin);
+    viewer.mark('doc', { id: 'a', kind: 'area' });
+    tracker.setPendingText('doc', 'a', 'Jane Doe');
+    tracker.setPendingText('doc', 'unknown', 'ignored');
+    viewer.apply('doc');
+    expect(tracker.appliedTexts('doc')).toEqual(['Jane Doe']);
   });
 });
 

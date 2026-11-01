@@ -256,6 +256,61 @@ describe('redactDocumentData', () => {
     expect(result.getSubject()).toBe(' corp');
   });
 
+  it('removes the redacted text from JavaScript streams and strings', async () => {
+    const doc = await PDFDocument.create();
+    doc.addPage();
+    const ctx = doc.context;
+    const script = ctx.register(
+      ctx.flateStream(`var who = '${SECRET}'; var keep = 'Keep me';`)
+    );
+    const utf16 = ctx.register(
+      ctx.flateStream(
+        Uint8Array.from([
+          0xfe,
+          0xff,
+          ...[...`app.alert('${SECRET} \u010d');`].flatMap((c) => [
+            c.charCodeAt(0) >> 8,
+            c.charCodeAt(0) & 0xff,
+          ]),
+        ])
+      )
+    );
+    doc.catalog.set(
+      PDFName.of('Names'),
+      ctx.obj({
+        JavaScript: ctx.obj({
+          Names: [
+            PDFString.of('init'),
+            ctx.obj({ S: 'JavaScript', JS: script }),
+            PDFString.of('alert'),
+            ctx.obj({ S: 'JavaScript', JS: utf16 }),
+          ],
+        }),
+      })
+    );
+    doc.catalog.set(
+      PDFName.of('OpenAction'),
+      ctx.obj({ S: 'JavaScript', JS: PDFString.of(`print('${SECRET}')`) })
+    );
+
+    const output = await redactDocumentData(await doc.save(), [SECRET]);
+    const text = await allText(output);
+    expect(text).not.toContain(SECRET);
+    expect(text).toContain("var keep = 'Keep me';");
+    expect(text).toContain("print('')");
+
+    const result = await PDFDocument.load(output, { updateMetadata: false });
+    const names = result.catalog
+      .lookup(PDFName.of('Names'), PDFDict)
+      .lookup(PDFName.of('JavaScript'), PDFDict)
+      .lookup(PDFName.of('Names'), PDFArray);
+    const alert = names.lookup(3, PDFDict).lookup(PDFName.of('JS'));
+    const bytes = decodePDFRawStream(alert as PDFRawStream).decode();
+    expect(new TextDecoder('utf-16be').decode(bytes)).toBe(
+      "app.alert(' \u010d');"
+    );
+  });
+
   it('only drops thumbnails and leftovers when no search text is given', async () => {
     const input = await buildDocument();
     const output = await redactDocumentData(input);

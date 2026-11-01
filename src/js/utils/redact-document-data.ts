@@ -42,6 +42,17 @@ function decodeStream(stream: PDFRawStream): Uint8Array | null {
   }
 }
 
+function utf16beWithBom(text: string): Uint8Array {
+  const out = new Uint8Array(2 + text.length * 2);
+  out[0] = 0xfe;
+  out[1] = 0xff;
+  for (let i = 0; i < text.length; i++) {
+    out[2 + 2 * i] = text.charCodeAt(i) >> 8;
+    out[3 + 2 * i] = text.charCodeAt(i) & 0xff;
+  }
+  return out;
+}
+
 function removeTextFromDocument(doc: PDFDocument, terms: string[]): void {
   const context = doc.context;
   const needles = terms.map((term) => term.toLowerCase());
@@ -196,8 +207,31 @@ function removeTextFromDocument(doc: PDFDocument, terms: string[]): void {
     return null;
   };
 
+  // JavaScript in a string is scrubbed like any other string; JavaScript in a
+  // stream (PDFDocEncoding, or UTF-16BE with a byte order mark) is rewritten.
+  const scrubJavaScript = (action: PDFDict) => {
+    if (action.get(PDFName.of('S')) !== PDFName.of('JavaScript')) return;
+    const ref = action.get(PDFName.of('JS'));
+    if (!(ref instanceof PDFRef)) return;
+    const stream = context.lookup(ref);
+    if (!(stream instanceof PDFRawStream)) return;
+    const bytes = decodeStream(stream);
+    if (!bytes) return;
+    const utf16 = bytes[0] === 0xfe && bytes[1] === 0xff;
+    const code = utf16
+      ? new TextDecoder('utf-16be').decode(bytes)
+      : Array.from(bytes, (b) => String.fromCharCode(b)).join('');
+    if (!contains(code)) return;
+    const cleaned = code.replace(pattern, '');
+    const out = utf16
+      ? utf16beWithBom(cleaned)
+      : Uint8Array.from(cleaned, (c) => c.charCodeAt(0));
+    context.assign(ref, context.flateStream(out));
+  };
+
   const scrubContainer = (container: PDFDict | PDFArray) => {
     if (container instanceof PDFDict) {
+      scrubJavaScript(container);
       const type = container.get(PDFName.of('Type'));
       const isSignature = type instanceof PDFName && SIGNATURE_TYPES.has(type);
       for (const [key, value] of container.entries()) {
