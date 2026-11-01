@@ -173,32 +173,20 @@
 
         <div id="options-container" class="hidden mt-6 space-y-6">
           <div>
-            <label
-              data-i18n="tools:pdfToPdfa.ui.pdfVersion"
-              class="block mb-2 text-sm font-medium text-gray-300"
+            <label class="block mb-2 text-sm font-medium text-gray-300"
               >PDF/A Version</label
             >
             <select
               id="pdfa-level"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500"
             >
-              <option
-                data-i18n="tools:pdfToPdfa.ui.pdf1bStrictNoTransparency"
-                value="PDF/A-1b"
-              >
+              <option value="PDF/A-1b">
                 PDF/A-1b (Strict, no transparency)
               </option>
-              <option
-                data-i18n="tools:pdfToPdfa.ui.pdf2bRecommendedAllowsTransparency"
-                value="PDF/A-2b"
-                selected
-              >
+              <option value="PDF/A-2b" selected>
                 PDF/A-2b (Recommended, allows transparency)
               </option>
-              <option
-                data-i18n="tools:pdfToPdfa.ui.pdf3bModernAllowsAttachments"
-                value="PDF/A-3b"
-              >
+              <option value="PDF/A-3b">
                 PDF/A-3b (Modern, allows attachments)
               </option>
             </select>
@@ -214,16 +202,12 @@
             />
             <div>
               <label
-                data-i18n="tools:pdfToPdfa.ui.preFlattenPdfRecommendedComplex"
                 for="pre-flatten"
                 class="text-sm font-medium text-gray-200 cursor-pointer"
               >
                 Pre-flatten PDF (recommended for complex files)
               </label>
-              <p
-                data-i18n="tools:pdfToPdfa.ui.convertsPdfToImagesFirst"
-                class="text-xs text-gray-400 mt-1"
-              >
+              <p class="text-xs text-gray-400 mt-1">
                 Converts the PDF to images first, ensuring better PDF/A
                 compliance. Recommended if validation fails on the normal
                 conversion.
@@ -231,11 +215,7 @@
             </div>
           </div>
 
-          <button
-            data-i18n="tools:pdfToPdfa.ui.convertToPdfa"
-            id="process-btn"
-            class="btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-4">
             Convert to PDF/A
           </button>
         </div>
@@ -251,11 +231,7 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          data-i18n="loader.converting"
-          id="loader-text"
-          class="text-white text-lg font-medium"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Converting...
         </p>
       </div>
@@ -303,12 +279,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -321,12 +292,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -339,12 +305,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -366,74 +327,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -449,12 +372,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-pdfa.1.q"
-              >Which PDF/A version should I choose?</span
-            >
+            Which PDF/A version should I choose?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-pdfa.1.a">
+          <p class="faq-d-a">
             PDF/A-2b, the default, suits most archiving and accepts transparency
             and JPEG 2000 images. Pick PDF/A-1b only when a recipient demands
             it, since it's the strictest level and forbids transparency and
@@ -464,12 +385,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-pdfa.2.q"
-              >What does the conversion actually change in my file?</span
-            >
+            What does the conversion actually change in my file?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-pdfa.2.a">
+          <p class="faq-d-a">
             Ghostscript rewrites the PDF so it meets the standard: every font is
             embedded as a subset, colors are converted to device-independent
             color with an sRGB output intent, and features the chosen level
@@ -479,12 +398,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-pdfa.3.q"
-              >Why is the PDF/A file bigger than the original?</span
-            >
+            Why is the PDF/A file bigger than the original?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-pdfa.3.a">
+          <p class="faq-d-a">
             PDF/A requires all fonts to be embedded, so any font the original
             referenced but didn't include is now stored inside the file, and the
             sRGB color profile is added too.
@@ -499,12 +416,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-pdfa.4.q"
-              >When should I turn on Pre-flatten?</span
-            >
+            When should I turn on Pre-flatten?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-pdfa.4.a">
+          <p class="faq-d-a">
             Only if the normal conversion fails. Pre-flatten renders every page
             to a 300 DPI image before Ghostscript runs, which gets around broken
             fonts or unusual transparency but leaves you with no selectable
@@ -514,12 +429,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-pdfa.5.q"
-              >Is the output guaranteed to pass a PDF/A validator?</span
-            >
+            Is the output guaranteed to pass a PDF/A validator?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-pdfa.5.a">
+          <p class="faq-d-a">
             Not guaranteed. Ghostscript produces conformant output for the vast
             majority of files, but it isn't a validator, so if a court,
             repository, or auditor requires proof, check the result with a
@@ -528,12 +441,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-pdfa.6.q"
-              >Can I convert multiple PDFs to PDF/A at once?</span
-            >
+            Can I convert multiple PDFs to PDF/A at once?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-pdfa.6.a">
+          <p class="faq-d-a">
             Yes. Add multiple files and they're converted one after another with
             the same settings; a single file downloads directly and several
             download together as pdfa-converted.zip.
@@ -541,12 +452,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-pdfa.7.q"
-              >Are my records uploaded to a server for PDF/A conversion?</span
-            >
+            Are my records uploaded to a server for PDF/A conversion?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-pdfa.7.a">
+          <p class="faq-d-a">
             No. Ghostscript runs as a WebAssembly module inside your browser, so
             the conversion happens on your machine and the files never leave it.
             The module itself is fetched from a CDN the first time you use the
@@ -555,12 +464,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-pdfa.8.q"
-              >Can I convert a password-protected PDF to PDF/A?</span
-            >
+            Can I convert a password-protected PDF to PDF/A?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-pdfa.8.a">
+          <p class="faq-d-a">
             The tool asks for the open password first, then converts the
             decrypted file. PDF/A itself forbids encryption, so the output is
             always unprotected; a password-protected PDF/A isn't possible.

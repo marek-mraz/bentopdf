@@ -152,7 +152,6 @@
           <!-- Target Size -->
           <div>
             <label
-              data-i18n="tools:fixPageSize.ui.targetPageSize"
               for="target-size"
               class="block mb-2 text-sm font-medium text-gray-300"
               >Target Page Size</label
@@ -161,36 +160,13 @@
               id="target-size"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             >
-              <option data-i18n="shared.a4210297Mm" value="A4">
-                A4 (210 × 297 mm)
-              </option>
-              <option
-                data-i18n="tools:fixPageSize.ui.letter8511In"
-                value="Letter"
-              >
-                Letter (8.5 × 11 in)
-              </option>
-              <option
-                data-i18n="tools:fixPageSize.ui.legal8514In"
-                value="Legal"
-              >
-                Legal (8.5 × 14 in)
-              </option>
-              <option data-i18n="shared.a3297420Mm" value="A3">
-                A3 (297 × 420 mm)
-              </option>
-              <option data-i18n="shared.a5148210Mm" value="A5">
-                A5 (148 × 210 mm)
-              </option>
-              <option
-                data-i18n="tools:fixPageSize.ui.tabloid1117In"
-                value="Tabloid"
-              >
-                Tabloid (11 × 17 in)
-              </option>
-              <option data-i18n="tools:fixPageSize.ui.custom" value="Custom">
-                Custom...
-              </option>
+              <option value="A4">A4 (210 × 297 mm)</option>
+              <option value="Letter">Letter (8.5 × 11 in)</option>
+              <option value="Legal">Legal (8.5 × 14 in)</option>
+              <option value="A3">A3 (297 × 420 mm)</option>
+              <option value="A5">A5 (148 × 210 mm)</option>
+              <option value="Tabloid">Tabloid (11 × 17 in)</option>
+              <option value="Custom">Custom...</option>
             </select>
           </div>
 
@@ -199,7 +175,6 @@
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label
-                  data-i18n="tools:fixPageSize.ui.width"
                   for="custom-width"
                   class="block mb-1 text-xs font-medium text-gray-400"
                   >Width</label
@@ -215,7 +190,6 @@
               </div>
               <div>
                 <label
-                  data-i18n="tools:fixPageSize.ui.height"
                   for="custom-height"
                   class="block mb-1 text-xs font-medium text-gray-400"
                   >Height</label
@@ -232,7 +206,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:fixPageSize.ui.units"
                 for="custom-units"
                 class="block mb-1 text-xs font-medium text-gray-400"
                 >Units</label
@@ -241,12 +214,8 @@
                 id="custom-units"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2 text-sm"
               >
-                <option data-i18n="tools:fixPageSize.ui.inches" value="in">
-                  Inches
-                </option>
-                <option data-i18n="tools:fixPageSize.ui.millimeters" value="mm">
-                  Millimeters
-                </option>
+                <option value="in">Inches</option>
+                <option value="mm">Millimeters</option>
               </select>
             </div>
           </div>
@@ -254,7 +223,6 @@
           <!-- Orientation -->
           <div>
             <label
-              data-i18n="toolPage.orientation"
               for="orientation"
               class="block mb-2 text-sm font-medium text-gray-300"
               >Orientation</label
@@ -263,26 +231,15 @@
               id="orientation"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             >
-              <option
-                data-i18n="tools:fixPageSize.ui.autoKeepOriginal"
-                value="auto"
-              >
-                Auto (Keep Original)
-              </option>
-              <option data-i18n="toolPage.portrait" value="portrait">
-                Portrait
-              </option>
-              <option data-i18n="toolPage.landscape" value="landscape">
-                Landscape
-              </option>
+              <option value="auto">Auto (Keep Original)</option>
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
             </select>
           </div>
 
           <!-- Scaling Mode -->
           <div>
-            <label
-              data-i18n="tools:fixPageSize.ui.contentScaling"
-              class="block mb-2 text-sm font-medium text-gray-300"
+            <label class="block mb-2 text-sm font-medium text-gray-300"
               >Content Scaling</label
             >
             <div class="flex gap-4 p-2 rounded-lg bg-gray-900">
@@ -297,15 +254,8 @@
                   class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
                 />
                 <div>
-                  <span
-                    data-i18n="toolPage.fit"
-                    class="font-semibold text-white"
-                    >Fit</span
-                  >
-                  <p
-                    data-i18n="tools:fixPageSize.ui.preservesAllContentMayAdd"
-                    class="text-xs text-gray-400"
-                  >
+                  <span class="font-semibold text-white">Fit</span>
+                  <p class="text-xs text-gray-400">
                     Preserves all content, may add margins.
                   </p>
                 </div>
@@ -320,15 +270,8 @@
                   class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
                 />
                 <div>
-                  <span
-                    data-i18n="tools:fixPageSize.ui.fillCrop"
-                    class="font-semibold text-white"
-                    >Fill (Crop)</span
-                  >
-                  <p
-                    data-i18n="tools:fixPageSize.ui.fillsPageMayCropContent"
-                    class="text-xs text-gray-400"
-                  >
+                  <span class="font-semibold text-white">Fill (Crop)</span>
+                  <p class="text-xs text-gray-400">
                     Fills the page, may crop content.
                   </p>
                 </div>
@@ -339,26 +282,19 @@
           <!-- Background Color -->
           <div>
             <label
-              data-i18n="toolPage.backgroundColor"
               for="background-color"
               class="block mb-2 text-sm font-medium text-gray-300"
               >Background Color</label
             >
             <div class="flex items-center gap-3">
               <input type="color" id="background-color" value="#ffffff" />
-              <span
-                data-i18n="tools:fixPageSize.ui.colorMarginsPadding"
-                class="text-sm text-gray-400"
+              <span class="text-sm text-gray-400"
                 >Color for margins/padding</span
               >
             </div>
           </div>
 
-          <button
-            data-i18n="tools:fixPageSize.name"
-            id="process-btn"
-            class="btn-gradient w-full"
-          >
+          <button id="process-btn" class="btn-gradient w-full">
             Fix Page Size
           </button>
         </div>
@@ -427,12 +363,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -445,12 +376,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -463,12 +389,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -490,74 +411,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -573,13 +456,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="fix-page-size.1.q"
-              >What's the difference between Fit and Fill when resizing
-              pages?</span
-            >
+            What's the difference between Fit and Fill when resizing pages?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="fix-page-size.1.a">
+          <p class="faq-d-a">
             Fit scales each page until the whole page sits inside the target
             size, centers it, and pads any leftover space with the background
             color. Fill scales until the target is completely covered, which
@@ -589,13 +469,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="fix-page-size.2.q"
-              >Can I convert a Letter document to A4 without distorting
-              it?</span
-            >
+            Can I convert a Letter document to A4 without distorting it?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="fix-page-size.2.a">
+          <p class="faq-d-a">
             Choose A4 as the target and keep Fit. Content is scaled
             proportionally, never stretched, so a Letter page ends up slightly
             narrower on A4 with a thin band of background color at the top and
@@ -610,12 +487,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="fix-page-size.3.q"
-              >What does the Auto orientation option do?</span
-            >
+            What does the Auto orientation option do?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="fix-page-size.3.a">
+          <p class="faq-d-a">
             Auto looks at each page individually and keeps landscape pages
             landscape and portrait pages portrait, turning the target size to
             match. Portrait or Landscape forces every page into that orientation
@@ -624,12 +499,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="fix-page-size.4.q"
-              >Can I set a custom page size?</span
-            >
+            Can I set a custom page size?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="fix-page-size.4.a">
+          <p class="faq-d-a">
             Choose Custom as the target and enter the width and height in inches
             or millimeters, down to a hundredth of a unit. This covers trim
             sizes that aren't in the preset list, such as 6 x 9 inch book pages.
@@ -637,13 +510,11 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="fix-page-size.5.q"
-              >Does this keep the text selectable, or does it turn pages into
-              images?</span
-            >
+            Does this keep the text selectable, or does it turn pages into
+            images?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="fix-page-size.5.a">
+          <p class="faq-d-a">
             Pages are redrawn as vector content in a new document, so text stays
             sharp and selectable and nothing is rasterized. What doesn't carry
             over: annotations, form fields, links, and bookmarks, because only
@@ -656,13 +527,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="fix-page-size.6.q"
-              >My pages are almost Letter size but not quite. Will this fix
-              them?</span
-            >
+            My pages are almost Letter size but not quite. Will this fix them?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="fix-page-size.6.a">
+          <p class="faq-d-a">
             Yes. Pick Letter and Fit; a page that is 8.49 by 11.02 inches is
             scaled by a fraction of a percent to exactly 8.5 by 11, which is
             invisible to the eye but satisfies print shops and document systems
@@ -671,12 +539,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="fix-page-size.7.q"
-              >What is the background color used for?</span
-            >
+            What is the background color used for?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="fix-page-size.7.a">
+          <p class="faq-d-a">
             It fills the margins that Fit mode adds when the source page has a
             different shape than the target. White is the default; pick a dark
             color when your pages have dark backgrounds so the padding doesn't
@@ -685,12 +551,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="fix-page-size.8.q"
-              >Is my PDF uploaded to fix the page sizes?</span
-            >
+            Is my PDF uploaded to fix the page sizes?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="fix-page-size.8.a">
+          <p class="faq-d-a">
             No. The resizing is done by a PDF library running in your browser,
             and the new file is assembled on your device. Nothing is sent
             anywhere.

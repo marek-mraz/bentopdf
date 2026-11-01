@@ -10,7 +10,7 @@ import { createIcons, icons } from 'lucide';
 import JSZip from 'jszip';
 import * as pdfjsLib from 'pdfjs-dist';
 import { PDFPageProxy } from 'pdfjs-dist';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import '../utils/setup-pdf-worker.js';
 
@@ -42,7 +42,10 @@ const updateUI = () => {
 
       const metaSpan = document.createElement('div');
       metaSpan.className = 'text-xs text-gray-400';
-      metaSpan.textContent = `${formatBytes(file.size)} • ${t('common.loadingPageCount')}`; // Initial state
+      metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+        size: formatBytes(file.size),
+        loadingPageCount: t('common.loadingPageCount'),
+      }); // Initial state
 
       infoContainer.append(nameSpan, metaSpan);
 
@@ -64,7 +67,11 @@ const updateUI = () => {
           return getPDFDocument(buffer).promise;
         })
         .then((pdf) => {
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdf.numPages} ${pdf.numPages !== 1 ? t('common.pages') : t('common.page')}`;
+          metaSpan.textContent = trText('{{size}} • {{numPages}} {{value}}', {
+            size: formatBytes(file.size),
+            numPages: pdf.numPages,
+            value: pdf.numPages !== 1 ? t('common.pages') : t('common.page'),
+          });
         })
         .catch((e) => {
           console.warn('Error loading PDF page count:', e);
@@ -185,7 +192,9 @@ onPageReady(() => {
 
   if (qualitySlider && qualityValue) {
     qualitySlider.addEventListener('input', () => {
-      qualityValue.textContent = `${Math.round(parseFloat(qualitySlider.value) * 100)}%`;
+      qualityValue.textContent = trText('{{value}}%', {
+        value: Math.round(parseFloat(qualitySlider.value) * 100),
+      });
     });
   }
 

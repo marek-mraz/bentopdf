@@ -9,7 +9,8 @@ import { createIcons, icons } from 'lucide';
 import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: DividePagesState = {
   file: null,
@@ -64,8 +65,8 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = t('tools:dividePages.msg.loading', {
-      value: formatBytes(pageState.file.size),
+    metaSpan.textContent = trText('{{size}} • Loading...', {
+      size: formatBytes(pageState.file.size),
     });
 
     infoContainer.append(nameSpan, metaSpan);
@@ -89,22 +90,22 @@ async function updateUI() {
       }
       result.pdf.destroy();
       pageState.file = result.file;
-      showLoader(t('tools:addPageLabels.loadingPdf'));
+      showLoader('Loading PDF...');
 
       pageState.pdfDoc = await loadPdfDocument(result.bytes);
       pageState.totalPages = pageState.pdfDoc.getPageCount();
       hideLoader();
 
-      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+      metaSpan.textContent = trText('{{size}} • {{totalPages}} pages', {
         size: formatBytes(pageState.file.size),
-        count: pageState.totalPages,
+        totalPages: pageState.totalPages,
       });
 
       if (toolOptions) toolOptions.classList.remove('hidden');
     } catch (error) {
       console.error('Error loading PDF:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+      showAlert('Error', 'Failed to load PDF file.');
       resetState();
     }
   } else {
@@ -114,7 +115,7 @@ async function updateUI() {
 
 async function dividePages() {
   if (!pageState.pdfDoc || !pageState.file) {
-    showAlert(t('common.error'), t('alert.uploadPdfFirst'));
+    showAlert('Error', 'Please upload a PDF first.');
     return;
   }
 
@@ -139,14 +140,14 @@ async function dividePages() {
 
     if (pagesToDivide.size === 0) {
       showAlert(
-        t('tools:dividePages.alert.invalidRange'),
-        t('tools:dividePages.alert.enterValidPageRange')
+        'Invalid Range',
+        'Please enter a valid page range (e.g., 1-5, 8, 11-13).'
       );
       return;
     }
   }
 
-  showLoader(t('tools:dividePages.loader.splittingPdfPages'));
+  showLoader('Splitting PDF pages...');
 
   try {
     const newPdfDoc = await PDFLibDocument.create();
@@ -158,9 +159,9 @@ async function dividePages() {
       const { width, height } = originalPage.getSize();
 
       showLoader(
-        t('tools:dividePages.msg.processingPageOf', {
+        trText('Processing page {{pageNum}} of {{length}}...', {
           pageNum,
-          count: pages.length,
+          length: pages.length,
         })
       );
 
@@ -194,8 +195,8 @@ async function dividePages() {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:dividePages.alert.pagesHaveBeenDivided'),
+      'Success',
+      'Pages have been divided successfully!',
       'success',
       function () {
         resetState();
@@ -203,10 +204,7 @@ async function dividePages() {
     );
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      t('tools:dividePages.alert.errorOccurredWhileDividing')
-    );
+    showAlert('Error', 'An error occurred while dividing the PDF.');
   } finally {
     hideLoader();
   }

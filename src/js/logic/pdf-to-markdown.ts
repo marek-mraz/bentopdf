@@ -5,10 +5,9 @@ import {
   getPDFDocument,
 } from '../utils/helpers.js';
 import { state } from '../state.js';
-import { t } from '../i18n/i18n';
 
 export async function pdfToMarkdown() {
-  showLoader(t('tools:pdfToMarkdown.loader.convertingMarkdown'));
+  showLoader('Converting to Markdown...');
   try {
     const file = state.files[0];
     const arrayBuffer = await readFileAsArrayBuffer(file);
@@ -30,8 +29,8 @@ export async function pdfToMarkdown() {
   } catch (e) {
     console.error(e);
     showAlert(
-      t('alert.conversionError'),
-      t('tools:pdfToMarkdown.alert.failedConvertPdfMay')
+      'Conversion Error',
+      'Failed to convert PDF. It may be image-based or corrupted.'
     );
   } finally {
     hideLoader();

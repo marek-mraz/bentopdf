@@ -9,7 +9,7 @@ import {
 } from '../utils/helpers.js';
 import type { EmailAttachment, ParsedEmail, EmailRenderOptions } from '@/types';
 
-import i18next, { t } from '../i18n/i18n.js';
+import { trText } from '../i18n/i18n.js';
 
 type MsgReaderCtor = typeof MsgReaderDefault;
 const MsgReader: MsgReaderCtor =
@@ -34,8 +34,7 @@ export async function parseEmlFile(file: File): Promise<ParsedEmail> {
   const email = await parser.parse(arrayBuffer);
 
   const from =
-    formatAddress(email.from?.name, email.from?.address) ||
-    t('tools:emailToPdf.msg.unknownSender');
+    formatAddress(email.from?.name, email.from?.address) || 'Unknown Sender';
 
   const to = (email.to || [])
     .map((addr) => formatAddress(addr.name, addr.address))
@@ -114,7 +113,7 @@ export async function parseEmlFile(file: File): Promise<ParsedEmail> {
   }
 
   return {
-    subject: email.subject || t('tools:emailToPdf.msg.noSubject'),
+    subject: email.subject || '(No Subject)',
     from,
     to,
     cc,
@@ -133,8 +132,7 @@ export async function parseMsgFile(file: File): Promise<ParsedEmail> {
   const msgData = msgReader.getFileData();
 
   const from =
-    formatAddress(msgData.senderName, msgData.senderEmail) ||
-    t('tools:emailToPdf.msg.unknownSender');
+    formatAddress(msgData.senderName, msgData.senderEmail) || 'Unknown Sender';
 
   const to: string[] = [];
   const cc: string[] = [];
@@ -187,7 +185,7 @@ export async function parseMsgFile(file: File): Promise<ParsedEmail> {
   }
 
   return {
-    subject: msgData.subject || t('tools:emailToPdf.msg.noSubject'),
+    subject: msgData.subject || '(No Subject)',
     from,
     to,
     cc,
@@ -247,17 +245,18 @@ export function renderEmailToHtml(
     processedHtml = `<pre style="white-space: pre-wrap; font-family: inherit; margin: 0;">${escapeHtml(email.textBody)}</pre>`;
   }
 
-  let dateStr = t('tools:emailToPdf.msg.unknownDate');
+  let dateStr = 'Unknown Date';
   if (email.rawDateString) {
     dateStr = formatRawDate(email.rawDateString);
   } else if (email.date && !isNaN(email.date.getTime())) {
-    dateStr = email.date.toLocaleString(i18next.language || 'en-US', {
+    dateStr = email.date.toLocaleString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
+      hour12: true,
     });
   }
 
@@ -265,7 +264,7 @@ export function renderEmailToHtml(
     includeAttachments && email.attachments.length > 0
       ? `
     <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #cccccc;">
-      <p style="margin: 0 0 8px 0; font-size: 11px; color: #666; font-weight: 600;">${t('tools:emailToPdf.msg.attachmentsHeading', { count: email.attachments.length })}</p>
+      <p style="margin: 0 0 8px 0; font-size: 11px; color: #666; font-weight: 600;">Attachments (${email.attachments.length})</p>
       <ul style="margin: 0; padding-left: 20px; font-size: 10px; color: #555;">
         ${email.attachments
           .map(
@@ -306,16 +305,16 @@ export function renderEmailToHtml(
     <h1 style="font-size: 18px; font-weight: 600; color: #1a1a1a; margin: 0 0 12px 0;">${escapeHtml(email.subject)}</h1>
     <div style="font-size: 12px; color: #555;">
       <div style="margin-bottom: 8px;">
-        <span style="font-weight: 600; color: #666; margin-right: 8px;">${t('tools:emailToPdf.msg.fromLabel')}</span>
+        <span style="font-weight: 600; color: #666; margin-right: 8px;">From:</span>
         <span style="color: #333;">${escapeHtml(email.from)}</span>
       </div>
       <div style="margin-bottom: 8px;">
-        <span style="font-weight: 600; color: #666; margin-right: 8px;">${t('tools:emailToPdf.msg.toLabel')}</span>
-        <span style="color: #333;">${escapeHtml(email.to.join(', ') || t('tools:emailToPdf.msg.unknownRecipient'))}</span>
+        <span style="font-weight: 600; color: #666; margin-right: 8px;">To:</span>
+        <span style="color: #333;">${escapeHtml(email.to.join(', ') || 'Unknown')}</span>
       </div>
       ${ccBccHtml}
       <div style="margin-bottom: 8px;">
-        <span style="font-weight: 600; color: #666; margin-right: 8px;">${t('tools:emailToPdf.msg.dateLabel')}</span>
+        <span style="font-weight: 600; color: #666; margin-right: 8px;">Date:</span>
         <span style="color: #333;">${escapeHtml(dateStr)}</span>
       </div>
     </div>
@@ -336,6 +335,6 @@ export async function parseEmailFile(file: File): Promise<ParsedEmail> {
   } else if (ext === 'msg') {
     return parseMsgFile(file);
   } else {
-    throw new Error(t('tools:emailToPdf.msg.unsupportedFileType', { ext }));
+    throw new Error(trText('Unsupported file type: .{{ext}}', { ext }));
   }
 }

@@ -1,8 +1,14 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
 import { downloadFile, formatBytes } from '../utils/helpers.js';
+import {
+  createDragHandle,
+  enableFileListReorder,
+  moveItem,
+} from '../utils/sortable-file-list.js';
 import { createIcons, icons } from 'lucide';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 let files: File[] = [];
 let currentMode: 'upload' | 'text' = 'upload';
@@ -33,24 +39,36 @@ const updateUI = () => {
       fileDiv.className =
         'flex items-center justify-between bg-gray-700 p-3 rounded-lg text-sm';
 
+      const infoContainer = document.createElement('div');
+      infoContainer.className = 'flex items-center gap-2 overflow-hidden';
+
       const infoSpan = document.createElement('span');
       infoSpan.className = 'truncate font-medium text-gray-200';
       infoSpan.textContent = file.name;
 
       const sizeSpan = document.createElement('span');
-      sizeSpan.className = 'text-gray-400 text-xs ml-2';
-      sizeSpan.textContent = `(${formatBytes(file.size)})`;
+      sizeSpan.className = 'flex-shrink-0 text-gray-400 text-xs';
+      sizeSpan.textContent = trText('({{size}})', {
+        size: formatBytes(file.size),
+      });
+
+      infoContainer.append(createDragHandle(), infoSpan, sizeSpan);
 
       const removeBtn = document.createElement('button');
-      removeBtn.className = 'ml-4 text-red-400 hover:text-red-300';
+      removeBtn.className =
+        'ml-4 text-red-400 hover:text-red-300 flex-shrink-0';
       removeBtn.innerHTML = '<i data-lucide="trash-2" class="w-4 h-4"></i>';
       removeBtn.onclick = () => {
         files = files.filter((_, i) => i !== index);
         updateUI();
       };
 
-      fileDiv.append(infoSpan, sizeSpan, removeBtn);
+      fileDiv.append(infoContainer, removeBtn);
       fileDisplayArea.appendChild(fileDiv);
+    });
+    enableFileListReorder(fileDisplayArea, (oldIndex, newIndex) => {
+      files = moveItem(files, oldIndex, newIndex);
+      updateUI();
     });
     createIcons({ icons });
   } else {
@@ -86,10 +104,7 @@ async function convert() {
     '#000000';
 
   if (currentMode === 'upload' && files.length === 0) {
-    showAlert(
-      t('alert.noFiles'),
-      t('tools:textToPdf.alert.selectLeastOneText')
-    );
+    showAlert('No Files', 'Please select at least one text file.');
     return;
   }
 
@@ -98,15 +113,12 @@ async function convert() {
       'text-input'
     ) as HTMLTextAreaElement;
     if (!textInput.value.trim()) {
-      showAlert(
-        t('tools:textToPdf.alert.noText'),
-        t('tools:textToPdf.alert.enterSomeTextConvert')
-      );
+      showAlert('No Text', 'Please enter some text to convert.');
       return;
     }
   }
 
-  showLoader(t('loader.loadingEngine'));
+  showLoader('Loading engine...');
 
   try {
     const pymupdf = await loadPyMuPDF();
@@ -125,7 +137,7 @@ async function convert() {
       textContent = textInput.value;
     }
 
-    showLoader(t('tools:textToPdf.loader.creatingPdf'));
+    showLoader('Creating PDF...');
 
     const pdfBlob = await pymupdf.textToPdf(textContent, {
       fontSize,
@@ -138,8 +150,8 @@ async function convert() {
     downloadFile(pdfBlob, 'text_to_pdf.pdf');
 
     showAlert(
-      t('common.success'),
-      t('tools:textToPdf.alert.textConvertedPdfSuccessfully'),
+      'Success',
+      'Text converted to PDF successfully!',
       'success',
       () => {
         resetState();
@@ -148,9 +160,9 @@ async function convert() {
   } catch (e: unknown) {
     console.error('[TxtToPDF] Error:', e);
     showAlert(
-      t('common.error'),
-      t('tools:textToPdf.msg.failedToConvertTextToPdf', {
-        value: e instanceof Error ? e.message : '',
+      'Error',
+      trText('Failed to convert text to PDF. {{error}}', {
+        error: e instanceof Error ? e.message : '',
       })
     );
   } finally {
@@ -232,8 +244,8 @@ onPageReady(() => {
 
     if (validFiles.length < newFiles.length) {
       showAlert(
-        t('alert.invalidFiles'),
-        t('tools:textToPdf.alert.someFilesWereSkipped')
+        'Invalid Files',
+        'Some files were skipped. Only text files are allowed.'
       );
     }
 

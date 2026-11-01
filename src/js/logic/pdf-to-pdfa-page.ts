@@ -1,5 +1,5 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import {
   downloadFile,
   readFileAsArrayBuffer,
@@ -57,7 +57,10 @@ onPageReady(() => {
 
         const metaSpan = document.createElement('div');
         metaSpan.className = 'text-xs text-gray-400';
-        metaSpan.textContent = `${formatBytes(file.size)} • ${t('common.loadingPageCount')}`;
+        metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+          size: formatBytes(file.size),
+          loadingPageCount: t('common.loadingPageCount'),
+        });
 
         infoContainer.append(nameSpan, metaSpan);
 
@@ -76,15 +79,15 @@ onPageReady(() => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+          metaSpan.textContent = trText('{{size}} • {{numPages}} pages', {
             size: formatBytes(file.size),
-            count: pdfDoc.numPages,
+            numPages: pdfDoc.numPages,
           });
         } catch (error) {
           console.error('Error loading PDF:', error);
-          metaSpan.textContent = t(
-            'tools:pdfToPdfa.msg.couldNotLoadPageCount',
-            { value: formatBytes(file.size) }
+          metaSpan.textContent = trText(
+            '{{size}} • Could not load page count',
+            { size: formatBytes(file.size) }
           );
         }
       }
@@ -115,7 +118,7 @@ onPageReady(() => {
 
     try {
       if (state.files.length === 0) {
-        showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+        showAlert('No Files', 'Please select at least one PDF file.');
         return;
       }
 
@@ -137,7 +140,7 @@ onPageReady(() => {
             return;
           }
 
-          showLoader(t('tools:pdfToPdfa.loader.preFlatteningPdf'));
+          showLoader('Pre-flattening PDF...');
           const pymupdf = await loadPyMuPDF();
 
           // Rasterize PDF to images and back to PDF (300 DPI for quality)
@@ -154,7 +157,7 @@ onPageReady(() => {
           });
         }
 
-        showLoader(t('tools:pdfToPdfa.loader.initializingGhostscript'));
+        showLoader('Initializing Ghostscript...');
 
         const convertedBlob = await convertFileToPdfA(
           fileToConvert,
@@ -169,8 +172,8 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:pdfToPdfa.msg.successfullyConvertedTo', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to {{level}}.', {
             name: originalFile.name,
             level,
           }),
@@ -178,7 +181,7 @@ onPageReady(() => {
           () => resetState()
         );
       } else {
-        showLoader(t('tools:pdfToPdfa.loader.convertingMultiplePdfsPdf'));
+        showLoader('Converting multiple PDFs to PDF/A...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
         const usedNames = new Set<string>();
@@ -186,9 +189,9 @@ onPageReady(() => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:pdfToPdfa.msg.converting', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -213,9 +216,9 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:pdfToPdfa.msg.successfullyConvertedPdfSTo', {
-            count: state.files.length,
+          'Conversion Complete',
+          trText('Successfully converted {{length}} PDF(s) to {{level}}.', {
+            length: state.files.length,
             level,
           }),
           'success',
@@ -225,9 +228,9 @@ onPageReady(() => {
     } catch (e: unknown) {
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:pdfToPdfa.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

@@ -12,7 +12,8 @@ import { CombineSinglePageState } from '@/types';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: CombineSinglePageState = {
   file: null,
@@ -55,8 +56,8 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = t('tools:combineToSinglePage.msg.loading', {
-      value: formatBytes(pageState.file.size),
+    metaSpan.textContent = trText('{{size}} • Loading...', {
+      size: formatBytes(pageState.file.size),
     });
 
     infoContainer.append(nameSpan, metaSpan);
@@ -78,23 +79,23 @@ async function updateUI() {
         resetState();
         return;
       }
-      showLoader(t('tools:addPageLabels.loadingPdf'));
+      showLoader('Loading PDF...');
       result.pdf.destroy();
       pageState.file = result.file;
       pageState.pdfDoc = await loadPdfDocument(result.bytes);
       hideLoader();
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+      metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
         size: formatBytes(pageState.file.size),
-        count: pageCount,
+        pageCount,
       });
 
       if (toolOptions) toolOptions.classList.remove('hidden');
     } catch (error) {
       console.error('Error loading PDF:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+      showAlert('Error', 'Failed to load PDF file.');
       resetState();
     }
   } else {
@@ -104,7 +105,7 @@ async function updateUI() {
 
 async function combineToSinglePage() {
   if (!pageState.pdfDoc || !pageState.file) {
-    showAlert(t('common.error'), t('alert.uploadPdfFirst'));
+    showAlert('Error', 'Please upload a PDF first.');
     return;
   }
 
@@ -132,7 +133,7 @@ async function combineToSinglePage() {
   const backgroundColor = hexToRgb(backgroundColorHex);
   const separatorColor = hexToRgb(separatorColorHex);
 
-  showLoader(t('tools:combineToSinglePage.loader.combiningPages'));
+  showLoader('Combining pages...');
 
   try {
     const sourceDoc = pageState.pdfDoc;
@@ -181,9 +182,9 @@ async function combineToSinglePage() {
 
     for (let i = 0; i < sourcePages.length; i++) {
       showLoader(
-        t('tools:combineToSinglePage.msg.processingPageOf', {
-          value: i + 1,
-          count: sourcePages.length,
+        trText('Processing page {{n}} of {{length}}...', {
+          n: i + 1,
+          length: sourcePages.length,
         })
       );
       const sourcePage = sourcePages[i];
@@ -256,8 +257,8 @@ async function combineToSinglePage() {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:combineToSinglePage.alert.pagesCombinedSuccessfully'),
+      'Success',
+      'Pages combined successfully!',
       'success',
       function () {
         resetState();
@@ -265,10 +266,7 @@ async function combineToSinglePage() {
     );
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      t('tools:combineToSinglePage.alert.errorOccurredWhileCombining')
-    );
+    showAlert('Error', 'An error occurred while combining pages.');
   } finally {
     hideLoader();
   }

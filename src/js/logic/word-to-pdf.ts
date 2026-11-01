@@ -3,19 +3,17 @@ import DOMPurify from 'dompurify';
 import { showLoader, hideLoader, showAlert } from '../ui.js';
 import { readFileAsArrayBuffer } from '../utils/helpers.js';
 import { state } from '../state.js';
-import { t } from '../i18n/i18n';
+
+import { trText } from '../i18n/i18n.js';
 
 export async function wordToPdf() {
   const file = state.files[0];
   if (!file) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:wordToPdf.alert.uploadDocxFileFirst')
-    );
+    showAlert('No File', 'Please upload a .docx file first.');
     return;
   }
 
-  showLoader(t('tools:wordToPdf.loader.preparingPreview'));
+  showLoader('Preparing preview...');
 
   try {
     const mammothOptions = {
@@ -79,7 +77,7 @@ export async function wordToPdf() {
     hideLoader();
 
     const downloadHandler = async () => {
-      showLoader(t('tools:wordToPdf.loader.generatingHighQualityPdf'));
+      showLoader('Generating High-Quality PDF...');
 
       // @ts-expect-error TS(2339) FIXME: Property 'jspdf' does not exist on type 'Window & ... Remove this comment to see the full error message
       const { jsPDF } = window.jspdf;
@@ -157,8 +155,11 @@ export async function wordToPdf() {
     console.error(e);
     hideLoader();
     showAlert(
-      t('tools:wordToPdf.alert.previewError'),
-      t('tools:wordToPdf.msg.couldNotGenerateAPreviewThe', { error: e.message })
+      'Preview Error',
+      trText(
+        'Could not generate a preview. The file may be corrupt or contain unsupported features. Error: {{message}}',
+        { message: e.message }
+      )
     );
   }
 }

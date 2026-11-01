@@ -8,7 +8,8 @@ import {
   WasmProvider,
 } from '../utils/wasm-provider.js';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const worker = new Worker(
   import.meta.env.BASE_URL + 'workers/extract-attachments.worker.js'
@@ -76,8 +77,8 @@ worker.onmessage = function (e) {
 
     if (attachments.length === 0) {
       showAlert(
-        t('tools:extractAttachments.alert.noAttachments'),
-        t('tools:extractAttachments.alert.pdfFileSDo')
+        'No Attachments',
+        'The PDF file(s) do not contain any attachments to extract.'
       );
       resetState();
       return;
@@ -114,17 +115,17 @@ worker.onmessage = function (e) {
       downloadFile(zipBlob, 'extracted-attachments.zip');
 
       showAlert(
-        t('common.success'),
-        t('tools:extractAttachments.msg.attachmentSExtractedSuccessfully', {
-          count: attachments.length,
+        'Success',
+        trText('{{length}} attachment(s) extracted successfully!', {
+          length: attachments.length,
         })
       );
 
       showStatus(
-        t('tools:extractAttachments.msg.extractionCompletedAttachmentSInZip', {
-          count: attachments.length,
-          value: formatBytes(totalSize),
-        }),
+        trText(
+          'Extraction completed! {{length}} attachment(s) in zip file ({{totalSize}}). Download started.',
+          { length: attachments.length, totalSize: formatBytes(totalSize) }
+        ),
         'success'
       );
 
@@ -132,29 +133,27 @@ worker.onmessage = function (e) {
     });
   } else if (e.data.status === 'error') {
     const errorMessage =
-      e.data.message || t('tools:extractAttachments.msg.unknownWorkerError');
+      e.data.message || trText('Unknown error occurred in worker.');
     console.error('Worker Error:', errorMessage);
 
     if (errorMessage.includes('No attachments were found')) {
       showAlert(
-        t('tools:extractAttachments.alert.noAttachments'),
-        t('tools:extractAttachments.alert.pdfFileSDo')
+        'No Attachments',
+        'The PDF file(s) do not contain any attachments to extract.'
       );
       resetState();
     } else {
-      showStatus(
-        t('tools:tableOfContents.workerErrorWithMessage', {
-          message: errorMessage,
-        }),
-        'error'
-      );
+      showStatus(`Error: ${errorMessage}`, 'error');
     }
   }
 };
 
 worker.onerror = function (error) {
   console.error('Worker error:', error);
-  showStatus(t('tools:tableOfContents.workerErrorOccurred'), 'error');
+  showStatus(
+    trText('Worker error occurred. Check console for details.'),
+    'error'
+  );
 
   const processBtn = document.getElementById('process-btn');
   if (processBtn) {
@@ -181,8 +180,8 @@ async function updateUI() {
 
     const countSpan = document.createElement('div');
     countSpan.className = 'font-medium text-gray-200 text-sm mb-1';
-    countSpan.textContent = t('tools:extractAttachments.msg.pdfFileSSelected', {
-      count: pageState.files.length,
+    countSpan.textContent = trText('{{length}} PDF file(s) selected', {
+      length: pageState.files.length,
     });
 
     const sizeSpan = document.createElement('div');
@@ -213,7 +212,7 @@ async function updateUI() {
 
 async function extractAttachments() {
   if (pageState.files.length === 0) {
-    showStatus(t('alert.noFiles'), 'error');
+    showStatus(trText('No Files'), 'error');
     return;
   }
 
@@ -229,11 +228,11 @@ async function extractAttachments() {
     processBtn.setAttribute('disabled', 'true');
   }
 
-  showStatus(t('tools:extractAttachments.loader.readingFiles'), 'info');
+  showStatus(trText('Reading files...'), 'info');
 
   try {
     pageState.files = await batchDecryptIfNeeded(pageState.files);
-    showLoader(t('tools:extractAttachments.loader.readingFiles'));
+    showLoader('Reading files...');
 
     const fileBuffers: ArrayBuffer[] = [];
     const fileNames: string[] = [];
@@ -253,8 +252,8 @@ async function extractAttachments() {
     }
 
     showStatus(
-      t('tools:extractAttachments.msg.extractingAttachmentsFromFileS', {
-        count: pageState.files.length,
+      trText('Extracting attachments from {{length}} file(s)...', {
+        length: pageState.files.length,
       }),
       'info'
     );
@@ -273,9 +272,9 @@ async function extractAttachments() {
   } catch (error) {
     console.error('Error reading files:', error);
     showStatus(
-      t('tools:extractAttachments.msg.errorReadingFiles', {
+      trText('Error reading files: {{error}}', {
         error:
-          error instanceof Error ? error.message : t('common.unknownError'),
+          error instanceof Error ? error.message : 'Unknown error occurred',
       }),
       'error'
     );

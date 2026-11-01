@@ -188,31 +188,12 @@
               id="tiff-compression"
               class="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             >
-              <option data-i18n="tools:pdfToTiff.ui.lzwLossless" value="lzw">
-                LZW (Lossless)
-              </option>
-              <option
-                data-i18n="tools:pdfToTiff.ui.deflateZipLossless"
-                value="deflate"
-              >
-                Deflate / ZIP (Lossless)
-              </option>
-              <option
-                data-i18n="tools:pdfToTiff.ui.ccittGroupDocuments"
-                value="ccittfax4"
-              >
-                CCITT Group 4 (B&W documents)
-              </option>
-              <option data-i18n="tools:pdfToTiff.ui.jpegLossy" value="jpeg">
-                JPEG (Lossy)
-              </option>
+              <option value="lzw">LZW (Lossless)</option>
+              <option value="deflate">Deflate / ZIP (Lossless)</option>
+              <option value="ccittfax4">CCITT Group 4 (B&W documents)</option>
+              <option value="jpeg">JPEG (Lossy)</option>
               <option value="packbits">PackBits</option>
-              <option
-                data-i18n="tools:pdfToTiff.ui.noneUncompressed"
-                value="none"
-              >
-                None (Uncompressed)
-              </option>
+              <option value="none">None (Uncompressed)</option>
             </select>
             <p
               class="mt-1 text-xs text-gray-400"
@@ -234,18 +215,9 @@
               id="tiff-color-mode"
               class="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             >
-              <option data-i18n="tools:pdfToTiff.ui.colorRgb" value="rgb">
-                Color (RGB)
-              </option>
-              <option
-                data-i18n="tools:pdfToTiff.ui.greyscale"
-                value="greyscale"
-              >
-                Greyscale
-              </option>
-              <option data-i18n="tools:pdfToTiff.ui.blackWhiteBit" value="bw">
-                Black & White (1-bit)
-              </option>
+              <option value="rgb">Color (RGB)</option>
+              <option value="greyscale">Greyscale</option>
+              <option value="bw">Black & White (1-bit)</option>
             </select>
           </div>
 
@@ -334,12 +306,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -352,12 +319,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -370,12 +332,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -397,74 +354,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -480,12 +399,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-tiff.1.q"
-              >Can I get all pages in a single multi-page TIFF?</span
-            >
+            Can I get all pages in a single multi-page TIFF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-tiff.1.a">
+          <p class="faq-d-a">
             Yes. Check "Save as multi-page TIFF (single file)" and every page is
             written into one .tiff named after the PDF. Leave it unchecked and a
             multi-page PDF downloads as a ZIP containing page_1.tiff,
@@ -494,10 +411,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-tiff.2.q">What DPI should I use?</span>
+            What DPI should I use?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-tiff.2.a">
+          <p class="faq-d-a">
             The slider runs from 72 to 600 and defaults to 300, the usual choice
             for print and archival scans. Fax and document management systems
             typically expect 200 to 300, and 150 is enough for screen use. Very
@@ -507,12 +424,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-tiff.3.q"
-              >Which compression should I choose?</span
-            >
+            Which compression should I choose?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-tiff.3.a">
+          <p class="faq-d-a">
             LZW, the default, and Deflate are lossless and suit any content.
             CCITT Group 4 gives the smallest files for black-and-white scans and
             automatically switches the color mode to 1-bit. JPEG is lossy
@@ -522,12 +437,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-tiff.4.q"
-              >How do I make a black-and-white TIFF for fax or e-filing?</span
-            >
+            How do I make a black-and-white TIFF for fax or e-filing?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-tiff.4.a">
+          <p class="faq-d-a">
             Set Color Mode to "Black &amp; White (1-bit)" and Compression to
             CCITT Group 4, then pick 200 or 300 DPI. That combination is what
             most fax gateways and document management systems expect, and it
@@ -536,12 +449,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-tiff.5.q"
-              >Why is my TIFF so large?</span
-            >
+            Why is my TIFF so large?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-tiff.5.a">
+          <p class="faq-d-a">
             TIFF stores a bitmap of every page. An uncompressed 300 DPI color
             Letter page is roughly 25 MB, so lower the DPI, switch the color
             mode to grayscale or black and white, or use CCITT Group 4 for text
@@ -554,24 +465,20 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-tiff.6.q"
-              >Can I batch-convert PDFs to TIFF?</span
-            >
+            Can I batch-convert PDFs to TIFF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-tiff.6.a">
+          <p class="faq-d-a">
             No. This tool takes one PDF at a time; if you drop several, only the
             first is used. Convert them one after another.
           </p>
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-tiff.7.q"
-              >Will a password-protected PDF convert to TIFF?</span
-            >
+            Will a password-protected PDF convert to TIFF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-tiff.7.a">
+          <p class="faq-d-a">
             Yes. If the PDF needs a password to open, you're asked for it before
             conversion, and the pages are rendered once it's entered. The TIFF
             output itself has no password protection.
@@ -579,12 +486,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="pdf-to-tiff.8.q"
-              >Are my pages uploaded to convert them?</span
-            >
+            Are my pages uploaded to convert them?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="pdf-to-tiff.8.a">
+          <p class="faq-d-a">
             No. Pages are rendered with PDF.js and encoded with libvips compiled
             to WebAssembly, all inside your browser. That does require a browser
             with SharedArrayBuffer support, which is why the tool must run over

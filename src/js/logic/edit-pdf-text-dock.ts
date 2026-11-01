@@ -1,40 +1,35 @@
-import { t } from '../i18n/i18n.js';
-// title holds an i18n key; it is translated where the section is rendered.
+import { trText } from '../i18n/i18n.js';
 type SectionSpec = { id: string; title: string; icon: string };
 type RangeLink = { range: HTMLInputElement; num: HTMLInputElement };
 
-const TEXT_SECTIONS: SectionSpec[] = [
-  { id: 'font', title: 'tools:editPdfText.font', icon: 'ph-text-aa' },
-  { id: 'size', title: 'toolPage.fontSize', icon: 'ph-text-t' },
-  { id: 'color', title: 'tools:textToPdf.textColor', icon: 'ph-palette' },
-  {
-    id: 'align',
-    title: 'tools:editPdfText.alignment',
-    icon: 'ph-text-align-left',
-  },
+const getTextSections = (): SectionSpec[] => [
+  { id: 'font', title: trText('Font'), icon: 'ph-text-aa' },
+  { id: 'size', title: trText('Font Size'), icon: 'ph-text-t' },
+  { id: 'color', title: trText('Text Color'), icon: 'ph-palette' },
+  { id: 'align', title: trText('Alignment'), icon: 'ph-text-align-left' },
   {
     id: 'spacing',
-    title: 'tools:editPdfText.spacing',
+    title: trText('Spacing'),
     icon: 'ph-arrows-out-line-vertical',
   },
-  { id: 'lists', title: 'tools:editPdfText.lists', icon: 'ph-list-bullets' },
-  { id: 'more', title: 'tools:editPdfText.msg.more', icon: 'ph-dots-three' },
+  { id: 'lists', title: trText('Lists'), icon: 'ph-list-bullets' },
+  { id: 'more', title: trText('More'), icon: 'ph-dots-three' },
 ];
-const SCOPE_SECTION: SectionSpec = {
+const getScopeSection = (): SectionSpec => ({
   id: 'scope',
-  title: 'tools:editPdfText.msg.editScope',
+  title: trText('Edit Scope'),
   icon: 'ph-pencil-simple',
-};
-const STROKE_SECTION: SectionSpec = {
+});
+const getStrokeSection = (): SectionSpec => ({
   id: 'stroke',
-  title: 'tools:editPdfText.msg.pathStroke',
+  title: trText('Path Stroke'),
   icon: 'ph-path',
-};
-const MULTI_SECTION: SectionSpec = {
+});
+const getMultiSection = (): SectionSpec => ({
   id: 'alignMulti',
-  title: 'tools:editPdfText.msg.alignObjects',
+  title: trText('Align Objects'),
   icon: 'ph-align-left',
-};
+});
 
 const OBJ_BTN_IDS = [
   'rotL',
@@ -49,16 +44,16 @@ const OBJ_BTN_IDS = [
   'dupe',
 ];
 
-const SLIDER_FIELDS: [string, string][] = [
-  ['fLine', 'tools:editPdfText.msg.line'],
-  ['fPara', 'tools:editPdfText.msg.paragraph'],
-  ['fChar', 'tools:editPdfText.msg.character'],
-  ['fWordSp', 'tools:editPdfText.msg.word'],
+const getSliderFields = (): [string, string][] => [
+  ['fLine', trText('Line')],
+  ['fPara', trText('Paragraph')],
+  ['fChar', trText('Character')],
+  ['fWordSp', trText('Word')],
 ];
-const MORE_FIELDS: [string, string][] = [
-  ['fHScale', 'tools:editPdfText.msg.hScale'],
-  ['fFirstInd', 'tools:editPdfText.msg.firstIndent'],
-  ['fHangInd', 'tools:editPdfText.ui.hangingIndent'],
+const getMoreFields = (): [string, string][] => [
+  ['fHScale', trText('H-Scale %')],
+  ['fFirstInd', trText('First Indent')],
+  ['fHangInd', trText('Hanging Indent')],
 ];
 
 const q = (id: string): HTMLElement | null => document.getElementById(id);
@@ -105,7 +100,7 @@ function setupPagePill(): void {
   const pageLabel = q('pageLabel');
   const app = q('text-editor-app');
   if (!save || !pageLabel || !app || !save.parentElement) return;
-  const pill = mkBtn('dpagepill', t('tools:editPdfText.msg.goToPage'));
+  const pill = mkBtn('dpagepill', trText('Go to page'));
   pill.textContent = '– / –';
   save.parentElement.insertBefore(pill, save);
   const syncPill = () => {
@@ -140,10 +135,10 @@ function setupPagePill(): void {
     menu.style.right = '8px';
     menu.addEventListener('click', (e) => e.stopPropagation());
     const nav = div('dpagenav');
-    const prevB = mkBtn('dnavbtn', t('tools:editPdfText.tipPreviousPage'));
+    const prevB = mkBtn('dnavbtn', trText('Previous page'));
     prevB.appendChild(ph('ph-caret-left'));
     prevB.addEventListener('click', () => q('prev')?.click());
-    const nextB = mkBtn('dnavbtn', t('tools:editPdfText.tipNextPage'));
+    const nextB = mkBtn('dnavbtn', trText('Next page'));
     nextB.appendChild(ph('ph-caret-right'));
     nextB.addEventListener('click', () => q('next')?.click());
     const inp = document.createElement('input');
@@ -151,7 +146,7 @@ function setupPagePill(): void {
     inp.min = '1';
     inp.step = '1';
     inp.className = 'dpageinp';
-    inp.setAttribute('aria-label', t('msg.editPdfTextDock.pageNumber'));
+    inp.setAttribute('aria-label', trText('Page number'));
     const st = parse();
     if (Number.isFinite(st.current)) inp.value = String(st.current);
     if (Number.isFinite(st.total)) inp.max = String(st.total);
@@ -175,18 +170,15 @@ function setupPagePill(): void {
       e.preventDefault();
       go();
     });
-    const goBtn = mkBtn('dnavbtn dgo', t('tools:editPdfText.msg.goToPage'));
-    goBtn.textContent = t('tools:editBookmarks.ui.go');
+    const goBtn = mkBtn('dnavbtn dgo', trText('Go to page'));
+    goBtn.textContent = trText('Go');
     goBtn.addEventListener('click', go);
     nav.append(prevB, inp, goBtn, nextB);
     menu.appendChild(nav);
     menu.appendChild(document.createElement('hr'));
-    const props = mkBtn(
-      'ecmenu-item',
-      t('tools:editPdfText.tipDocumentProperties')
-    );
+    const props = mkBtn('ecmenu-item', trText('Document properties'));
     const propLabel = document.createElement('span');
-    propLabel.textContent = t('tools:editPdfText.tipDocumentProperties');
+    propLabel.textContent = trText('Document properties');
     props.append(ph('ph-info'), propLabel);
     props.addEventListener('click', () => {
       closeMenu();
@@ -234,7 +226,7 @@ export function setupFormatDock(): void {
   const dticon = document.createElement('span');
   const dtext = document.createElement('span');
   dtitle.append(dticon, dtext);
-  const dclose = mkBtn('dclose', t('tools:editPdfText.msg.closePanel'));
+  const dclose = mkBtn('dclose', trText('Close panel'));
   dclose.appendChild(ph('ph-x'));
   head.append(dtitle, dclose);
   const slotsWrap = div('dockslots');
@@ -245,7 +237,7 @@ export function setupFormatDock(): void {
   const rail = div('dockrail');
   const chipsWrap = div('dockchips');
   const acts = div('dockacts');
-  const delChip = mkBtn('dchip ddel', t('tools:editPdfText.tipDelete'));
+  const delChip = mkBtn('dchip ddel', trText('Delete'));
   delChip.appendChild(ph('ph-trash'));
   delChip.addEventListener('click', () => q('del')?.click());
   acts.appendChild(delChip);
@@ -309,8 +301,8 @@ export function setupFormatDock(): void {
       });
       return b;
     };
-    const minus = step(-1, 'ph-minus', t('tools:editPdfText.msg.decreaseSize'));
-    const plus = step(1, 'ph-plus', t('tools:editPdfText.msg.increaseSize'));
+    const minus = step(-1, 'ph-minus', trText('Decrease size'));
+    const plus = step(1, 'ph-plus', trText('Increase size'));
     const host = stepperOf(fSize) ?? fSize;
     sizer.append(minus, host, plus);
     sizeSlot.appendChild(sizer);
@@ -324,14 +316,14 @@ export function setupFormatDock(): void {
   const alignRow = rowOf(q('fAlign'));
   if (alignRow) alignSlot.appendChild(alignRow);
   const dirLab = div('dlab dsublab');
-  dirLab.textContent = t('tools:editPdfText.direction');
+  dirLab.textContent = trText('Direction');
   alignSlot.appendChild(dirLab);
   const dirRow = rowOf(q('fDir'));
   if (dirRow) alignSlot.appendChild(dirRow);
 
   const spacingSlot = mkSlot('spacing');
-  for (const [id, label] of SLIDER_FIELDS) {
-    const row = sliderRow(id, t(label));
+  for (const [id, label] of getSliderFields()) {
+    const row = sliderRow(id, label);
     if (row) spacingSlot.appendChild(row);
   }
 
@@ -341,12 +333,12 @@ export function setupFormatDock(): void {
 
   const moreSlot = mkSlot('more');
   const outLab = div('dlab dsublab');
-  outLab.textContent = t('tools:editPdfText.outline');
+  outLab.textContent = trText('Outline');
   moreSlot.appendChild(outLab);
   const outlineRow = rowOf(q('fStrokeColor'));
   if (outlineRow) moreSlot.appendChild(outlineRow);
-  for (const [id, label] of MORE_FIELDS) {
-    const row = sliderRow(id, t(label));
+  for (const [id, label] of getMoreFields()) {
+    const row = sliderRow(id, label);
     if (row) moreSlot.appendChild(row);
   }
 
@@ -361,10 +353,10 @@ export function setupFormatDock(): void {
   scopeSlot.appendChild(scopeWrap);
   let picked = new Set<string>(['all']);
   const scopeDefs: [string, string][] = [
-    ['all', t('tools:editPdfText.filterAll')],
-    ['text', t('tools:editPdfText.filterText')],
-    ['image', t('tools:editPdfText.filterImages')],
-    ['shape', t('tools:editPdfText.filterShapes')],
+    ['all', trText('All')],
+    ['text', trText('Text')],
+    ['image', trText('Images')],
+    ['shape', trText('Shapes')],
   ];
   const renderScope = () => {
     scopeWrap.replaceChildren();
@@ -422,7 +414,7 @@ export function setupFormatDock(): void {
 
   const setHead = (spec: SectionSpec) => {
     dticon.replaceChildren(ph(spec.icon));
-    dtext.textContent = t(spec.title);
+    dtext.textContent = spec.title;
   };
   const showSlot = (id: string) => {
     for (const [k, s] of slots) s.classList.toggle('act', k === id);
@@ -474,7 +466,7 @@ export function setupFormatDock(): void {
   const shead = div('dsheethead');
   shead.append(
     ph('ph-text-aa'),
-    document.createTextNode(` ${t('tools:editPdfText.msg.selectFont')}`)
+    document.createTextNode(` ${trText('Select Font')}`)
   );
   const fontListEl = div('dfontlist');
   sheet.append(grab, shead, fontListEl);
@@ -504,12 +496,9 @@ export function setupFormatDock(): void {
     }
     if ('queryLocalFonts' in window) {
       fontListEl.appendChild(div('ddivider'));
-      const sys = mkBtn(
-        'dfrow dfsys',
-        t('msg.editPdfTextDock.loadSystemFonts')
-      );
+      const sys = mkBtn('dfrow dfsys', trText('Load system fonts'));
       const label = document.createElement('span');
-      label.textContent = t('msg.editPdfTextDock.loadSystemFonts');
+      label.textContent = trText('Load system fonts…');
       sys.appendChild(label);
       sys.addEventListener('click', () => q('sysFonts')?.click());
       fontListEl.appendChild(sys);
@@ -578,7 +567,7 @@ export function setupFormatDock(): void {
   };
 
   const secChip = (spec: SectionSpec): HTMLButtonElement => {
-    const b = mkBtn('dchip', t(spec.title));
+    const b = mkBtn('dchip', spec.title);
     b.dataset.sec = spec.id;
     b.appendChild(ph(spec.icon));
     b.addEventListener('click', () => {
@@ -591,7 +580,7 @@ export function setupFormatDock(): void {
   };
 
   const proxyChip = (src: HTMLButtonElement): HTMLButtonElement => {
-    const b = mkBtn('dchip', src.title || t('tools:editPdfText.msg.action'));
+    const b = mkBtn('dchip', src.title || trText('Action'));
     b.dataset.proxy = src.id;
     const icon = src.querySelector('i');
     b.appendChild(
@@ -618,10 +607,7 @@ export function setupFormatDock(): void {
 
   const togglesRow = q('fToggles');
   const toggleChip = (src: HTMLButtonElement): HTMLButtonElement => {
-    const b = mkBtn(
-      'dchip',
-      src.title || t('tools:editPdfText.msg.toggleStyle')
-    );
+    const b = mkBtn('dchip', src.title || trText('Toggle style'));
     b.dataset.tog = src.dataset.t ?? '';
     const icon = src.querySelector('i');
     b.appendChild(
@@ -636,20 +622,15 @@ export function setupFormatDock(): void {
     chipsWrap.replaceChildren();
     if (mode !== 'idle') {
       chipsWrap.appendChild(
-        toolChip(
-          'done',
-          'ph-check',
-          t('tools:editPdfText.msg.doneBackToTools'),
-          () => {
-            closePanel();
-            closeSheet();
-            editBtn.click();
-          }
-        )
+        toolChip('done', 'ph-check', trText('Done: back to tools'), () => {
+          closePanel();
+          closeSheet();
+          editBtn.click();
+        })
       );
     }
     if (mode === 'text') {
-      for (const s of TEXT_SECTIONS) {
+      for (const s of getTextSections()) {
         chipsWrap.appendChild(secChip(s));
         if (s.id === 'color' && togglesRow) {
           for (const t of togglesRow.children) {
@@ -660,48 +641,33 @@ export function setupFormatDock(): void {
       }
     } else if (mode === 'idle') {
       chipsWrap.appendChild(
-        toolChip(
-          'edit',
-          'ph-pencil-simple',
-          t('tools:editPdfText.msg.editTool'),
-          () => {
-            if (editBtn.classList.contains('on')) openSec(SCOPE_SECTION);
-            else {
-              closePanel();
-              applyScope();
-            }
+        toolChip('edit', 'ph-pencil-simple', trText('Edit tool'), () => {
+          if (editBtn.classList.contains('on')) openSec(getScopeSection());
+          else {
+            closePanel();
+            applyScope();
           }
-        )
+        })
       );
       chipsWrap.appendChild(
-        toolChip(
-          'addText',
-          'ph-textbox',
-          t('tools:editPdfText.msg.addATextBox'),
-          () => {
-            closePanel();
-            document
-              .querySelector<HTMLButtonElement>('[data-tool="addText"]')
-              ?.click();
-          }
-        )
+        toolChip('addText', 'ph-textbox', trText('Add a text box'), () => {
+          closePanel();
+          document
+            .querySelector<HTMLButtonElement>('[data-tool="addText"]')
+            ?.click();
+        })
       );
       chipsWrap.appendChild(
-        toolChip(
-          'addImage',
-          'ph-image',
-          t('tools:editPdfText.tipAddAnImage'),
-          () => {
-            closePanel();
-            q('addImage')?.click();
-          }
-        )
+        toolChip('addImage', 'ph-image', trText('Add an image'), () => {
+          closePanel();
+          q('addImage')?.click();
+        })
       );
       chipsWrap.appendChild(
         toolChip(
           'find',
           'ph-magnifying-glass',
-          t('tools:editPdfText.tipFindAndReplace'),
+          trText('Find & replace'),
           () => {
             closePanel();
             q('find')?.click();
@@ -709,8 +675,8 @@ export function setupFormatDock(): void {
         )
       );
     }
-    if (!alignTools.hidden) chipsWrap.appendChild(secChip(MULTI_SECTION));
-    if (!pStrokeRow.hidden) chipsWrap.appendChild(secChip(STROKE_SECTION));
+    if (!alignTools.hidden) chipsWrap.appendChild(secChip(getMultiSection()));
+    if (!pStrokeRow.hidden) chipsWrap.appendChild(secChip(getStrokeSection()));
     for (const b of visibleObjBtns()) chipsWrap.appendChild(proxyChip(b));
     const delBtn = q('del');
     acts.hidden = !(delBtn instanceof HTMLButtonElement) || delBtn.hidden;

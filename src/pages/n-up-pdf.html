@@ -153,29 +153,22 @@
         <div id="tool-options" class="hidden mt-6">
           <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 mb-4">
             <p class="text-sm text-gray-300">
-              <strong data-i18n="merge.howItWorks" class="text-white"
-                >How it works:</strong
-              >
+              <strong class="text-white">How it works:</strong>
             </p>
             <ul
               class="list-disc list-inside text-xs text-gray-400 mt-1 space-y-1"
             >
-              <li data-i18n="tools:nUpPdf.ui.chooseHowManyPagesTo">
+              <li>
                 Choose how many pages to fit on each sheet (2, 4, 9, or 16).
               </li>
-              <li data-i18n="tools:nUpPdf.ui.selectOutputPageSizeOrientation">
-                Select output page size and orientation.
-              </li>
-              <li data-i18n="tools:nUpPdf.ui.optionallyAddMarginsBordersAround">
-                Optionally add margins and borders around each page.
-              </li>
+              <li>Select output page size and orientation.</li>
+              <li>Optionally add margins and borders around each page.</li>
             </ul>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label
-                data-i18n="tools:nUpPdf.ui.pagesPerSheet"
                 for="pages-per-sheet"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Pages per Sheet</label
@@ -184,23 +177,14 @@
                 id="pages-per-sheet"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
               >
-                <option data-i18n="tools:nUpPdf.ui.up1x2" value="2">
-                  2-up (1x2)
-                </option>
-                <option data-i18n="tools:nUpPdf.ui.up2x4" value="4" selected>
-                  4-up (2x2)
-                </option>
-                <option data-i18n="tools:nUpPdf.ui.up3x9" value="9">
-                  9-up (3x3)
-                </option>
-                <option data-i18n="tools:nUpPdf.ui.up4x16" value="16">
-                  16-up (4x4)
-                </option>
+                <option value="2">2-up (1x2)</option>
+                <option value="4" selected>4-up (2x2)</option>
+                <option value="9">9-up (3x3)</option>
+                <option value="16">16-up (4x4)</option>
               </select>
             </div>
             <div>
               <label
-                data-i18n="tools:nUpPdf.ui.outputPageSize"
                 for="output-page-size"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Output Page Size</label
@@ -209,15 +193,9 @@
                 id="output-page-size"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
               >
-                <option
-                  data-i18n="tools:nUpPdf.ui.letter85X11"
-                  value="Letter"
-                  selected
-                >
-                  Letter (8.5" x 11")
-                </option>
+                <option value="Letter" selected>Letter (8.5" x 11")</option>
                 <option value="A4">A4</option>
-                <option data-i18n="footer.legal" value="Legal">Legal</option>
+                <option value="Legal">Legal</option>
                 <option value="A3">A3</option>
               </select>
             </div>
@@ -226,7 +204,6 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label
-                data-i18n="toolPage.orientation"
                 for="output-orientation"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Orientation</label
@@ -235,15 +212,9 @@
                 id="output-orientation"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
               >
-                <option data-i18n="tools:nUpPdf.ui.auto" value="auto" selected>
-                  Auto
-                </option>
-                <option data-i18n="toolPage.portrait" value="portrait">
-                  Portrait
-                </option>
-                <option data-i18n="toolPage.landscape" value="landscape">
-                  Landscape
-                </option>
+                <option value="auto" selected>Auto</option>
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
               </select>
             </div>
             <div class="flex items-end gap-4">
@@ -253,11 +224,7 @@
                   id="add-margins"
                   class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-600"
                 />
-                <span
-                  data-i18n="tools:nUpPdf.ui.addMargins"
-                  class="text-sm text-gray-300"
-                  >Add Margins</span
-                >
+                <span class="text-sm text-gray-300">Add Margins</span>
               </label>
             </div>
           </div>
@@ -269,15 +236,10 @@
                 id="add-border"
                 class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-600"
               />
-              <span
-                data-i18n="tools:nUpPdf.ui.addBorder"
-                class="text-sm text-gray-300"
-                >Add Border</span
-              >
+              <span class="text-sm text-gray-300">Add Border</span>
             </label>
             <div id="border-color-wrapper" class="hidden">
               <label
-                data-i18n="tools:nUpPdf.ui.borderColor"
                 for="border-color"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Border Color</label
@@ -286,11 +248,7 @@
             </div>
           </div>
 
-          <button
-            data-i18n="tools:nUpPdf.ui.createUpPdf"
-            id="process-btn"
-            class="btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-4">
             Create N-Up PDF
           </button>
         </div>
@@ -359,12 +317,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -377,12 +330,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -395,12 +343,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -422,74 +365,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -505,12 +410,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="n-up-pdf.1.q"
-              >How many pages can I put on one sheet?</span
-            >
+            How many pages can I put on one sheet?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="n-up-pdf.1.a">
+          <p class="faq-d-a">
             Choose 2-up (1x2), 4-up (2x2), 9-up (3x3), or 16-up (4x4) from the
             Pages per Sheet menu. Pages are placed left to right and top to
             bottom in document order, and the last sheet has empty cells if the
@@ -519,12 +422,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="n-up-pdf.2.q"
-              >What paper size and orientation will the output have?</span
-            >
+            What paper size and orientation will the output have?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="n-up-pdf.2.a">
+          <p class="faq-d-a">
             Pick Letter, A4, Legal, or A3 for the output sheet and Portrait,
             Landscape, or Auto for orientation. Auto uses landscape for a 2-up
             layout of landscape pages and portrait for everything else.
@@ -532,12 +433,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="n-up-pdf.3.q"
-              >Will my pages be stretched or cropped?</span
-            >
+            Will my pages be stretched or cropped?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="n-up-pdf.3.a">
+          <p class="faq-d-a">
             Neither. Each page is scaled proportionally to fit its cell and
             centered, so pages whose shape doesn't match the cell get some white
             space around them instead of being distorted.
@@ -545,12 +444,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="n-up-pdf.4.q"
-              >Does the text stay sharp after N-up?</span
-            >
+            Does the text stay sharp after N-up?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="n-up-pdf.4.a">
+          <p class="faq-d-a">
             The original pages are embedded as vector content rather than
             converted to images, so text and line art stay crisp at any print
             size. In dense layouts like 16-up the text is still tiny on paper,
@@ -559,12 +456,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="n-up-pdf.5.q"
-              >Can I add margins or a border around each page?</span
-            >
+            Can I add margins or a border around each page?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="n-up-pdf.5.a">
+          <p class="faq-d-a">
             Add Margins leaves a half-inch margin around the sheet and a small
             gap between cells, which helps when a printer can't print to the
             edge. Add Border draws a one point outline around each placed page
@@ -573,12 +468,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="n-up-pdf.6.q"
-              >How do I print 4 PowerPoint slides per page?</span
-            >
+            How do I print 4 PowerPoint slides per page?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="n-up-pdf.6.a">
+          <p class="faq-d-a">
             Export the slides to PDF first, or use
             <a
               href="/powerpoint-to-pdf"
@@ -590,12 +483,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="n-up-pdf.7.q"
-              >Is N-up the same as booklet printing?</span
-            >
+            Is N-up the same as booklet printing?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="n-up-pdf.7.a">
+          <p class="faq-d-a">
             No. N-up only reduces pages into a grid in reading order. A booklet
             needs pages reordered and paired so they fold into a book, which is
             what
@@ -607,12 +498,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="n-up-pdf.8.q"
-              >Does the PDF get uploaded to make the N-up layout?</span
-            >
+            Does the PDF get uploaded to make the N-up layout?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="n-up-pdf.8.a">
+          <p class="faq-d-a">
             No. The new sheets are built in your browser with pdf-lib and
             downloaded under the original file name, so the document never
             leaves your device.

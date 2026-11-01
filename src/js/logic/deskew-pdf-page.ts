@@ -5,7 +5,8 @@ import { createIcons, icons } from 'lucide';
 import { downloadFile } from '../utils/helpers';
 import { isWasmAvailable } from '../config/wasm-cdn-config.js';
 import { showWasmRequiredDialog } from '../utils/wasm-provider.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, trHtml, onPageReady } from '../i18n/i18n.js';
 
 interface DeskewResult {
   totalPages: number;
@@ -28,7 +29,7 @@ function showLoader(message: string): void {
   const loader = document.getElementById('loader-modal');
   const text = document.getElementById('loader-text');
   if (loader && text) {
-    text.textContent = message;
+    text.textContent = trText(message);
     loader.classList.remove('hidden');
   }
 }
@@ -45,8 +46,8 @@ function showAlert(title: string, message: string): void {
   const titleEl = document.getElementById('alert-title');
   const msgEl = document.getElementById('alert-message');
   if (modal && titleEl && msgEl) {
-    titleEl.textContent = title;
-    msgEl.textContent = message;
+    titleEl.textContent = trText(title);
+    msgEl.textContent = trText(message);
     modal.classList.remove('hidden');
   }
 }
@@ -91,7 +92,7 @@ function updateFileDisplay(): void {
 
     const sizeSpan = document.createElement('span');
     sizeSpan.className = 'text-gray-500 text-sm';
-    sizeSpan.textContent = t('tools:deskewPdf.msg.kb', {
+    sizeSpan.textContent = trText('({{value}} KB)', {
       value: (file.size / 1024).toFixed(1),
     });
 
@@ -144,9 +145,9 @@ function displayResults(result: DeskewResult): void {
       return `
         <div class="flex items-center gap-2 text-sm py-1">
           <i data-lucide="${icon}" class="w-4 h-4 ${color}"></i>
-          <span class="text-gray-300">Page ${idx + 1}:</span>
+          <span class="text-gray-300">${trHtml('Page {{n}}:', { n: idx + 1 })}</span>
           <span class="${color}">${angle.toFixed(2)}°</span>
-          ${wasCorrected ? '<span class="text-green-400 text-xs">(corrected)</span>' : ''}
+          ${wasCorrected ? `<span class="text-green-400 text-xs">${trHtml('(corrected)')}</span>` : ''}
         </div>
       `;
     })
@@ -157,7 +158,7 @@ function displayResults(result: DeskewResult): void {
 
 async function processDeskew(): Promise<void> {
   if (selectedFiles.length === 0) {
-    showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+    showAlert('No Files', 'Please select at least one PDF file.');
     return;
   }
 
@@ -177,14 +178,14 @@ async function processDeskew(): Promise<void> {
 
   selectedFiles = await batchDecryptIfNeeded(selectedFiles);
 
-  showLoader(t('tools:deskewPdf.loader.initializingPymupdf'));
+  showLoader('Initializing PyMuPDF...');
 
   try {
     const pdf = await initPyMuPDF();
     await pdf.load();
 
     for (const file of selectedFiles) {
-      showLoader(t('tools:deskewPdf.msg.deskewing', { name: file.name }));
+      showLoader(trText('Deskewing {{name}}...', { name: file.name }));
 
       const { pdf: resultPdf, result } = await pdf.deskewPdf(file, {
         threshold,
@@ -198,12 +199,12 @@ async function processDeskew(): Promise<void> {
 
     hideLoader();
     showAlert(
-      t('common.success'),
-      t('tools:deskewPdf.msg.deskewedFileS', {
-        count: selectedFiles.length,
+      'Success',
+      trText('Deskewed {{length}} file(s). {{value}}', {
+        length: selectedFiles.length,
         value:
           selectedFiles.length > 1
-            ? t('tools:deskewPdf.alert.downloadsStartedAllFiles')
+            ? trText('Downloads started for all files.')
             : '',
       })
     );
@@ -211,10 +212,9 @@ async function processDeskew(): Promise<void> {
     hideLoader();
     console.error('Deskew error:', error);
     showAlert(
-      t('common.error'),
-      t('tools:deskewPdf.msg.failedToDeskewPdf', {
-        value:
-          error instanceof Error ? error.message : t('common.unknownError'),
+      'Error',
+      trText('Failed to deskew PDF: {{error}}', {
+        error: error instanceof Error ? error.message : trText('Unknown error'),
       })
     );
   }

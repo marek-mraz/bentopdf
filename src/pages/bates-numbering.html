@@ -103,12 +103,7 @@
               >
               <span data-i18n="upload.orDragAndDrop">or drag and drop</span>
             </p>
-            <p
-              data-i18n="tools:batesNumbering.ui.pdfFilesMultipleSupported"
-              class="text-xs text-gray-500"
-            >
-              PDF files (multiple supported)
-            </p>
+            <p class="text-xs text-gray-500">PDF files (multiple supported)</p>
             <p class="text-xs text-gray-500" data-i18n="upload.filesNeverLeave">
               Your files never leave your device.
             </p>
@@ -128,14 +123,14 @@
             class="btn bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2"
           >
             <i data-lucide="plus"></i>
-            <span data-i18n="upload.addMore">Add More Files</span>
+            <span>Add More Files</span>
           </button>
           <button
             id="clear-files-btn"
             class="btn bg-gray-700 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2"
           >
             <i data-lucide="trash-2"></i>
-            <span data-i18n="upload.clearAll">Clear All</span>
+            <span>Clear All</span>
           </button>
         </div>
 
@@ -144,7 +139,6 @@
         <div id="options-panel" class="hidden mt-6 space-y-4">
           <div>
             <label
-              data-i18n="tools:batesNumbering.ui.selectStyle"
               for="style-preset"
               class="block mb-2 text-sm font-medium text-gray-300"
               >Select Style</label
@@ -153,133 +147,40 @@
               id="style-preset"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500"
             >
-              <optgroup
-                data-i18n-label="tools:batesNumbering.ui.groupExhibitCaseBatesPage"
-                label="Exhibit + Case + Bates + Page"
-              >
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz000001Page"
-                  value="full-6"
-                >
-                  Exhibit 1 Case XYZ 000001 Page 1
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz00001Page"
-                  value="full-5"
-                >
-                  Exhibit 1 Case XYZ 00001 Page 1
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz0001Page"
-                  value="full-4"
-                >
-                  Exhibit 1 Case XYZ 0001 Page 1
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz001Page"
-                  value="full-3"
-                >
-                  Exhibit 1 Case XYZ 001 Page 1
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz1Page"
-                  value="full-0"
-                >
-                  Exhibit 1 Case XYZ 1 Page 1
-                </option>
+              <optgroup data-no-i18n label="Exhibit + Case + Bates + Page">
+                <option value="full-6">Exhibit 1 Case XYZ 000001 Page 1</option>
+                <option value="full-5">Exhibit 1 Case XYZ 00001 Page 1</option>
+                <option value="full-4">Exhibit 1 Case XYZ 0001 Page 1</option>
+                <option value="full-3">Exhibit 1 Case XYZ 001 Page 1</option>
+                <option value="full-0">Exhibit 1 Case XYZ 1 Page 1</option>
               </optgroup>
-              <optgroup
-                data-i18n-label="tools:batesNumbering.ui.groupExhibitCaseBates"
-                label="Exhibit + Case + Bates"
-              >
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz000001"
-                  value="no-page-6"
-                >
-                  Exhibit 1 Case XYZ 000001
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz00001"
-                  value="no-page-5"
-                >
-                  Exhibit 1 Case XYZ 00001
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz0001"
-                  value="no-page-4"
-                >
-                  Exhibit 1 Case XYZ 0001
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz001"
-                  value="no-page-3"
-                >
-                  Exhibit 1 Case XYZ 001
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.exhibit1CaseXyz1"
-                  value="no-page-0"
-                >
-                  Exhibit 1 Case XYZ 1
-                </option>
+              <optgroup data-no-i18n label="Exhibit + Case + Bates">
+                <option value="no-page-6">Exhibit 1 Case XYZ 000001</option>
+                <option value="no-page-5">Exhibit 1 Case XYZ 00001</option>
+                <option value="no-page-4">Exhibit 1 Case XYZ 0001</option>
+                <option value="no-page-3">Exhibit 1 Case XYZ 001</option>
+                <option value="no-page-0">Exhibit 1 Case XYZ 1</option>
               </optgroup>
-              <optgroup
-                data-i18n-label="tools:batesNumbering.ui.groupCaseBates"
-                label="Case + Bates"
-              >
-                <option
-                  data-i18n="tools:batesNumbering.ui.caseXyz000001"
-                  value="case-6"
-                >
-                  Case XYZ 000001
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.caseXyz00001"
-                  value="case-5"
-                >
-                  Case XYZ 00001
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.caseXyz0001"
-                  value="case-4"
-                >
-                  Case XYZ 0001
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.caseXyz001"
-                  value="case-3"
-                >
-                  Case XYZ 001
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.caseXyz1"
-                  value="case-0"
-                >
-                  Case XYZ 1
-                </option>
+              <optgroup data-no-i18n label="Case + Bates">
+                <option value="case-6">Case XYZ 000001</option>
+                <option value="case-5">Case XYZ 00001</option>
+                <option value="case-4">Case XYZ 0001</option>
+                <option value="case-3">Case XYZ 001</option>
+                <option value="case-0">Case XYZ 1</option>
               </optgroup>
-              <optgroup
-                data-i18n-label="tools:batesNumbering.ui.groupBatesNumberOnly"
-                label="Bates Number Only"
-              >
+              <optgroup data-no-i18n label="Bates Number Only">
                 <option value="bates-6" selected>000001, 000002, 000003</option>
                 <option value="bates-5">00001, 00002, 00003</option>
                 <option value="bates-4">0001, 0002, 0003</option>
                 <option value="bates-3">001, 002, 003</option>
                 <option value="bates-0">1, 2, 3</option>
               </optgroup>
-              <option
-                data-i18n="tools:batesNumbering.ui.customStyleOther"
-                value="custom"
-              >
-                Custom style (other)
-              </option>
+              <option value="custom">Custom style (other)</option>
             </select>
           </div>
 
           <div>
             <label
-              data-i18n="tools:batesNumbering.ui.customizeStyle"
               for="bates-template"
               class="block mb-2 text-sm font-medium text-gray-300"
               >Customize Style</label
@@ -290,10 +191,7 @@
               value="[BATES]"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500 font-mono"
             />
-            <p
-              data-i18n="tools:batesNumbering.ui.placeholdersBatesPageFileFilename"
-              class="text-xs text-gray-500 mt-1"
-            >
+            <p class="text-xs text-gray-500 mt-1">
               Placeholders: [BATES] [PAGE] [FILE] [FILENAME]
             </p>
           </div>
@@ -302,19 +200,13 @@
             id="preview-box"
             class="bg-gray-900 border border-gray-700 rounded-lg p-4 text-sm text-gray-300 font-mono"
           >
-            <div
-              data-i18n="tools:batesNumbering.ui.preview"
-              class="text-xs text-gray-500 mb-1"
-            >
-              Preview:
-            </div>
+            <div class="text-xs text-gray-500 mb-1">Preview:</div>
             <div id="preview-content"></div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div id="padding-group" class="hidden">
               <label
-                data-i18n="tools:batesNumbering.ui.batesPadding"
                 for="bates-padding"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Bates Padding</label
@@ -323,31 +215,16 @@
                 id="bates-padding"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500"
               >
-                <option
-                  data-i18n="tools:batesNumbering.ui.digits6"
-                  value="6"
-                  selected
-                >
-                  6 digits (000001)
-                </option>
-                <option data-i18n="tools:batesNumbering.ui.digits5" value="5">
-                  5 digits (00001)
-                </option>
-                <option data-i18n="tools:batesNumbering.ui.digits4" value="4">
-                  4 digits (0001)
-                </option>
-                <option data-i18n="tools:batesNumbering.ui.digits3" value="3">
-                  3 digits (001)
-                </option>
-                <option data-i18n="tools:batesNumbering.ui.noPadding" value="0">
-                  No padding (1)
-                </option>
+                <option value="6" selected>6 digits (000001)</option>
+                <option value="5">5 digits (00001)</option>
+                <option value="4">4 digits (0001)</option>
+                <option value="3">3 digits (001)</option>
+                <option value="0">No padding (1)</option>
               </select>
             </div>
 
             <div>
               <label
-                data-i18n="toolPage.position"
                 for="position"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Position</label
@@ -356,43 +233,12 @@
                 id="position"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500"
               >
-                <option
-                  data-i18n="tools:batesNumbering.ui.headerCenter"
-                  value="top-center"
-                >
-                  Header Center
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.headerLeft"
-                  value="top-left"
-                >
-                  Header Left
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.headerRight"
-                  value="top-right"
-                >
-                  Header Right
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.footerCenter"
-                  value="bottom-center"
-                  selected
-                >
-                  Footer Center
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.footerLeft"
-                  value="bottom-left"
-                >
-                  Footer Left
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.footerRight"
-                  value="bottom-right"
-                >
-                  Footer Right
-                </option>
+                <option value="top-center">Header Center</option>
+                <option value="top-left">Header Left</option>
+                <option value="top-right">Header Right</option>
+                <option value="bottom-center" selected>Footer Center</option>
+                <option value="bottom-left">Footer Left</option>
+                <option value="bottom-right">Footer Right</option>
               </select>
             </div>
           </div>
@@ -400,7 +246,6 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label
-                data-i18n="tools:batesNumbering.ui.batesStarts"
                 for="bates-start"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Bates Starts From</label
@@ -416,7 +261,6 @@
 
             <div>
               <label
-                data-i18n="tools:batesNumbering.ui.fileCounterStarts"
                 for="file-start"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >File Counter Starts From</label
@@ -434,7 +278,6 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label
-                data-i18n="tools:batesNumbering.ui.font"
                 for="font-family"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Font</label
@@ -443,30 +286,14 @@
                 id="font-family"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500"
               >
-                <option
-                  data-i18n="tools:batesNumbering.ui.helvetica"
-                  value="Helvetica"
-                >
-                  Helvetica
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.timesNewRoman"
-                  value="TimesRoman"
-                >
-                  Times New Roman
-                </option>
-                <option
-                  data-i18n="tools:batesNumbering.ui.courier"
-                  value="Courier"
-                >
-                  Courier
-                </option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="TimesRoman">Times New Roman</option>
+                <option value="Courier">Courier</option>
               </select>
             </div>
 
             <div>
               <label
-                data-i18n="toolPage.fontSize"
                 for="font-size"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Font Size</label
@@ -483,7 +310,6 @@
 
             <div>
               <label
-                data-i18n="toolPage.color"
                 for="text-color"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Color</label
@@ -492,11 +318,7 @@
             </div>
           </div>
 
-          <button
-            data-i18n="tools:batesNumbering.ui.applyBatesNumbers"
-            id="process-btn"
-            class="btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-4">
             Apply Bates Numbers
           </button>
         </div>
@@ -528,11 +350,7 @@
       <div
         class="bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm w-full border border-gray-700"
       >
-        <h3
-          data-i18n="alert.title"
-          id="alert-title"
-          class="text-xl font-bold text-white mb-2"
-        >
+        <h3 id="alert-title" class="text-xl font-bold text-white mb-2">
           Alert
         </h3>
         <p id="alert-message" class="text-gray-300 mb-6"></p>
@@ -560,16 +378,8 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="tools:textToPdf.uploadFiles"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload Files
-            </h3>
-            <p
-              data-i18n="tools:batesNumbering.ui.uploadOneOrMorePdfFiles"
-              class="text-gray-400"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">Upload Files</h3>
+            <p class="text-gray-400">
               Upload one or more PDF files. Drag to reorder for multi-file
               sequencing.
             </p>
@@ -582,16 +392,10 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="tools:batesNumbering.ui.configureStyle"
-              class="text-lg font-semibold text-white mb-1"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">
               Configure Style
             </h3>
-            <p
-              data-i18n="tools:batesNumbering.ui.chooseAPresetOrCreateA"
-              class="text-gray-400"
-            >
+            <p class="text-gray-400">
               Choose a preset or create a custom template with placeholders like
               [BATES], [PAGE], [FILE].
             </p>
@@ -604,16 +408,8 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
-            <p
-              data-i18n="tools:batesNumbering.ui.getYourBatesStampedPdfsInstantly"
-              class="text-gray-400"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
+            <p class="text-gray-400">
               Get your bates-stamped PDFs instantly. Multiple files are
               delivered as a ZIP.
             </p>
@@ -634,33 +430,15 @@
           href="page-numbers.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pageNumbers.name"
-            class="text-white font-semibold mb-1"
-          >
-            Page Numbers
-          </h3>
-          <p
-            data-i18n="tools:pageNumbers.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Add page numbers to PDFs
-          </p>
+          <h3 class="text-white font-semibold mb-1">Page Numbers</h3>
+          <p class="text-gray-400 text-sm">Add page numbers to PDFs</p>
         </a>
         <a
           href="header-footer.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:headerFooter.name"
-            class="text-white font-semibold mb-1"
-          >
-            Header & Footer
-          </h3>
-          <p
-            data-i18n="tools:headerFooter.subtitle"
-            class="text-gray-400 text-sm"
-          >
+          <h3 class="text-white font-semibold mb-1">Header & Footer</h3>
+          <p class="text-gray-400 text-sm">
             Add text to page headers and footers
           </p>
         </a>
@@ -668,49 +446,22 @@
           href="add-watermark.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:addWatermark.name"
-            class="text-white font-semibold mb-1"
-          >
-            Add Watermark
-          </h3>
-          <p
-            data-i18n="tools:addWatermark.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Watermark your PDF documents
-          </p>
+          <h3 class="text-white font-semibold mb-1">Add Watermark</h3>
+          <p class="text-gray-400 text-sm">Watermark your PDF documents</p>
         </a>
         <a
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Combine multiple PDFs
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Combine multiple PDFs</p>
         </a>
         <a
           href="organize-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:duplicateOrganize.name"
-            class="text-white font-semibold mb-1"
-          >
-            Organize PDF
-          </h3>
-          <p
-            data-i18n="tools:duplicateOrganize.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Reorder and organize pages
-          </p>
+          <h3 class="text-white font-semibold mb-1">Organize PDF</h3>
+          <p class="text-gray-400 text-sm">Reorder and organize pages</p>
         </a>
       </div>
     </section>
@@ -725,12 +476,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="bates-numbering.1.q"
-              >What does the Bates number look like on the page?</span
-            >
+            What does the Bates number look like on the page?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="bates-numbering.1.a">
+          <p class="faq-d-a">
             By default it's a six-digit zero-padded number such as 000001 placed
             at the footer center in 10 pt Helvetica. Presets can add an exhibit
             number, a case label, and a page number, for example Exhibit 1 Case
@@ -740,13 +489,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="bates-numbering.2.q"
-              >Can I use my own prefix or case number instead of the
-              presets?</span
-            >
+            Can I use my own prefix or case number instead of the presets?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="bates-numbering.2.a">
+          <p class="faq-d-a">
             Yes. Pick Custom style and write a template with placeholders:
             [BATES] for the sequential number, [PAGE] for the page number within
             the file, [FILE] for the file counter, and [FILENAME] for the source
@@ -756,13 +502,11 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="bates-numbering.3.q"
-              >Does the numbering continue across multiple PDFs or restart for
-              each file?</span
-            >
+            Does the numbering continue across multiple PDFs or restart for each
+            file?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="bates-numbering.3.a">
+          <p class="faq-d-a">
             It continues. If the first file has 30 pages and numbering starts at
             1, the second file begins at 000031, following the order of the file
             list, which you can rearrange by dragging. There's no option to
@@ -772,12 +516,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="bates-numbering.4.q"
-              >How many digits can the number have?</span
-            >
+            How many digits can the number have?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="bates-numbering.4.a">
+          <p class="faq-d-a">
             Zero padding can be 3, 4, 5, or 6 digits, or turned off so 1, 2, 3
             print without leading zeros. The count itself isn't capped; if it
             grows past the padding width, the extra digits are still printed.
@@ -785,12 +527,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="bates-numbering.5.q"
-              >Where does the stamp go, and will it cover my content?</span
-            >
+            Where does the stamp go, and will it cover my content?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="bates-numbering.5.a">
+          <p class="faq-d-a">
             You choose one of six spots: header or footer, at the left, center,
             or right. The margin scales with the page, roughly 4 percent of the
             width or height with a floor of 8 points and a cap of 40, so the
@@ -801,12 +541,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="bates-numbering.6.q"
-              >Are Bates numbers searchable text or an image?</span
-            >
+            Are Bates numbers searchable text or an image?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="bates-numbering.6.a">
+          <p class="faq-d-a">
             They're real text drawn in Helvetica, Times New Roman, or Courier,
             so they can be selected, searched, and read by review software
             without OCR. These are the built-in PDF standard fonts, which cover
@@ -816,13 +554,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="bates-numbering.7.q"
-              >Are my discovery documents uploaded to a server for
-              stamping?</span
-            >
+            Are my discovery documents uploaded to a server for stamping?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="bates-numbering.7.a">
+          <p class="faq-d-a">
             No. Stamping happens inside your browser and the numbered files are
             written straight to your downloads folder. Nothing about the
             documents, the case name, or the numbering leaves the machine, which
@@ -831,12 +566,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="bates-numbering.8.q"
-              >What do I get when I stamp several files at once?</span
-            >
+            What do I get when I stamp several files at once?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="bates-numbering.8.a">
+          <p class="faq-d-a">
             Each PDF is numbered as its own file and keeps its original name; a
             single file downloads directly, and two or more download together as
             bates_numbered.zip. The files aren't merged, so the page counts and

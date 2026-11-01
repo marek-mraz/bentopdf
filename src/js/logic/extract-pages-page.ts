@@ -9,7 +9,8 @@ import { PDFDocument } from 'pdf-lib';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import JSZip from 'jszip';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 interface ExtractState {
   file: File | null;
@@ -82,10 +83,7 @@ async function handleFile(file: File) {
     file.type !== 'application/pdf' &&
     !file.name.toLowerCase().endsWith('.pdf')
   ) {
-    showAlert(
-      t('tools:addPageLabels.invalidFileTitle'),
-      t('tools:duplexCollate.invalidFileMessage')
-    );
+    showAlert('Invalid File', 'Please select a PDF file.');
     return;
   }
 
@@ -97,7 +95,7 @@ async function handleFile(file: File) {
       extractState.file = null;
       return;
     }
-    showLoader(t('tools:addPageLabels.loadingPdf'));
+    showLoader('Loading PDF...');
     extractState.file = result.file;
     result.pdf.destroy();
     extractState.pdfDoc = await loadPdfDocument(result.bytes);
@@ -109,7 +107,7 @@ async function handleFile(file: File) {
   } catch (error) {
     console.error('Error loading PDF:', error);
     hideLoader();
-    showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+    showAlert('Error', 'Failed to load PDF file.');
   }
 }
 
@@ -131,9 +129,9 @@ function updateFileDisplay() {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+  metaSpan.textContent = trText('{{size}} • {{totalPages}} pages', {
     size: formatBytes(extractState.file.size),
-    count: extractState.totalPages,
+    totalPages: extractState.totalPages,
   });
 
   infoContainer.append(nameSpan, metaSpan);
@@ -165,10 +163,7 @@ async function extractPages() {
     'pages-to-extract'
   ) as HTMLInputElement;
   if (!pagesInput || !pagesInput.value.trim()) {
-    showAlert(
-      t('multiTool.noPages'),
-      t('tools:extractPages.alert.enterPageNumbersExtract')
-    );
+    showAlert('No Pages', 'Please enter page numbers to extract.');
     return;
   }
 
@@ -177,14 +172,11 @@ async function extractPages() {
     extractState.totalPages
   ).map((i) => i + 1);
   if (pagesToExtract.length === 0) {
-    showAlert(
-      t('tools:extractPages.alert.invalidPages'),
-      t('tools:extractPages.alert.noValidPageNumbers')
-    );
+    showAlert('Invalid Pages', 'No valid page numbers found.');
     return;
   }
 
-  showLoader(t('tools:extractPages.loader.extractingPages'));
+  showLoader('Extracting pages...');
 
   try {
     const zip = new JSZip();
@@ -205,9 +197,9 @@ async function extractPages() {
 
     hideLoader();
     showAlert(
-      t('common.success'),
-      t('tools:extractPages.msg.extractedPageSSuccessfully', {
-        count: pagesToExtract.length,
+      'Success',
+      trText('Extracted {{length}} page(s) successfully!', {
+        length: pagesToExtract.length,
       }),
       'success',
       () => {
@@ -217,10 +209,7 @@ async function extractPages() {
   } catch (error) {
     console.error('Error extracting pages:', error);
     hideLoader();
-    showAlert(
-      t('common.error'),
-      t('tools:extractPages.alert.failedExtractPages')
-    );
+    showAlert('Error', 'Failed to extract pages.');
   }
 }
 

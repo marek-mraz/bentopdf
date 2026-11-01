@@ -5,7 +5,8 @@ import { PDFDocument as PDFLibDocument, rgb } from 'pdf-lib';
 import { BackgroundColorState } from '@/types';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: BackgroundColorState = { file: null, pdfDoc: null };
 
@@ -53,16 +54,13 @@ function handleFileUpload(e: Event) {
 async function handleFiles(files: FileList) {
   const file = files[0];
   if (!file || file.type !== 'application/pdf') {
-    showAlert(
-      t('tools:addPageLabels.invalidFileTitle'),
-      t('tools:addPageLabels.invalidFileMessage')
-    );
+    showAlert('Invalid File', 'Please upload a valid PDF file.');
     return;
   }
   try {
     const result = await loadPdfWithPasswordPrompt(file);
     if (!result) return;
-    showLoader(t('tools:addPageLabels.loadingPdf'));
+    showLoader('Loading PDF...');
     result.pdf.destroy();
     pageState.pdfDoc = await loadPdfDocument(result.bytes);
     pageState.file = result.file;
@@ -70,7 +68,7 @@ async function handleFiles(files: FileList) {
     document.getElementById('options-panel')?.classList.remove('hidden');
   } catch (error) {
     console.error(error);
-    showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+    showAlert('Error', 'Failed to load PDF file.');
   } finally {
     hideLoader();
   }
@@ -90,9 +88,9 @@ function updateFileDisplay() {
   nameSpan.textContent = pageState.file.name;
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+  metaSpan.textContent = trText('{{size}} • {{getPageCount}} pages', {
     size: formatBytes(pageState.file.size),
-    count: pageState.pdfDoc.getPageCount(),
+    getPageCount: pageState.pdfDoc.getPageCount(),
   });
   infoContainer.append(nameSpan, metaSpan);
   const removeBtn = document.createElement('button');
@@ -116,14 +114,14 @@ function resetState() {
 
 async function changeBackgroundColor() {
   if (!pageState.pdfDoc) {
-    showAlert(t('common.error'), t('tools:addPageLabels.uploadFirstMessage'));
+    showAlert('Error', 'Please upload a PDF file first.');
     return;
   }
   const colorHex = (
     document.getElementById('background-color') as HTMLInputElement
   ).value;
   const color = hexToRgb(colorHex);
-  showLoader(t('tools:backgroundColor.loader.changingBackgroundColor'));
+  showLoader('Changing background color...');
   try {
     const newPdfDoc = await PDFLibDocument.create();
     for (let i = 0; i < pageState.pdfDoc.getPageCount(); i++) {
@@ -146,8 +144,8 @@ async function changeBackgroundColor() {
       pageState.file?.name || 'document.pdf'
     );
     showAlert(
-      t('common.success'),
-      t('tools:backgroundColor.alert.backgroundColorChangedSuccessfully'),
+      'Success',
+      'Background color changed successfully!',
       'success',
       () => {
         resetState();
@@ -155,10 +153,7 @@ async function changeBackgroundColor() {
     );
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      t('tools:backgroundColor.alert.couldNotChangeBackground')
-    );
+    showAlert('Error', 'Could not change the background color.');
   } finally {
     hideLoader();
   }

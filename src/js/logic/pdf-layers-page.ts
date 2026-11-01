@@ -1,5 +1,5 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, trHtml, onPageReady } from '../i18n/i18n';
 import {
   downloadFile,
   escapeHtml,
@@ -75,7 +75,10 @@ onPageReady(() => {
 
       const metaSpan = document.createElement('div');
       metaSpan.className = 'text-xs text-gray-400';
-      metaSpan.textContent = `${formatBytes(currentFile.size)} • ${t('common.loadingPageCount')}`;
+      metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+        size: formatBytes(currentFile.size),
+        loadingPageCount: t('common.loadingPageCount'),
+      });
 
       infoContainer.append(nameSpan, metaSpan);
 
@@ -93,14 +96,14 @@ onPageReady(() => {
       try {
         const arrayBuffer = await readFileAsArrayBuffer(currentFile);
         const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-        metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        metaSpan.textContent = trText('{{size}} • {{numPages}} pages', {
           size: formatBytes(currentFile.size),
-          count: pdfDoc.numPages,
+          numPages: pdfDoc.numPages,
         });
       } catch (error) {
         console.error('Error loading PDF:', error);
-        metaSpan.textContent = t('tools:pdfOcg.msg.couldNotLoadPageCount', {
-          value: formatBytes(currentFile.size),
+        metaSpan.textContent = trText('{{size}} • Could not load page count', {
+          size: formatBytes(currentFile.size),
         });
       }
 
@@ -196,8 +199,8 @@ onPageReady(() => {
     if (layersArray.length === 0) {
       layersList.innerHTML = `
                 <div class="layers-empty">
-                    <p>${t('tools:pdfOcg.msg.thisPdfHasNoLayersOcg')}</p>
-                    <p>${t('tools:pdfOcg.msg.addANewLayerToGet')}</p>
+                    <p>${trHtml('This PDF has no layers (OCG).')}</p>
+                    <p>${trHtml('Add a new layer to get started!')}</p>
                 </div>
             `;
       return;
@@ -214,12 +217,12 @@ onPageReady(() => {
             <div class="layer-item" data-number="${layer.number}" style="padding-left: ${layer.depth * 24 + 8}px;">
                 <label class="layer-toggle">
                     <input type="checkbox" ${layer.on ? 'checked' : ''} ${layer.locked ? 'disabled' : ''} data-xref="${layer.xref}" />
-                    <span class="layer-name">${layer.depth > 0 ? '└ ' : ''}${escapeHtml(layer.text || t('tools:pdfOcg.msg.layerNumber', { number: layer.number }))}</span>
+                    <span class="layer-name">${layer.depth > 0 ? '└ ' : ''}${escapeHtml(layer.text || trText('Layer {{number}}', { number: layer.number }))}</span>
                     ${layer.locked ? '<span class="layer-locked">🔒</span>' : ''}
                 </label>
                 <div class="layer-actions">
-                    ${!layer.locked ? `<button class="layer-add-child" data-xref="${layer.xref}" title="${escapeHtml(t('tools:pdfOcg.msg.addChildLayerTitle'))}">+</button>` : ''}
-                    ${!layer.locked ? `<button class="layer-delete" data-xref="${layer.xref}" title="${escapeHtml(t('tools:pdfOcg.msg.deleteLayerTitle'))}">✕</button>` : ''}
+                    ${!layer.locked ? `<button class="layer-add-child" data-xref="${layer.xref}" title="${trHtml('Add child layer')}">+</button>` : ''}
+                    ${!layer.locked ? `<button class="layer-delete" data-xref="${layer.xref}" title="${trHtml('Delete layer')}">✕</button>` : ''}
                 </div>
             </div>
         `
@@ -246,10 +249,7 @@ onPageReady(() => {
           } catch (err) {
             console.error('Failed to set layer visibility:', err);
             target.checked = !isOn;
-            showAlert(
-              t('common.error'),
-              t('tools:pdfOcg.alert.failedToggleLayerVisibility')
-            );
+            showAlert('Error', 'Failed to toggle layer visibility');
           }
         });
       });
@@ -264,7 +264,7 @@ onPageReady(() => {
         );
 
         if (!layer) {
-          showAlert(t('common.error'), t('tools:pdfOcg.alert.layerNotFound'));
+          showAlert('Error', 'Layer not found');
           return;
         }
 
@@ -274,10 +274,7 @@ onPageReady(() => {
           renderLayers();
         } catch (err) {
           console.error('Failed to delete layer:', err);
-          showAlert(
-            t('common.error'),
-            t('tools:pdfOcg.alert.failedDeleteLayer')
-          );
+          showAlert('Error', 'Failed to delete layer');
         }
       });
     });
@@ -291,9 +288,9 @@ onPageReady(() => {
         );
 
         const childName = await promptForInput(
-          t('tools:pdfOcg.msg.addChildLayer'),
-          t('tools:pdfOcg.msg.enterChildLayerName', {
-            parent: parentLayer?.text || t('tools:pdfOcg.msg.layer'),
+          trText('Add Child Layer'),
+          trText('Enter name for child layer under "{{Layer}}":', {
+            Layer: parentLayer?.text || 'Layer',
           })
         );
 
@@ -325,10 +322,7 @@ onPageReady(() => {
           renderLayers();
         } catch (err) {
           console.error('Failed to add child layer:', err);
-          showAlert(
-            t('common.error'),
-            t('tools:pdfOcg.alert.failedAddChildLayer')
-          );
+          showAlert('Error', 'Failed to add child layer');
         }
       });
     });
@@ -336,25 +330,22 @@ onPageReady(() => {
 
   const loadLayers = async () => {
     if (!currentFile) {
-      showAlert(
-        t('tools:pdfToJpg.alert.noFile'),
-        t('tools:duplexCollate.invalidFileMessage')
-      );
+      showAlert('No File', 'Please select a PDF file.');
       return;
     }
 
     try {
-      showLoader(t('loader.loadingEngine'));
+      showLoader('Loading engine...');
       const pymupdf = await loadPyMuPDF();
 
       showLoader(
-        t('tools:pdfOcg.msg.loadingLayersFrom', { name: currentFile.name })
+        trText('Loading layers from {{name}}...', { name: currentFile.name })
       );
       currentDoc = await (
         pymupdf as { open: (file: File) => Promise<PyMuPDFDocument> }
       ).open(currentFile);
 
-      showLoader(t('tools:pdfOcg.loader.readingLayerConfiguration'));
+      showLoader('Reading layer configuration...');
       const existingLayers = currentDoc.getLayerConfig();
 
       layersMap.clear();
@@ -388,10 +379,8 @@ onPageReady(() => {
     } catch (error: unknown) {
       hideLoader();
       showAlert(
-        t('common.error'),
-        error instanceof Error
-          ? error.message
-          : t('tools:pdfOcg.alert.failedLoadPdfLayers')
+        'Error',
+        error instanceof Error ? error.message : 'Failed to load PDF layers'
       );
       console.error('Layers error:', error);
     }
@@ -408,10 +397,7 @@ onPageReady(() => {
       addLayerBtn.onclick = () => {
         const name = newLayerInput.value.trim();
         if (!name) {
-          showAlert(
-            t('tools:pdfOcg.alert.invalidName'),
-            t('tools:pdfOcg.alert.enterLayerName')
-          );
+          showAlert('Invalid Name', 'Please enter a layer name');
           return;
         }
 
@@ -434,10 +420,9 @@ onPageReady(() => {
           renderLayers();
         } catch (err: unknown) {
           showAlert(
-            t('common.error'),
-            t('tools:pdfOcg.msg.failedToAddLayer', {
-              value: err instanceof Error ? err.message : String(err),
-            })
+            'Error',
+            'Failed to add layer: ' +
+              (err instanceof Error ? err.message : String(err))
           );
         }
       };
@@ -446,7 +431,7 @@ onPageReady(() => {
     if (saveLayersBtn) {
       saveLayersBtn.onclick = () => {
         try {
-          showLoader(t('tools:pdfOcg.loader.savingPdfWithLayer'));
+          showLoader('Saving PDF with layer changes...');
           const pdfBytes = currentDoc.save();
           const blob = new Blob([new Uint8Array(pdfBytes)], {
             type: 'application/pdf',
@@ -454,18 +439,13 @@ onPageReady(() => {
           downloadFile(blob, currentFile!.name);
           hideLoader();
           resetState();
-          showAlert(
-            t('common.success'),
-            t('tools:pdfOcg.alert.pdfWithLayerChanges'),
-            'success'
-          );
+          showAlert('Success', 'PDF with layer changes saved!', 'success');
         } catch (err: unknown) {
           hideLoader();
           showAlert(
-            t('common.error'),
-            t('tools:pdfOcg.msg.failedToSavePdf', {
-              value: err instanceof Error ? err.message : String(err),
-            })
+            'Error',
+            'Failed to save PDF: ' +
+              (err instanceof Error ? err.message : String(err))
           );
         }
       };
@@ -485,10 +465,7 @@ onPageReady(() => {
         currentFile = result.file;
         updateUI();
       } else {
-        showAlert(
-          t('tools:addPageLabels.invalidFileTitle'),
-          t('tools:duplexCollate.invalidFileMessage')
-        );
+        showAlert('Invalid File', 'Please select a PDF file.');
       }
     }
   };

@@ -5,7 +5,8 @@ import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { AddBlankPageState } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: AddBlankPageState = {
   file: null,
@@ -62,8 +63,8 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = t('tools:addBlankPage.msg.loading', {
-      value: formatBytes(pageState.file.size),
+    metaSpan.textContent = trText('{{size}} • Loading...', {
+      size: formatBytes(pageState.file.size),
     });
 
     infoContainer.append(nameSpan, metaSpan);
@@ -86,21 +87,21 @@ async function updateUI() {
         resetState();
         return;
       }
-      showLoader(t('tools:addPageLabels.loadingPdf'));
+      showLoader('Loading PDF...');
       pageState.file = result.file;
       pageState.pdfDoc = await loadPdfDocument(result.bytes);
       result.pdf.destroy();
       hideLoader();
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+      metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
         size: formatBytes(pageState.file.size),
-        count: pageCount,
+        pageCount,
       });
 
       if (pagePositionHint) {
-        pagePositionHint.textContent = t(
-          'tools:addBlankPage.msg.enter0ToInsertAtThe',
+        pagePositionHint.textContent = trText(
+          'Enter 0 to insert at the beginning, or {{pageCount}} to insert at the end.',
           { pageCount }
         );
       }
@@ -112,7 +113,7 @@ async function updateUI() {
     } catch (error) {
       console.error('Error loading PDF:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+      showAlert('Error', 'Failed to load PDF file.');
       resetState();
     }
   } else {
@@ -122,7 +123,7 @@ async function updateUI() {
 
 async function addBlankPages() {
   if (!pageState.pdfDoc || !pageState.file) {
-    showAlert(t('common.error'), t('alert.uploadPdfFirst'));
+    showAlert('Error', 'Please upload a PDF first.');
     return;
   }
 
@@ -139,21 +140,27 @@ async function addBlankPages() {
 
   if (isNaN(position) || position < 0 || position > totalPages) {
     showAlert(
-      t('tools:addBlankPage.alert.invalidInput'),
-      t('tools:addBlankPage.msg.pleaseEnterANumberBetween0', { totalPages })
+      'Invalid Input',
+      trText('Please enter a number between 0 and {{totalPages}}.', {
+        totalPages,
+      })
     );
     return;
   }
 
   if (isNaN(insertCount) || insertCount < 1) {
     showAlert(
-      t('tools:addBlankPage.alert.invalidInput'),
-      t('tools:addBlankPage.alert.enterValidNumberPages')
+      'Invalid Input',
+      'Please enter a valid number of pages (1 or more).'
     );
     return;
   }
 
-  showLoader(t('tools:addBlankPage.msg.adding', { count: insertCount }));
+  showLoader(
+    insertCount > 1
+      ? trText('Adding {{insertCount}} blank pages...', { insertCount })
+      : trText('Adding {{insertCount}} blank page...', { insertCount })
+  );
 
   try {
     const newPdf = await PDFLibDocument.create();
@@ -191,8 +198,14 @@ async function addBlankPages() {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:addBlankPage.msg.added', { count: insertCount }),
+      'Success',
+      insertCount > 1
+        ? trText('Added {{insertCount}} blank pages successfully!', {
+            insertCount,
+          })
+        : trText('Added {{insertCount}} blank page successfully!', {
+            insertCount,
+          }),
       'success',
       function () {
         resetState();
@@ -201,8 +214,10 @@ async function addBlankPages() {
   } catch (e) {
     console.error(e);
     showAlert(
-      t('common.error'),
-      t('tools:addBlankPage.msg.couldNotAdd', { count: insertCount })
+      'Error',
+      insertCount > 1
+        ? trText('Could not add blank pages.')
+        : trText('Could not add blank page.')
     );
   } finally {
     hideLoader();

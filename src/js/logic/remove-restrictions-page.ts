@@ -7,7 +7,8 @@ import {
 } from '../utils/helpers.js';
 import { icons, createIcons } from 'lucide';
 import { RemoveRestrictionsState, QpdfInstanceExtended } from '@/types';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: RemoveRestrictionsState = {
   file: null,
@@ -89,10 +90,7 @@ function handleFileSelect(files: FileList | null) {
 
 async function removeRestrictions() {
   if (!pageState.file) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
 
@@ -109,22 +107,17 @@ async function removeRestrictions() {
 
   try {
     if (loaderModal) loaderModal.classList.remove('hidden');
-    if (loaderText)
-      loaderText.textContent = t('tools:ocrPdf.progressInitializing');
+    if (loaderText) loaderText.textContent = trText('Initializing...');
 
     qpdf = await initializeQpdf();
 
-    if (loaderText)
-      loaderText.textContent = t('tools:removeRestrictions.msg.readingPdf');
+    if (loaderText) loaderText.textContent = trText('Reading PDF...');
     const fileBuffer = await readFileAsArrayBuffer(pageState.file);
     const uint8Array = new Uint8Array(fileBuffer as ArrayBuffer);
 
     qpdf.FS.writeFile(inputPath, uint8Array);
 
-    if (loaderText)
-      loaderText.textContent = t(
-        'tools:removeRestrictions.msg.removingRestrictions'
-      );
+    if (loaderText) loaderText.textContent = trText('Removing restrictions...');
 
     const args = [inputPath];
 
@@ -141,29 +134,24 @@ async function removeRestrictions() {
       const qpdfMsg = qpdfError instanceof Error ? qpdfError.message : '';
       if (qpdfMsg.includes('password') || qpdfMsg.includes('encrypt')) {
         throw new Error(
-          t('tools:removeRestrictions.msg.failedToRemoveRestrictionsThePdf'),
+          trText(
+            'Failed to remove restrictions. The PDF may require the correct owner password.'
+          ),
           { cause: qpdfError }
         );
       }
 
       throw new Error(
-        t('tools:removeRestrictions.msg.failedToRemoveRestrictions', {
-          value: qpdfMsg || t('common.unknownError'),
-        }),
+        'Failed to remove restrictions: ' + (qpdfMsg || 'Unknown error'),
         { cause: qpdfError }
       );
     }
 
-    if (loaderText)
-      loaderText.textContent = t(
-        'tools:removeRestrictions.msg.preparingDownload'
-      );
+    if (loaderText) loaderText.textContent = trText('Preparing download...');
     const outputFile = qpdf.FS.readFile(outputPath, { encoding: 'binary' });
 
     if (!outputFile || outputFile.length === 0) {
-      throw new Error(
-        t('tools:removeRestrictions.msg.operationResultedInAnEmptyFile')
-      );
+      throw new Error(trText('Operation resulted in an empty file.'));
     }
 
     const blob = new Blob([new Uint8Array(outputFile)], {
@@ -174,8 +162,8 @@ async function removeRestrictions() {
     if (loaderModal) loaderModal.classList.add('hidden');
 
     showAlert(
-      t('common.success'),
-      t('tools:removeRestrictions.alert.pdfRestrictionsRemovedSuccessfully'),
+      'Success',
+      'PDF restrictions removed successfully! The file is now fully editable and printable.',
       'success',
       () => {
         resetState();
@@ -185,12 +173,12 @@ async function removeRestrictions() {
     console.error('Error during restriction removal:', error);
     if (loaderModal) loaderModal.classList.add('hidden');
     showAlert(
-      t('tools:removeRestrictions.alert.operationFailed'),
-      t('tools:removeRestrictions.msg.anErrorOccurred', {
-        value:
+      'Operation Failed',
+      trText('An error occurred: {{error}}', {
+        error:
           error instanceof Error
             ? error.message
-            : t('tools:removeRestrictions.alert.pdfMightCorruptedPassword'),
+            : trText('The PDF might be corrupted or password-protected.'),
       })
     );
   } finally {

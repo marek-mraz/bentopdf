@@ -2,7 +2,7 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import Papa from 'papaparse';
 
-import { t } from '../i18n/i18n.js';
+import { trText } from '../i18n/i18n.js';
 
 export interface CsvToPdfOptions {
   onProgress?: (percent: number, message: string) => void;
@@ -18,12 +18,12 @@ export async function convertCsvToPdf(
   const { onProgress } = options || {};
 
   return new Promise((resolve, reject) => {
-    onProgress?.(10, t('msg.csvToPdf.readingCsvFile'));
+    onProgress?.(10, trText('Reading CSV file...'));
 
     Papa.parse(file, {
       complete: (results) => {
         try {
-          onProgress?.(50, t('tools:emailToPdf.loader.generatingPdf'));
+          onProgress?.(50, trText('Generating PDF...'));
 
           const data = results.data as string[][];
 
@@ -33,7 +33,7 @@ export async function convertCsvToPdf(
           );
 
           if (filteredData.length === 0) {
-            reject(new Error('CSV file is empty'));
+            reject(new Error(trText('CSV file is empty')));
             return;
           }
 
@@ -48,7 +48,7 @@ export async function convertCsvToPdf(
           const headers = filteredData[0];
           const rows = filteredData.slice(1);
 
-          onProgress?.(70, t('msg.csvToPdf.creatingTable'));
+          onProgress?.(70, trText('Creating table...'));
 
           // Generate table
           autoTable(doc, {
@@ -73,12 +73,12 @@ export async function convertCsvToPdf(
             theme: 'striped',
           });
 
-          onProgress?.(90, t('msg.csvToPdf.finalizingPdf'));
+          onProgress?.(90, trText('Finalizing PDF...'));
 
           // Get PDF as blob
           const pdfBlob = doc.output('blob');
 
-          onProgress?.(100, t('msg.csvToPdf.complete'));
+          onProgress?.(100, trText('Complete!'));
           resolve(pdfBlob);
         } catch (error) {
           reject(error);
@@ -87,7 +87,7 @@ export async function convertCsvToPdf(
       error: (error) => {
         reject(
           new Error(
-            t('msg.csvToPdf.failedToParseCsv', { message: error.message })
+            trText('Failed to parse CSV: {{error}}', { error: error.message })
           )
         );
       },

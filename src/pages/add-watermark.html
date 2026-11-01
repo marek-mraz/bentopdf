@@ -165,9 +165,7 @@
             class="flex items-center gap-2 text-indigo-300 hover:text-indigo-400 font-semibold text-sm"
           >
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
-            <span data-i18n="tools:addWatermark.ui.changeFile"
-              >Change File</span
-            >
+            <span>Change File</span>
           </button>
           <div
             id="editor-file-info"
@@ -181,9 +179,7 @@
               class="bg-gray-800 rounded-xl border border-gray-700 p-2 sm:p-4 flex-1 flex flex-col"
             >
               <div class="flex items-center justify-between mb-2 sm:mb-3">
-                <span
-                  data-i18n="tools:addWatermark.ui.preview"
-                  class="text-xs sm:text-sm font-medium text-gray-300"
+                <span class="text-xs sm:text-sm font-medium text-gray-300"
                   >Preview</span
                 >
                 <div class="flex items-center gap-2">
@@ -213,7 +209,6 @@
                   </button>
                 </div>
                 <span
-                  data-i18n="tools:addWatermark.ui.dragWatermarkToPosition"
                   id="drag-hint"
                   class="text-xs text-gray-500 hidden sm:inline"
                   >Drag watermark to position</span
@@ -245,11 +240,7 @@
                     <div
                       class="relative border border-dashed border-indigo-400/60 cursor-grab active:cursor-grabbing"
                     >
-                      <div
-                        data-i18n="tools:addWatermark.ui.confidential"
-                        id="watermark-overlay"
-                        class="whitespace-nowrap"
-                      >
+                      <div id="watermark-overlay" class="whitespace-nowrap">
                         CONFIDENTIAL
                       </div>
                       <img id="image-watermark-overlay" class="hidden" alt="" />
@@ -282,14 +273,12 @@
             >
               <div class="flex gap-2">
                 <button
-                  data-i18n="toolPage.text"
                   id="type-text-btn"
                   class="flex-1 py-2 px-3 text-sm font-medium rounded-lg bg-indigo-600 text-white transition-colors"
                 >
                   Text
                 </button>
                 <button
-                  data-i18n="tools:addWatermark.ui.image"
                   id="type-image-btn"
                   class="flex-1 py-2 px-3 text-sm font-medium rounded-lg bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors"
                 >
@@ -298,31 +287,24 @@
               </div>
 
               <div>
-                <label
-                  data-i18n="tools:addWatermark.ui.layout"
-                  class="block mb-1.5 text-sm font-medium text-gray-300"
+                <label class="block mb-1.5 text-sm font-medium text-gray-300"
                   >Layout</label
                 >
                 <div class="flex gap-2">
                   <button
-                    data-i18n="tools:addWatermark.ui.single"
                     id="layout-single-btn"
                     class="flex-1 py-2 px-3 text-sm font-medium rounded-lg bg-indigo-600 text-white transition-colors"
                   >
                     Single
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.tiled"
                     id="layout-tile-btn"
                     class="flex-1 py-2 px-3 text-sm font-medium rounded-lg bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors"
                   >
                     Tiled
                   </button>
                 </div>
-                <p
-                  data-i18n="tools:addWatermark.ui.tiledRepeatsWatermarkAcrossWhole"
-                  class="text-xs text-gray-500 mt-1.5"
-                >
+                <p class="text-xs text-gray-500 mt-1.5">
                   Tiled repeats the watermark across the whole page.
                 </p>
               </div>
@@ -346,23 +328,18 @@
 
               <div id="page-range-section" class="space-y-1.5">
                 <label
-                  data-i18n="tools:addWatermark.ui.pageRange"
                   for="page-range-input"
                   class="block text-sm font-medium text-gray-300"
                   >Page Range</label
                 >
                 <input
-                  data-i18n-placeholder="tools:addWatermark.ui.pageRangePlaceholder"
                   type="text"
                   id="page-range-input"
                   value="all"
                   placeholder="all  or  1-3, 5, 7-9"
                   class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 text-sm placeholder-gray-500"
                 />
-                <p
-                  data-i18n="tools:addWatermark.ui.useAllSpecifyPages"
-                  class="text-xs text-gray-500"
-                >
+                <p class="text-xs text-gray-500">
                   Use "all" or specify pages, e.g. 1-3, 5, 7-9
                 </p>
               </div>
@@ -371,13 +348,11 @@
                 <div class="space-y-4">
                   <div>
                     <label
-                      data-i18n="toolPage.text"
                       for="watermark-text"
                       class="block mb-1.5 text-sm font-medium text-gray-300"
                       >Text</label
                     >
                     <input
-                      data-i18n-placeholder="tools:addWatermark.ui.confidential"
                       type="text"
                       id="watermark-text"
                       placeholder="CONFIDENTIAL"
@@ -387,7 +362,6 @@
                   <div class="grid grid-cols-2 gap-3">
                     <div>
                       <label
-                        data-i18n="toolPage.fontSize"
                         for="font-size"
                         class="block mb-1.5 text-sm font-medium text-gray-300"
                         >Font Size</label
@@ -403,7 +377,6 @@
                     </div>
                     <div>
                       <label
-                        data-i18n="toolPage.color"
                         for="text-color"
                         class="block mb-1.5 text-sm font-medium text-gray-300"
                         >Color</label
@@ -421,10 +394,7 @@
                       for="opacity-text"
                       class="block mb-1.5 text-sm font-medium text-gray-300"
                     >
-                      <span data-i18n="tools:addWatermark.ui.opacity"
-                        >Opacity:</span
-                      >
-                      <span id="opacity-value-text">0.3</span>
+                      Opacity: <span id="opacity-value-text">0.3</span>
                     </label>
                     <input
                       type="range"
@@ -441,10 +411,7 @@
                       for="angle-text"
                       class="block mb-1.5 text-sm font-medium text-gray-300"
                     >
-                      <span data-i18n="tools:addWatermark.ui.angle"
-                        >Angle:</span
-                      >
-                      <span id="angle-value-text">-45</span>&deg;
+                      Angle: <span id="angle-value-text">-45</span>&deg;
                     </label>
                     <input
                       type="range"
@@ -463,7 +430,6 @@
                 <div class="space-y-4">
                   <div>
                     <label
-                      data-i18n="tools:addWatermark.ui.watermarkImage"
                       for="image-watermark-input"
                       class="block mb-1.5 text-sm font-medium text-gray-300"
                       >Watermark Image</label
@@ -480,10 +446,7 @@
                       for="image-scale"
                       class="block mb-1.5 text-sm font-medium text-gray-300"
                     >
-                      <span data-i18n="tools:addWatermark.ui.scale"
-                        >Scale:</span
-                      >
-                      <span id="image-scale-value">100</span>%
+                      Scale: <span id="image-scale-value">100</span>%
                     </label>
                     <input
                       type="range"
@@ -500,10 +463,7 @@
                       for="opacity-image"
                       class="block mb-1.5 text-sm font-medium text-gray-300"
                     >
-                      <span data-i18n="tools:addWatermark.ui.opacity"
-                        >Opacity:</span
-                      >
-                      <span id="opacity-value-image">0.3</span>
+                      Opacity: <span id="opacity-value-image">0.3</span>
                     </label>
                     <input
                       type="range"
@@ -520,10 +480,7 @@
                       for="angle-image"
                       class="block mb-1.5 text-sm font-medium text-gray-300"
                     >
-                      <span data-i18n="tools:addWatermark.ui.angle"
-                        >Angle:</span
-                      >
-                      <span id="angle-value-image">0</span>&deg;
+                      Angle: <span id="angle-value-image">0</span>&deg;
                     </label>
                     <input
                       type="range"
@@ -544,10 +501,7 @@
                     for="tile-gap-x"
                     class="block mb-1.5 text-sm font-medium text-gray-300"
                   >
-                    <span data-i18n="tools:addWatermark.ui.horizontalGap"
-                      >Horizontal gap:</span
-                    >
-                    <span id="tile-gap-x-value">25</span>%
+                    Horizontal gap: <span id="tile-gap-x-value">25</span>%
                   </label>
                   <input
                     type="range"
@@ -564,10 +518,7 @@
                     for="tile-gap-y"
                     class="block mb-1.5 text-sm font-medium text-gray-300"
                   >
-                    <span data-i18n="tools:addWatermark.ui.verticalGap"
-                      >Vertical gap:</span
-                    >
-                    <span id="tile-gap-y-value">75</span>%
+                    Vertical gap: <span id="tile-gap-y-value">75</span>%
                   </label>
                   <input
                     type="range"
@@ -582,70 +533,59 @@
               </div>
 
               <div id="position-section">
-                <label
-                  data-i18n="toolPage.position"
-                  class="block mb-1.5 text-sm font-medium text-gray-300"
+                <label class="block mb-1.5 text-sm font-medium text-gray-300"
                   >Position</label
                 >
                 <div class="grid grid-cols-3 gap-1.5">
                   <button
-                    data-i18n="tools:addWatermark.ui.topLeft"
                     data-pos="0.15,0.15"
                     class="pos-preset-btn py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors"
                   >
                     Top Left
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.top"
                     data-pos="0.5,0.15"
                     class="pos-preset-btn py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors"
                   >
                     Top
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.topRight"
                     data-pos="0.85,0.15"
                     class="pos-preset-btn py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors"
                   >
                     Top Right
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.left"
                     data-pos="0.15,0.5"
                     class="pos-preset-btn py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors"
                   >
                     Left
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.center"
                     data-pos="0.5,0.5"
                     class="pos-preset-btn py-1.5 text-xs bg-indigo-600 hover:bg-indigo-500 text-white rounded-md transition-colors"
                   >
                     Center
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.right"
                     data-pos="0.85,0.5"
                     class="pos-preset-btn py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors"
                   >
                     Right
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.bottomLeft"
                     data-pos="0.15,0.85"
                     class="pos-preset-btn py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors"
                   >
                     Bottom Left
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.bottom"
                     data-pos="0.5,0.85"
                     class="pos-preset-btn py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors"
                   >
                     Bottom
                   </button>
                   <button
-                    data-i18n="tools:addWatermark.ui.bottomRight"
                     data-pos="0.85,0.85"
                     class="pos-preset-btn py-1.5 text-xs bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-md transition-colors"
                   >
@@ -662,26 +602,18 @@
                 />
                 <div>
                   <label
-                    data-i18n="tools:addWatermark.ui.flattenWatermark"
                     for="flatten-watermark"
                     class="text-sm font-medium text-gray-300 cursor-pointer"
                     >Flatten watermark</label
                   >
-                  <p
-                    data-i18n="tools:addWatermark.ui.bakesWatermarkIntoPagePixels"
-                    class="text-xs text-gray-500 mt-0.5"
-                  >
+                  <p class="text-xs text-gray-500 mt-0.5">
                     Bakes the watermark into page pixels, making it
                     tamper-resistant. Text will no longer be selectable.
                   </p>
                 </div>
               </div>
 
-              <button
-                data-i18n="tools:addWatermark.name"
-                id="process-btn"
-                class="btn-gradient w-full"
-              >
+              <button id="process-btn" class="btn-gradient w-full">
                 Add Watermark
               </button>
             </div>
@@ -750,12 +682,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -768,12 +695,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -786,12 +708,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -813,74 +730,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -896,12 +775,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-watermark.1.q"
-              >Can I watermark only certain pages of a PDF?</span
-            >
+            Can I watermark only certain pages of a PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-watermark.1.a">
+          <p class="faq-d-a">
             Yes. Type a range such as 1-3, 5, 7-9 in the Page Range field, or
             leave it set to "all". If you want different text or a different
             position on individual pages, uncheck "Apply to all pages" and use
@@ -910,13 +787,11 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-watermark.2.q"
-              >How do I add a diagonal CONFIDENTIAL or DRAFT watermark across
-              the page?</span
-            >
+            How do I add a diagonal CONFIDENTIAL or DRAFT watermark across the
+            page?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-watermark.2.a">
+          <p class="faq-d-a">
             Stay in Text mode, type the word, and raise the font size (10 to 200
             points, default 72) until it spans the page. The angle slider
             already defaults to -45 degrees for the classic diagonal look, so
@@ -926,12 +801,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-watermark.3.q"
-              >Can I use a logo image as the watermark?</span
-            >
+            Can I use a logo image as the watermark?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-watermark.3.a">
+          <p class="faq-d-a">
             Switch to Image mode and upload a PNG or JPG; other image formats
             aren't accepted. A PNG with a transparent background blends best
             with the page. You can scale it from 10% to 200%, set its opacity
@@ -940,12 +813,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-watermark.4.q"
-              >What does the Tiled layout do?</span
-            >
+            What does the Tiled layout do?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-watermark.4.a">
+          <p class="faq-d-a">
             Tiled repeats the watermark across the whole page in a diagonal grid
             that follows the rotation angle, so the mark runs edge to edge. The
             horizontal and vertical gap sliders control the spacing between
@@ -955,12 +826,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-watermark.5.q"
-              >Can someone remove the watermark afterward?</span
-            >
+            Can someone remove the watermark afterward?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-watermark.5.a">
+          <p class="faq-d-a">
             The watermark is drawn into the page content rather than added as a
             separate annotation, so it can't be deleted with one click in a PDF
             viewer. It isn't tamper-proof though. For a harder-to-strip result,
@@ -970,13 +839,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-watermark.6.q"
-              >Does adding a watermark change the original text or image
-              quality?</span
-            >
+            Does adding a watermark change the original text or image quality?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-watermark.6.a">
+          <p class="faq-d-a">
             No. The pages keep their original text, images, and dimensions, and
             the watermark is placed on top, so text stays selectable and
             searchable. The exception is the "Flatten watermark" option, which
@@ -986,12 +852,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-watermark.7.q"
-              >What opacity should I use for a watermark?</span
-            >
+            What opacity should I use for a watermark?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-watermark.7.a">
+          <p class="faq-d-a">
             The slider runs from 0.05 to 1 and defaults to 0.3. Values between
             0.2 and 0.4 keep the mark visible without hiding the content beneath
             it; go higher only for small marks placed in a margin or corner.
@@ -999,12 +863,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-watermark.8.q"
-              >Is my PDF uploaded when I add a watermark?</span
-            >
+            Is my PDF uploaded when I add a watermark?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-watermark.8.a">
+          <p class="faq-d-a">
             No. The live preview, the drag-and-drop editor, and the final
             rendering all run inside your browser with pdf-lib, so neither the
             PDF nor a logo image you add leaves your device.

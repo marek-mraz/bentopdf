@@ -10,7 +10,8 @@ import { rgb, StandardFonts } from 'pdf-lib';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { HeaderFooterState } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: HeaderFooterState = { file: null, pdfDoc: null };
 
@@ -58,16 +59,13 @@ function handleFileUpload(e: Event) {
 async function handleFiles(files: FileList) {
   const file = files[0];
   if (!file || file.type !== 'application/pdf') {
-    showAlert(
-      t('tools:addPageLabels.invalidFileTitle'),
-      t('tools:addPageLabels.invalidFileMessage')
-    );
+    showAlert('Invalid File', 'Please upload a valid PDF file.');
     return;
   }
   try {
     const result = await loadPdfWithPasswordPrompt(file);
     if (!result) return;
-    showLoader(t('tools:addPageLabels.loadingPdf'));
+    showLoader('Loading PDF...');
 
     pageState.pdfDoc = await loadPdfDocument(result.bytes);
     pageState.file = result.file;
@@ -80,7 +78,7 @@ async function handleFiles(files: FileList) {
       totalPagesSpan.textContent = String(pageState.pdfDoc.getPageCount());
   } catch (error) {
     console.error(error);
-    showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+    showAlert('Error', 'Failed to load PDF file.');
   } finally {
     hideLoader();
   }
@@ -100,9 +98,9 @@ function updateFileDisplay() {
   nameSpan.textContent = pageState.file.name;
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+  metaSpan.textContent = trText('{{size}} • {{getPageCount}} pages', {
     size: formatBytes(pageState.file.size),
-    count: pageState.pdfDoc.getPageCount(),
+    getPageCount: pageState.pdfDoc.getPageCount(),
   });
   infoContainer.append(nameSpan, metaSpan);
   const removeBtn = document.createElement('button');
@@ -126,10 +124,10 @@ function resetState() {
 
 async function addHeaderFooter() {
   if (!pageState.pdfDoc) {
-    showAlert(t('common.error'), t('tools:addPageLabels.uploadFirstMessage'));
+    showAlert('Error', 'Please upload a PDF file first.');
     return;
   }
-  showLoader(t('tools:headerFooter.loader.addingHeaderFooter'));
+  showLoader('Adding header & footer...');
   try {
     const helveticaFont = await pageState.pdfDoc.embedFont(
       StandardFonts.Helvetica
@@ -170,7 +168,7 @@ async function addHeaderFooter() {
     };
     const indicesToProcess = parsePageRanges(pageRangeInput, totalPages);
     if (indicesToProcess.length === 0)
-      throw new Error(t('tools:headerFooter.msg.invalidPageRangeSpecified'));
+      throw new Error(trText('Invalid page range specified.'));
     const drawOptions = {
       font: helveticaFont,
       size: fontSize,
@@ -248,8 +246,8 @@ async function addHeaderFooter() {
       pageState.file?.name || 'document.pdf'
     );
     showAlert(
-      t('common.success'),
-      t('tools:headerFooter.alert.headerFooterAddedSuccessfully'),
+      'Success',
+      'Header & Footer added successfully!',
       'success',
       () => {
         resetState();
@@ -258,10 +256,8 @@ async function addHeaderFooter() {
   } catch (e: unknown) {
     console.error(e);
     showAlert(
-      t('common.error'),
-      e instanceof Error
-        ? e.message
-        : t('tools:headerFooter.alert.couldNotAddHeader')
+      'Error',
+      e instanceof Error ? e.message : 'Could not add header or footer.'
     );
   } finally {
     hideLoader();

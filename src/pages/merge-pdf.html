@@ -178,14 +178,12 @@
             class="flex gap-2 p-1 rounded-lg bg-gray-900 border border-gray-700 mb-4"
           >
             <button
-              data-i18n="merge.fileMode"
               id="file-mode-btn"
               class="flex-1 btn bg-indigo-600 text-white font-semibold py-2 rounded-md"
             >
               File Mode
             </button>
             <button
-              data-i18n="merge.pageMode"
               id="page-mode-btn"
               class="flex-1 btn text-gray-300 font-semibold py-2 rounded-md"
             >
@@ -196,30 +194,24 @@
           <div id="file-mode-panel">
             <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 mb-3">
               <p class="text-sm text-gray-300">
-                <strong data-i18n="merge.howItWorks" class="text-white"
-                  >How it works:</strong
-                >
+                <strong class="text-white">How it works:</strong>
               </p>
               <ul
                 class="list-disc list-inside text-xs text-gray-400 mt-1 space-y-1"
               >
                 <li>
-                  <span data-i18n="tools:mergePdf.ui.clickDrag"
-                    >Click and drag the</span
-                  >
+                  Click and drag the
                   <i
                     data-lucide="grip-vertical"
                     class="inline-block w-3 h-3"
                   ></i>
-                  <span data-i18n="tools:mergePdf.ui.iconToChangeOrderFiles"
-                    >icon to change the order of the files.</span
-                  >
+                  icon to change the order of the files.
                 </li>
-                <li data-i18n="merge.fileModeInstructions.1">
+                <li>
                   In the "Pages" box for each file, you can specify ranges
                   (e.g., "1-3, 5") to merge only those pages.
                 </li>
-                <li data-i18n="merge.fileModeInstructions.2">
+                <li>
                   Leave the "Pages" box blank to include all pages from that
                   file.
                 </li>
@@ -231,17 +223,13 @@
           <div id="page-mode-panel" class="hidden">
             <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 mb-3">
               <p class="text-sm text-gray-300">
-                <strong data-i18n="merge.howItWorks" class="text-white"
-                  >How it works:</strong
-                >
+                <strong class="text-white">How it works:</strong>
               </p>
               <ul
                 class="list-disc list-inside text-xs text-gray-400 mt-1 space-y-1"
               >
-                <li data-i18n="merge.pageModeInstructions.0">
-                  All pages from your uploaded PDFs are shown below.
-                </li>
-                <li data-i18n="merge.pageModeInstructions.1">
+                <li>All pages from your uploaded PDFs are shown below.</li>
+                <li>
                   Simply drag and drop the individual page thumbnails to create
                   the exact order you want for your new file.
                 </li>
@@ -295,11 +283,7 @@
             </span>
           </label>
 
-          <button
-            data-i18n="merge.title"
-            id="process-btn"
-            class="btn-gradient w-full mt-6"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-6">
             Merge PDFs
           </button>
         </div>
@@ -315,11 +299,7 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          data-i18n="loader.processing"
-          id="loader-text"
-          class="text-white text-lg font-medium"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Processing...
         </p>
       </div>
@@ -367,16 +347,8 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="multiTool.uploadPdfs"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload PDFs
-            </h3>
-            <p
-              data-i18n="tools:mergePdf.ui.selectOrDragAndDropMultiple"
-              class="text-gray-400"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">Upload PDFs</h3>
+            <p class="text-gray-400">
               Select or drag and drop multiple PDF files you want to merge
             </p>
           </div>
@@ -388,16 +360,8 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="tools:mergePdf.ui.arrangeOrder"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Arrange Order
-            </h3>
-            <p
-              data-i18n="tools:mergePdf.ui.dragFilesUpOrDownTo"
-              class="text-gray-400"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">Arrange Order</h3>
+            <p class="text-gray-400">
               Drag files up or down to reorder them in your preferred sequence
             </p>
           </div>
@@ -409,16 +373,8 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="tools:mergePdf.ui.mergeFiles"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Merge Files
-            </h3>
-            <p
-              data-i18n="tools:mergePdf.ui.clickTheMergeButtonToCombine"
-              class="text-gray-400"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">Merge Files</h3>
+            <p class="text-gray-400">
               Click the merge button to combine all PDFs into a single document
             </p>
           </div>
@@ -430,16 +386,8 @@
             4
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
-            <p
-              data-i18n="tools:mergePdf.ui.saveYourMergedPdfAllPages"
-              class="text-gray-400"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
+            <p class="text-gray-400">
               Save your merged PDF - all pages combined in the order you chose
             </p>
           </div>
@@ -460,80 +408,36 @@
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="organize-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:duplicateOrganize.name"
-            class="text-white font-semibold mb-1"
-          >
-            Organize PDF
-          </h3>
-          <p
-            data-i18n="tools:duplicateOrganize.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online organize PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Organize PDF</h3>
+          <p class="text-gray-400 text-sm">Free online organize PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
         <a
           href="delete-pages.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:deletePages.name"
-            class="text-white font-semibold mb-1"
-          >
-            Delete Pages
-          </h3>
-          <p
-            data-i18n="tools:deletePages.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online delete pages tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Delete Pages</h3>
+          <p class="text-gray-400 text-sm">Free online delete pages tool</p>
         </a>
       </div>
     </section>
@@ -549,12 +453,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="merge-pdf.1.q"
-              >Does merging keep bookmarks?</span
-            >
+            Does merging keep bookmarks?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="merge-pdf.1.a">
+          <p class="faq-d-a">
             Yes. The merge is done with the CoherentPDF engine, which carries
             each file's bookmarks into the combined document so the outline
             stays navigable. Page content and annotations are copied as they
@@ -563,12 +465,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="merge-pdf.2.q"
-              >Can I merge only some pages from each file?</span
-            >
+            Can I merge only some pages from each file?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="merge-pdf.2.a">
+          <p class="faq-d-a">
             Yes. In File Mode, type a range such as 1-3, 5 in the Pages box next
             to a file to include just those pages, or leave it blank for the
             whole file. In Page Mode every page from every file appears as a
@@ -578,12 +478,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="merge-pdf.3.q"
-              >What order will the files be in?</span
-            >
+            What order will the files be in?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="merge-pdf.3.a">
+          <p class="faq-d-a">
             The order shown in the list, top to bottom. Drag entries to
             rearrange them before merging, and use Add More Files to append
             documents without losing the arrangement you already have.
@@ -591,12 +489,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="merge-pdf.4.q"
-              >Why do page numbers look wrong in the merged PDF?</span
-            >
+            Why do page numbers look wrong in the merged PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="merge-pdf.4.a">
+          <p class="faq-d-a">
             By default the merged file uses plain numbering from 1 to N. If the
             originals used page labels such as i, ii, iii or A-1, turn on Keep
             original page labels to preserve them, keeping in mind that two
@@ -611,12 +507,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="merge-pdf.5.q"
-              >Why is the merged file so large?</span
-            >
+            Why is the merged file so large?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="merge-pdf.5.a">
+          <p class="faq-d-a">
             Each file's fonts and images are copied as they are, so the result
             is roughly the combined size of the inputs, and when several files
             embed the same font each copy is kept. Check Remove duplicate fonts
@@ -631,13 +525,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="merge-pdf.6.q"
-              >Can I merge PDFs that have different page sizes or
-              orientations?</span
-            >
+            Can I merge PDFs that have different page sizes or orientations?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="merge-pdf.6.a">
+          <p class="faq-d-a">
             Yes. Pages keep their own size and rotation, so a landscape A3
             drawing can follow a portrait Letter page without being scaled. For
             a uniform size afterward, run the merged file through
@@ -650,12 +541,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="merge-pdf.7.q"
-              >Are the PDFs uploaded to a server to be merged?</span
-            >
+            Are the PDFs uploaded to a server to be merged?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="merge-pdf.7.a">
+          <p class="faq-d-a">
             No. The files are combined inside your browser by the CoherentPDF
             WebAssembly module and the merged PDF is written to your downloads
             folder, so contracts and statements never leave your machine.
@@ -663,12 +552,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="merge-pdf.8.q"
-              >Can I merge password-protected PDFs?</span
-            >
+            Can I merge password-protected PDFs?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="merge-pdf.8.a">
+          <p class="faq-d-a">
             If a file needs a password to open, the tool asks for it when you
             add the file and then merges the decrypted pages. The merged output
             has no password; add one afterward with

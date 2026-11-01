@@ -4,7 +4,7 @@
 // so every word starts where the visible one does; identical text would be
 // merged by PDFium's text extraction and hide a difference), marks two separate areas of it the way the PDF editor does (one
 // REDACT annotation each, then EPDFPage_ApplyRedactions) and checks the text
-// left on the page. The engine bundled up to 051abe5b72a9 kept the second
+// left on the page. The engine bundled up to 3f6b6114b166 kept the second
 // area's text and deleted unmarked words instead. Page 2 holds a gray JPEG and
 // a 1-bit image with a dark block under a mark each: the block must be gone
 // and the images must keep their encoding (that engine wrote both as 8-bit

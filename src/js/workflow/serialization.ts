@@ -12,7 +12,6 @@ import type {
 } from './types';
 import { WORKFLOW_VERSION } from './types';
 import { wfError } from './errors';
-import { t } from '../i18n/i18n';
 
 type AreaExtra = LitArea2D<ClassicScheme>;
 
@@ -278,8 +277,7 @@ export async function importWorkflow(
         await deserializeWorkflow(data, editor, area);
         resolve();
       } catch (err) {
-        const message =
-          err instanceof Error ? err.message : t('common.unknownError');
+        const message = err instanceof Error ? err.message : 'Unknown error';
         reject(new Error(wfError('failedToImport', { message })));
       }
     };

@@ -1,5 +1,5 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import {
   downloadFile,
   readFileAsArrayBuffer,
@@ -53,7 +53,10 @@ onPageReady(() => {
 
         const metaSpan = document.createElement('div');
         metaSpan.className = 'text-xs text-gray-400';
-        metaSpan.textContent = `${formatBytes(file.size)} • ${t('common.loadingPageCount')}`;
+        metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+          size: formatBytes(file.size),
+          loadingPageCount: t('common.loadingPageCount'),
+        });
 
         infoContainer.append(nameSpan, metaSpan);
 
@@ -72,15 +75,15 @@ onPageReady(() => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+          metaSpan.textContent = trText('{{size}} • {{numPages}} pages', {
             size: formatBytes(file.size),
-            count: pdfDoc.numPages,
+            numPages: pdfDoc.numPages,
           });
         } catch (error) {
           console.error('Error loading PDF:', error);
-          metaSpan.textContent = t(
-            'tools:rasterizePdf.msg.couldNotLoadPageCount',
-            { value: formatBytes(file.size) }
+          metaSpan.textContent = trText(
+            '{{size}} • Could not load page count',
+            { size: formatBytes(file.size) }
           );
         }
       }
@@ -106,7 +109,7 @@ onPageReady(() => {
   const rasterize = async () => {
     try {
       if (state.files.length === 0) {
-        showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+        showAlert('No Files', 'Please select at least one PDF file.');
         return;
       }
 
@@ -115,7 +118,7 @@ onPageReady(() => {
         return;
       }
 
-      showLoader(t('loader.loadingEngine'));
+      showLoader('Loading engine...');
       const pymupdf = await loadPyMuPDF();
 
       // Get options from UI
@@ -132,7 +135,7 @@ onPageReady(() => {
 
       hideLoader();
       state.files = await batchDecryptIfNeeded(state.files);
-      showLoader(t('tools:rasterizePdf.loader.rasterizing'));
+      showLoader('Rasterizing...');
 
       const total = state.files.length;
       let completed = 0;
@@ -140,9 +143,7 @@ onPageReady(() => {
 
       if (total === 1) {
         const file = state.files[0];
-        showLoader(
-          t('tools:rasterizePdf.msg.rasterizing', { name: file.name })
-        );
+        showLoader(trText('Rasterizing {{name}}...', { name: file.name }));
 
         const rasterizedBlob = await (pymupdf as PyMuPDFInstance).rasterizePdf(
           file,
@@ -158,8 +159,8 @@ onPageReady(() => {
 
         hideLoader();
         showAlert(
-          t('tools:rasterizePdf.alert.rasterizationComplete'),
-          t('tools:rasterizePdf.msg.successfullyRasterizedPdfAtDpi', { dpi }),
+          'Rasterization Complete',
+          trText('Successfully rasterized PDF at {{dpi}} DPI.', { dpi }),
           'success',
           () => resetState()
         );
@@ -172,9 +173,9 @@ onPageReady(() => {
           try {
             const file = state.files[fi];
             showLoader(
-              t('tools:rasterizePdf.msg.rasterizing2', {
+              trText('Rasterizing {{name}} ({{n}}/{{total}})...', {
                 name: file.name,
-                value: completed + 1,
+                n: completed + 1,
                 total,
               })
             );
@@ -201,7 +202,7 @@ onPageReady(() => {
           }
         }
 
-        showLoader(t('loader.creatingZipArchive'));
+        showLoader('Creating ZIP archive...');
         const zipBlob = await zip.generateAsync({ type: 'blob' });
 
         downloadFile(zipBlob, 'rasterized-pdfs.zip');
@@ -210,18 +211,18 @@ onPageReady(() => {
 
         if (failed === 0) {
           showAlert(
-            t('tools:rasterizePdf.alert.rasterizationComplete'),
-            t('tools:rasterizePdf.msg.successfullyRasterizedPdfSAtDpi', {
-              completed,
-              dpi,
-            }),
+            'Rasterization Complete',
+            trText(
+              'Successfully rasterized {{completed}} PDF(s) at {{dpi}} DPI.',
+              { completed, dpi }
+            ),
             'success',
             () => resetState()
           );
         } else {
           showAlert(
-            t('tools:rasterizePdf.alert.rasterizationPartial'),
-            t('tools:rasterizePdf.msg.rasterizedPdfSFailed', {
+            'Rasterization Partial',
+            trText('Rasterized {{completed}} PDF(s), failed {{failed}}.', {
               completed,
               failed,
             }),
@@ -233,9 +234,9 @@ onPageReady(() => {
     } catch (e: unknown) {
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:rasterizePdf.msg.anErrorOccurredDuringRasterizationError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during rasterization. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

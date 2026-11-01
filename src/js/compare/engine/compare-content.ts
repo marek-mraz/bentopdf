@@ -6,7 +6,8 @@ import type {
   CompareRectangle,
   CompareTextChange,
 } from '../types.ts';
-import { t } from '../../i18n/i18n';
+
+import { trText } from '../../i18n/i18n.js';
 
 const HEADER_FOOTER_ZONE = 0.12;
 
@@ -100,15 +101,11 @@ function formatAnnotationDescription(
   annotation: CompareAnnotation
 ): string {
   const label = annotation.contents || annotation.title;
-  const prefix =
-    action === 'Added'
-      ? 'msg.compareContent.annotationAdded'
-      : 'msg.compareContent.annotationRemoved';
   if (!label) {
-    return t(prefix, { type: annotation.subtype });
+    return `${action} ${annotation.subtype} annotation`;
   }
 
-  return t(`${prefix}WithLabel`, { type: annotation.subtype, label });
+  return `${action} ${annotation.subtype} annotation: "${label}"`;
 }
 
 function annotationKey(ann: CompareAnnotation): string {
@@ -135,10 +132,15 @@ export function diffImages(
           id: `image-modified-${idx++}`,
           type: 'modified',
           category: 'image',
-          description: t('msg.compareContent.imageResized', {
-            before: `${bImg.width}×${bImg.height}`,
-            after: `${match.width}×${match.height}`,
-          }),
+          description: trText(
+            'Image resized from {{width}}×{{height}} to {{width2}}×{{height2}}',
+            {
+              width: bImg.width,
+              height: bImg.height,
+              width2: match.width,
+              height2: match.height,
+            }
+          ),
           beforeText: `${bImg.width}×${bImg.height}`,
           afterText: `${match.width}×${match.height}`,
           beforeRects: [bImg.rect],
@@ -150,8 +152,9 @@ export function diffImages(
         id: `image-removed-${idx++}`,
         type: 'removed',
         category: 'image',
-        description: t('msg.compareContent.imageRemoved', {
-          size: `${bImg.width}×${bImg.height}`,
+        description: trText('Removed image ({{width}}×{{height}})', {
+          width: bImg.width,
+          height: bImg.height,
         }),
         beforeText: '',
         afterText: '',
@@ -167,8 +170,9 @@ export function diffImages(
         id: `image-added-${idx++}`,
         type: 'added',
         category: 'image',
-        description: t('msg.compareContent.imageAdded', {
-          size: `${aImg.width}×${aImg.height}`,
+        description: trText('Added image ({{width}}×{{height}})', {
+          width: aImg.width,
+          height: aImg.height,
         }),
         beforeText: '',
         afterText: '',
@@ -219,7 +223,7 @@ export function detectBackgroundChanges(
         id: `background-changed-${baseId}`,
         type: 'modified',
         category: 'background',
-        description: t('msg.compareContent.backgroundChanged'),
+        description: trText('Page background or layout changed'),
         beforeText: '',
         afterText: '',
         beforeRects: [

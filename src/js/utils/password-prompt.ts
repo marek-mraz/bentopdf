@@ -4,7 +4,7 @@ import { createIcons, icons } from 'lucide';
 import { PasswordResponses } from 'pdfjs-dist';
 import type { LoadedPdf } from '@/types';
 
-import { t } from '../i18n/i18n.js';
+import { trText, trHtml } from '../i18n/i18n.js';
 
 let cachedPassword: string | null = null;
 let activeModalPromise: Promise<unknown> | null = null;
@@ -37,7 +37,7 @@ function ensureSingleModal(): HTMLDivElement {
             <i data-lucide="lock" class="w-6 h-6 text-indigo-400"></i>
           </div>
           <div class="flex-1">
-            <h3 id="password-modal-title" class="text-xl font-bold text-white mb-1">${t('tools:changePermissions.alert.passwordRequired')}</h3>
+            <h3 id="password-modal-title" class="text-xl font-bold text-white mb-1">${trHtml('Password Required')}</h3>
             <p id="password-modal-subtitle" class="text-gray-400 text-sm truncate"></p>
           </div>
         </div>
@@ -45,7 +45,7 @@ function ensureSingleModal(): HTMLDivElement {
           <div class="relative">
             <input type="password" id="password-modal-input"
               class="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="${t('tools:pdfWorkflow.ui.enterPasswordPlaceholder')}" autocomplete="off" />
+              placeholder="${trHtml('Enter password')}" autocomplete="off" />
             <button id="password-modal-toggle" type="button"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200">
               <i data-lucide="eye" class="w-4 h-4"></i>
@@ -58,11 +58,11 @@ function ensureSingleModal(): HTMLDivElement {
       <div class="flex gap-3 p-4 border-t border-gray-700">
         <button id="password-modal-cancel"
           class="flex-1 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors">
-          ${t('tools:pdfWorkflow.ui.skip')}
+          ${trHtml('Skip')}
         </button>
         <button id="password-modal-submit"
           class="flex-1 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors">
-          ${t('tools:pdfWorkflow.ui.unlock')}
+          ${trHtml('Unlock')}
         </button>
       </div>
     </div>`;
@@ -87,19 +87,19 @@ function ensureBatchModal(): HTMLDivElement {
           </div>
           <div class="flex-1">
             <h3 id="batch-modal-title" class="text-xl font-bold text-white mb-1"></h3>
-            <p class="text-gray-400 text-sm">${t('msg.passwordPrompt.enterPasswordsForEachEncryptedFile')}</p>
+            <p class="text-gray-400 text-sm">${trHtml('Enter passwords for each encrypted file')}</p>
           </div>
         </div>
         <div class="flex items-center gap-2 mt-3 mb-3">
           <input type="checkbox" id="batch-modal-same-pw" checked
             class="w-4 h-4 rounded bg-gray-700 border-gray-600 text-indigo-500 focus:ring-indigo-500 focus:ring-offset-0 cursor-pointer" />
-          <label for="batch-modal-same-pw" class="text-sm text-gray-300 cursor-pointer select-none">${t('msg.passwordPrompt.useSamePasswordForAllFiles')}</label>
+          <label for="batch-modal-same-pw" class="text-sm text-gray-300 cursor-pointer select-none">${trHtml('Use same password for all files')}</label>
         </div>
         <div id="batch-modal-shared" class="mb-3">
           <div class="relative">
             <input type="password" id="batch-modal-shared-input"
               class="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-4 py-2.5 pr-10 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="${t('msg.passwordPrompt.passwordForAllFiles')}" autocomplete="off" />
+              placeholder="${trHtml('Password for all files')}" autocomplete="off" />
             <button id="batch-modal-shared-toggle" type="button"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200">
               <i data-lucide="eye" class="w-4 h-4"></i>
@@ -113,11 +113,11 @@ function ensureBatchModal(): HTMLDivElement {
       <div class="flex gap-3 p-4 border-t border-gray-700 flex-shrink-0">
         <button id="batch-modal-cancel"
           class="flex-1 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors">
-          ${t('msg.passwordPrompt.skipAll')}
+          ${trHtml('Skip All')}
         </button>
         <button id="batch-modal-submit"
           class="flex-1 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors">
-          ${t('msg.passwordPrompt.unlockAll')}
+          ${trHtml('Unlock All')}
         </button>
       </div>
     </div>`;
@@ -239,8 +239,7 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
 
   if (!input || !submitBtn || !cancelBtn) return null;
 
-  if (titleEl)
-    titleEl.textContent = t('tools:changePermissions.alert.passwordRequired');
+  if (titleEl) titleEl.textContent = trText('Password Required');
   if (subtitleEl) subtitleEl.textContent = file.name;
   if (errorEl) {
     errorEl.textContent = '';
@@ -253,10 +252,10 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
   input.value = '';
   input.type = 'password';
   submitBtn.disabled = false;
-  submitBtn.textContent = t('tools:pdfWorkflow.ui.unlock');
-  submitBtn.dataset.originalText = 'Unlock';
+  submitBtn.textContent = trText('Unlock');
+  submitBtn.dataset.originalText = trText('Unlock');
   cancelBtn.disabled = false;
-  cancelBtn.textContent = t('tools:pdfWorkflow.ui.skip');
+  cancelBtn.textContent = trText('Skip');
 
   modal.classList.remove('hidden');
   modal.classList.add('flex');
@@ -288,7 +287,7 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
       const password = input.value;
       if (!password) {
         if (errorEl) {
-          errorEl.textContent = t('msg.passwordPrompt.pleaseEnterAPassword');
+          errorEl.textContent = trText('Please enter a password');
           errorEl.classList.remove('hidden');
         }
         return;
@@ -299,7 +298,7 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
       submitBtn.disabled = true;
       cancelBtn.disabled = true;
       if (progressEl) {
-        progressEl.textContent = t('msg.passwordPrompt.validating');
+        progressEl.textContent = trText('Validating...');
         progressEl.classList.remove('hidden');
       }
 
@@ -313,16 +312,13 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
         input.value = '';
         input.focus();
         if (errorEl) {
-          errorEl.textContent = t(
-            'msg.passwordPrompt.incorrectPasswordPleaseTryAgain'
-          );
+          errorEl.textContent = trText('Incorrect password. Please try again.');
           errorEl.classList.remove('hidden');
         }
         return;
       }
 
-      if (progressEl)
-        progressEl.textContent = t('msg.passwordPrompt.decrypting');
+      if (progressEl) progressEl.textContent = trText('Decrypting...');
 
       try {
         const decrypted = await decryptFileWithPassword(file, password);
@@ -335,8 +331,8 @@ export async function promptAndDecryptFile(file: File): Promise<File | null> {
         cancelBtn.disabled = false;
         if (progressEl) progressEl.classList.add('hidden');
         if (errorEl) {
-          errorEl.textContent = t(
-            'msg.passwordPrompt.failedToDecryptTryTheDecrypt'
+          errorEl.textContent = trText(
+            'Failed to decrypt. Try the Decrypt tool instead.'
           );
           errorEl.classList.remove('hidden');
         }
@@ -457,8 +453,8 @@ export async function promptAndDecryptBatch(
   }
 
   if (titleEl)
-    titleEl.textContent = t('msg.passwordPrompt.filesNeedAPassword', {
-      count: fileNames.length,
+    titleEl.textContent = trText('{{length}} Files Need a Password', {
+      length: fileNames.length,
     });
 
   samePwCheckbox.checked = true;
@@ -474,9 +470,9 @@ export async function promptAndDecryptBatch(
           <i data-lucide="file-lock" class="w-4 h-4 text-indigo-400 flex-shrink-0" data-icon-idx="${i}"></i>
           <span class="text-sm text-gray-300 truncate flex-1" title="${esc(name)}">${esc(name)}</span>
           <div class="flex items-center gap-1.5 flex-shrink-0">
-            <input type="password" data-pw-idx="${i}" placeholder="${t('msg.passwordPrompt.password')}"
+            <input type="password" data-pw-idx="${i}" placeholder="${trHtml('Password')}"
               class="w-32 bg-gray-600 border border-gray-500 text-gray-200 rounded px-2 py-1 text-xs focus:ring-1 focus:ring-indigo-500 focus:border-transparent" autocomplete="off" />
-            <button type="button" data-skip-idx="${i}" title="${t('msg.passwordPrompt.skipThisFile')}"
+            <button type="button" data-skip-idx="${i}" title="${trHtml('Skip this file')}"
               class="p-1 rounded text-gray-400 hover:text-red-400 hover:bg-gray-600 transition-colors">
               <i data-lucide="x" class="w-3.5 h-3.5"></i>
             </button>
@@ -494,8 +490,8 @@ export async function promptAndDecryptBatch(
     progressEl.classList.add('hidden');
   }
   submitBtn.disabled = false;
-  submitBtn.textContent = t('msg.passwordPrompt.unlockAll');
-  submitBtn.dataset.originalText = 'Unlock All';
+  submitBtn.textContent = trText('Unlock All');
+  submitBtn.dataset.originalText = trText('Unlock All');
   cancelBtn.disabled = false;
 
   modal.classList.remove('hidden');
@@ -520,8 +516,8 @@ export async function promptAndDecryptBatch(
     function updateButtons(autoClose = false) {
       const hasSucceeded = succeededSet.size > 0;
       cancelBtn.textContent = hasSucceeded
-        ? t('msg.passwordPrompt.skipRemaining')
-        : t('msg.passwordPrompt.skipAll');
+        ? trText('Skip Remaining')
+        : trText('Skip All');
 
       const remaining = getRemainingCount();
       if (autoClose && remaining === 0) {
@@ -530,7 +526,7 @@ export async function promptAndDecryptBatch(
       }
 
       if (hasSucceeded) {
-        submitBtn.textContent = t('msg.passwordPrompt.unlockRemaining', {
+        submitBtn.textContent = trText('Unlock Remaining ({{remaining}})', {
           remaining,
         });
         submitBtn.dataset.originalText = submitBtn.textContent;
@@ -609,7 +605,7 @@ export async function promptAndDecryptBatch(
         const pwInput =
           row.querySelector<HTMLInputElement>('input[data-pw-idx]');
         if (pwInput) pwInput.disabled = false;
-        btn.title = t('msg.passwordPrompt.skipThisFile');
+        btn.title = trText('Skip this file');
       } else {
         skippedSet.add(idx);
         row.classList.add('opacity-40');
@@ -617,7 +613,7 @@ export async function promptAndDecryptBatch(
         const pwInput =
           row.querySelector<HTMLInputElement>('input[data-pw-idx]');
         if (pwInput) pwInput.disabled = true;
-        btn.title = t('msg.passwordPrompt.includeThisFile');
+        btn.title = trText('Include this file');
       }
       updateButtons(true);
     }
@@ -663,9 +659,9 @@ export async function promptAndDecryptBatch(
         if (!password) {
           if (errorEl) {
             const msg = useSame
-              ? t('msg.passwordPrompt.pleaseEnterAPassword')
-              : t('msg.passwordPrompt.enterPasswordForOrSkip', {
-                  name: fileNames[i],
+              ? trText('Please enter a password')
+              : trText('Please enter a password for {{i}} or skip it', {
+                  i: fileNames[i],
                 });
             errorEl.textContent = msg;
             errorEl.classList.remove('hidden');
@@ -693,11 +689,10 @@ export async function promptAndDecryptBatch(
         const realIdx = encryptedIndices[localIdx];
 
         if (progressEl) {
-          progressEl.textContent = t('msg.passwordPrompt.validatingOf', {
-            value: i + 1,
-            count: toProcess.length,
-            name: files[realIdx].name,
-          });
+          progressEl.textContent = trText(
+            'Validating {{n}} of {{length}}: {{name}}',
+            { n: i + 1, length: toProcess.length, name: files[realIdx].name }
+          );
           progressEl.classList.remove('hidden');
         }
 
@@ -713,11 +708,10 @@ export async function promptAndDecryptBatch(
         }
 
         if (progressEl) {
-          progressEl.textContent = t('msg.passwordPrompt.decryptingOf', {
-            value: i + 1,
-            count: toProcess.length,
-            name: files[realIdx].name,
-          });
+          progressEl.textContent = trText(
+            'Decrypting {{n}} of {{length}}: {{name}}',
+            { n: i + 1, length: toProcess.length, name: files[realIdx].name }
+          );
         }
 
         try {
@@ -740,8 +734,8 @@ export async function promptAndDecryptBatch(
 
       if (failedNames.length > 0) {
         if (errorEl) {
-          errorEl.textContent = t('msg.passwordPrompt.wrongPasswordFor', {
-            value: failedNames.join(', '),
+          errorEl.textContent = trText('Wrong password for: {{join}}', {
+            join: failedNames.join(', '),
           });
           errorEl.classList.remove('hidden');
         }
@@ -755,7 +749,7 @@ export async function promptAndDecryptBatch(
           sharedInput.focus();
         }
         updateButtons();
-        submitBtn.textContent = t('msg.passwordPrompt.retryFailed');
+        submitBtn.textContent = trText('Retry Failed');
         return;
       }
 

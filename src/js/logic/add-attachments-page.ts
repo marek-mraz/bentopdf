@@ -9,7 +9,8 @@ import {
 } from '../utils/wasm-provider.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const worker = new Worker(
   import.meta.env.BASE_URL + 'workers/add-attachments.worker.js'
@@ -72,9 +73,9 @@ worker.onmessage = function (e) {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:addAttachments.msg.fileSAttachedSuccessfully', {
-        count: pageState.attachments.length,
+      'Success',
+      trText('{{length}} file(s) attached successfully.', {
+        length: pageState.attachments.length,
       }),
       'success',
       function () {
@@ -83,17 +84,14 @@ worker.onmessage = function (e) {
     );
   } else if (data.status === 'error') {
     hideLoader();
-    showAlert(
-      t('common.error'),
-      data.message || t('alert.unknownErrorOccurred')
-    );
+    showAlert('Error', data.message || 'Unknown error occurred.');
   }
 };
 
 worker.onerror = function (error) {
   hideLoader();
   console.error('Worker error:', error);
-  showAlert(t('common.error'), t('tools:tableOfContents.workerErrorOccurred'));
+  showAlert('Error', 'Worker error occurred. Check console for details.');
 };
 
 async function updateUI() {
@@ -118,8 +116,8 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = t('tools:addAttachments.msg.loading', {
-      value: formatBytes(pageState.file.size),
+    metaSpan.textContent = trText('{{size}} • Loading...', {
+      size: formatBytes(pageState.file.size),
     });
 
     infoContainer.append(nameSpan, metaSpan);
@@ -143,14 +141,14 @@ async function updateUI() {
       }
       result.pdf.destroy();
       pageState.file = result.file;
-      showLoader(t('tools:addPageLabels.loadingPdf'));
+      showLoader('Loading PDF...');
 
       pageState.pdfDoc = await loadPdfDocument(result.bytes);
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+      metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
         size: formatBytes(pageState.file.size),
-        count: pageCount,
+        pageCount,
       });
 
       const totalPagesSpan = document.getElementById('attachment-total-pages');
@@ -162,7 +160,7 @@ async function updateUI() {
     } catch (error) {
       console.error('Error loading PDF:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+      showAlert('Error', 'Failed to load PDF file.');
       resetState();
     }
   } else {
@@ -210,15 +208,12 @@ function updateAttachmentList() {
 
 async function addAttachments() {
   if (!pageState.file || !pageState.pdfDoc) {
-    showAlert(t('common.error'), t('alert.uploadPdfFirst'));
+    showAlert('Error', 'Please upload a PDF first.');
     return;
   }
 
   if (pageState.attachments.length === 0) {
-    showAlert(
-      t('alert.noFiles'),
-      t('tools:addAttachments.alert.selectLeastOneFile')
-    );
+    showAlert('No Files', 'Please select at least one file to attach.');
     return;
   }
 
@@ -245,14 +240,14 @@ async function addAttachments() {
 
     if (!pageRange) {
       showAlert(
-        t('common.error'),
-        t('tools:addAttachments.alert.specifyPageRangePage')
+        'Error',
+        'Please specify a page range for page-level attachments.'
       );
       return;
     }
   }
 
-  showLoader(t('tools:addAttachments.loader.embeddingFilesIntoPdf'));
+  showLoader('Embedding files into PDF...');
 
   try {
     const pdfBuffer = await pageState.file.arrayBuffer();
@@ -263,10 +258,10 @@ async function addAttachments() {
     for (let i = 0; i < pageState.attachments.length; i++) {
       const file = pageState.attachments[i];
       showLoader(
-        t('tools:addAttachments.msg.reading', {
+        trText('Reading {{name}} ({{n}}/{{length}})...', {
           name: file.name,
-          value: i + 1,
-          count: pageState.attachments.length,
+          n: i + 1,
+          length: pageState.attachments.length,
         })
       );
 
@@ -275,7 +270,7 @@ async function addAttachments() {
       attachmentNames.push(file.name);
     }
 
-    showLoader(t('tools:addAttachments.loader.attachingFilesPdf'));
+    showLoader('Attaching files to PDF...');
 
     const message = {
       command: 'add-attachments',
@@ -293,10 +288,9 @@ async function addAttachments() {
     console.error('Error attaching files:', error);
     hideLoader();
     showAlert(
-      t('common.error'),
-      t('tools:addAttachments.msg.failedToAttachFiles', {
-        value:
-          error instanceof Error ? error.message : t('common.unknownError'),
+      'Error',
+      trText('Failed to attach files: {{error}}', {
+        error: error instanceof Error ? error.message : trText('Unknown error'),
       })
     );
   }

@@ -51,7 +51,16 @@ export const createLanguageSwitcher = (): HTMLElement => {
   searchWrapper.className =
     'p-2 border-b border-gray-700 bg-gray-800 flex-shrink-0';
 
-  const searchPlaceholder = t('nav.searchLanguage');
+  const translated = (key: string, fallback: string): string => {
+    const value = t(key);
+    return typeof value === 'string' && value && value !== key
+      ? value
+      : fallback;
+  };
+  const searchPlaceholder = translated(
+    'nav.searchLanguage',
+    'Search language…'
+  );
 
   const searchInput = document.createElement('input');
   searchInput.type = 'search';
@@ -73,7 +82,8 @@ export const createLanguageSwitcher = (): HTMLElement => {
 
   const emptyState = document.createElement('p');
   emptyState.className = 'hidden px-4 py-3 text-sm text-gray-400 text-center';
-  emptyState.textContent = t('nav.noLanguagesFound');
+  const emptyText = translated('nav.noLanguagesFound', 'No languages found');
+  emptyState.textContent = emptyText;
 
   const options: HTMLButtonElement[] = [];
   supportedLanguages.forEach((lang) => {
@@ -169,9 +179,9 @@ export const injectLanguageSwitcher = (): void => {
   const footer = document.querySelector('footer');
   if (!footer) return;
 
-  const followUsColumn = footer.querySelector<HTMLElement>(
-    'h3[data-i18n="footer.followUs"]'
-  )?.parentElement;
+  const followUsHeading = footer.querySelector('[data-i18n="footer.followUs"]');
+  const followUsColumn: HTMLElement | null =
+    followUsHeading?.parentElement ?? null;
 
   if (followUsColumn) {
     const socialIconsContainer = followUsColumn.querySelector('.space-x-4');

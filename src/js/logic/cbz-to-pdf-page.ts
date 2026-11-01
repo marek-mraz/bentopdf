@@ -6,7 +6,8 @@ import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import type { PyMuPDFInstance } from '@/types';
 import JSZip from 'jszip';
 import { PDFDocument } from 'pdf-lib';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const EXTENSIONS = ['.cbz', '.cbr'];
 const TOOL_NAME = 'CBZ';
@@ -100,7 +101,7 @@ async function convertImageToPng(
       const ctx = canvas.getContext('2d');
       if (!ctx) {
         URL.revokeObjectURL(url);
-        reject(new Error('Failed to get canvas context'));
+        reject(new Error(trText('Failed to get canvas context')));
         return;
       }
       ctx.drawImage(img, 0, 0);
@@ -111,7 +112,7 @@ async function convertImageToPng(
         } else {
           reject(
             new Error(
-              t('tools:cbzToPdf.msg.failedToConvertToPng', { name: filename })
+              trText('Failed to convert {{filename}} to PNG', { filename })
             )
           );
         }
@@ -120,7 +121,7 @@ async function convertImageToPng(
     img.onerror = () => {
       URL.revokeObjectURL(url);
       reject(
-        new Error(t('tools:cbzToPdf.msg.failedToLoadImage', { name: filename }))
+        new Error(trText('Failed to load image: {{filename}}', { filename }))
       );
     };
     img.src = url;
@@ -146,7 +147,9 @@ async function convertCbzToPdf(file: File): Promise<Blob> {
   const MAX_TOTAL_BYTES = 500 * 1024 * 1024;
   if (imageFiles.length > MAX_CBZ_PAGES) {
     throw new Error(
-      t('tools:cbzToPdf.msg.archiveHasTooManyImagesMax', { MAX_CBZ_PAGES })
+      trText('Archive has too many images (max {{MAX_CBZ_PAGES}}).', {
+        MAX_CBZ_PAGES,
+      })
     );
   }
   let totalBytes = 0;
@@ -157,16 +160,12 @@ async function convertCbzToPdf(file: File): Promise<Blob> {
       zipEntry as unknown as { _data?: { uncompressedSize?: number } }
     )._data?.uncompressedSize;
     if (typeof declared === 'number' && declared > MAX_ENTRY_BYTES) {
-      throw new Error(
-        t('tools:cbzToPdf.msg.archiveContainsAnOversizedImageEntry')
-      );
+      throw new Error(trText('Archive contains an oversized image entry.'));
     }
     const imageData = await zipEntry.async('arraybuffer');
     totalBytes += imageData.byteLength;
     if (totalBytes > MAX_TOTAL_BYTES) {
-      throw new Error(
-        t('tools:cbzToPdf.msg.archiveIsTooLargeWhenDecompressed')
-      );
+      throw new Error(trText('Archive is too large when decompressed.'));
     }
     const dataArray = new Uint8Array(imageData);
     const actualFormat = detectImageFormat(dataArray);
@@ -286,8 +285,10 @@ onPageReady(() => {
     try {
       if (state.files.length === 0) {
         showAlert(
-          t('alert.noFiles'),
-          t('tools:cbzToPdf.msg.pleaseSelectAtLeastOneFile', { TOOL_NAME })
+          'No Files',
+          trText('Please select at least one {{TOOL_NAME}} file.', {
+            TOOL_NAME,
+          })
         );
         return;
       }
@@ -295,7 +296,7 @@ onPageReady(() => {
       if (state.files.length === 1) {
         const originalFile = state.files[0];
         showLoader(
-          t('tools:cbzToPdf.msg.converting', { name: originalFile.name })
+          trText('Converting {{name}}...', { name: originalFile.name })
         );
 
         let pdfBlob: Blob;
@@ -310,23 +311,23 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:cbzToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: originalFile.name,
           }),
           'success',
           () => resetState()
         );
       } else {
-        showLoader(t('loader.convertingFiles'));
+        showLoader('Converting files...');
         const outputZip = new JSZip();
 
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:cbzToPdf.msg.converting2', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -349,11 +350,11 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:cbzToPdf.msg.successfullyConvertedFileSToPdf', {
-            count: state.files.length,
-            TOOL_NAME,
-          }),
+          'Conversion Complete',
+          trText(
+            'Successfully converted {{length}} {{TOOL_NAME}} file(s) to PDF.',
+            { length: state.files.length, TOOL_NAME }
+          ),
           'success',
           () => resetState()
         );
@@ -362,9 +363,9 @@ onPageReady(() => {
       console.error(`[${TOOL_NAME}2PDF] ERROR:`, e);
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:cbzToPdf.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

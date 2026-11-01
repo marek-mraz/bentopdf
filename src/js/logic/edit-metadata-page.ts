@@ -5,7 +5,8 @@ import { createIcons, icons } from 'lucide';
 import { PDFName, PDFString } from 'pdf-lib';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: EditMetadataState = {
   file: null,
@@ -71,14 +72,14 @@ function addCustomFieldRow(key: string = '', value: string = '') {
 
   const keyInput = document.createElement('input');
   keyInput.type = 'text';
-  keyInput.placeholder = t('tools:editMetadata.msg.keyEGDepartment');
+  keyInput.placeholder = trText('Key (e.g., Department)');
   keyInput.value = key;
   keyInput.className =
     'custom-meta-key w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2.5';
 
   const valueInput = document.createElement('input');
   valueInput.type = 'text';
-  valueInput.placeholder = t('tools:editMetadata.msg.valueEGMarketing');
+  valueInput.placeholder = trText('Value (e.g., Marketing)');
   valueInput.value = value;
   valueInput.className =
     'custom-meta-value w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2.5';
@@ -206,8 +207,8 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = t('tools:editMetadata.msg.loading', {
-      value: formatBytes(pageState.file.size),
+    metaSpan.textContent = trText('{{size}} • Loading...', {
+      size: formatBytes(pageState.file.size),
     });
 
     infoContainer.append(nameSpan, metaSpan);
@@ -229,16 +230,16 @@ async function updateUI() {
         resetState();
         return;
       }
-      showLoader(t('tools:addPageLabels.loadingPdf'));
+      showLoader('Loading PDF...');
       result.pdf.destroy();
       pageState.file = result.file;
       pageState.pdfDoc = await loadPdfDocument(result.bytes);
       hideLoader();
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+      metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
         size: formatBytes(pageState.file.size),
-        count: pageCount,
+        pageCount,
       });
 
       populateMetadataFields();
@@ -247,7 +248,7 @@ async function updateUI() {
     } catch (error) {
       console.error('Error loading PDF:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+      showAlert('Error', 'Failed to load PDF file.');
       resetState();
     }
   } else {
@@ -257,11 +258,11 @@ async function updateUI() {
 
 async function saveMetadata() {
   if (!pageState.pdfDoc || !pageState.file) {
-    showAlert(t('common.error'), t('alert.uploadPdfFirst'));
+    showAlert('Error', 'Please upload a PDF first.');
     return;
   }
 
-  showLoader(t('tools:editMetadata.loader.updatingMetadata'));
+  showLoader('Updating metadata...');
 
   try {
     const titleInput = document.getElementById(
@@ -363,8 +364,8 @@ async function saveMetadata() {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:editMetadata.alert.metadataUpdatedSuccessfully'),
+      'Success',
+      'Metadata updated successfully!',
       'success',
       function () {
         resetState();
@@ -373,8 +374,8 @@ async function saveMetadata() {
   } catch (e) {
     console.error(e);
     showAlert(
-      t('common.error'),
-      t('tools:editMetadata.alert.couldNotUpdateMetadata')
+      'Error',
+      'Could not update metadata. Please check that date formats are correct.'
     );
   } finally {
     hideLoader();

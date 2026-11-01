@@ -1,12 +1,18 @@
 import { createIcons, icons } from 'lucide';
 import { showAlert, showLoader, hideLoader } from '../ui.js';
 import { downloadFile, formatBytes } from '../utils/helpers.js';
+import {
+  createDragHandle,
+  enableFileListReorder,
+  moveItem,
+} from '../utils/sortable-file-list.js';
 import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import {
   getSelectedQuality,
   compressImageBytes,
 } from '../utils/image-compress.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 let files: File[] = [];
 
@@ -87,8 +93,8 @@ function handleFiles(newFiles: FileList) {
 
   if (validFiles.length < newFiles.length) {
     showAlert(
-      t('alert.invalidFiles'),
-      t('tools:svgToPdf.alert.someFilesWereSkipped')
+      'Invalid Files',
+      'Some files were skipped. Only SVG graphics are allowed.'
     );
   }
 
@@ -130,9 +136,11 @@ function updateUI() {
 
       const sizeSpan = document.createElement('span');
       sizeSpan.className = 'flex-shrink-0 text-gray-400 text-xs';
-      sizeSpan.textContent = `(${formatBytes(file.size)})`;
+      sizeSpan.textContent = trText('({{size}})', {
+        size: formatBytes(file.size),
+      });
 
-      infoContainer.append(nameSpan, sizeSpan);
+      infoContainer.append(createDragHandle(), nameSpan, sizeSpan);
 
       const removeBtn = document.createElement('button');
       removeBtn.className =
@@ -145,6 +153,10 @@ function updateUI() {
 
       fileDiv.append(infoContainer, removeBtn);
       fileDisplayArea.appendChild(fileDiv);
+    });
+    enableFileListReorder(fileDisplayArea, (oldIndex, newIndex) => {
+      files = moveItem(files, oldIndex, newIndex);
+      updateUI();
     });
     createIcons({ icons });
   } else {
@@ -175,7 +187,7 @@ function svgToPng(svgText: string): Promise<Uint8Array> {
       const ctx = canvas.getContext('2d');
       if (!ctx) {
         URL.revokeObjectURL(url);
-        return reject(new Error('Could not get canvas context'));
+        return reject(new Error(trText('Could not get canvas context')));
       }
 
       // Fill with white background for transparency
@@ -186,7 +198,7 @@ function svgToPng(svgText: string): Promise<Uint8Array> {
       canvas.toBlob(async (pngBlob) => {
         URL.revokeObjectURL(url);
         if (!pngBlob) {
-          return reject(new Error('Canvas toBlob conversion failed.'));
+          return reject(new Error(trText('Canvas toBlob conversion failed.')));
         }
         const arrayBuffer = await pngBlob.arrayBuffer();
         resolve(new Uint8Array(arrayBuffer));
@@ -195,7 +207,7 @@ function svgToPng(svgText: string): Promise<Uint8Array> {
 
     img.onerror = () => {
       URL.revokeObjectURL(url);
-      reject(new Error('Failed to load SVG image'));
+      reject(new Error(trText('Failed to load SVG image')));
     };
 
     img.src = url;
@@ -204,11 +216,11 @@ function svgToPng(svgText: string): Promise<Uint8Array> {
 
 async function convertToPdf() {
   if (files.length === 0) {
-    showAlert(t('alert.noFiles'), t('tools:svgToPdf.alert.selectLeastOneSvg'));
+    showAlert('No Files', 'Please select at least one SVG file.');
     return;
   }
 
-  showLoader(t('tools:svgToPdf.loader.creatingPdfFromSvg'));
+  showLoader('Creating PDF from SVG files...');
 
   try {
     const pdfDoc = await PDFLibDocument.create();
@@ -240,7 +252,7 @@ async function convertToPdf() {
       } catch (error) {
         console.error(`Failed to process ${file.name}:`, error);
         throw new Error(
-          t('tools:svgToPdf.msg.couldNotProcessTheFileMay', {
+          trText('Could not process "{{name}}". The file may be corrupted.', {
             name: file.name,
           }),
           { cause: error }
@@ -253,20 +265,12 @@ async function convertToPdf() {
       new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' }),
       'from_svgs.pdf'
     );
-    showAlert(
-      t('common.success'),
-      t('alert.pdfCreatedSuccessfully'),
-      'success',
-      () => {
-        resetState();
-      }
-    );
+    showAlert('Success', 'PDF created successfully!', 'success', () => {
+      resetState();
+    });
   } catch (e: unknown) {
     console.error(e);
-    showAlert(
-      t('alert.conversionError'),
-      e instanceof Error ? e.message : String(e)
-    );
+    showAlert('Conversion Error', e instanceof Error ? e.message : String(e));
   } finally {
     hideLoader();
   }

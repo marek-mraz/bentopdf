@@ -8,7 +8,8 @@ import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import { CropperState, CropPercentages } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const cropperState: CropperState = {
   pdfDoc: null,
@@ -74,10 +75,7 @@ async function handleFile(file: File) {
     file.type !== 'application/pdf' &&
     !file.name.toLowerCase().endsWith('.pdf')
   ) {
-    showAlert(
-      t('tools:addPageLabels.invalidFileTitle'),
-      t('tools:duplexCollate.invalidFileMessage')
-    );
+    showAlert('Invalid File', 'Please select a PDF file.');
     return;
   }
 
@@ -90,7 +88,7 @@ async function handleFile(file: File) {
       cropperState.file = null;
       return;
     }
-    showLoader(t('tools:addPageLabels.loadingPdf'));
+    showLoader('Loading PDF...');
     cropperState.file = result.file;
     cropperState.originalPdfBytes = result.bytes;
     cropperState.pdfDoc = result.pdf;
@@ -102,7 +100,7 @@ async function handleFile(file: File) {
   } catch (error) {
     console.error('Error loading PDF:', error);
     hideLoader();
-    showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+    showAlert('Error', 'Failed to load PDF file.');
   }
 }
 
@@ -124,9 +122,9 @@ function updateFileDisplay() {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+  metaSpan.textContent = trText('{{size}} • {{value}} pages', {
     size: formatBytes(cropperState.file.size),
-    count: cropperState.pdfDoc?.numPages || 0,
+    value: cropperState.pdfDoc?.numPages || 0,
   });
 
   infoContainer.append(nameSpan, metaSpan);
@@ -156,7 +154,7 @@ function saveCurrentCrop() {
 }
 
 async function displayPageAsImage(num: number) {
-  showLoader(t('tools:cropPdf.msg.renderingPage', { num }));
+  showLoader(trText('Rendering Page {{num}}...', { num }));
 
   try {
     const page = await cropperState.pdfDoc.getPage(num);
@@ -212,7 +210,7 @@ async function displayPageAsImage(num: number) {
     };
   } catch (error) {
     console.error('Error rendering page:', error);
-    showAlert(t('common.error'), t('alert.failedRenderPage'));
+    showAlert('Error', 'Failed to render page.');
     hideLoader();
   }
 }
@@ -229,7 +227,7 @@ async function changePage(offset: number) {
 function updatePageInfo() {
   const pageInfo = document.getElementById('page-info');
   if (pageInfo)
-    pageInfo.textContent = t('tools:cropPdf.msg.pageOf', {
+    pageInfo.textContent = trText('Page {{currentPageNum}} of {{numPages}}', {
       currentPageNum: cropperState.currentPageNum,
       numPages: cropperState.pdfDoc.numPages,
     });
@@ -262,7 +260,7 @@ async function performCrop() {
   if (isApplyToAll) {
     const currentCrop = cropperState.pageCrops[cropperState.currentPageNum];
     if (!currentCrop) {
-      showAlert(t('alert.noCropArea'), t('alert.selectAreaCropFirst'));
+      showAlert('No Crop Area', 'Please select an area to crop first.');
       return;
     }
     for (let i = 1; i <= cropperState.pdfDoc.numPages; i++) {
@@ -273,11 +271,14 @@ async function performCrop() {
   }
 
   if (Object.keys(finalCropData).length === 0) {
-    showAlert(t('alert.noCropArea'), t('alert.selectAreaLeastOne'));
+    showAlert(
+      'No Crop Area',
+      'Please select an area on at least one page to crop.'
+    );
     return;
   }
 
-  showLoader(t('loader.applyingCrop'));
+  showLoader('Applying crop...');
 
   try {
     let finalPdfBytes;
@@ -292,14 +293,14 @@ async function performCrop() {
       cropperState.file?.name || 'document.pdf'
     );
     showAlert(
-      t('common.success'),
-      t('alert.cropCompleteDownloadHas'),
+      'Success',
+      'Crop complete! Your download has started.',
       'success',
       () => resetState()
     );
   } catch (e) {
     console.error(e);
-    showAlert(t('common.error'), t('alert.errorOccurredDuringCropping'));
+    showAlert('Error', 'An error occurred during cropping.');
   } finally {
     hideLoader();
   }
@@ -357,7 +358,10 @@ async function performFlatteningCrop(
   for (let i = 0; i < totalPages; i++) {
     const pageNum = i + 1;
     showLoader(
-      t('tools:cropPdf.msg.processingPageOf', { pageNum, totalPages })
+      trText('Processing page {{pageNum}} of {{totalPages}}...', {
+        pageNum,
+        totalPages,
+      })
     );
 
     if (cropData[pageNum]) {
@@ -420,7 +424,7 @@ async function performFlatteningCrop(
   return newPdfDoc.save();
 }
 
-function resetState() {
+export function resetState() {
   if (cropperState.cropper) {
     cropperState.cropper.destroy();
     cropperState.cropper = null;
@@ -443,4 +447,6 @@ function resetState() {
 
   const cropBtn = document.getElementById('crop-button') as HTMLButtonElement;
   if (cropBtn) cropBtn.disabled = true;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }

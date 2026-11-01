@@ -1,6 +1,7 @@
 import i18next from 'i18next';
 import HttpBackend from 'i18next-http-backend';
-import { getStoredItem, setStoredItem } from '../utils/safe-storage.js';
+import { setStoredItem } from '../utils/safe-storage.js';
+import { fillPlaceholders } from './placeholders.js';
 import enCommon from '../../../public/locales/en/common.json';
 import enTools from '../../../public/locales/en/tools.json';
 
@@ -82,53 +83,21 @@ export const getLanguageFromUrl = (): SupportedLanguage => {
     return langMatch[1] as SupportedLanguage;
   }
 
-  const storedLang = getStoredItem('i18nextLng');
-  if (
-    storedLang &&
-    supportedLanguages.includes(storedLang as SupportedLanguage)
-  ) {
-    return storedLang as SupportedLanguage;
-  }
-
-  // Check browser language preferences
-  if (typeof navigator !== 'undefined' && navigator.languages) {
-    for (const lang of navigator.languages) {
-      if (supportedLanguages.includes(lang as SupportedLanguage)) {
-        return lang as SupportedLanguage;
-      }
-
-      const primaryLang = lang.split('-')[0];
-      if (supportedLanguages.includes(primaryLang as SupportedLanguage)) {
-        return primaryLang as SupportedLanguage;
-      }
-    }
-  }
-
-  const envLang = import.meta.env?.VITE_DEFAULT_LANGUAGE;
-  if (envLang && supportedLanguages.includes(envLang as SupportedLanguage)) {
-    return envLang as SupportedLanguage;
-  }
-
   return 'en';
 };
 
+export const LANGUAGE_CHOICE_KEY = 'bentopdf-language';
+
 let initPromise: Promise<typeof i18next> | null = null;
 
-// Pages that build their UI on DOMContentLoaded await this before calling t();
-// every caller shares the one load main.ts starts.
-export const initI18n = (): Promise<typeof i18next> =>
-  (initPromise ??= loadI18n());
-
-const loadI18n = async (): Promise<typeof i18next> => {
+const runInit = async (): Promise<typeof i18next> => {
   const currentLang = getLanguageFromUrl();
-
-  setStoredItem('i18nextLng', currentLang);
 
   await i18next.use(HttpBackend).init({
     lng: currentLang,
     fallbackLng: 'en',
     supportedLngs: supportedLanguages as unknown as string[],
-    ns: ['common', 'tools'],
+    ns: currentLang === 'en' ? ['common', 'tools'] : ['common', 'tools', 'ui'],
     defaultNS: 'common',
     preload: [currentLang],
     partialBundledLanguages: true,
@@ -136,6 +105,7 @@ const loadI18n = async (): Promise<typeof i18next> => {
       en: {
         common: enCommon,
         tools: enTools,
+        ui: {},
       },
     },
     backend: {
@@ -147,55 +117,87 @@ const loadI18n = async (): Promise<typeof i18next> => {
   });
 
   await i18next.loadNamespaces('tools');
+  if (currentLang !== 'en') {
+    try {
+      await i18next.loadNamespaces('ui');
+    } catch (error) {
+      console.warn('[i18n] Could not load interface messages:', error);
+    }
+  }
 
   return i18next;
 };
 
-// Page scripts start here instead of on DOMContentLoaded: DOMContentLoaded
-// fires before the page language is fetched, and t() would answer in English.
-export const onPageReady = (init: () => unknown): void => {
-  const run = () => {
-    initI18n().then(
-      () => init(),
-      (error) => {
-        console.error('[i18n] Translations failed to load:', error);
-        init();
-      }
-    );
-  };
-  if (document.readyState === 'loading')
-    document.addEventListener('DOMContentLoaded', run, { once: true });
-  else run();
+export const initI18n = (): Promise<typeof i18next> => {
+  initPromise ??= runInit();
+  return initPromise;
 };
 
-// Before initI18n() finishes (e.g. a loader shown on page start), answer from
-// the bundled English strings instead of returning undefined.
-const englishFallback = (
-  key: string,
-  options?: Record<string, unknown>
-): string => {
-  const [ns, path] = key.includes(':') ? key.split(':', 2) : ['common', key];
-  const bundle = ns === 'tools' ? enTools : enCommon;
-  const value = path
-    .split('.')
-    .reduce<unknown>(
-      (node, part) => (node as Record<string, unknown> | undefined)?.[part],
-      bundle
-    );
-  if (typeof value !== 'string') return key;
-  return value.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, name: string) =>
-    options?.[name] != null ? String(options[name]) : match
-  );
+const domReady = (): Promise<void> =>
+  document.readyState === 'loading'
+    ? new Promise((resolve) =>
+        document.addEventListener('DOMContentLoaded', () => resolve(), {
+          once: true,
+        })
+      )
+    : Promise.resolve();
+
+const I18N_READY_TIMEOUT_MS = 5000;
+
+export const onPageReady = (callback: () => void | Promise<void>): void => {
+  const i18nReady = Promise.race([
+    initI18n().then(
+      (): void => undefined,
+      (): void => undefined
+    ),
+    new Promise<void>((resolve) => setTimeout(resolve, I18N_READY_TIMEOUT_MS)),
+  ]);
+  const holdDrop = (event: DragEvent) => event.preventDefault();
+  window.addEventListener('dragover', holdDrop);
+  window.addEventListener('drop', holdDrop);
+  void Promise.all([domReady(), i18nReady]).then(() => {
+    window.removeEventListener('dragover', holdDrop);
+    window.removeEventListener('drop', holdDrop);
+    return callback();
+  });
 };
 
 export const t = (key: string, options?: Record<string, unknown>): string => {
-  if (!i18next.isInitialized) return englishFallback(key, options);
   return i18next.t(key, options);
 };
 
+export const hasKey = (key: string): boolean => i18next.exists(key);
+
+export const trText = (
+  text: string,
+  params?: Record<string, string | number>
+): string => {
+  const language = i18next.language;
+  let template = text;
+  if (i18next.isInitialized && language && language !== 'en') {
+    const translated = i18next.getResource(language, 'ui', text, {
+      keySeparator: false,
+    });
+    if (typeof translated === 'string' && translated) template = translated;
+  }
+  return fillPlaceholders(template, params);
+};
+
+const escapeForHtml = (text: string): string =>
+  text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+export const trHtml = (
+  text: string,
+  params?: Record<string, string | number>
+): string => escapeForHtml(trText(text, params));
+
 export const changeLanguage = (lang: SupportedLanguage): void => {
   if (!supportedLanguages.includes(lang)) return;
-  setStoredItem('i18nextLng', lang);
+  setStoredItem(LANGUAGE_CHOICE_KEY, lang);
 
   const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
   let relativePath = window.location.pathname;
@@ -243,69 +245,37 @@ export const changeLanguage = (lang: SupportedLanguage): void => {
   window.location.href = newUrl;
 };
 
-// Puts a translated string into an element that contains links or other
-// inline elements: [0]text[/0] stands for its first child element, [1] for
-// the second, and so on. Same rules as scripts/i18n-linked-text.mjs.
-const applyLinkedText = (element: Element, translation: string): boolean => {
-  const children = Array.from(element.children);
-  const nodes: Node[] = [];
-  for (const part of translation.split(/(\[\d+\][^[\]]*\[\/\d+\])/)) {
-    const match = part.match(/^\[(\d+)\]([^[\]]*)\[\/\1\]$/);
-    if (!match) {
-      if (/\[\/?\d+\]/.test(part)) return false;
-      if (part) nodes.push(document.createTextNode(part));
-      continue;
-    }
-    const child = children[Number(match[1])];
-    if (!child) return false;
-    const clone = child.cloneNode(false);
-    clone.textContent = match[2];
-    nodes.push(clone);
-  }
-  element.replaceChildren(...nodes);
-  return true;
-};
-
-const I18N_ATTRIBUTES = [
-  'placeholder',
-  'title',
-  'aria-label',
-  'alt',
-  'label',
-  'content',
-];
-
-// Translates data-i18n* elements in the document and inside <template>s, so
-// UI cloned from a template later is already translated.
+// Apply translations to all elements with data-i18n attribute
 export const applyTranslations = (): void => {
-  const roots: ParentNode[] = [
-    document,
-    ...Array.from(document.querySelectorAll('template'), (tpl) => tpl.content),
-  ];
-  const translated = (key: string | null): string | null => {
-    if (!key) return null;
-    const value = t(key);
-    return value && value !== key ? value : null;
-  };
-
-  for (const root of roots) {
-    root.querySelectorAll('[data-i18n]').forEach((element) => {
-      const value = translated(element.getAttribute('data-i18n'));
-      if (value) element.textContent = value;
-    });
-
-    root.querySelectorAll('[data-i18n-linked]').forEach((element) => {
-      const value = translated(element.getAttribute('data-i18n-linked'));
-      if (value) applyLinkedText(element, value);
-    });
-
-    for (const attr of I18N_ATTRIBUTES) {
-      root.querySelectorAll(`[data-i18n-${attr}]`).forEach((element) => {
-        const value = translated(element.getAttribute(`data-i18n-${attr}`));
-        if (value) element.setAttribute(attr, value);
-      });
+  document.querySelectorAll('[data-i18n]').forEach((element) => {
+    const key = element.getAttribute('data-i18n');
+    if (key) {
+      const translation = t(key);
+      if (translation && translation !== key) {
+        element.textContent = translation;
+      }
     }
-  }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+    const key = element.getAttribute('data-i18n-placeholder');
+    if (key && element instanceof HTMLInputElement) {
+      const translation = t(key);
+      if (translation && translation !== key) {
+        element.placeholder = translation;
+      }
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-title]').forEach((element) => {
+    const key = element.getAttribute('data-i18n-title');
+    if (key) {
+      const translation = t(key);
+      if (translation && translation !== key) {
+        (element as HTMLElement).title = translation;
+      }
+    }
+  });
 
   document.documentElement.lang = i18next.language;
   document.documentElement.dir = ['ar', 'fa'].includes(i18next.language)
@@ -341,8 +311,16 @@ export const rewriteLinks = (): void => {
       return;
     }
 
+    const pathOnly =
+      basePath && basePath !== '/' && href.startsWith(`${basePath}/`)
+        ? href.slice(basePath.length)
+        : href;
+    if (/^\/(blog|docs)(\/|$|[?#])/.test(pathOnly)) {
+      return;
+    }
+
     const langPrefixRegex = new RegExp(
-      `^(${basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})?/?(en|ar|fr|es|de|zh|zh-TW|vi|tr|id|it|pt|nl|be|da|ko|sv|ru|ja|uk|sk|ca|fa)(/|$)`
+      `^(${basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})?/?(en|ar|fr|es|de|zh|zh-TW|vi|tr|id|it|pt|nl|be|da|ko|sv|ru|ja|uk|sk|ca|fa)(/|$|[?#])`
     );
     if (langPrefixRegex.test(href)) {
       return;

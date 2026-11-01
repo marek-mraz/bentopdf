@@ -24,7 +24,7 @@ export class DownloadPDFNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, this.label);
+    const pdfInputs = requirePdfInput(inputs, 'Download PDF');
     const allPdfs = extractAllPdfs(pdfInputs);
 
     const filenameControl = this.controls['filename'] as

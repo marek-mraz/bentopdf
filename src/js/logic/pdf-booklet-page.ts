@@ -6,7 +6,8 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, trHtml, onPageReady } from '../i18n/i18n.js';
 
 interface BookletState {
   file: File | null;
@@ -39,7 +40,7 @@ function resetState() {
 
   const previewArea = document.getElementById('booklet-preview');
   if (previewArea)
-    previewArea.innerHTML = `<p class="text-gray-400 text-center py-8">${t('tools:pdfBooklet.ui.uploadAPdfAndClickGenerate')}</p>`;
+    previewArea.innerHTML = `<p class="text-gray-400 text-center py-8">${trHtml('Upload a PDF and click "Generate Preview" to see the booklet layout')}</p>`;
 
   const downloadBtn = document.getElementById(
     'download-btn'
@@ -69,7 +70,9 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${t('common.loading')}`;
+    metaSpan.textContent = trText('{{size}} • Loading...', {
+      size: formatBytes(pageState.file.size),
+    });
 
     infoContainer.append(nameSpan, metaSpan);
 
@@ -90,7 +93,7 @@ async function updateUI() {
         resetState();
         return;
       }
-      showLoader(t('tools:addPageLabels.loadingPdf'));
+      showLoader('Loading PDF...');
       pageState.file = result.file;
       pageState.pdfBytes = new Uint8Array(result.bytes);
       pageState.pdfjsDoc = result.pdf;
@@ -100,7 +103,10 @@ async function updateUI() {
       hideLoader();
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = `${formatBytes(pageState.file.size)} • ${t('common.pageCountLabel', { count: pageCount })}`;
+      metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
+        size: formatBytes(pageState.file.size),
+        pageCount,
+      });
 
       if (toolOptions) toolOptions.classList.remove('hidden');
 
@@ -111,7 +117,7 @@ async function updateUI() {
     } catch (error) {
       console.error('Error loading PDF:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+      showAlert('Error', 'Failed to load PDF file.');
       resetState();
     }
   } else {
@@ -169,7 +175,7 @@ function getSheetDimensions(isBookletMode: boolean): {
 
 async function generatePreview() {
   if (!pageState.pdfDoc || !pageState.pdfjsDoc) {
-    showAlert(t('common.error'), t('tools:pdfBooklet.alert.loadPdfFirst'));
+    showAlert('Error', 'Please load a PDF first.');
     return;
   }
 
@@ -197,7 +203,7 @@ async function generatePreview() {
   const canvasWidth = containerWidth;
   const canvasHeight = containerWidth / aspectRatio;
 
-  previewArea.innerHTML = `<p class="text-gray-400 text-center py-4">${t('tools:pdfBooklet.msg.generatingPreview')}</p>`;
+  previewArea.innerHTML = `<p class="text-gray-400 text-center py-4">${trHtml('Generating preview...')}</p>`;
 
   const totalRounded = isBookletMode
     ? Math.ceil(totalPages / 4) * 4
@@ -233,7 +239,7 @@ async function generatePreview() {
     }
   }
 
-  previewArea.innerHTML = `<p class="text-indigo-400 text-sm mb-4 text-center">${totalPages} pages → ${numSheets} output sheets</p>`;
+  previewArea.innerHTML = `<p class="text-indigo-400 text-sm mb-4 text-center">${trHtml('{{totalPages}} pages → {{numSheets}} output sheets', { totalPages, numSheets })}</p>`;
 
   for (let sheetIndex = 0; sheetIndex < numSheets; sheetIndex++) {
     const canvas = document.createElement('canvas');
@@ -365,11 +371,7 @@ async function generatePreview() {
           ctx.font = '10px sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(
-            t('tools:pdfBooklet.msg.blank'),
-            x + slotWidth / 2,
-            y + slotHeight / 2
-          );
+          ctx.fillText('(blank)', x + slotWidth / 2, y + slotHeight / 2);
         }
       }
     }
@@ -378,13 +380,19 @@ async function generatePreview() {
     ctx.font = 'bold 10px sans-serif';
     ctx.textAlign = 'right';
     ctx.textBaseline = 'top';
-    const sheetNumber = Math.floor(sheetIndex / (isBookletMode ? 2 : 1)) + 1;
-    const sheetLabel = !isBookletMode
-      ? t('tools:pdfBooklet.msg.sheet', { number: sheetNumber })
-      : isFront
-        ? t('tools:pdfBooklet.msg.sheetFront', { number: sheetNumber })
-        : t('tools:pdfBooklet.msg.sheetBack', { number: sheetNumber });
-    ctx.fillText(sheetLabel, canvasWidth - 6, 4);
+    const sideLabel = isBookletMode
+      ? isFront
+        ? trText('Front')
+        : trText('Back')
+      : '';
+    ctx.fillText(
+      trText('Sheet {{n}} {{sideLabel}}', {
+        n: Math.floor(sheetIndex / (isBookletMode ? 2 : 1)) + 1,
+        sideLabel,
+      }),
+      canvasWidth - 6,
+      4
+    );
 
     previewArea.appendChild(canvas);
   }
@@ -422,11 +430,11 @@ function applyRotation(doc: PDFLibDocument, mode: string) {
 
 async function createBooklet() {
   if (!pageState.pdfBytes) {
-    showAlert(t('common.error'), t('tools:pdfBooklet.alert.loadPdfFirst'));
+    showAlert('Error', 'Please load a PDF first.');
     return;
   }
 
-  showLoader(t('tools:pdfBooklet.loader.creatingBooklet'));
+  showLoader('Creating Booklet...');
 
   try {
     const sourceDoc = await loadPdfDocument(pageState.pdfBytes.slice());
@@ -530,8 +538,8 @@ async function createBooklet() {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:pdfBooklet.msg.bookletCreatedWithSheets', { numSheets }),
+      'Success',
+      trText('Booklet created with {{numSheets}} sheets!', { numSheets }),
       'success',
       function () {
         resetState();
@@ -539,10 +547,7 @@ async function createBooklet() {
     );
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      t('tools:pdfBooklet.alert.errorOccurredWhileCreating')
-    );
+    showAlert('Error', 'An error occurred while creating the booklet.');
   } finally {
     hideLoader();
   }

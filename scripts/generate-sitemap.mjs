@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { OFFICIAL_SITE_URL, canonicalBasePath } from './indexing-policy.mjs';
+import { createTranslationChecker } from './page-translation.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,13 +24,6 @@ const toCamelCase = (str) => {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 };
 
-const KEY_MAPPING = JSON.parse(
-  fs.readFileSync(
-    path.resolve(__dirname, '../src/js/config/page-i18n-keys.json'),
-    'utf-8'
-  )
-);
-
 const toolsByLang = {};
 for (const lang of languages) {
   const toolsPath = path.join(LOCALES_DIR, lang, 'tools.json');
@@ -37,12 +32,10 @@ for (const lang of languages) {
     : {};
 }
 
+const isPageTranslated = createTranslationChecker(toolsByLang, toCamelCase);
+
 function alternateLangsFor(pageName) {
-  if (pageName === 'index') return languages;
-  const translationKey = KEY_MAPPING[pageName] || toCamelCase(pageName);
-  return languages.filter(
-    (l) => l === 'en' || Boolean(toolsByLang[l][translationKey])
-  );
+  return languages.filter((l) => isPageTranslated(pageName, l));
 }
 
 const PRIORITY_MAP = {
@@ -85,10 +78,9 @@ function getPriority(pageName) {
 
 function buildUrl(lang, pageName) {
   const pagePath = pageName === 'index' ? '' : pageName;
-  if (lang === 'en') {
-    return pagePath ? `${SITE_URL}/${pagePath}` : SITE_URL;
-  }
-  return pagePath ? `${SITE_URL}/${lang}/${pagePath}` : `${SITE_URL}/${lang}`;
+  const root = `${SITE_URL}${canonicalBasePath()}`;
+  const prefix = lang === 'en' ? root : `${root}/${lang}`;
+  return pagePath ? `${prefix}/${pagePath}` : prefix;
 }
 
 function generateSitemap() {
@@ -177,7 +169,7 @@ function generateSitemap() {
 
   const blogDir = path.join(DIST_DIR, 'blog');
   let blogCount = 0;
-  if (fs.existsSync(blogDir)) {
+  if (SITE_URL === OFFICIAL_SITE_URL && fs.existsSync(blogDir)) {
     const blogFiles = fs
       .readdirSync(blogDir)
       .filter((file) => file.endsWith('.html'))

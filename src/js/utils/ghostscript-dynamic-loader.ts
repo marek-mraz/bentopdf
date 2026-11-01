@@ -4,7 +4,7 @@ import type {
   GhostscriptDynamicInstance,
 } from '@/types';
 
-import { t } from '../i18n/i18n.js';
+import { trText } from '../i18n/i18n.js';
 
 let cachedGS: GhostscriptInterface | null = null;
 let loadPromise: Promise<GhostscriptInterface> | null = null;
@@ -27,8 +27,8 @@ export async function loadGhostscript(): Promise<GhostscriptInterface> {
     const baseUrl = WasmProvider.getUrl('ghostscript');
     if (!baseUrl) {
       throw new Error(
-        t(
-          'msg.ghostscriptDynamicLoader.ghostscriptIsNotConfiguredPleaseConfigur'
+        trText(
+          'Ghostscript is not configured. Please configure it in Advanced Settings.'
         )
       );
     }
@@ -56,7 +56,9 @@ export async function loadGhostscript(): Promise<GhostscriptInterface> {
         cachedGS = instance as unknown as GhostscriptInterface;
       } else {
         throw new Error(
-          'Ghostscript wrapper did not expose expected interface. Expected loadGS() or GhostscriptWASM class.'
+          trText(
+            'Ghostscript wrapper did not expose expected interface. Expected loadGS() or GhostscriptWASM class.'
+          )
         );
       }
 
@@ -65,7 +67,7 @@ export async function loadGhostscript(): Promise<GhostscriptInterface> {
       loadPromise = null;
       const msg = error instanceof Error ? error.message : String(error);
       throw new Error(
-        t('msg.ghostscriptDynamicLoader.failedToLoadGhostscriptFrom', {
+        trText('Failed to load Ghostscript from {{normalizedUrl}}: {{msg}}', {
           normalizedUrl,
           msg,
         }),
@@ -90,7 +92,8 @@ function loadScript(url: string): Promise<void> {
     script.async = true;
 
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Failed to load script: ${url}`));
+    script.onerror = () =>
+      reject(new Error(trText('Failed to load script: {{url}}', { url })));
 
     document.head.appendChild(script);
   });

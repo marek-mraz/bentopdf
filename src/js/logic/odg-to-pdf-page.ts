@@ -6,7 +6,8 @@ import {
   getLibreOfficeConverter,
   type LoadProgress,
 } from '../utils/libreoffice-loader.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const ACCEPTED_EXTENSIONS = ['.odg'];
 const FILETYPE_NAME = 'ODG';
@@ -89,8 +90,10 @@ onPageReady(() => {
   const convert = async () => {
     if (state.files.length === 0) {
       showAlert(
-        t('alert.noFiles'),
-        t('tools:odgToPdf.msg.pleaseSelectAtLeastOneFile', { FILETYPE_NAME })
+        'No Files',
+        trText('Please select at least one {{FILETYPE_NAME}} file.', {
+          FILETYPE_NAME,
+        })
       );
       return;
     }
@@ -98,14 +101,14 @@ onPageReady(() => {
     try {
       const converter = getLibreOfficeConverter();
 
-      showLoader(t('loader.loadingEngine'));
+      showLoader('Loading engine...');
       await converter.initialize((progress: LoadProgress) => {
         showLoader(progress.message, progress.percent);
       });
 
       if (state.files.length === 1) {
         const file = state.files[0];
-        showLoader(t('tools:odgToPdf.msg.converting', { name: file.name }));
+        showLoader(trText('Converting {{name}}...', { name: file.name }));
         const pdfBlob = await converter.convertToPdf(file);
 
         const baseName = file.name.replace(/\.[^/.]+$/, '');
@@ -113,24 +116,24 @@ onPageReady(() => {
 
         hideLoader();
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:odgToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: file.name,
           }),
           'success',
           () => resetState()
         );
       } else {
-        showLoader(t('loader.convertingMultipleFiles'));
+        showLoader('Converting multiple files...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
 
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:odgToPdf.msg.converting2', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -145,9 +148,9 @@ onPageReady(() => {
 
         hideLoader();
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:odgToPdf.msg.successfullyConvertedFilesToPdf', {
-            count: state.files.length,
+          'Conversion Complete',
+          trText('Successfully converted {{length}} files to PDF.', {
+            length: state.files.length,
           }),
           'success',
           () => resetState()
@@ -156,12 +159,12 @@ onPageReady(() => {
     } catch (err) {
       hideLoader();
       const message =
-        err instanceof Error ? err.message : t('common.unknownError');
+        err instanceof Error ? err.message : trText('Unknown error');
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
-        t('common.error'),
-        t('tools:odgToPdf.msg.anErrorOccurredDuringConversionError', {
-          error: message,
+        'Error',
+        trText('An error occurred during conversion. Error: {{message}}', {
+          message,
         })
       );
     }

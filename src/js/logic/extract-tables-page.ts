@@ -4,7 +4,8 @@ import { createIcons, icons } from 'lucide';
 import JSZip from 'jszip';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { trText, onPageReady } from '../i18n/i18n.js';
+
 let file: File | null = null;
 
 const updateUI = () => {
@@ -78,10 +79,7 @@ function tableToCsv(rows: (string | null)[][]): string {
 
 async function extract() {
   if (!file) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
 
@@ -94,7 +92,7 @@ async function extract() {
   });
 
   try {
-    showLoader(t('loader.loadingEngine2'));
+    showLoader('Loading Engine...');
     const pymupdf = await loadPyMuPDF();
 
     hideLoader();
@@ -103,7 +101,7 @@ async function extract() {
     pwResult.pdf.destroy();
     file = pwResult.file;
 
-    showLoader(t('loader.extractingTables'));
+    showLoader('Extracting tables...');
 
     const doc = await pymupdf.open(file);
     const pageCount = doc.pageCount;
@@ -122,7 +120,10 @@ async function extract() {
 
     for (let i = 0; i < pageCount; i++) {
       showLoader(
-        t('tools:extractTables.msg.scanningPageOf', { value: i + 1, pageCount })
+        trText('Scanning page {{n}} of {{pageCount}}...', {
+          n: i + 1,
+          pageCount,
+        })
       );
       const page = doc.getPage(i);
       const tables = page.findTables();
@@ -140,7 +141,7 @@ async function extract() {
     }
 
     if (allTables.length === 0) {
-      showAlert(t('alert.noTablesFound'), t('alert.noTablesWereDetected'));
+      showAlert('No Tables Found', 'No tables were detected in this PDF.');
       return;
     }
 
@@ -167,13 +168,13 @@ async function extract() {
       const blob = new Blob([content], { type: mimeType });
       downloadFile(blob, `${baseName}_table.${ext}`);
       showAlert(
-        t('common.success'),
-        t('tools:extractTables.alert.extracted1TableSuccessfully'),
+        'Success',
+        `Extracted 1 table successfully!`,
         'success',
         resetState
       );
     } else {
-      showLoader(t('tools:jsonToPdf.status.creatingZip'));
+      showLoader('Creating ZIP file...');
       const zip = new JSZip();
 
       allTables.forEach((table, idx) => {
@@ -198,9 +199,9 @@ async function extract() {
       const zipBlob = await zip.generateAsync({ type: 'blob' });
       downloadFile(zipBlob, `${baseName}_tables.zip`);
       showAlert(
-        t('common.success'),
-        t('tools:extractTables.msg.extractedTablesSuccessfully', {
-          count: allTables.length,
+        'Success',
+        trText('Extracted {{length}} tables successfully!', {
+          length: allTables.length,
         }),
         'success',
         resetState
@@ -208,10 +209,10 @@ async function extract() {
     }
   } catch (e) {
     console.error(e);
-    const message = e instanceof Error ? e.message : t('common.unknownError');
+    const message = e instanceof Error ? e.message : trText('Unknown error');
     showAlert(
-      t('common.error'),
-      t('tools:extractTables.msg.failedToExtractTables', { error: message })
+      'Error',
+      trText('Failed to extract tables. {{message}}', { message })
     );
   } finally {
     hideLoader();
@@ -237,10 +238,7 @@ onPageReady(() => {
     );
 
     if (!validFile) {
-      showAlert(
-        t('tools:addPageLabels.invalidFileTitle'),
-        t('tools:pdfToJpg.alert.invalidFileExplanation')
-      );
+      showAlert('Invalid File', 'Please upload a PDF file.');
       return;
     }
 

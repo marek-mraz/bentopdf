@@ -29,7 +29,7 @@ export class DividePagesNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, this.label);
+    const pdfInputs = requirePdfInput(inputs, 'Divide Pages');
     const dirCtrl = this.controls['direction'] as
       | ClassicPreset.InputControl<'text'>
       | undefined;

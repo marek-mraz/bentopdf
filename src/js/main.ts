@@ -18,6 +18,7 @@ import {
   rewriteLinks,
   injectLanguageSwitcher,
   t,
+  trText,
 } from './i18n/index.js';
 import {
   loadRuntimeConfig,
@@ -31,7 +32,6 @@ import {
 } from './utils/safe-storage.js';
 import { sanitizeTranslationHtml } from './utils/translation-html.js';
 import type { ToolCategory } from '@/types';
-import { pageI18nKey } from './config/page-i18n-key.js';
 
 const FAVORITE_STAR_PATHS = [
   [
@@ -45,6 +45,15 @@ const FAVORITE_STAR_PATHS = [
 ] as const;
 declare const __BRAND_NAME__: string;
 
+const adsSection = document.getElementById('ads-section');
+if (
+  adsSection &&
+  (['bentopdf.com', 'www.bentopdf.com'].includes(window.location.hostname) ||
+    import.meta.env.DEV)
+) {
+  adsSection.hidden = false;
+}
+
 const init = async () => {
   await initI18n();
   await loadRuntimeConfig();
@@ -52,13 +61,16 @@ const init = async () => {
   applyTranslations();
 
   if (isCurrentPageDisabled()) {
-    document.title = t('disabledTool.title') || 'Tool Unavailable';
+    document.title = t('disabledTool.title') || trText('Tool Unavailable');
     const main = document.querySelector('main') || document.body;
-    const heading = t('disabledTool.heading') || 'This tool has been disabled';
+    const heading =
+      t('disabledTool.heading') || trText('This tool has been disabled');
     const message =
       t('disabledTool.message') ||
-      'This tool is not available in your deployment. Contact your administrator for more information.';
-    const backHome = t('disabledTool.backHome') || 'Back to Home';
+      trText(
+        'This tool is not available in your deployment. Contact your administrator for more information.'
+      );
+    const backHome = t('disabledTool.backHome') || trText('Back to Home');
     main.innerHTML = `
       <div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
         <i class="ph ph-prohibit text-6xl text-gray-500 mb-4"></i>
@@ -127,7 +139,10 @@ const init = async () => {
       });
 
       const brandName = __BRAND_NAME__ || 'BentoPDF';
-      document.title = `${brandName} - ${t('simpleMode.title')}`;
+      document.title = trText('{{brandName}} - {{title}}', {
+        brandName,
+        title: t('simpleMode.title'),
+      });
 
       const toolsHeader = document.getElementById('tools-header');
       if (toolsHeader) {
@@ -180,6 +195,130 @@ const init = async () => {
     'Organize & Manage': 'tools:categories.organizeManage',
     'Optimize & Repair': 'tools:categories.optimizeRepair',
     'Secure PDF': 'tools:categories.securePdf',
+  };
+
+  const toolTranslationKeys: Record<string, string> = {
+    'PDF Workflow Builder': 'tools:pdfWorkflow',
+    'PDF Multi Tool': 'tools:pdfMultiTool',
+    'Merge PDF': 'tools:mergePdf',
+    'Split PDF': 'tools:splitPdf',
+    'Compress PDF': 'tools:compressPdf',
+    'PDF Editor': 'tools:pdfEditor',
+    'Edit PDF Text': 'tools:editPdfText',
+    'JPG to PDF': 'tools:jpgToPdf',
+    'Sign PDF': 'tools:signPdf',
+    'Crop PDF': 'tools:cropPdf',
+    'Extract Pages': 'tools:extractPages',
+    'Duplicate & Organize': 'tools:duplicateOrganize',
+    'Delete Pages': 'tools:deletePages',
+    'Edit Bookmarks': 'tools:editBookmarks',
+    'Table of Contents': 'tools:tableOfContents',
+    'Page Numbers': 'tools:pageNumbers',
+    'Add Page Labels': 'tools:addPageLabels',
+    'Add Watermark': 'tools:addWatermark',
+    'Header & Footer': 'tools:headerFooter',
+    'Invert Colors': 'tools:invertColors',
+    'Background Color': 'tools:backgroundColor',
+    'Change Text Color': 'tools:changeTextColor',
+    'Add Stamps': 'tools:addStamps',
+    'Bates Numbering': 'tools:batesNumbering',
+    'Remove Annotations': 'tools:removeAnnotations',
+    'PDF Form Filler': 'tools:pdfFormFiller',
+    'Create PDF Form': 'tools:createPdfForm',
+    'Remove Blank Pages': 'tools:removeBlankPages',
+    'Images to PDF': 'tools:imageToPdf',
+    'PNG to PDF': 'tools:pngToPdf',
+    'WebP to PDF': 'tools:webpToPdf',
+    'SVG to PDF': 'tools:svgToPdf',
+    'BMP to PDF': 'tools:bmpToPdf',
+    'HEIC to PDF': 'tools:heicToPdf',
+    'TIFF to PDF': 'tools:tiffToPdf',
+    'Text to PDF': 'tools:textToPdf',
+    'JSON to PDF': 'tools:jsonToPdf',
+    'PDF to JPG': 'tools:pdfToJpg',
+    'PDF to PNG': 'tools:pdfToPng',
+    'PDF to WebP': 'tools:pdfToWebp',
+    'PDF to BMP': 'tools:pdfToBmp',
+    'PDF to TIFF': 'tools:pdfToTiff',
+    'PDF to CBZ': 'tools:pdfToCbz',
+    'PDF to Greyscale': 'tools:pdfToGreyscale',
+    'PDF to JSON': 'tools:pdfToJson',
+    'OCR PDF': 'tools:ocrPdf',
+    'Alternate & Mix Pages': 'tools:alternateMerge',
+    'Duplex Collate': 'tools:duplexCollate',
+    'PDF Overlay': 'tools:pdfOverlay',
+    'Organize & Duplicate': 'tools:duplicateOrganize',
+    'Add Attachments': 'tools:addAttachments',
+    'Extract Attachments': 'tools:extractAttachments',
+    'Edit Attachments': 'tools:editAttachments',
+    'Divide Pages': 'tools:dividePages',
+    'Add Blank Page': 'tools:addBlankPage',
+    'Reverse Pages': 'tools:reversePages',
+    'Rotate PDF': 'tools:rotatePdf',
+    'Rotate by Custom Degrees': 'tools:rotateCustom',
+    'N-Up PDF': 'tools:nUpPdf',
+    'Combine to Single Page': 'tools:combineToSinglePage',
+    'View Metadata': 'tools:viewMetadata',
+    'Edit Metadata': 'tools:editMetadata',
+    'PDFs to ZIP': 'tools:pdfsToZip',
+    'Compare PDFs': 'tools:comparePdfs',
+    'Posterize PDF': 'tools:posterizePdf',
+    'Fix Page Size': 'tools:fixPageSize',
+    'Linearize PDF': 'tools:linearizePdf',
+    'Page Dimensions': 'tools:pageDimensions',
+    'Remove Restrictions': 'tools:removeRestrictions',
+    'Repair PDF': 'tools:repairPdf',
+    'Encrypt PDF': 'tools:encryptPdf',
+    'Sanitize PDF': 'tools:sanitizePdf',
+    'Protect PDF': 'tools:protectPdf',
+    'Unlock PDF': 'tools:unlockPdf',
+    'Decrypt PDF': 'tools:decryptPdf',
+    'Flatten PDF': 'tools:flattenPdf',
+    'Remove Metadata': 'tools:removeMetadata',
+    'Change Permissions': 'tools:changePermissions',
+    'Email to PDF': 'tools:emailToPdf',
+    'Font to Outline': 'tools:fontToOutline',
+    'Deskew PDF': 'tools:deskewPdf',
+    'Digital Signature': 'tools:digitalSignPdf',
+    'Validate Signature': 'tools:validateSignaturePdf',
+    'Timestamp PDF': 'tools:timestampPdf',
+    'Scanner Effect': 'tools:scannerEffect',
+    'Adjust Colors': 'tools:adjustColors',
+    'Markdown to PDF': 'tools:markdownToPdf',
+    'PDF Booklet': 'tools:pdfBooklet',
+    'Word to PDF': 'tools:wordToPdf',
+    'Excel to PDF': 'tools:excelToPdf',
+    'PowerPoint to PDF': 'tools:powerpointToPdf',
+    'XPS to PDF': 'tools:xpsToPdf',
+    'MOBI to PDF': 'tools:mobiToPdf',
+    'EPUB to PDF': 'tools:epubToPdf',
+    'FB2 to PDF': 'tools:fb2ToPdf',
+    'CBZ to PDF': 'tools:cbzToPdf',
+    'WPD to PDF': 'tools:wpdToPdf',
+    'WPS to PDF': 'tools:wpsToPdf',
+    'XML to PDF': 'tools:xmlToPdf',
+    'Pages to PDF': 'tools:pagesToPdf',
+    'ODG to PDF': 'tools:odgToPdf',
+    'ODS to PDF': 'tools:odsToPdf',
+    'ODP to PDF': 'tools:odpToPdf',
+    'PUB to PDF': 'tools:pubToPdf',
+    'VSD to PDF': 'tools:vsdToPdf',
+    'PSD to PDF': 'tools:psdToPdf',
+    'ODT to PDF': 'tools:odtToPdf',
+    'CSV to PDF': 'tools:csvToPdf',
+    'RTF to PDF': 'tools:rtfToPdf',
+    'PDF to SVG': 'tools:pdfToSvg',
+    'PDF to CSV': 'tools:pdfToCsv',
+    'PDF to Excel': 'tools:pdfToExcel',
+    'PDF to Text': 'tools:pdfToText',
+    'Extract Tables': 'tools:extractTables',
+    'PDF to Word': 'tools:pdfToWord',
+    'Extract Images': 'tools:extractImages',
+    'PDF to Markdown': 'tools:pdfToMarkdown',
+    'Prepare PDF for AI': 'tools:preparePdfForAi',
+    'PDF OCG': 'tools:pdfOcg',
+    'PDF to PDF/A': 'tools:pdfToPdfa',
+    'Rasterize PDF': 'tools:rasterizePdf',
   };
 
   // Homepage-only tool grid rendering (not used on individual tool pages)
@@ -457,15 +596,17 @@ const init = async () => {
 
       const toolName = document.createElement('h3');
       toolName.className = 'font-semibold text-white';
-      const toolKey = `tools:${pageI18nKey(tool.href)}`;
-      toolName.textContent = t(`${toolKey}.name`);
+      const toolKey = toolTranslationKeys[tool.name];
+      toolName.textContent = toolKey ? t(`${toolKey}.name`) : tool.name;
 
       toolCard.append(icon, toolName);
 
       if (tool.subtitle) {
         const toolSubtitle = document.createElement('p');
         toolSubtitle.className = 'text-xs text-gray-400 mt-1 px-2';
-        toolSubtitle.textContent = t(`${toolKey}.subtitle`);
+        toolSubtitle.textContent = toolKey
+          ? t(`${toolKey}.subtitle`)
+          : tool.subtitle;
         toolCard.appendChild(toolSubtitle);
       }
 
@@ -1078,32 +1219,55 @@ const init = async () => {
     });
   }
 
-  // Reserved shortcuts that commonly conflict with browser/OS functions;
-  // values are keys under settings.reservedShortcuts in common.json.
+  // Reserved shortcuts that commonly conflict with browser/OS functions
   const RESERVED_SHORTCUTS: Record<string, { mac?: string; windows?: string }> =
     {
-      'mod+w': { mac: 'closesTab', windows: 'closesTab' },
-      'mod+t': { mac: 'opensNewTab', windows: 'opensNewTab' },
-      'mod+n': { mac: 'opensNewWindow', windows: 'opensNewWindow' },
+      'mod+w': { mac: trText('Closes tab'), windows: trText('Closes tab') },
+      'mod+t': {
+        mac: trText('Opens new tab'),
+        windows: trText('Opens new tab'),
+      },
+      'mod+n': {
+        mac: trText('Opens new window'),
+        windows: trText('Opens new window'),
+      },
       'mod+shift+n': {
-        mac: 'opensIncognitoWindow',
-        windows: 'opensIncognitoWindow',
+        mac: trText('Opens incognito window'),
+        windows: trText('Opens incognito window'),
       },
-      'mod+q': { mac: 'quitsApplication' },
-      'mod+m': { mac: 'minimizesWindow' },
-      'mod+h': { mac: 'hidesWindow' },
-      'mod+r': { mac: 'reloadsPage', windows: 'reloadsPage' },
-      'mod+shift+r': { mac: 'hardReloadsPage', windows: 'hardReloadsPage' },
-      'mod+l': { mac: 'focusesAddressBar', windows: 'focusesAddressBar' },
-      'mod+d': { mac: 'bookmarksPage', windows: 'bookmarksPage' },
+      'mod+q': { mac: trText('Quits application (cannot be overridden)') },
+      'mod+m': { mac: trText('Minimizes window') },
+      'mod+h': { mac: trText('Hides window') },
+      'mod+r': { mac: trText('Reloads page'), windows: trText('Reloads page') },
+      'mod+shift+r': {
+        mac: trText('Hard reloads page'),
+        windows: trText('Hard reloads page'),
+      },
+      'mod+l': {
+        mac: trText('Focuses address bar'),
+        windows: trText('Focuses address bar'),
+      },
+      'mod+d': {
+        mac: trText('Bookmarks page'),
+        windows: trText('Bookmarks page'),
+      },
       'mod+shift+t': {
-        mac: 'reopensClosedTab',
-        windows: 'reopensClosedTab',
+        mac: trText('Reopens closed tab'),
+        windows: trText('Reopens closed tab'),
       },
-      'mod+shift+w': { mac: 'closesWindow', windows: 'closesWindow' },
-      'mod+tab': { mac: 'switchesTabs', windows: 'switchesApps' },
-      'alt+f4': { windows: 'closesWindow' },
-      'ctrl+tab': { mac: 'switchesTabs', windows: 'switchesTabs' },
+      'mod+shift+w': {
+        mac: trText('Closes window'),
+        windows: trText('Closes window'),
+      },
+      'mod+tab': {
+        mac: trText('Switches tabs'),
+        windows: trText('Switches apps'),
+      },
+      'alt+f4': { windows: trText('Closes window') },
+      'ctrl+tab': {
+        mac: trText('Switches tabs'),
+        windows: trText('Switches tabs'),
+      },
     };
 
   function getReservedShortcutWarning(
@@ -1116,7 +1280,7 @@ const init = async () => {
     const description = isMac ? reserved.mac : reserved.windows;
     if (!description) return null;
 
-    return t(`settings.reservedShortcuts.${description}`);
+    return description;
   }
 
   function showWarningModal(
@@ -1248,7 +1412,8 @@ const init = async () => {
 
         const name = document.createElement('span');
         name.className = 'text-gray-200 font-medium';
-        name.textContent = t(`tools:${pageI18nKey(tool.href)}.name`);
+        const toolKey = toolTranslationKeys[tool.name];
+        name.textContent = toolKey ? t(`${toolKey}.name`) : tool.name;
 
         left.append(icon, name);
 
@@ -1336,11 +1501,15 @@ const init = async () => {
               const existingTool = allTools.find(
                 (t) => getToolId(t) === existingToolId
               );
+              const existingToolName = existingTool?.name || existingToolId;
               const displayCombo = formatShortcutDisplay(combo, isMac);
 
-              const translatedToolName = existingTool
-                ? t(`tools:${pageI18nKey(existingTool.href)}.name`)
-                : existingToolId;
+              const existingToolKey = existingTool
+                ? toolTranslationKeys[existingTool.name]
+                : null;
+              const translatedToolName = existingToolKey
+                ? t(`${existingToolKey}.name`)
+                : existingToolName;
 
               await showWarningModal(
                 t('settings.warnings.alreadyInUse'),

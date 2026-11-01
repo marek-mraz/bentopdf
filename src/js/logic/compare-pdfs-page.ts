@@ -25,7 +25,8 @@ import {
   computeComparisonForPair,
   getComparisonCacheKey,
 } from './compare-render.ts';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: CompareState = {
   pdfDoc1: null,
@@ -390,8 +391,8 @@ function renderChangeList() {
   if (!comparison || visibleChanges.length === 0) {
     emptyState.textContent =
       comparison?.status === 'match'
-        ? t('tools:comparePdfs.noDifferences')
-        : t('tools:comparePdfs.noMatchingChanges');
+        ? trText('No differences detected on this page.')
+        : trText('No changes match the current filter.');
     emptyState.classList.remove('hidden');
     list.classList.add('hidden');
     prevChangeBtn.disabled = true;
@@ -404,13 +405,13 @@ function renderChangeList() {
   list.classList.remove('hidden');
 
   const typeLabels: Record<string, string> = {
-    added: t('tools:comparePdfs.added'),
-    removed: t('tools:comparePdfs.deleted'),
-    modified: t('tools:comparePdfs.msg.modifiedLabel'),
-    moved: t('tools:comparePdfs.ui.moved'),
-    'style-changed': t('tools:comparePdfs.msg.styleChangedLabel'),
-    'page-added': t('tools:comparePdfs.msg.pageAdded'),
-    'page-removed': t('tools:comparePdfs.msg.pageRemoved'),
+    added: trText('Added'),
+    removed: trText('Deleted'),
+    modified: trText('Modified'),
+    moved: trText('Moved'),
+    'style-changed': trText('Style Changed'),
+    'page-added': trText('Page Added'),
+    'page-removed': trText('Page Removed'),
   };
 
   const grouped = new Map<
@@ -492,13 +493,13 @@ function syncComparePaneHeights() {
 async function buildPagePairs() {
   if (!pageState.pdfDoc1 || !pageState.pdfDoc2) return;
 
-  showLoader(t('tools:comparePdfs.buildingModel'), 0);
+  showLoader('Building page pairing model...', 0);
 
   const leftSignatures = await extractDocumentSignatures(
     pageState.pdfDoc1,
     function (pageNumber, totalPages) {
       showLoader(
-        t('tools:comparePdfs.msg.indexingPdf1PageOf', {
+        trText('Indexing PDF 1 page {{pageNumber}} of {{totalPages}}...', {
           pageNumber,
           totalPages,
         }),
@@ -510,7 +511,7 @@ async function buildPagePairs() {
     pageState.pdfDoc2,
     function (pageNumber, totalPages) {
       showLoader(
-        t('tools:comparePdfs.msg.indexingPdf2PageOf', {
+        trText('Indexing PDF 2 page {{pageNumber}} of {{totalPages}}...', {
           pageNumber,
           totalPages,
         }),
@@ -565,9 +566,9 @@ async function renderBothPages() {
   const gen = ++renderGeneration;
 
   showLoader(
-    t('tools:comparePdfs.loadingComparison', {
-      current: pageState.currentPage,
-      total: pageState.pagePairs.length,
+    trText('Loading comparison {{currentPage}} of {{length}}...', {
+      currentPage: pageState.currentPage,
+      length: pageState.pagePairs.length,
     })
   );
 
@@ -720,10 +721,7 @@ async function handleFileInput(
 
   async function handleFile(file: File) {
     if (!file || file.type !== 'application/pdf') {
-      showAlert(
-        t('tools:comparePdfs.invalidFile'),
-        t('tools:comparePdfs.invalidFileMsg')
-      );
+      showAlert('Invalid File', 'Please select a valid PDF file.');
       return;
     }
 
@@ -757,9 +755,7 @@ async function handleFileInput(
       hideLoader();
       const result = await loadPdfWithPasswordPrompt(file);
       if (!result) return;
-      showLoader(
-        t('tools:comparePdfs.loadingFile', { name: result.file.name })
-      );
+      showLoader(trText('Loading {{name}}...', { name: result.file.name }));
       pageState[docKey] = result.pdf;
       caches.pageModelCache.clear();
       caches.comparisonCache.clear();
@@ -778,7 +774,10 @@ async function handleFileInput(
         await renderBothPages();
       }
     } catch (e) {
-      showAlert(t('common.error'), t('tools:comparePdfs.loadError'));
+      showAlert(
+        'Error',
+        'Could not load PDF. It may be corrupt or password-protected.'
+      );
       console.error(e);
     } finally {
       hideLoader();
@@ -972,7 +971,9 @@ onPageReady(function () {
 
   function updateZoomDisplay() {
     if (zoomDisplay) {
-      zoomDisplay.textContent = `${Math.round(pageState.zoomLevel * 100)}%`;
+      zoomDisplay.textContent = trText('{{value}}%', {
+        value: Math.round(pageState.zoomLevel * 100),
+      });
     }
     if (zoomOutBtn) zoomOutBtn.disabled = pageState.zoomLevel <= ZOOM_MIN;
     if (zoomInBtn) zoomInBtn.disabled = pageState.zoomLevel >= ZOOM_MAX;
@@ -1170,7 +1171,7 @@ onPageReady(function () {
         if (!mode || pageState.pagePairs.length === 0) return;
         exportDropdownMenu.classList.add('hidden');
         try {
-          showLoader(t('tools:comparePdfs.preparingExport'));
+          showLoader('Preparing PDF export...');
           await exportComparePdf(
             mode,
             pageState.pdfDoc1,
@@ -1197,10 +1198,7 @@ onPageReady(function () {
           );
         } catch (e) {
           console.error('PDF export failed:', e);
-          showAlert(
-            t('tools:comparePdfs.exportError'),
-            t('tools:comparePdfs.exportFailed')
-          );
+          showAlert('Export Error', 'Could not export comparison PDF.');
         } finally {
           hideLoader();
         }

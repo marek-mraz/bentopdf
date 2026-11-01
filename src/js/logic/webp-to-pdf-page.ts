@@ -5,12 +5,18 @@ import {
   readFileAsArrayBuffer,
   formatBytes,
 } from '../utils/helpers.js';
+import {
+  createDragHandle,
+  enableFileListReorder,
+  moveItem,
+} from '../utils/sortable-file-list.js';
 import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import {
   getSelectedQuality,
   compressImageBytes,
 } from '../utils/image-compress.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 let files: File[] = [];
 
@@ -91,8 +97,8 @@ function handleFiles(newFiles: FileList) {
 
   if (validFiles.length < newFiles.length) {
     showAlert(
-      t('alert.invalidFiles'),
-      t('tools:webpToPdf.alert.someFilesWereSkipped')
+      'Invalid Files',
+      'Some files were skipped. Only WebP images are allowed.'
     );
   }
 
@@ -134,9 +140,11 @@ function updateUI() {
 
       const sizeSpan = document.createElement('span');
       sizeSpan.className = 'flex-shrink-0 text-gray-400 text-xs';
-      sizeSpan.textContent = `(${formatBytes(file.size)})`;
+      sizeSpan.textContent = trText('({{size}})', {
+        size: formatBytes(file.size),
+      });
 
-      infoContainer.append(nameSpan, sizeSpan);
+      infoContainer.append(createDragHandle(), nameSpan, sizeSpan);
 
       const removeBtn = document.createElement('button');
       removeBtn.className =
@@ -149,6 +157,10 @@ function updateUI() {
 
       fileDiv.append(infoContainer, removeBtn);
       fileDisplayArea.appendChild(fileDiv);
+    });
+    enableFileListReorder(fileDisplayArea, (oldIndex, newIndex) => {
+      files = moveItem(files, oldIndex, newIndex);
+      updateUI();
     });
     createIcons({ icons });
   } else {
@@ -177,7 +189,9 @@ function sanitizeImageAsJpeg(imageBytes: Uint8Array | ArrayBuffer) {
       canvas.toBlob(
         async (jpegBlob) => {
           if (!jpegBlob) {
-            return reject(new Error('Canvas toBlob conversion failed.'));
+            return reject(
+              new Error(trText('Canvas toBlob conversion failed.'))
+            );
           }
           const arrayBuffer = await jpegBlob.arrayBuffer();
           resolve(new Uint8Array(arrayBuffer));
@@ -190,7 +204,13 @@ function sanitizeImageAsJpeg(imageBytes: Uint8Array | ArrayBuffer) {
 
     img.onerror = () => {
       URL.revokeObjectURL(imageUrl);
-      reject(new Error(t('tools:webpToPdf.msg.couldNotLoadImage')));
+      reject(
+        new Error(
+          trText(
+            'The provided file could not be loaded as an image. It may be corrupted.'
+          )
+        )
+      );
     };
 
     img.src = imageUrl;
@@ -199,11 +219,11 @@ function sanitizeImageAsJpeg(imageBytes: Uint8Array | ArrayBuffer) {
 
 async function convertToPdf() {
   if (files.length === 0) {
-    showAlert(t('alert.noFiles'), t('alert.selectLeastOneJpg'));
+    showAlert('No Files', 'Please select at least one JPG file.');
     return;
   }
 
-  showLoader(t('loader.creatingPdfFromJpgs'));
+  showLoader('Creating PDF from JPGs...');
 
   try {
     const pdfDoc = await PDFLibDocument.create();
@@ -242,20 +262,12 @@ async function convertToPdf() {
       new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' }),
       'from_webps.pdf'
     );
-    showAlert(
-      t('common.success'),
-      t('alert.pdfCreatedSuccessfully'),
-      'success',
-      () => {
-        resetState();
-      }
-    );
+    showAlert('Success', 'PDF created successfully!', 'success', () => {
+      resetState();
+    });
   } catch (e: unknown) {
     console.error(e);
-    showAlert(
-      t('alert.conversionError'),
-      e instanceof Error ? e.message : String(e)
-    );
+    showAlert('Conversion Error', e instanceof Error ? e.message : String(e));
   } finally {
     hideLoader();
   }

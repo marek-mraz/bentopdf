@@ -278,7 +278,7 @@
   >
     {{> navbar }}
 
-    <h1 data-i18n="pageHeading.pdfWorkflow" class="sr-only">
+    <h1 class="sr-only">
       PDF Workflow Builder Free Online - Chain PDF Tools Into One Run
     </h1>
 
@@ -290,14 +290,8 @@
         class="w-60 bg-gray-800 border-r border-gray-700 flex-col overflow-y-auto flex-shrink-0 hidden md:flex max-md:fixed max-md:inset-y-0 max-md:left-0 max-md:z-40 max-md:shadow-2xl"
       >
         <div class="p-3 border-b border-gray-700">
-          <h2
-            data-i18n="tools:pdfWorkflow.nodes"
-            class="text-white font-bold text-sm mb-2"
-          >
-            Nodes
-          </h2>
+          <h2 class="text-white font-bold text-sm mb-2">Nodes</h2>
           <input
-            data-i18n-placeholder="tools:pdfWorkflow.searchNodes"
             id="node-search"
             type="text"
             placeholder="Search nodes..."
@@ -330,18 +324,14 @@
             class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-3 md:px-4 py-1.5 rounded-lg flex items-center gap-1.5 text-sm transition-colors"
           >
             <i class="ph ph-play text-base"></i>
-            <span data-i18n="tools:pdfWorkflow.run" class="hidden md:inline"
-              >Run</span
-            >
+            <span class="hidden md:inline">Run</span>
           </button>
           <button
             id="clear-btn"
             class="bg-gray-700 hover:bg-gray-600 text-white px-2.5 md:px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition-colors"
           >
             <i class="ph ph-trash text-base md:hidden"></i>
-            <span data-i18n="tools:pdfWorkflow.clear" class="hidden md:inline"
-              >Clear</span
-            >
+            <span class="hidden md:inline">Clear</span>
           </button>
           <div class="flex-1"></div>
           <button
@@ -349,9 +339,7 @@
             class="bg-gray-700 hover:bg-gray-600 text-white px-2.5 md:px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition-colors"
           >
             <i class="ph ph-floppy-disk text-sm"></i>
-            <span data-i18n="tools:pdfWorkflow.save" class="hidden md:inline"
-              >Save</span
-            >
+            <span class="hidden md:inline">Save</span>
           </button>
           <button
             id="faq-open-btn"
@@ -362,34 +350,28 @@
             aria-expanded="false"
           >
             <i class="ph ph-question text-sm"></i>
-            <span class="hidden md:inline" data-i18n="footer.faqLink">FAQ</span>
+            <span class="hidden md:inline">FAQ</span>
           </button>
           <button
             id="load-btn"
             class="bg-gray-700 hover:bg-gray-600 text-white px-2.5 md:px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition-colors"
           >
             <i class="ph ph-folder-open text-sm"></i>
-            <span data-i18n="tools:pdfWorkflow.load" class="hidden md:inline"
-              >Load</span
-            >
+            <span class="hidden md:inline">Load</span>
           </button>
           <button
             id="export-btn"
             class="bg-gray-700 hover:bg-gray-600 text-white px-2.5 md:px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition-colors"
           >
             <i class="ph ph-export text-sm"></i>
-            <span data-i18n="tools:pdfWorkflow.export" class="hidden md:inline"
-              >Export</span
-            >
+            <span class="hidden md:inline">Export</span>
           </button>
           <button
             id="import-btn"
             class="bg-gray-700 hover:bg-gray-600 text-white px-2.5 md:px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition-colors"
           >
             <i class="ph ph-download-simple text-sm"></i>
-            <span data-i18n="tools:pdfWorkflow.import" class="hidden md:inline"
-              >Import</span
-            >
+            <span class="hidden md:inline">Import</span>
           </button>
         </div>
 
@@ -401,13 +383,9 @@
           id="status-bar"
           class="h-7 bg-gray-800 border-t border-gray-700 hidden md:flex items-center px-4 text-xs text-gray-400"
         >
-          <span data-i18n="tools:pdfWorkflow.ready" id="status-text"
-            >Ready</span
-          >
+          <span id="status-text">Ready</span>
           <div class="flex-1"></div>
-          <span data-i18n="tools:pdfWorkflow.ui.t0Nodes" id="node-count"
-            >0 nodes</span
-          >
+          <span id="node-count">0 nodes</span>
         </div>
       </main>
 
@@ -419,11 +397,7 @@
         <div
           class="p-3 border-b border-gray-700 flex items-center justify-between"
         >
-          <h2
-            id="settings-title"
-            class="text-white font-bold text-sm"
-            data-i18n="tools:pdfWorkflow.settings"
-          >
+          <h2 id="settings-title" class="text-white font-bold text-sm">
             Settings
           </h2>
           <button
@@ -448,11 +422,7 @@
         class="bg-gray-800/95 p-8 rounded-2xl flex flex-col items-center gap-4 border border-gray-600/50 shadow-2xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          id="loader-text"
-          class="text-white text-lg font-medium"
-          data-i18n="loader.processing"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Processing...
         </p>
       </div>
@@ -472,20 +442,12 @@
           >
             <i class="ph ph-floppy-disk text-lg text-indigo-400"></i>
           </div>
-          <h3
-            data-i18n="tools:pdfWorkflow.saveTemplate"
-            class="text-base font-semibold text-white"
-          >
-            Save Template
-          </h3>
+          <h3 class="text-base font-semibold text-white">Save Template</h3>
         </div>
-        <label
-          data-i18n="tools:pdfWorkflow.templateName"
-          class="block text-xs font-medium text-gray-400 mb-1.5"
+        <label class="block text-xs font-medium text-gray-400 mb-1.5"
           >Template Name</label
         >
         <input
-          data-i18n-placeholder="tools:pdfWorkflow.templatePlaceholder"
           id="save-template-name"
           type="text"
           placeholder="e.g. Invoice Workflow"
@@ -497,14 +459,12 @@
         ></p>
         <div class="flex gap-2 mt-4">
           <button
-            data-i18n="tools:pdfWorkflow.cancel"
             id="save-template-cancel"
             class="flex-1 bg-gray-700/80 hover:bg-gray-600 text-gray-300 font-medium py-2.5 px-4 rounded-lg transition-colors text-sm"
           >
             Cancel
           </button>
           <button
-            data-i18n="tools:pdfWorkflow.save"
             id="save-template-confirm"
             class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 px-4 rounded-lg transition-colors text-sm"
           >
@@ -528,26 +488,19 @@
           >
             <i class="ph ph-folder-open text-lg text-indigo-400"></i>
           </div>
-          <h3
-            data-i18n="tools:pdfWorkflow.loadTemplate"
-            class="text-base font-semibold text-white"
-          >
-            Load Template
-          </h3>
+          <h3 class="text-base font-semibold text-white">Load Template</h3>
         </div>
         <div
           id="load-template-list"
           class="space-y-1.5 max-h-64 overflow-y-auto mb-4"
         ></div>
         <p
-          data-i18n="tools:pdfWorkflow.noTemplates"
           id="load-template-empty"
           class="text-gray-500 text-sm text-center py-6 hidden"
         >
           No saved templates yet.
         </p>
         <button
-          data-i18n="tools:pdfWorkflow.cancel"
           id="load-template-cancel"
           class="w-full bg-gray-700/80 hover:bg-gray-600 text-gray-300 font-medium py-2.5 px-4 rounded-lg transition-colors text-sm mt-2"
         >
@@ -564,11 +517,7 @@
       <div
         class="bg-gray-800/95 rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4 border border-gray-600/50"
       >
-        <h3
-          id="alert-title"
-          class="text-lg font-semibold text-white mb-2"
-          data-i18n="alert.title"
-        >
+        <h3 id="alert-title" class="text-lg font-semibold text-white mb-2">
           Alert
         </h3>
         <p id="alert-message" class="text-gray-300 text-sm mb-6"></p>
@@ -590,32 +539,23 @@
         class="bg-gray-800/95 rounded-2xl shadow-2xl border border-gray-600/50 p-5 w-80 mx-4"
       >
         <h3 class="text-white font-semibold text-sm mb-1">
-          <i class="ph ph-lock text-sm"></i>
-          <span data-i18n="tools:pdfWorkflow.ui.protectedPdf"
-            >Protected PDF</span
-          >
+          <i class="ph ph-lock text-sm"></i> Protected PDF
         </h3>
         <p
           id="pdf-password-filename"
           class="text-gray-400 text-xs mb-3 truncate"
         ></p>
         <input
-          data-i18n-placeholder="tools:pdfWorkflow.ui.enterPasswordPlaceholder"
           type="password"
           id="pdf-password-input"
           placeholder="Enter password"
           class="w-full bg-gray-900 border border-gray-600 text-white rounded-md px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none mb-1"
         />
-        <p
-          id="pdf-password-error"
-          class="text-red-400 text-xs mb-3 hidden"
-          data-i18n="tools:pdfWorkflow.ui.incorrectPassword"
-        >
+        <p id="pdf-password-error" class="text-red-400 text-xs mb-3 hidden">
           Incorrect password
         </p>
         <div class="flex gap-2">
           <button
-            data-i18n="tools:pdfWorkflow.ui.skip"
             id="pdf-password-skip"
             class="flex-1 bg-gray-700/80 hover:bg-gray-600 text-gray-300 text-xs py-2 rounded-lg transition-colors"
           >
@@ -624,7 +564,6 @@
           <button
             id="pdf-password-unlock"
             class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs py-2 rounded-lg transition-colors"
-            data-i18n="tools:pdfWorkflow.ui.unlock"
           >
             Unlock
           </button>
@@ -648,7 +587,6 @@
         class="bg-gray-800 rounded-lg w-full max-w-3xl max-h-[85vh] overflow-y-auto relative border border-gray-700 shadow-2xl"
       >
         <button
-          data-i18n-aria-label="tools:pdfWorkflow.ui.closeFaq"
           id="faq-close-btn"
           type="button"
           class="absolute top-3 right-3 z-10 flex items-center justify-center w-9 h-9 rounded-lg bg-gray-700 hover:bg-gray-600 text-white"
@@ -667,12 +605,10 @@
           <div class="faq-list">
             <details class="faq-d">
               <summary class="faq-d-q">
-                <span data-i18n-faq="pdf-workflow.1.q"
-                  >What is the PDF Workflow Builder for?</span
-                >
+                What is the PDF Workflow Builder for?
                 <i data-lucide="plus" class="faq-d-icon"></i>
               </summary>
-              <p class="faq-d-a" data-i18n-faq="pdf-workflow.1.a">
+              <p class="faq-d-a">
                 It chains several PDF operations into one run. Instead of
                 opening a tool, downloading, and feeding the result into the
                 next tool for each step, you connect nodes on a canvas, such as
@@ -682,12 +618,10 @@
             </details>
             <details class="faq-d">
               <summary class="faq-d-q">
-                <span data-i18n-faq="pdf-workflow.2.q"
-                  >Can I run the same workflow on many PDFs at once?</span
-                >
+                Can I run the same workflow on many PDFs at once?
                 <i data-lucide="plus" class="faq-d-icon"></i>
               </summary>
-              <p class="faq-d-a" data-i18n-faq="pdf-workflow.2.a">
+              <p class="faq-d-a">
                 Yes. The PDF Input node accepts multiple files; a Merge node
                 combines them into one document, while other nodes process each
                 PDF separately. When more than one file comes out the end, the
@@ -696,12 +630,10 @@
             </details>
             <details class="faq-d">
               <summary class="faq-d-q">
-                <span data-i18n-faq="pdf-workflow.3.q"
-                  >Why won't it let me connect two nodes?</span
-                >
+                Why won't it let me connect two nodes?
                 <i data-lucide="plus" class="faq-d-icon"></i>
               </summary>
-              <p class="faq-d-a" data-i18n-faq="pdf-workflow.3.a">
+              <p class="faq-d-a">
                 Sockets are typed: PDF (a single document), MultiPDF (several
                 documents), and Image. A node that expects a single PDF won't
                 accept a MultiPDF output, so put a Merge node in between, and
@@ -711,13 +643,10 @@
             </details>
             <details class="faq-d">
               <summary class="faq-d-q">
-                <span data-i18n-faq="pdf-workflow.4.q"
-                  >Why does it complain that Encrypt must be the last
-                  step?</span
-                >
+                Why does it complain that Encrypt must be the last step?
                 <i data-lucide="plus" class="faq-d-icon"></i>
               </summary>
-              <p class="faq-d-a" data-i18n-faq="pdf-workflow.4.a">
+              <p class="faq-d-a">
                 Once a PDF is encrypted, later nodes can't read it, so the
                 engine rejects a workflow where anything other than the output
                 sits after Encrypt. Move Encrypt to just before Download.
@@ -727,12 +656,10 @@
             </details>
             <details class="faq-d">
               <summary class="faq-d-q">
-                <span data-i18n-faq="pdf-workflow.5.q"
-                  >What happens if one step fails?</span
-                >
+                What happens if one step fails?
                 <i data-lucide="plus" class="faq-d-icon"></i>
               </summary>
-              <p class="faq-d-a" data-i18n-faq="pdf-workflow.5.a">
+              <p class="faq-d-a">
                 The run stops at that node, which turns red with an error
                 message, and nothing downstream is produced. Fix the setting or
                 the input and run again; it's easiest to build a two-node
@@ -741,12 +668,10 @@
             </details>
             <details class="faq-d">
               <summary class="faq-d-q">
-                <span data-i18n-faq="pdf-workflow.6.q"
-                  >Can I save a workflow and reuse it later?</span
-                >
+                Can I save a workflow and reuse it later?
                 <i data-lucide="plus" class="faq-d-icon"></i>
               </summary>
-              <p class="faq-d-a" data-i18n-faq="pdf-workflow.6.a">
+              <p class="faq-d-a">
                 Yes. Save stores it as a named template in your browser's local
                 storage, and Load brings it back in a later session on the same
                 browser. Export writes the layout to a workflow.json file you
@@ -756,12 +681,10 @@
             </details>
             <details class="faq-d">
               <summary class="faq-d-q">
-                <span data-i18n-faq="pdf-workflow.7.q"
-                  >Does a saved workflow contain my documents?</span
-                >
+                Does a saved workflow contain my documents?
                 <i data-lucide="plus" class="faq-d-icon"></i>
               </summary>
-              <p class="faq-d-a" data-i18n-faq="pdf-workflow.7.a">
+              <p class="faq-d-a">
                 No. Templates and exported JSON files hold only the node types,
                 their settings, positions, and connections; the PDFs are chosen
                 fresh each time you run. Settings are saved as typed, so avoid
@@ -771,12 +694,10 @@
             </details>
             <details class="faq-d">
               <summary class="faq-d-q">
-                <span data-i18n-faq="pdf-workflow.8.q"
-                  >Are the files processed on a server?</span
-                >
+                Are the files processed on a server?
                 <i data-lucide="plus" class="faq-d-icon"></i>
               </summary>
-              <p class="faq-d-a" data-i18n-faq="pdf-workflow.8.a">
+              <p class="faq-d-a">
                 No. Every node runs in your browser with the same engines as the
                 individual tools, and the only network activity is fetching a
                 processing module such as Ghostscript the first time a node

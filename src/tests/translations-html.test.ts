@@ -18,11 +18,7 @@ function localeStrings(): string[] {
   for (const lang of fs.readdirSync(LOCALES_DIR)) {
     const dir = path.join(LOCALES_DIR, lang);
     if (!fs.statSync(dir).isDirectory()) continue;
-    // faq.json is only ever set as text (scripts/i18n-linked-text.mjs).
-    const files = fs
-      .readdirSync(dir)
-      .filter((f) => f.endsWith('.json') && f !== 'faq.json');
-    for (const file of files) {
+    for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.json'))) {
       visit(JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8')));
     }
   }

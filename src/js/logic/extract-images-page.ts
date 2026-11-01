@@ -1,5 +1,5 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import {
   downloadFile,
   readFileAsArrayBuffer,
@@ -66,7 +66,10 @@ onPageReady(() => {
 
         const metaSpan = document.createElement('div');
         metaSpan.className = 'text-xs text-gray-400';
-        metaSpan.textContent = `${formatBytes(file.size)} • ${t('common.loadingPageCount')}`;
+        metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+          size: formatBytes(file.size),
+          loadingPageCount: t('common.loadingPageCount'),
+        });
 
         infoContainer.append(nameSpan, metaSpan);
 
@@ -85,14 +88,14 @@ onPageReady(() => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+          metaSpan.textContent = trText('{{size}} • {{numPages}} pages', {
             size: formatBytes(file.size),
-            count: pdfDoc.numPages,
+            numPages: pdfDoc.numPages,
           });
         } catch {
-          metaSpan.textContent = t(
-            'tools:extractImages.msg.couldNotLoadPageCount',
-            { value: formatBytes(file.size) }
+          metaSpan.textContent = trText(
+            '{{size}} • Could not load page count',
+            { size: formatBytes(file.size) }
           );
         }
       }
@@ -159,12 +162,12 @@ onPageReady(() => {
   const extract = async () => {
     try {
       if (state.files.length === 0) {
-        showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+        showAlert('No Files', 'Please select at least one PDF file.');
         return;
       }
 
       const decryptedFiles = await batchDecryptIfNeeded(state.files);
-      showLoader(t('tools:extractImages.loader.loadingPdfProcessor'));
+      showLoader('Loading PDF processor...');
       state.files = decryptedFiles;
       const pymupdf = await loadPyMuPDF();
 
@@ -174,7 +177,7 @@ onPageReady(() => {
       for (let i = 0; i < state.files.length; i++) {
         const file = state.files[i];
         showLoader(
-          t('tools:extractImages.msg.extractingImagesFrom', { name: file.name })
+          trText('Extracting images from {{name}}...', { name: file.name })
         );
 
         const doc = await pymupdf.open(file);
@@ -207,16 +210,16 @@ onPageReady(() => {
 
       if (extractedImages.length === 0) {
         showAlert(
-          t('tools:extractImages.alert.noImagesFound'),
-          t('tools:extractImages.alert.noEmbeddedImagesWere')
+          'No Images Found',
+          'No embedded images were found in the selected PDF(s).'
         );
       } else {
         displayImages();
         showAlert(
-          t('alert.extractionComplete'),
-          t('tools:extractImages.msg.foundImageSInPdfS', {
-            count: extractedImages.length,
-            count2: state.files.length,
+          'Extraction Complete',
+          trText('Found {{length}} image(s) in {{length2}} PDF(s).', {
+            length: extractedImages.length,
+            length2: state.files.length,
           }),
           'success'
         );
@@ -224,9 +227,9 @@ onPageReady(() => {
     } catch (e: unknown) {
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:extractImages.msg.anErrorOccurredDuringExtractionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during extraction. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }
@@ -235,7 +238,7 @@ onPageReady(() => {
   const downloadAll = async () => {
     if (extractedImages.length === 0) return;
 
-    showLoader(t('loader.creatingZipArchive'));
+    showLoader('Creating ZIP archive...');
     const JSZip = (await import('jszip')).default;
     const zip = new JSZip();
 

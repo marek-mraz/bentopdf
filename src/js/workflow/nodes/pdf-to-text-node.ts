@@ -25,7 +25,7 @@ export class PdfToTextNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, this.label);
+    const pdfInputs = requirePdfInput(inputs, 'PDF to Text');
     const allPdfs = extractAllPdfs(pdfInputs);
 
     if (allPdfs.length === 1) {

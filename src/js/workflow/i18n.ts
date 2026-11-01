@@ -1,9 +1,4 @@
-import { t } from '../i18n/i18n';
-import { pageI18nKey } from '../config/page-i18n-key';
-import {
-  tesseractLanguageName,
-  tesseractLanguages,
-} from '../config/tesseract-languages';
+import { hasKey, t, trText } from '../i18n/i18n';
 import type { NodeCategory } from './types';
 import type { NodeRegistryEntry } from './nodes/registry';
 
@@ -23,11 +18,12 @@ const SPECIAL_NODE_KEYS: Record<string, string> = {
   DownloadZipNode: 'tools:pdfWorkflow.specialNodes.download',
 };
 
-// i18next answers a missing 'tools:a.b' with 'a.b', without the namespace.
+function toCamelCase(str: string): string {
+  return str.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
+}
+
 function translateOrFallback(key: string, fallback: string): string {
-  const value = t(key);
-  const missing = value === key || value === key.slice(key.indexOf(':') + 1);
-  return value && !missing ? value : fallback;
+  return hasKey(key) ? t(key) : trText(fallback);
 }
 
 export function translateCategory(category: NodeCategory): string {
@@ -45,11 +41,11 @@ export function translateNodeLabel(
   }
   if (entry.toolPageId) {
     return translateOrFallback(
-      `tools:${pageI18nKey(entry.toolPageId)}.name`,
+      `tools:${toCamelCase(entry.toolPageId)}.name`,
       entry.label
     );
   }
-  return entry.label;
+  return trText(entry.label);
 }
 
 export function translateNodeDescription(
@@ -62,38 +58,9 @@ export function translateNodeDescription(
   }
   if (entry.toolPageId) {
     return translateOrFallback(
-      `tools:${pageI18nKey(entry.toolPageId)}.subtitle`,
+      `tools:${toCamelCase(entry.toolPageId)}.subtitle`,
       entry.description
     );
   }
-  return entry.description;
-}
-
-function formatControlKey(key: string): string {
-  return key
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/^./, (c) => c.toUpperCase())
-    .trim();
-}
-
-export function translateControlLabel(key: string): string {
-  return translateOrFallback(
-    `tools:pdfWorkflow.controls.${key}`,
-    formatControlKey(key)
-  );
-}
-
-// Option values such as '0.5' or 'PDF/A-2b' are not valid key segments.
-export function translateControlOption(
-  controlKey: string,
-  value: string,
-  label: string
-): string {
-  if (controlKey === 'language' && Object.hasOwn(tesseractLanguages, value))
-    return tesseractLanguageName(value as keyof typeof tesseractLanguages);
-  const slug = value.replace(/[^A-Za-z0-9_-]/g, '_');
-  return translateOrFallback(
-    `tools:pdfWorkflow.options.${controlKey}.${slug}`,
-    label
-  );
+  return trText(entry.description);
 }

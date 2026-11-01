@@ -7,7 +7,8 @@ import {
 } from '../utils/helpers.js';
 import { icons, createIcons } from 'lucide';
 import { EncryptPdfState, QpdfInstanceExtended } from '@/types';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: EncryptPdfState = {
   file: null,
@@ -94,10 +95,7 @@ function handleFileSelect(files: FileList | null) {
 
 async function encryptPdf() {
   if (!pageState.file) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
 
@@ -109,10 +107,7 @@ async function encryptPdf() {
       ?.value || '';
 
   if (!userPassword) {
-    showAlert(
-      t('alert.inputRequired'),
-      t('tools:protectPdf.alert.enterUserPassword')
-    );
+    showAlert('Input Required', 'Please enter a user password.');
     return;
   }
 
@@ -129,21 +124,18 @@ async function encryptPdf() {
   try {
     if (loaderModal) loaderModal.classList.remove('hidden');
     if (loaderText)
-      loaderText.textContent = t('tools:protectPdf.msg.initializingEncryption');
+      loaderText.textContent = trText('Initializing encryption...');
 
     qpdf = await initializeQpdf();
 
-    if (loaderText)
-      loaderText.textContent = t('tools:protectPdf.msg.readingPdf');
+    if (loaderText) loaderText.textContent = trText('Reading PDF...');
     const fileBuffer = await readFileAsArrayBuffer(pageState.file);
     const uint8Array = new Uint8Array(fileBuffer as ArrayBuffer);
 
     qpdf.FS.writeFile(inputPath, uint8Array);
 
     if (loaderText)
-      loaderText.textContent = t(
-        'tools:protectPdf.msg.encryptingPdfWith256BitAes'
-      );
+      loaderText.textContent = trText('Encrypting PDF with 256-bit AES...');
 
     const args = [inputPath, '--encrypt', userPassword, ownerPassword, '256'];
 
@@ -168,24 +160,17 @@ async function encryptPdf() {
     } catch (qpdfError: unknown) {
       console.error('qpdf execution error:', qpdfError);
       throw new Error(
-        t('tools:protectPdf.msg.encryptionFailed', {
-          value:
-            qpdfError instanceof Error
-              ? qpdfError.message
-              : t('common.unknownError'),
-        }),
+        'Encryption failed: ' +
+          (qpdfError instanceof Error ? qpdfError.message : 'Unknown error'),
         { cause: qpdfError }
       );
     }
 
-    if (loaderText)
-      loaderText.textContent = t('tools:protectPdf.msg.preparingDownload');
+    if (loaderText) loaderText.textContent = trText('Preparing download...');
     const outputFile = qpdf.FS.readFile(outputPath, { encoding: 'binary' });
 
     if (!outputFile || outputFile.length === 0) {
-      throw new Error(
-        t('tools:protectPdf.msg.encryptionResultedInAnEmptyFile')
-      );
+      throw new Error(trText('Encryption resulted in an empty file.'));
     }
 
     const blob = new Blob([new Uint8Array(outputFile)], {
@@ -195,24 +180,26 @@ async function encryptPdf() {
 
     if (loaderModal) loaderModal.classList.add('hidden');
 
-    let successMessage = t('tools:protectPdf.msg.encryptedSuccessfully');
+    let successMessage = trText('PDF encrypted successfully with 256-bit AES!');
     if (!hasDistinctOwnerPassword) {
-      successMessage += ` ${t('tools:protectPdf.msg.noOwnerPasswordNote')}`;
+      successMessage += ` ${trText(
+        'Note: Without a separate owner password, the PDF has no usage restrictions.'
+      )}`;
     }
 
-    showAlert(t('common.success'), successMessage, 'success', () => {
+    showAlert('Success', successMessage, 'success', () => {
       resetState();
     });
   } catch (error: unknown) {
     console.error('Error during PDF encryption:', error);
     if (loaderModal) loaderModal.classList.add('hidden');
     showAlert(
-      t('tools:protectPdf.alert.encryptionFailed'),
-      t('tools:protectPdf.msg.anErrorOccurred', {
-        value:
+      'Encryption Failed',
+      trText('An error occurred: {{error}}', {
+        error:
           error instanceof Error
             ? error.message
-            : t('tools:protectPdf.alert.pdfMightCorrupted'),
+            : trText('The PDF might be corrupted.'),
       })
     );
   } finally {

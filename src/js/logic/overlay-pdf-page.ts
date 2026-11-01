@@ -7,7 +7,8 @@ import {
 } from '../utils/helpers.js';
 import { icons, createIcons } from 'lucide';
 import type { OverlayPdfState, QpdfInstanceExtended } from '@/types';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: OverlayPdfState = {
   baseFile: null,
@@ -111,8 +112,8 @@ function isPdf(file: File): boolean {
 async function processOverlay() {
   if (!pageState.baseFile || !pageState.overlayFile) {
     showAlert(
-      t('tools:pdfOverlay.alert.missingFiles'),
-      t('tools:pdfOverlay.alert.uploadBothBasePdf')
+      'Missing Files',
+      'Please upload both a base PDF and an overlay/underlay PDF.'
     );
     return;
   }
@@ -120,8 +121,7 @@ async function processOverlay() {
   const loaderModal = document.getElementById('loader-modal');
   const loaderText = document.getElementById('loader-text');
   if (loaderModal) loaderModal.classList.remove('hidden');
-  if (loaderText)
-    loaderText.textContent = t('common.loader.initializingPdfEngine');
+  if (loaderText) loaderText.textContent = trText('Initializing PDF engine...');
 
   const inputPath = '/input_base.pdf';
   const overlayPath = '/input_overlay.pdf';
@@ -131,10 +131,7 @@ async function processOverlay() {
   try {
     qpdf = await initializeQpdf();
 
-    if (loaderText)
-      loaderText.textContent = t(
-        'tools:extractAttachments.loader.readingFiles'
-      );
+    if (loaderText) loaderText.textContent = trText('Reading files...');
 
     const baseBuffer = await readFileAsArrayBuffer(pageState.baseFile);
     const overlayBuffer = await readFileAsArrayBuffer(pageState.overlayFile);
@@ -160,8 +157,8 @@ async function processOverlay() {
     const shouldRepeat = repeatCheckbox?.checked;
 
     if (loaderText)
-      loaderText.textContent = t('tools:pdfOverlay.msg.applying', {
-        value: mode.replace('--', ''),
+      loaderText.textContent = trText('Applying {{replace}}...', {
+        replace: mode.replace('--', ''),
       });
 
     const args = [inputPath, mode, overlayPath];
@@ -180,7 +177,7 @@ async function processOverlay() {
 
     const outputFile = qpdf.FS.readFile(outputPath, { encoding: 'binary' });
     if (!outputFile || outputFile.length === 0) {
-      throw new Error(t('tools:pdfOverlay.msg.processingProducedAnEmptyFile'));
+      throw new Error(trText('Processing produced an empty file.'));
     }
 
     const modeLabel = mode.replace('--', '');
@@ -190,8 +187,8 @@ async function processOverlay() {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:pdfOverlay.msg.pdfAppliedSuccessfully', { modeLabel }),
+      'Success',
+      trText('PDF {{modeLabel}} applied successfully.', { modeLabel }),
       'success',
       () => {
         resetState();
@@ -200,10 +197,9 @@ async function processOverlay() {
   } catch (error: unknown) {
     console.error('Overlay/underlay error:', error);
     showAlert(
-      t('alert.processingFailed'),
-      t('tools:pdfOverlay.msg.anErrorOccurred', {
-        value:
-          error instanceof Error ? error.message : t('common.unknownError'),
+      'Processing Failed',
+      trText('An error occurred: {{error}}.', {
+        error: error instanceof Error ? error.message : trText('Unknown error'),
       })
     );
   } finally {

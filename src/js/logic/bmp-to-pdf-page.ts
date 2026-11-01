@@ -1,8 +1,14 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
 import { downloadFile, formatBytes } from '../utils/helpers.js';
+import {
+  createDragHandle,
+  enableFileListReorder,
+  moveItem,
+} from '../utils/sortable-file-list.js';
 import { createIcons, icons } from 'lucide';
 import { PDFDocument as PDFLibDocument } from 'pdf-lib';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 let files: File[] = [];
 
@@ -18,7 +24,7 @@ async function convertImageToPngBytes(file: File): Promise<ArrayBuffer> {
         canvas.height = img.height;
         const ctx = canvas.getContext('2d');
         if (!ctx) {
-          reject(new Error('Failed to get canvas context'));
+          reject(new Error(trText('Failed to get canvas context')));
           return;
         }
         ctx.drawImage(img, 0, 0);
@@ -26,16 +32,16 @@ async function convertImageToPngBytes(file: File): Promise<ArrayBuffer> {
           canvas.toBlob(res, 'image/png')
         );
         if (!pngBlob) {
-          reject(new Error('Failed to create PNG blob'));
+          reject(new Error(trText('Failed to create PNG blob')));
           return;
         }
         const pngBytes = await pngBlob.arrayBuffer();
         resolve(pngBytes);
       };
-      img.onerror = () => reject(new Error('Failed to load image.'));
+      img.onerror = () => reject(new Error(trText('Failed to load image.')));
       img.src = e.target?.result as string;
     };
-    reader.onerror = () => reject(new Error('Failed to read file.'));
+    reader.onerror = () => reject(new Error(trText('Failed to read file.')));
     reader.readAsDataURL(file);
   });
 }
@@ -67,9 +73,11 @@ const updateUI = () => {
 
       const sizeSpan = document.createElement('span');
       sizeSpan.className = 'flex-shrink-0 text-gray-400 text-xs';
-      sizeSpan.textContent = `(${formatBytes(file.size)})`;
+      sizeSpan.textContent = trText('({{size}})', {
+        size: formatBytes(file.size),
+      });
 
-      infoContainer.append(nameSpan, sizeSpan);
+      infoContainer.append(createDragHandle(), nameSpan, sizeSpan);
 
       const removeBtn = document.createElement('button');
       removeBtn.className =
@@ -82,6 +90,10 @@ const updateUI = () => {
 
       fileDiv.append(infoContainer, removeBtn);
       fileDisplayArea.appendChild(fileDiv);
+    });
+    enableFileListReorder(fileDisplayArea, (oldIndex, newIndex) => {
+      files = moveItem(files, oldIndex, newIndex);
+      updateUI();
     });
     createIcons({ icons });
   } else {
@@ -97,10 +109,10 @@ const resetState = () => {
 
 async function convert() {
   if (files.length === 0) {
-    showAlert(t('alert.noFiles'), t('tools:bmpToPdf.alert.selectLeastOneBmp'));
+    showAlert('No Files', 'Please select at least one BMP file.');
     return;
   }
-  showLoader(t('tools:bmpToPdf.loader.convertingBmpPdf'));
+  showLoader('Converting BMP to PDF...');
   try {
     const pdfDoc = await PDFLibDocument.create();
     for (const file of files) {
@@ -119,17 +131,15 @@ async function convert() {
       new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' }),
       'from_bmps.pdf'
     );
-    showAlert(
-      t('common.success'),
-      t('alert.pdfCreatedSuccessfully'),
-      'success',
-      () => {
-        resetState();
-      }
-    );
+    showAlert('Success', 'PDF created successfully!', 'success', () => {
+      resetState();
+    });
   } catch (e) {
     console.error(e);
-    showAlert(t('common.error'), t('tools:bmpToPdf.alert.failedConvertBmpPdf'));
+    showAlert(
+      'Error',
+      'Failed to convert BMP to PDF. One of the files may be invalid.'
+    );
   } finally {
     hideLoader();
   }
@@ -158,8 +168,8 @@ onPageReady(() => {
 
     if (validFiles.length < newFiles.length) {
       showAlert(
-        t('alert.invalidFiles'),
-        t('tools:bmpToPdf.alert.someFilesWereSkipped')
+        'Invalid Files',
+        'Some files were skipped. Only BMP files are allowed.'
       );
     }
 

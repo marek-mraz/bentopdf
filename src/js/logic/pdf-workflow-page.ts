@@ -2,12 +2,8 @@ import { showAlert } from '@/js/ui.js';
 import { createWorkflowEditor, updateNodeDisplay } from '@/js/workflow/editor';
 import type { WorkflowEditor } from '@/js/workflow/editor';
 import { executeWorkflow } from '@/js/workflow/engine';
-import {
-  translateCategory,
-  translateControlLabel,
-  translateControlOption,
-  translateNodeLabel,
-} from '@/js/workflow/i18n';
+import { translateCategory, translateNodeLabel } from '@/js/workflow/i18n';
+import { onPageReady, trText } from '@/js/i18n/i18n.js';
 import type { NodeCategory } from '@/js/workflow/types';
 import {
   type BaseWorkflowNode,
@@ -51,7 +47,6 @@ import {
 import { getControlSpec } from '@/js/workflow/nodes/control-specs';
 import { isToolDisabled } from '@/js/utils/disabled-tools.js';
 import { IMAGE_ACCEPT } from '@/js/utils/image-input-utils.js';
-import { initI18n, t, onPageReady } from '../i18n/i18n';
 
 let workflowEditor: WorkflowEditor | null = null;
 let selectedNodeId: string | null = null;
@@ -63,14 +58,10 @@ async function initializePage() {
   const container = document.getElementById('rete-container');
   if (!container) return;
 
-  // The toolbox and node labels are built once, so translations must be loaded.
-  await initI18n();
   workflowEditor = await createWorkflowEditor(container);
   const { editor, area, engine } = workflowEditor;
 
   buildToolbox();
-  setStatusText(t('tools:pdfWorkflow.ready'));
-  updateNodeCount();
 
   editor.addPipe((context) => {
     if (context.type === 'nodecreated' || context.type === 'noderemoved') {
@@ -90,13 +81,16 @@ async function initializePage() {
   document.getElementById('run-btn')?.addEventListener('click', async () => {
     const allNodes = editor.getNodes() as BaseWorkflowNode[];
     if (allNodes.length === 0) {
-      showAlert(t('common.error'), t('tools:pdfWorkflow.addNodeError'));
+      showAlert('Error', 'Add at least one node to run the workflow.');
       return;
     }
     const hasInput = allNodes.some((n) => n.category === 'Input');
     const hasOutput = allNodes.some((n) => n.category === 'Output');
     if (!hasInput || !hasOutput) {
-      showAlert(t('common.error'), t('tools:pdfWorkflow.needInputOutput'));
+      showAlert(
+        'Error',
+        'Your workflow needs at least one input node and one output node to run.'
+      );
       return;
     }
 
@@ -109,13 +103,13 @@ async function initializePage() {
       await executeWorkflow(editor, engine, area, (progress) => {
         const msg =
           progress.message ||
-          t('tools:pdfWorkflow.processingNode', { node: progress.nodeName });
+          trText('Processing {{nodeName}}...', { nodeName: progress.nodeName });
         if (statusText) statusText.textContent = msg;
       });
-      setStatusText(t('tools:pdfWorkflow.workflowCompleted'));
+      if (statusText) statusText.textContent = trText('Workflow completed');
     } catch (err) {
-      setStatusText(t('tools:pdfWorkflow.errorDuringExecution'));
-      showAlert(t('common.error'), (err as Error).message);
+      if (statusText) statusText.textContent = trText('Error during execution');
+      showAlert('Error', (err as Error).message);
     } finally {
       runBtn.disabled = false;
       runBtn.classList.remove('opacity-50', 'pointer-events-none');
@@ -125,7 +119,8 @@ async function initializePage() {
   document.getElementById('clear-btn')?.addEventListener('click', async () => {
     await editor.clear();
     updateNodeCount();
-    setStatusText(t('tools:pdfWorkflow.ready'));
+    const statusText = document.getElementById('status-text');
+    if (statusText) statusText.textContent = trText('Ready');
     document.getElementById('settings-sidebar')?.classList.add('hidden');
   });
 
@@ -294,12 +289,11 @@ function updateNodeCount() {
   if (!workflowEditor) return;
   const count = workflowEditor.editor.getNodes().length;
   const el = document.getElementById('node-count');
-  if (el) el.textContent = t('tools:pdfWorkflow.nodeCount', { count });
-}
-
-function setStatusText(text: string) {
-  const el = document.getElementById('status-text');
-  if (el) el.textContent = text;
+  if (el)
+    el.textContent =
+      count !== 1
+        ? trText('{{count}} nodes', { count })
+        : trText('{{count}} node', { count });
 }
 
 function showSaveTemplateModal(
@@ -329,20 +323,20 @@ function showSaveTemplateModal(
   const doSave = () => {
     const name = nameInput.value.trim();
     if (!name) {
-      errorEl.textContent = t('tools:pdfWorkflow.enterName');
+      errorEl.textContent = trText('Please enter a name.');
       errorEl.classList.remove('hidden');
       return;
     }
     if (templateNameExists(name)) {
-      errorEl.textContent = t('tools:pdfWorkflow.templateExists');
+      errorEl.textContent = trText('A template with this name already exists.');
       errorEl.classList.remove('hidden');
       return;
     }
     saveWorkflow(editor, area, name);
     cleanup();
     showAlert(
-      t('tools:wasmSettings.savedTitle'),
-      t('tools:pdfWorkflow.templateSaved', { name }),
+      'Saved',
+      trText('Template "{{name}}" saved.', { name }),
       'success'
     );
   };
@@ -394,22 +388,19 @@ function showLoadTemplateModal(
       const loadBtn = document.createElement('button');
       loadBtn.className =
         'bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium px-3 py-1.5 rounded-md transition-colors flex-shrink-0';
-      loadBtn.textContent = t('tools:pdfWorkflow.load');
+      loadBtn.textContent = trText('Load');
       loadBtn.addEventListener('click', async () => {
         const loaded = await loadWorkflow(editor, area, name);
         cleanup();
         if (loaded) {
           updateNodeCount();
           showAlert(
-            t('tools:pdfWorkflow.alert.loaded'),
-            t('tools:pdfWorkflow.templateLoaded', { name }),
+            'Loaded',
+            trText('Template "{{name}}" loaded.', { name }),
             'success'
           );
         } else {
-          showAlert(
-            t('common.error'),
-            t('tools:pdfWorkflow.failedLoadTemplate')
-          );
+          showAlert('Error', 'Failed to load template.');
         }
       });
       row.appendChild(loadBtn);
@@ -695,7 +686,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
 
     const label = document.createElement('label');
     label.className = 'block text-xs text-gray-400 mb-1';
-    label.textContent = t('tools:pdfWorkflow.ui.pdfFiles');
+    label.textContent = trText('PDF Files');
     fileSection.appendChild(label);
 
     if (node.hasFile()) {
@@ -708,11 +699,9 @@ function showNodeSettings(node: BaseWorkflowNode) {
     const uploadBtn = document.createElement('button');
     uploadBtn.className =
       'w-full bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-2 rounded-lg transition-colors';
-    uploadBtn.textContent = t(
-      node.hasFile()
-        ? 'tools:pdfWorkflow.ui.addMoreFiles'
-        : 'tools:pdfWorkflow.ui.uploadPdfs'
-    );
+    uploadBtn.textContent = node.hasFile()
+      ? trText('Add More Files')
+      : trText('Upload PDFs');
 
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
@@ -733,20 +722,15 @@ function showNodeSettings(node: BaseWorkflowNode) {
                 await node.addDecryptedFile(file, password);
               } catch {
                 showAlert(
-                  t('common.error'),
-                  t('tools:pdfWorkflow.ui.wrongPdfPassword', {
-                    file: file.name,
+                  'Error',
+                  trText('Wrong password or failed to decrypt "{{name}}".', {
+                    name: file.name,
                   })
                 );
               }
             }
           } else {
-            showAlert(
-              t('common.error'),
-              t('tools:pdfWorkflow.ui.failedLoadPdf', {
-                message: (err as Error).message,
-              })
-            );
+            showAlert('Error', 'Failed to load PDF: ' + (err as Error).message);
           }
         }
       }
@@ -765,15 +749,14 @@ function showNodeSettings(node: BaseWorkflowNode) {
 
     const label = document.createElement('label');
     label.className = 'block text-xs text-gray-400 mb-1';
-    label.textContent = t('tools:pdfWorkflow.ui.images');
+    label.textContent = trText('Images');
     fileSection.appendChild(label);
 
     const formatHint = document.createElement('p');
     formatHint.className = 'text-[10px] text-gray-500 mb-2';
-    formatHint.textContent = t('tools:pdfWorkflow.ui.supportedFormats', {
-      formats:
-        'JPG, PNG, BMP, GIF, TIFF, WebP, HEIC, PSD, SVG, PNM, PGM, PBM, PPM, PAM, JXR, JPX, JP2',
-    });
+    formatHint.textContent = trText(
+      'Supported: JPG, PNG, BMP, GIF, TIFF, WebP, HEIC, PSD, SVG, PNM, PGM, PBM, PPM, PAM, JXR, JPX, JP2'
+    );
     fileSection.appendChild(formatHint);
 
     if (node.hasFile()) {
@@ -786,11 +769,9 @@ function showNodeSettings(node: BaseWorkflowNode) {
     const uploadBtn = document.createElement('button');
     uploadBtn.className =
       'w-full bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-2 rounded-lg transition-colors';
-    uploadBtn.textContent = t(
-      node.hasFile()
-        ? 'tools:pdfWorkflow.ui.addMoreImages'
-        : 'tools:pdfWorkflow.ui.uploadImages'
-    );
+    uploadBtn.textContent = node.hasFile()
+      ? trText('Add More Images')
+      : trText('Upload Images');
 
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
@@ -804,12 +785,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
         await node.addFiles(files);
         showNodeSettings(node);
       } catch (err) {
-        showAlert(
-          t('common.error'),
-          t('tools:pdfWorkflow.ui.failedLoadImages', {
-            message: (err as Error).message,
-          })
-        );
+        showAlert('Error', 'Failed to load images: ' + (err as Error).message);
       }
     });
 
@@ -825,7 +801,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
 
     const certLabel = document.createElement('label');
     certLabel.className = 'block text-xs text-gray-400 mb-1';
-    certLabel.textContent = t('tools:pdfWorkflow.ui.certificate');
+    certLabel.textContent = trText('Certificate (.pfx, .p12, .pem)');
     certSection.appendChild(certLabel);
 
     if (node.hasCertFile()) {
@@ -843,7 +819,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
       const removeBtn = document.createElement('button');
       removeBtn.className =
         'text-red-400 hover:text-red-300 text-xs flex-shrink-0';
-      removeBtn.textContent = t('common.remove');
+      removeBtn.textContent = trText('Remove');
       removeBtn.addEventListener('click', () => {
         node.removeCert();
         showNodeSettings(node);
@@ -858,7 +834,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
 
         const pwLabel = document.createElement('label');
         pwLabel.className = 'block text-xs text-gray-400 mb-1';
-        pwLabel.textContent = t('tools:pdfWorkflow.ui.certificatePassword');
+        pwLabel.textContent = trText('Certificate Password');
         pwSection.appendChild(pwLabel);
 
         const pwRow = document.createElement('div');
@@ -866,16 +842,14 @@ function showNodeSettings(node: BaseWorkflowNode) {
 
         const pwInput = document.createElement('input');
         pwInput.type = 'password';
-        pwInput.placeholder = t(
-          'tools:pdfWorkflow.ui.enterPasswordPlaceholder'
-        );
+        pwInput.placeholder = trText('Enter password...');
         pwInput.className =
           'flex-1 bg-gray-700 border border-gray-600 text-white text-xs px-3 py-2 rounded-lg focus:outline-none focus:border-indigo-500';
 
         const unlockBtn = document.createElement('button');
         unlockBtn.className =
           'bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-2 rounded-lg transition-colors flex-shrink-0';
-        unlockBtn.textContent = t('tools:pdfWorkflow.ui.unlock');
+        unlockBtn.textContent = trText('Unlock');
 
         const statusMsg = document.createElement('div');
         statusMsg.className = 'text-xs mt-1 hidden';
@@ -883,15 +857,15 @@ function showNodeSettings(node: BaseWorkflowNode) {
         const doUnlock = async () => {
           const pw = pwInput.value;
           if (!pw) return;
-          unlockBtn.textContent = t('tools:pdfWorkflow.ui.unlocking');
+          unlockBtn.textContent = trText('Unlocking...');
           unlockBtn.disabled = true;
           const success = await node.unlockCert(pw);
           if (success) {
             showNodeSettings(node);
           } else {
-            unlockBtn.textContent = t('tools:pdfWorkflow.ui.unlock');
+            unlockBtn.textContent = trText('Unlock');
             unlockBtn.disabled = false;
-            statusMsg.textContent = t('tools:pdfWorkflow.ui.incorrectPassword');
+            statusMsg.textContent = trText('Incorrect password');
             statusMsg.className = 'text-xs mt-1 text-red-400';
             statusMsg.classList.remove('hidden');
           }
@@ -908,7 +882,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
       } else if (node.hasCert()) {
         const okMsg = document.createElement('div');
         okMsg.className = 'text-xs text-green-400 mb-2';
-        okMsg.textContent = t('tools:pdfWorkflow.ui.certificateUnlocked');
+        okMsg.textContent = trText('Certificate unlocked');
         certSection.appendChild(okMsg);
       }
     }
@@ -916,11 +890,9 @@ function showNodeSettings(node: BaseWorkflowNode) {
     const uploadBtn = document.createElement('button');
     uploadBtn.className =
       'w-full bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-2 rounded-lg transition-colors';
-    uploadBtn.textContent = t(
-      node.hasCertFile()
-        ? 'tools:pdfWorkflow.ui.changeCertificate'
-        : 'tools:pdfWorkflow.ui.uploadCertificate'
-    );
+    uploadBtn.textContent = node.hasCertFile()
+      ? trText('Change Certificate')
+      : trText('Upload Certificate');
 
     const certInput = document.createElement('input');
     certInput.type = 'file';
@@ -961,119 +933,160 @@ function showNodeSettings(node: BaseWorkflowNode) {
     addFiles(files: File[]): Promise<void>;
   }
 
-  // Labels: tools:pdfWorkflow.fileInputs.<key>.label and .files
   const fileInputConfigs: {
     cls: new (...args: unknown[]) => FileInputNode;
-    key: string;
+    label: string;
     accept: string;
-    formats?: string;
+    uploadLabel: string;
+    addMoreLabel: string;
+    hint?: string;
   }[] = [
     {
       cls: WordToPdfNode,
-      key: 'word',
+      label: trText('Word Documents'),
       accept: '.doc,.docx,.odt,.rtf',
-      formats: 'DOC, DOCX, ODT, RTF',
+      uploadLabel: trText('Upload Documents'),
+      addMoreLabel: trText('Add More Documents'),
+      hint: trText('Supported: DOC, DOCX, ODT, RTF'),
     },
     {
       cls: ExcelToPdfNode,
-      key: 'excel',
+      label: trText('Spreadsheets'),
       accept: '.xlsx,.xls,.ods,.csv',
-      formats: 'XLSX, XLS, ODS, CSV',
+      uploadLabel: trText('Upload Spreadsheets'),
+      addMoreLabel: trText('Add More Spreadsheets'),
+      hint: trText('Supported: XLSX, XLS, ODS, CSV'),
     },
     {
       cls: PowerPointToPdfNode,
-      key: 'powerpoint',
+      label: trText('Presentations'),
       accept: '.ppt,.pptx,.odp',
-      formats: 'PPT, PPTX, ODP',
+      uploadLabel: trText('Upload Presentations'),
+      addMoreLabel: trText('Add More Presentations'),
+      hint: trText('Supported: PPT, PPTX, ODP'),
     },
     {
       cls: TextToPdfNode,
-      key: 'text',
+      label: trText('Text Files'),
       accept: '.txt',
+      uploadLabel: trText('Upload Text Files'),
+      addMoreLabel: trText('Add More Text Files'),
     },
     {
       cls: SvgToPdfNode,
-      key: 'svg',
+      label: trText('SVG Files'),
       accept: '.svg',
+      uploadLabel: trText('Upload SVG Files'),
+      addMoreLabel: trText('Add More SVG Files'),
     },
     {
       cls: EpubToPdfNode,
-      key: 'epub',
+      label: trText('EPUB Files'),
       accept: '.epub',
+      uploadLabel: trText('Upload EPUB Files'),
+      addMoreLabel: trText('Add More EPUB Files'),
     },
     {
       cls: EmailToPdfNode,
-      key: 'email',
+      label: trText('Email Files'),
       accept: '.eml,.msg',
-      formats: 'EML, MSG',
+      uploadLabel: trText('Upload Email Files'),
+      addMoreLabel: trText('Add More Email Files'),
+      hint: trText('Supported: EML, MSG'),
     },
     {
       cls: XpsToPdfNode,
-      key: 'xps',
+      label: trText('XPS Files'),
       accept: '.xps,.oxps',
-      formats: 'XPS, OXPS',
+      uploadLabel: trText('Upload XPS Files'),
+      addMoreLabel: trText('Add More XPS Files'),
+      hint: trText('Supported: XPS, OXPS'),
     },
     {
       cls: MobiToPdfNode,
-      key: 'mobi',
+      label: trText('MOBI Files'),
       accept: '.mobi',
+      uploadLabel: trText('Upload MOBI Files'),
+      addMoreLabel: trText('Add More MOBI Files'),
     },
     {
       cls: Fb2ToPdfNode,
-      key: 'fb2',
+      label: trText('FB2 Files'),
       accept: '.fb2',
+      uploadLabel: trText('Upload FB2 Files'),
+      addMoreLabel: trText('Add More FB2 Files'),
     },
     {
       cls: CbzToPdfNode,
-      key: 'cbz',
+      label: trText('Comic Archives'),
       accept: '.cbz,.cbr',
-      formats: 'CBZ, CBR',
+      uploadLabel: trText('Upload Comics'),
+      addMoreLabel: trText('Add More Comics'),
+      hint: trText('Supported: CBZ, CBR'),
     },
     {
       cls: MarkdownToPdfNode,
-      key: 'markdown',
+      label: trText('Markdown Files'),
       accept: '.md,.markdown',
+      uploadLabel: trText('Upload Markdown Files'),
+      addMoreLabel: trText('Add More Markdown Files'),
     },
     {
       cls: JsonToPdfNode,
-      key: 'json',
+      label: trText('JSON Files'),
       accept: '.json',
+      uploadLabel: trText('Upload JSON Files'),
+      addMoreLabel: trText('Add More JSON Files'),
     },
     {
       cls: XmlToPdfNode,
-      key: 'xml',
+      label: trText('XML Files'),
       accept: '.xml',
+      uploadLabel: trText('Upload XML Files'),
+      addMoreLabel: trText('Add More XML Files'),
     },
     {
       cls: WpdToPdfNode,
-      key: 'wpd',
+      label: trText('WordPerfect Files'),
       accept: '.wpd',
+      uploadLabel: trText('Upload WPD Files'),
+      addMoreLabel: trText('Add More WPD Files'),
     },
     {
       cls: WpsToPdfNode,
-      key: 'wps',
+      label: trText('WPS Files'),
       accept: '.wps',
+      uploadLabel: trText('Upload WPS Files'),
+      addMoreLabel: trText('Add More WPS Files'),
     },
     {
       cls: PagesToPdfNode,
-      key: 'pages',
+      label: trText('Pages Files'),
       accept: '.pages',
+      uploadLabel: trText('Upload Pages Files'),
+      addMoreLabel: trText('Add More Pages Files'),
     },
     {
       cls: OdgToPdfNode,
-      key: 'odg',
+      label: trText('ODG Files'),
       accept: '.odg',
+      uploadLabel: trText('Upload ODG Files'),
+      addMoreLabel: trText('Add More ODG Files'),
     },
     {
       cls: PubToPdfNode,
-      key: 'pub',
+      label: trText('Publisher Files'),
       accept: '.pub',
+      uploadLabel: trText('Upload PUB Files'),
+      addMoreLabel: trText('Add More PUB Files'),
     },
     {
       cls: VsdToPdfNode,
-      key: 'vsd',
+      label: trText('Visio Files'),
       accept: '.vsd,.vsdx',
-      formats: 'VSD, VSDX',
+      uploadLabel: trText('Upload Visio Files'),
+      addMoreLabel: trText('Add More Visio Files'),
+      hint: trText('Supported: VSD, VSDX'),
     },
   ];
 
@@ -1084,16 +1097,13 @@ function showNodeSettings(node: BaseWorkflowNode) {
 
     const label = document.createElement('label');
     label.className = 'block text-xs text-gray-400 mb-1';
-    const fileKey = `tools:pdfWorkflow.fileInputs.${fileInputConfig.key}`;
-    label.textContent = t(`${fileKey}.label`);
+    label.textContent = fileInputConfig.label;
     fileSection.appendChild(label);
 
-    if (fileInputConfig.formats) {
+    if (fileInputConfig.hint) {
       const hint = document.createElement('p');
       hint.className = 'text-[10px] text-gray-500 mb-2';
-      hint.textContent = t('tools:pdfWorkflow.ui.supportedFormats', {
-        formats: fileInputConfig.formats,
-      });
+      hint.textContent = fileInputConfig.hint;
       fileSection.appendChild(hint);
     }
 
@@ -1107,12 +1117,9 @@ function showNodeSettings(node: BaseWorkflowNode) {
     const uploadBtn = document.createElement('button');
     uploadBtn.className =
       'w-full bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-2 rounded-lg transition-colors';
-    uploadBtn.textContent = t(
-      fileNode.hasFile()
-        ? 'tools:pdfWorkflow.ui.addMoreOf'
-        : 'tools:pdfWorkflow.ui.uploadOf',
-      { files: t(`${fileKey}.files`) }
-    );
+    uploadBtn.textContent = fileNode.hasFile()
+      ? fileInputConfig.addMoreLabel
+      : fileInputConfig.uploadLabel;
 
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
@@ -1127,9 +1134,9 @@ function showNodeSettings(node: BaseWorkflowNode) {
         showNodeSettings(node);
       } catch (err) {
         showAlert(
-          t('common.error'),
-          t('tools:pdfWorkflow.ui.failedLoadFiles', {
-            message: (err as Error).message,
+          'Error',
+          trText('Failed to load files: {{error}}', {
+            error: (err as Error).message,
           })
         );
       }
@@ -1154,25 +1161,28 @@ function showNodeSettings(node: BaseWorkflowNode) {
   if (controlEntries.length === 0) {
     const empty = document.createElement('p');
     empty.className = 'text-xs text-gray-500';
-    empty.textContent = t('tools:pdfWorkflow.noSettings');
+    empty.textContent = trText('No configurable settings for this node.');
     content.appendChild(empty);
     return;
   }
 
   const advancedControls = new Set(['resolution', 'binarize', 'whitelist']);
 
-  // English text: tools:pdfWorkflow.hints.<control key>
-  const hintedControls = new Set([
-    'pages',
-    'whitelist',
-    'afterPage',
-    'x0',
-    'y0',
-    'x1',
-    'y1',
-    'targetKilobytes',
-    'retainPageLabels',
-  ]);
+  const controlHints: Record<string, string> = {
+    pages: 'e.g. 1-3, 5, 7-9',
+    whitelist: trText('Limit recognized characters (leave empty for all)'),
+    afterPage: trText('Insert blank pages after this page number'),
+    x0: trText('Left edge in points (1 inch = 72 pts)'),
+    y0: trText('Top edge in points'),
+    x1: trText('Right edge in points'),
+    y1: trText('Bottom edge in points'),
+    targetKilobytes: trText(
+      'Finds the best quality under this size. 0 means no target.'
+    ),
+    retainPageLabels: trText(
+      "Off (default): natural 1–N numbering. On: each file's original page labels are preserved (may produce duplicate labels)."
+    ),
+  };
 
   const inputClass =
     'w-full bg-gray-900 border border-gray-600 text-white rounded-md px-2 py-1.5 text-xs focus:border-indigo-500 focus:outline-none';
@@ -1200,7 +1210,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
 
     const controlLabel = document.createElement('label');
     controlLabel.className = 'block text-xs text-gray-400 mb-1';
-    controlLabel.textContent = translateControlLabel(key);
+    controlLabel.textContent = trText(formatLabel(key));
     wrapper.appendChild(controlLabel);
 
     if (spec?.kind === 'multiselect') {
@@ -1213,7 +1223,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
 
       const searchInput = document.createElement('input');
       searchInput.type = 'text';
-      searchInput.placeholder = t('tools:pdfWorkflow.ui.searchLanguages');
+      searchInput.placeholder = trText('Search languages...');
       searchInput.className = inputClass;
       container.appendChild(searchInput);
 
@@ -1234,7 +1244,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
           const tag = document.createElement('span');
           tag.className =
             'inline-flex items-center gap-1 px-2 py-0.5 rounded bg-indigo-600 text-white text-[10px]';
-          tag.textContent = opt.label;
+          tag.textContent = trText(opt.label);
           const removeBtn = document.createElement('button');
           removeBtn.type = 'button';
           removeBtn.textContent = '\u00d7';
@@ -1260,7 +1270,10 @@ function showNodeSettings(node: BaseWorkflowNode) {
         listDiv.innerHTML = '';
         const lowerFilter = filter.toLowerCase();
         for (const opt of options) {
-          if (lowerFilter && !opt.label.toLowerCase().includes(lowerFilter))
+          if (
+            lowerFilter &&
+            !trText(opt.label).toLowerCase().includes(lowerFilter)
+          )
             continue;
           const label = document.createElement('label');
           label.className =
@@ -1280,7 +1293,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
             updateCtrl();
           });
           label.appendChild(cb);
-          label.appendChild(document.createTextNode(opt.label));
+          label.appendChild(document.createTextNode(trText(opt.label)));
           listDiv.appendChild(label);
         }
       }
@@ -1298,7 +1311,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
       for (const opt of spec.options) {
         const option = document.createElement('option');
         option.value = opt.value;
-        option.textContent = translateControlOption(key, opt.value, opt.label);
+        option.textContent = trText(opt.label);
         if (currentValue === opt.value) option.selected = true;
         select.appendChild(option);
       }
@@ -1382,10 +1395,10 @@ function showNodeSettings(node: BaseWorkflowNode) {
       wrapper.appendChild(input);
     }
 
-    if (hintedControls.has(key)) {
+    if (controlHints[key]) {
       const hint = document.createElement('p');
       hint.className = 'text-[10px] text-gray-500 mt-1';
-      hint.textContent = t(`tools:pdfWorkflow.hints.${key}`);
+      hint.textContent = controlHints[key];
       wrapper.appendChild(hint);
     }
 
@@ -1431,7 +1444,7 @@ function showNodeSettings(node: BaseWorkflowNode) {
     summary.className =
       'text-xs font-medium text-gray-400 cursor-pointer select-none flex items-center justify-between';
     const summaryText = document.createElement('span');
-    summaryText.textContent = t('tools:pdfWorkflow.advancedSettings');
+    summaryText.textContent = trText('Advanced Settings');
     summary.appendChild(summaryText);
     const chevron = document.createElement('i');
     chevron.className =
@@ -1451,4 +1464,11 @@ function showNodeSettings(node: BaseWorkflowNode) {
     details.appendChild(advancedContent);
     content.appendChild(details);
   }
+}
+
+function formatLabel(key: string): string {
+  return key
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/^./, (c) => c.toUpperCase())
+    .trim();
 }

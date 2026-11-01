@@ -7,7 +7,8 @@ import {
   type LoadProgress,
 } from '../utils/libreoffice-loader.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 onPageReady(() => {
   state.files = [];
@@ -88,10 +89,7 @@ onPageReady(() => {
   const convertToPdf = async () => {
     try {
       if (state.files.length === 0) {
-        showAlert(
-          t('alert.noFiles'),
-          t('tools:rtfToPdf.alert.selectLeastOneRtf')
-        );
+        showAlert('No Files', 'Please select at least one RTF file.');
         hideLoader();
         return;
       }
@@ -106,7 +104,7 @@ onPageReady(() => {
       if (state.files.length === 1) {
         const originalFile = state.files[0];
 
-        showLoader(t('loader.processing'));
+        showLoader('Processing...');
 
         const pdfBlob = await converter.convertToPdf(originalFile);
 
@@ -117,15 +115,15 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:rtfToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: originalFile.name,
           }),
           'success',
           () => resetState()
         );
       } else {
-        showLoader(t('tools:rtfToPdf.loader.convertingMultipleRtfFiles'));
+        showLoader('Converting multiple RTF files to PDF...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
         const usedNames = new Set<string>();
@@ -133,9 +131,9 @@ onPageReady(() => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:rtfToPdf.msg.converting', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -158,9 +156,9 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:rtfToPdf.msg.successfullyConvertedRtfFileSTo', {
-            count: state.files.length,
+          'Conversion Complete',
+          trText('Successfully converted {{length}} RTF file(s) to PDF.', {
+            length: state.files.length,
           }),
           'success',
           () => resetState()
@@ -169,9 +167,9 @@ onPageReady(() => {
     } catch (e: unknown) {
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:rtfToPdf.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

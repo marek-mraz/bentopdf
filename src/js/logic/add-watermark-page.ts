@@ -22,7 +22,8 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: AddWatermarkState = {
   file: null,
@@ -118,16 +119,13 @@ function handleFileUpload(e: Event) {
 async function handleFiles(files: FileList) {
   const file = files[0];
   if (!file || file.type !== 'application/pdf') {
-    showAlert(
-      t('tools:addPageLabels.invalidFileTitle'),
-      t('tools:addPageLabels.invalidFileMessage')
-    );
+    showAlert('Invalid File', 'Please upload a valid PDF file.');
     return;
   }
   try {
     const result = await loadPdfWithPasswordPrompt(file);
     if (!result) return;
-    showLoader(t('tools:addPageLabels.loadingPdf'));
+    showLoader('Loading PDF...');
     const pdfBytes = new Uint8Array(result.bytes);
     pageState.pdfDoc = await loadPdfDocument(pdfBytes);
     pageState.file = result.file;
@@ -145,11 +143,10 @@ async function handleFiles(files: FileList) {
 
     const editorFileInfo = document.getElementById('editor-file-info');
     if (editorFileInfo) {
-      editorFileInfo.textContent = t('tools:addWatermark.msg.pages', {
-        name: file.name,
-        value: formatBytes(file.size),
-        totalPageCount,
-      });
+      editorFileInfo.textContent = trText(
+        '{{name}} ({{size}}, {{totalPageCount}} pages)',
+        { name: file.name, size: formatBytes(file.size), totalPageCount }
+      );
     }
 
     updatePageNavUI();
@@ -157,7 +154,7 @@ async function handleFiles(files: FileList) {
     updateWatermarkOverlay();
   } catch (error) {
     console.error(error);
-    showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+    showAlert('Error', 'Failed to load PDF file.');
   } finally {
     hideLoader();
   }
@@ -177,9 +174,9 @@ function updateFileDisplay() {
   nameSpan.textContent = pageState.file.name;
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+  metaSpan.textContent = trText('{{size}} • {{getPageCount}} pages', {
     size: formatBytes(pageState.file.size),
-    count: pageState.pdfDoc.getPageCount(),
+    getPageCount: pageState.pdfDoc.getPageCount(),
   });
   infoContainer.append(nameSpan, metaSpan);
   const removeBtn = document.createElement('button');
@@ -1048,11 +1045,11 @@ function setupDragHandlers(container: HTMLElement) {
 
 async function applyWatermark() {
   if (!pageState.pdfDoc || !pageState.pdfBytes) {
-    showAlert(t('common.error'), t('tools:addPageLabels.uploadFirstMessage'));
+    showAlert('Error', 'Please upload a PDF file first.');
     return;
   }
 
-  showLoader(t('tools:addWatermark.loader.addingWatermark'));
+  showLoader('Adding watermark...');
 
   try {
     saveCurrentPageConfig();
@@ -1075,9 +1072,7 @@ async function applyWatermark() {
       if (config.type === 'text') {
         const text = config.text;
         if (!text.trim())
-          throw new Error(
-            t('tools:addWatermark.msg.pleaseEnterTextForTheWatermark')
-          );
+          throw new Error(trText('Please enter text for the watermark.'));
         const textColor = hexToRgb(config.color);
 
         resultBytes = new Uint8Array(
@@ -1099,7 +1094,7 @@ async function applyWatermark() {
         const imageFile = config.imageFile;
         if (!imageFile)
           throw new Error(
-            t('tools:addWatermark.msg.pleaseSelectAnImageFileFor')
+            trText('Please select an image file for the watermark.')
           );
         const imageBytes = await readFileAsArrayBuffer(imageFile);
 
@@ -1110,7 +1105,9 @@ async function applyWatermark() {
           imageType = 'jpg';
         } else {
           throw new Error(
-            t('tools:addWatermark.msg.unsupportedImagePleaseUseAPng')
+            trText(
+              'Unsupported Image. Please use a PNG or JPG for the watermark.'
+            )
           );
         }
 
@@ -1235,7 +1232,10 @@ async function applyWatermark() {
 
       for (let i = 1; i <= totalPages; i++) {
         showLoader(
-          t('tools:addWatermark.msg.flatteningPageOf', { i, totalPages })
+          trText('Flattening page {{i}} of {{totalPages}}...', {
+            i,
+            totalPages,
+          })
         );
         const page = await watermarkedPdf.getPage(i);
         const unscaledVP = page.getViewport({ scale: 1 });
@@ -1275,18 +1275,12 @@ async function applyWatermark() {
       new Blob([new Uint8Array(resultBytes)], { type: 'application/pdf' }),
       pageState.file?.name || 'document.pdf'
     );
-    showAlert(
-      t('common.success'),
-      t('tools:addWatermark.alert.watermarkAddedSuccessfully'),
-      'success'
-    );
+    showAlert('Success', 'Watermark added successfully!', 'success');
   } catch (e: unknown) {
     console.error(e);
     showAlert(
-      t('common.error'),
-      e instanceof Error
-        ? e.message
-        : t('tools:addWatermark.alert.couldNotAddWatermark')
+      'Error',
+      e instanceof Error ? e.message : 'Could not add the watermark.'
     );
   } finally {
     hideLoader();

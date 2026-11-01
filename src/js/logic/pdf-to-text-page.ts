@@ -5,7 +5,8 @@ import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import type { PyMuPDFInstance } from '@/types';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 let files: File[] = [];
 let pymupdf: PyMuPDFInstance | null = null;
@@ -89,8 +90,8 @@ function handleFiles(newFiles: FileList) {
 
   if (validFiles.length < newFiles.length) {
     showAlert(
-      t('alert.invalidFiles'),
-      t('tools:pdfToText.alert.someFilesWereSkipped')
+      'Invalid Files',
+      'Some files were skipped. Only PDF files are allowed.'
     );
   }
 
@@ -132,7 +133,9 @@ function updateUI() {
 
       const sizeSpan = document.createElement('span');
       sizeSpan.className = 'flex-shrink-0 text-gray-400 text-xs';
-      sizeSpan.textContent = `(${formatBytes(file.size)})`;
+      sizeSpan.textContent = trText('({{size}})', {
+        size: formatBytes(file.size),
+      });
 
       infoContainer.append(nameSpan, sizeSpan);
 
@@ -164,23 +167,23 @@ async function ensurePyMuPDF(): Promise<PyMuPDFInstance> {
 
 async function extractText() {
   if (files.length === 0) {
-    showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+    showAlert('No Files', 'Please select at least one PDF file.');
     return;
   }
 
-  showLoader(t('loader.loadingEngine'));
+  showLoader('Loading engine...');
 
   try {
     const mupdf = await ensurePyMuPDF();
 
     hideLoader();
     files = await batchDecryptIfNeeded(files);
-    showLoader(t('tools:pdfToText.loader.extractingText'));
+    showLoader('Extracting text...');
 
     if (files.length === 1) {
       const file = files[0];
       showLoader(
-        t('tools:pdfToText.msg.extractingTextFrom', { name: file.name })
+        trText('Extracting text from {{name}}...', { name: file.name })
       );
 
       const fullText = await mupdf.pdfToText(file);
@@ -192,16 +195,11 @@ async function extractText() {
       downloadFile(textBlob, `${baseName}.txt`);
 
       hideLoader();
-      showAlert(
-        t('common.success'),
-        t('tools:pdfToText.alert.textExtractedSuccessfully'),
-        'success',
-        () => {
-          resetState();
-        }
-      );
+      showAlert('Success', 'Text extracted successfully!', 'success', () => {
+        resetState();
+      });
     } else {
-      showLoader(t('tools:pdfToText.loader.extractingTextFromMultiple'));
+      showLoader('Extracting text from multiple files...');
 
       const JSZip = (await import('jszip')).default;
       const zip = new JSZip();
@@ -210,9 +208,9 @@ async function extractText() {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         showLoader(
-          t('tools:pdfToText.msg.extractingTextFromFile', {
-            value: i + 1,
-            count: files.length,
+          trText('Extracting text from file {{n}}/{{length}}: {{name}}...', {
+            n: i + 1,
+            length: files.length,
             name: file.name,
           })
         );
@@ -229,9 +227,9 @@ async function extractText() {
 
       hideLoader();
       showAlert(
-        t('common.success'),
-        t('tools:pdfToText.msg.extractedTextFromPdfFiles', {
-          count: files.length,
+        'Success',
+        trText('Extracted text from {{length}} PDF files!', {
+          length: files.length,
         }),
         'success',
         () => {
@@ -243,10 +241,8 @@ async function extractText() {
     console.error('[PDFToText]', e);
     hideLoader();
     showAlert(
-      t('tools:pdfToText.alert.extractionError'),
-      e instanceof Error
-        ? e.message
-        : t('tools:pdfToText.alert.failedExtractTextFrom')
+      'Extraction Error',
+      e instanceof Error ? e.message : 'Failed to extract text from PDF.'
     );
   }
 }

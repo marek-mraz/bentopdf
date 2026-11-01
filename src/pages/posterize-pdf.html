@@ -152,10 +152,7 @@
           <!-- Preview Section -->
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-300">
-              <span data-i18n="tools:posterizePdf.ui.pagePreview"
-                >Page Preview</span
-              >
-              (<span id="current-preview-page">1</span> /
+              Page Preview (<span id="current-preview-page">1</span> /
               <span id="total-preview-pages">1</span>)
             </label>
             <div
@@ -183,16 +180,10 @@
 
           <!-- Grid Layout -->
           <div class="p-4 bg-gray-900 border border-gray-700 rounded-lg">
-            <h3
-              data-i18n="tools:posterizePdf.ui.gridLayout"
-              class="text-lg font-semibold text-white mb-3"
-            >
-              Grid Layout
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-3">Grid Layout</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label
-                  data-i18n="tools:posterizePdf.ui.rows"
                   for="posterize-rows"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Rows</label
@@ -207,7 +198,6 @@
               </div>
               <div>
                 <label
-                  data-i18n="tools:posterizePdf.ui.columns"
                   for="posterize-cols"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Columns</label
@@ -225,16 +215,12 @@
 
           <!-- Output Page Settings -->
           <div class="p-4 bg-gray-900 border border-gray-700 rounded-lg">
-            <h3
-              data-i18n="tools:posterizePdf.ui.outputPageSettings"
-              class="text-lg font-semibold text-white mb-3"
-            >
+            <h3 class="text-lg font-semibold text-white mb-3">
               Output Page Settings
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label
-                  data-i18n="tools:posterizePdf.ui.pageSize"
                   for="output-page-size"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Page Size</label
@@ -244,20 +230,14 @@
                   class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
                 >
                   <option value="A4" selected>A4</option>
-                  <option
-                    data-i18n="tools:posterizePdf.ui.letter"
-                    value="Letter"
-                  >
-                    Letter
-                  </option>
-                  <option data-i18n="footer.legal" value="Legal">Legal</option>
+                  <option value="Letter">Letter</option>
+                  <option value="Legal">Legal</option>
                   <option value="A3">A3</option>
                   <option value="A5">A5</option>
                 </select>
               </div>
               <div>
                 <label
-                  data-i18n="toolPage.orientation"
                   for="output-orientation"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Orientation</label
@@ -266,19 +246,9 @@
                   id="output-orientation"
                   class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
                 >
-                  <option
-                    data-i18n="tools:posterizePdf.ui.automaticRecommended"
-                    value="auto"
-                    selected
-                  >
-                    Automatic (Recommended)
-                  </option>
-                  <option data-i18n="toolPage.portrait" value="portrait">
-                    Portrait
-                  </option>
-                  <option data-i18n="toolPage.landscape" value="landscape">
-                    Landscape
-                  </option>
+                  <option value="auto" selected>Automatic (Recommended)</option>
+                  <option value="portrait">Portrait</option>
+                  <option value="landscape">Landscape</option>
                 </select>
               </div>
             </div>
@@ -286,18 +256,13 @@
 
           <!-- Advanced Options -->
           <div class="p-4 bg-gray-900 border border-gray-700 rounded-lg">
-            <h3
-              data-i18n="tools:posterizePdf.ui.advancedOptions"
-              class="text-lg font-semibold text-white mb-3"
-            >
+            <h3 class="text-lg font-semibold text-white mb-3">
               Advanced Options
             </h3>
             <div class="space-y-4">
               <!-- Content Scaling -->
               <div>
-                <label
-                  data-i18n="tools:posterizePdf.ui.contentScaling"
-                  class="block mb-2 text-sm font-medium text-gray-300"
+                <label class="block mb-2 text-sm font-medium text-gray-300"
                   >Content Scaling</label
                 >
                 <div class="flex gap-4 p-2 rounded-lg bg-gray-800">
@@ -312,15 +277,8 @@
                       class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
                     />
                     <div>
-                      <span
-                        data-i18n="toolPage.fit"
-                        class="font-semibold text-white"
-                        >Fit</span
-                      >
-                      <p
-                        data-i18n="tools:posterizePdf.ui.preservesAllContentMayAdd"
-                        class="text-xs text-gray-400"
-                      >
+                      <span class="font-semibold text-white">Fit</span>
+                      <p class="text-xs text-gray-400">
                         Preserves all content, may add margins.
                       </p>
                     </div>
@@ -335,15 +293,8 @@
                       class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500"
                     />
                     <div>
-                      <span
-                        data-i18n="tools:posterizePdf.ui.fillCrop"
-                        class="font-semibold text-white"
-                        >Fill (Crop)</span
-                      >
-                      <p
-                        data-i18n="tools:posterizePdf.ui.fillsPageMayCropContent"
-                        class="text-xs text-gray-400"
-                      >
+                      <span class="font-semibold text-white">Fill (Crop)</span>
+                      <p class="text-xs text-gray-400">
                         Fills the page, may crop content.
                       </p>
                     </div>
@@ -354,7 +305,6 @@
               <!-- Overlap -->
               <div>
                 <label
-                  data-i18n="tools:posterizePdf.ui.overlapAssembly"
                   for="overlap"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Overlap (for assembly)</label
@@ -371,15 +321,9 @@
                     id="overlap-units"
                     class="bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
                   >
-                    <option data-i18n="tools:posterizePdf.ui.points" value="pt">
-                      Points
-                    </option>
-                    <option data-i18n="tools:posterizePdf.ui.inches" value="in">
-                      Inches
-                    </option>
-                    <option data-i18n="tools:posterizePdf.ui.mm" value="mm">
-                      mm
-                    </option>
+                    <option value="pt">Points</option>
+                    <option value="in">Inches</option>
+                    <option value="mm">mm</option>
                   </select>
                 </div>
               </div>
@@ -387,34 +331,24 @@
               <!-- Page Range -->
               <div>
                 <label
-                  data-i18n="tools:posterizePdf.ui.pageRangeOptional"
                   for="page-range"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Page Range (optional)</label
                 >
                 <input
-                  data-i18n-placeholder="tools:posterizePdf.ui.pageRangePlaceholder"
                   type="text"
                   id="page-range"
                   class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
                   placeholder="e.g., 1-3, 5"
                 />
                 <p class="text-xs text-gray-400 mt-1">
-                  <span data-i18n="tools:posterizePdf.ui.totalPages"
-                    >Total pages:</span
-                  >
-                  <span id="total-pages">0</span>
+                  Total pages: <span id="total-pages">0</span>
                 </p>
               </div>
             </div>
           </div>
 
-          <button
-            data-i18n="tools:posterizePdf.name"
-            id="process-btn"
-            class="btn-gradient w-full"
-            disabled
-          >
+          <button id="process-btn" class="btn-gradient w-full" disabled>
             Posterize PDF
           </button>
         </div>
@@ -483,12 +417,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -501,12 +430,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -519,12 +443,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -546,74 +465,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -629,13 +510,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="posterize-pdf.1.q"
-              >How do I print a large PDF across several A4 or Letter
-              sheets?</span
-            >
+            How do I print a large PDF across several A4 or Letter sheets?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="posterize-pdf.1.a">
+          <p class="faq-d-a">
             Set Rows and Columns to the grid you want, for example 2 rows and 2
             columns to split a page into four sheets, choose the output page
             size, and click the button. Each grid cell becomes one page in the
@@ -648,12 +526,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="posterize-pdf.2.q"
-              >What is the overlap setting for?</span
-            >
+            What is the overlap setting for?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="posterize-pdf.2.a">
+          <p class="faq-d-a">
             Overlap extends each tile a little into its neighbors, in points,
             inches, or millimeters, so the sheets share a strip you can glue or
             tape without a gap at the seam. Leave it at 0 if you want tiles that
@@ -662,13 +538,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="posterize-pdf.3.q"
-              >What's the difference between Fit and Fill when
-              posterizing?</span
-            >
+            What's the difference between Fit and Fill when posterizing?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="posterize-pdf.3.a">
+          <p class="faq-d-a">
             Fit scales each tile so the whole thing lands on the output page,
             leaving white margins if the shapes don't match. Fill (Crop) scales
             the tile up until it covers the page completely, which removes
@@ -677,12 +550,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="posterize-pdf.4.q"
-              >Can I posterize just one page of the document?</span
-            >
+            Can I posterize just one page of the document?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="posterize-pdf.4.a">
+          <p class="faq-d-a">
             Type the pages in the Page range box, for example 1 or 1-3, 5. Only
             those pages are split and included in the output; pages outside the
             range are left out entirely, so extract them separately if you still
@@ -691,12 +562,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="posterize-pdf.5.q"
-              >Is the output still vector, or is it turned into images?</span
-            >
+            Is the output still vector, or is it turned into images?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="posterize-pdf.5.a">
+          <p class="faq-d-a">
             Each page is rendered at double resolution and the tiles are saved
             as PNG images, so the result is raster rather than vector. That's
             fine for printing at poster sizes, but the text is no longer
@@ -705,12 +574,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="posterize-pdf.6.q"
-              >How many pages will the result have?</span
-            >
+            How many pages will the result have?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="posterize-pdf.6.a">
+          <p class="faq-d-a">
             Rows multiplied by columns for every page you posterize, so a 3x3
             grid turns one page into nine and a 2x2 grid applied to a three page
             document produces twelve. Tiles are ordered row by row from left to
@@ -719,12 +586,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="posterize-pdf.7.q"
-              >What output sizes and orientations can I use?</span
-            >
+            What output sizes and orientations can I use?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="posterize-pdf.7.a">
+          <p class="faq-d-a">
             A4, Letter, Legal, A3, or A5, with orientation set to Portrait,
             Landscape, or Automatic, which follows the shape of the source page.
             The preview shows dashed red lines where the cuts will fall so you
@@ -733,12 +598,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="posterize-pdf.8.q"
-              >Is my PDF uploaded to tile it?</span
-            >
+            Is my PDF uploaded to tile it?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="posterize-pdf.8.a">
+          <p class="faq-d-a">
             No. The rendering, tiling, and assembly happen in your browser, and
             the new PDF downloads under the original file name. Because pages
             are rendered locally, big grids on large pages take more memory on

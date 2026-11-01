@@ -8,7 +8,8 @@ import { makeUniqueFileKey } from '../utils/deduplicate-filename.js';
 import { showWasmRequiredDialog } from '../utils/wasm-provider.js';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { interleavePdfs } from '../utils/alternate-merge.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: AlternateMergeState = {
   files: [],
@@ -51,8 +52,8 @@ async function updateUI() {
 
     const infoSpan = document.createElement('span');
     infoSpan.className = 'text-gray-200';
-    infoSpan.textContent = t('tools:alternateMerge.msg.pdfFilesSelected', {
-      count: pageState.files.length,
+    infoSpan.textContent = trText('{{length}} PDF files selected', {
+      length: pageState.files.length,
     });
 
     const clearBtn = document.createElement('button');
@@ -69,7 +70,7 @@ async function updateUI() {
     // Load PDFs and populate list
     hideLoader();
     pageState.files = await batchDecryptIfNeeded(pageState.files);
-    showLoader(t('tools:alternateMerge.loader.loadingPdfFiles'));
+    showLoader('Loading PDF files...');
     fileList.innerHTML = '';
 
     try {
@@ -97,9 +98,9 @@ async function updateUI() {
 
         const metaSpan = document.createElement('span');
         metaSpan.className = 'text-sm text-gray-400 flex-shrink-0';
-        metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+        metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
           size: formatBytes(file.size),
-          count: pageCount,
+          pageCount,
         });
 
         infoDiv.append(nameSpan, metaSpan);
@@ -126,7 +127,7 @@ async function updateUI() {
     } catch (error) {
       console.error('Error loading PDFs:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:mergePdf.alert.loadError'));
+      showAlert('Error', 'Failed to load one or more PDF files.');
       resetState();
     }
   } else {
@@ -137,8 +138,8 @@ async function updateUI() {
 async function mixPages() {
   if (pageState.pdfBytes.size < 2) {
     showAlert(
-      t('tools:alternateMerge.alert.notEnoughFiles'),
-      t('tools:alternateMerge.alert.uploadLeastTwoPdf')
+      'Not Enough Files',
+      'Please upload at least two PDF files to alternate and mix.'
     );
     return;
   }
@@ -149,11 +150,11 @@ async function mixPages() {
     return;
   }
 
-  showLoader(t('tools:alternateMerge.loader.alternatingMixingPages'));
+  showLoader('Alternating and mixing pages...');
 
   try {
     const fileList = document.getElementById('file-list');
-    if (!fileList) throw new Error('File list not found');
+    if (!fileList) throw new Error(trText('File list not found'));
 
     const sortedFileNames = Array.from(fileList.children)
       .map(function (li) {
@@ -175,10 +176,7 @@ async function mixPages() {
     }
 
     if (filesToMerge.length < 2) {
-      showAlert(
-        t('common.error'),
-        t('tools:alternateMerge.alert.leastTwoValidPdfs')
-      );
+      showAlert('Error', 'At least two valid PDFs are required.');
       hideLoader();
       return;
     }
@@ -195,8 +193,8 @@ async function mixPages() {
     });
     downloadFile(blob, 'alternated-mixed.pdf');
     showAlert(
-      t('common.success'),
-      t('tools:alternateMerge.alert.pdfsHaveBeenMixed'),
+      'Success',
+      'PDFs have been mixed successfully!',
       'success',
       function () {
         resetState();
@@ -208,8 +206,8 @@ async function mixPages() {
     const message =
       e instanceof Error
         ? e.message
-        : t('tools:alternateMerge.msg.errorMixingPdfs');
-    showAlert(t('common.error'), message);
+        : trText('An error occurred while mixing the PDFs.');
+    showAlert('Error', message);
   }
 }
 

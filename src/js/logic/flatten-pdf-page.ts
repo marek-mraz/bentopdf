@@ -13,7 +13,8 @@ import {
   loadPdfDocument,
   removeUnreferencedObjects,
 } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: FlattenPdfState = {
   files: [],
@@ -101,7 +102,7 @@ function handleFileSelect(files: FileList | null) {
 
 async function flattenPdf() {
   if (pageState.files.length === 0) {
-    showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+    showAlert('No Files', 'Please select at least one PDF file.');
     return;
   }
 
@@ -113,8 +114,7 @@ async function flattenPdf() {
   try {
     if (pageState.files.length === 1) {
       if (loaderModal) loaderModal.classList.remove('hidden');
-      if (loaderText)
-        loaderText.textContent = t('tools:flattenPdf.msg.flatteningPdf');
+      if (loaderText) loaderText.textContent = trText('Flattening PDF...');
 
       const file = pageState.files[0];
       const arrayBuffer = await file.arrayBuffer();
@@ -145,9 +145,7 @@ async function flattenPdf() {
     } else {
       if (loaderModal) loaderModal.classList.remove('hidden');
       if (loaderText)
-        loaderText.textContent = t(
-          'tools:flattenPdf.msg.flatteningMultiplePdfs'
-        );
+        loaderText.textContent = trText('Flattening multiple PDFs...');
 
       const zip = new JSZip();
       const usedNames = new Set<string>();
@@ -156,11 +154,10 @@ async function flattenPdf() {
       for (let i = 0; i < pageState.files.length; i++) {
         const file = pageState.files[i];
         if (loaderText)
-          loaderText.textContent = t('tools:flattenPdf.msg.flattening', {
-            value: i + 1,
-            count: pageState.files.length,
-            name: file.name,
-          });
+          loaderText.textContent = trText(
+            'Flattening {{n}}/{{length}}: {{name}}...',
+            { n: i + 1, length: pageState.files.length, name: file.name }
+          );
 
         try {
           const arrayBuffer = await file.arrayBuffer();
@@ -197,15 +194,15 @@ async function flattenPdf() {
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         downloadFile(zipBlob, 'flattened_pdfs.zip');
         showAlert(
-          t('common.success'),
-          t('tools:flattenPdf.msg.processedPdfs', { processedCount }),
+          'Success',
+          trText('Processed {{processedCount}} PDFs.', { processedCount }),
           'success',
           () => {
             resetState();
           }
         );
       } else {
-        showAlert(t('common.error'), t('alert.noPdfsCouldProcessed'));
+        showAlert('Error', 'No PDFs could be processed.');
       }
       if (loaderModal) loaderModal.classList.add('hidden');
     }
@@ -213,10 +210,8 @@ async function flattenPdf() {
     console.error(e);
     if (loaderModal) loaderModal.classList.add('hidden');
     const errorMessage =
-      e instanceof Error
-        ? e.message
-        : t('tools:flattenPdf.msg.unexpectedError');
-    showAlert(t('common.error'), errorMessage);
+      e instanceof Error ? e.message : trText('An unexpected error occurred.');
+    showAlert('Error', errorMessage);
   }
 }
 

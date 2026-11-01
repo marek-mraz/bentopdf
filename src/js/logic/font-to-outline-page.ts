@@ -7,7 +7,8 @@ import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { icons, createIcons } from 'lucide';
 import JSZip from 'jszip';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 interface FontToOutlineState {
   files: File[];
@@ -99,7 +100,7 @@ function handleFileSelect(files: FileList | null) {
 
 async function processFiles() {
   if (pageState.files.length === 0) {
-    showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+    showAlert('No Files', 'Please select at least one PDF file.');
     return;
   }
 
@@ -118,9 +119,7 @@ async function processFiles() {
     if (pageState.files.length === 1) {
       if (loaderModal) loaderModal.classList.remove('hidden');
       if (loaderText)
-        loaderText.textContent = t(
-          'tools:fontToOutline.msg.convertingFontsToOutlines'
-        );
+        loaderText.textContent = trText('Converting fonts to outlines...');
 
       const file = pageState.files[0];
       const resultBlob = await convertFileToOutlines(file, (msg) => {
@@ -132,9 +131,7 @@ async function processFiles() {
     } else {
       if (loaderModal) loaderModal.classList.remove('hidden');
       if (loaderText)
-        loaderText.textContent = t(
-          'tools:fontToOutline.msg.processingMultiplePdfs'
-        );
+        loaderText.textContent = trText('Processing multiple PDFs...');
 
       const zip = new JSZip();
       const usedNames = new Set<string>();
@@ -143,11 +140,10 @@ async function processFiles() {
       for (let i = 0; i < pageState.files.length; i++) {
         const file = pageState.files[i];
         if (loaderText)
-          loaderText.textContent = t('tools:fontToOutline.msg.processing', {
-            value: i + 1,
-            count: pageState.files.length,
-            name: file.name,
-          });
+          loaderText.textContent = trText(
+            'Processing {{n}}/{{length}}: {{name}}...',
+            { n: i + 1, length: pageState.files.length, name: file.name }
+          );
 
         try {
           const resultBlob = await convertFileToOutlines(file, () => {});
@@ -164,15 +160,15 @@ async function processFiles() {
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         downloadFile(zipBlob, 'outlined_pdfs.zip');
         showAlert(
-          t('common.success'),
-          t('tools:fontToOutline.msg.processedPdfs', { processedCount }),
+          'Success',
+          trText('Processed {{processedCount}} PDFs.', { processedCount }),
           'success',
           () => {
             resetState();
           }
         );
       } else {
-        showAlert(t('common.error'), t('alert.noPdfsCouldProcessed'));
+        showAlert('Error', 'No PDFs could be processed.');
       }
       if (loaderModal) loaderModal.classList.add('hidden');
     }
@@ -180,10 +176,8 @@ async function processFiles() {
     console.error(e);
     if (loaderModal) loaderModal.classList.add('hidden');
     const errorMessage =
-      e instanceof Error
-        ? e.message
-        : t('tools:fontToOutline.msg.unexpectedError');
-    showAlert(t('common.error'), errorMessage);
+      e instanceof Error ? e.message : trText('An unexpected error occurred.');
+    showAlert('Error', errorMessage);
   }
 }
 

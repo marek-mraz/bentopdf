@@ -152,37 +152,28 @@
 
         <div id="options-panel" class="hidden mt-6 space-y-6">
           <div class="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-            <h3
-              data-i18n="tools:headerFooter.ui.formattingOptions"
-              class="text-sm font-semibold text-gray-300 mb-4"
-            >
+            <h3 class="text-sm font-semibold text-gray-300 mb-4">
               Formatting Options
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div>
                 <label
-                  data-i18n="tools:headerFooter.ui.pageRangeOptional"
                   for="page-range"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Page Range (optional)</label
                 >
                 <input
-                  data-i18n-placeholder="tools:headerFooter.ui.pageRangePlaceholder"
                   type="text"
                   id="page-range"
                   placeholder="e.g., 1-3, 5"
                   class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
                 />
                 <p class="text-xs text-gray-400 mt-1">
-                  <span data-i18n="tools:headerFooter.ui.totalPages"
-                    >Total pages:</span
-                  >
-                  <span id="total-pages">0</span>
+                  Total pages: <span id="total-pages">0</span>
                 </p>
               </div>
               <div>
                 <label
-                  data-i18n="toolPage.fontSize"
                   for="font-size"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Font Size</label
@@ -198,7 +189,6 @@
               </div>
               <div>
                 <label
-                  data-i18n="tools:headerFooter.ui.fontColor"
                   for="font-color"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Font Color</label
@@ -211,7 +201,6 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label
-                data-i18n="tools:headerFooter.ui.headerLeft"
                 for="header-left"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Header Left</label
@@ -225,7 +214,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:headerFooter.ui.headerCenter"
                 for="header-center"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Header Center</label
@@ -239,7 +227,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:headerFooter.ui.headerRight"
                 for="header-right"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Header Right</label
@@ -256,7 +243,6 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label
-                data-i18n="tools:headerFooter.ui.footerLeft"
                 for="footer-left"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Footer Left</label
@@ -270,7 +256,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:headerFooter.ui.footerCenter"
                 for="footer-center"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Footer Center</label
@@ -284,7 +269,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:headerFooter.ui.footerRight"
                 for="footer-right"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Footer Right</label
@@ -298,11 +282,7 @@
             </div>
           </div>
 
-          <button
-            data-i18n="tools:headerFooter.ui.addHeaderFooter"
-            id="process-btn"
-            class="btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-4">
             Add Header & Footer
           </button>
         </div>
@@ -369,12 +349,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -387,12 +362,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -405,12 +375,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -432,74 +397,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -515,12 +442,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="header-footer.1.q"
-              >How do I add Page X of Y to every page?</span
-            >
+            How do I add Page X of Y to every page?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="header-footer.1.a">
+          <p class="faq-d-a">
             Type Page {page} of {total} in any of the six fields, usually Footer
             Center. {page} is replaced with that page's number and {total} with
             the page count, so a 12-page file gets Page 1 of 12 through Page 12
@@ -529,12 +454,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="header-footer.2.q"
-              >Can I put different text on the left, center, and right?</span
-            >
+            Can I put different text on the left, center, and right?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="header-footer.2.a">
+          <p class="faq-d-a">
             Yes. There are six independent fields: header left, center, and
             right, plus footer left, center, and right. Fill only the ones you
             need, for example a company name at header left, the date at header
@@ -544,12 +467,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="header-footer.3.q"
-              >Can I apply the header only to certain pages?</span
-            >
+            Can I apply the header only to certain pages?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="header-footer.3.a">
+          <p class="faq-d-a">
             Yes. Enter a range like 1-3, 5 in the Page Range field and only
             those pages get the text; leave it empty to cover every page. The
             {page} value still reflects the real page number, so page 5 reads 5
@@ -558,12 +479,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="header-footer.4.q"
-              >What font and size does it use?</span
-            >
+            What font and size does it use?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="header-footer.4.a">
+          <p class="faq-d-a">
             Helvetica, at any size from 6 to 24 points (10 by default), in the
             color you pick. Because it uses the built-in PDF Helvetica, the text
             is limited to Latin characters; accented letters work, but scripts
@@ -572,12 +491,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="header-footer.5.q"
-              >Will it replace the header my document already has?</span
-            >
+            Will it replace the header my document already has?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="header-footer.5.a">
+          <p class="faq-d-a">
             No. The text is drawn on top of the existing page content about 40
             points (a bit over half an inch) from the edge, so if a page already
             has a running header in that spot the two will overlap. Check the
@@ -586,12 +503,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="header-footer.6.q"
-              >Is the header text selectable and searchable afterward?</span
-            >
+            Is the header text selectable and searchable afterward?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="header-footer.6.a">
+          <p class="faq-d-a">
             Yes. It's added as real text rather than an image, so it can be
             selected, searched, and copied, and it stays sharp when printed at
             any size.
@@ -599,12 +514,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="header-footer.7.q"
-              >Is my document uploaded to add a header and footer?</span
-            >
+            Is my document uploaded to add a header and footer?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="header-footer.7.a">
+          <p class="faq-d-a">
             No. The text is written into the PDF by your browser and the
             finished file is saved under its original name; the document never
             leaves your device.
@@ -612,12 +525,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="header-footer.8.q"
-              >Can I add page numbers without any other text?</span
-            >
+            Can I add page numbers without any other text?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="header-footer.8.a">
+          <p class="faq-d-a">
             Yes, put {page} alone in a field.
             <a
               href="/page-numbers"

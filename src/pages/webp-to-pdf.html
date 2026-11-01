@@ -178,7 +178,6 @@
         <div id="jpg-to-pdf-options" class="hidden mt-6">
           <div class="mb-4">
             <label
-              data-i18n="toolPage.pdfQuality"
               for="jpg-pdf-quality"
               class="block mb-2 text-sm font-medium text-gray-300"
             >
@@ -188,33 +187,16 @@
               id="jpg-pdf-quality"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             >
-              <option data-i18n="toolPage.highQualityLargerFile" value="high">
-                High Quality (Larger file)
-              </option>
-              <option
-                data-i18n="toolPage.mediumQualityBalanced"
-                value="medium"
-                selected
-              >
-                Medium Quality (Balanced)
-              </option>
-              <option data-i18n="toolPage.lowQualitySmallerFile" value="low">
-                Low Quality (Smaller file)
-              </option>
+              <option value="high">High Quality (Larger file)</option>
+              <option value="medium" selected>Medium Quality (Balanced)</option>
+              <option value="low">Low Quality (Smaller file)</option>
             </select>
-            <p
-              data-i18n="toolPage.controlsImageCompressionWhenEmbedding"
-              class="mt-1 text-xs text-gray-400"
-            >
+            <p class="mt-1 text-xs text-gray-400">
               Controls image compression when embedding into PDF
             </p>
           </div>
 
-          <button
-            data-i18n="toolPage.convertToPdf"
-            id="process-btn"
-            class="btn-gradient w-full mt-6"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-6">
             Convert to PDF
           </button>
         </div>
@@ -230,11 +212,7 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          data-i18n="loader.processing"
-          id="loader-text"
-          class="text-white text-lg font-medium"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Processing...
         </p>
       </div>
@@ -282,12 +260,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -300,12 +273,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -318,12 +286,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -345,74 +308,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -428,12 +353,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="webp-to-pdf.1.q"
-              >Does each WebP image become its own page?</span
-            >
+            Does each WebP image become its own page?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="webp-to-pdf.1.a">
+          <p class="faq-d-a">
             Yes. Every image is placed on a separate page sized to the image
             itself, in the order the files appear in the list, and the whole set
             downloads as one file named from_webps.pdf.
@@ -441,12 +364,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="webp-to-pdf.2.q"
-              >What page size will my WebP images get in the PDF?</span
-            >
+            What page size will my WebP images get in the PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="webp-to-pdf.2.a">
+          <p class="faq-d-a">
             The page matches the image's pixel dimensions at one point per
             pixel, so a 1600 x 1200 image produces a 1600 x 1200 point page,
             roughly 22 x 17 inches. To get standard A4 or Letter pages, run the
@@ -460,12 +381,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="webp-to-pdf.3.q"
-              >What do the quality settings change for WebP images?</span
-            >
+            What do the quality settings change for WebP images?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="webp-to-pdf.3.a">
+          <p class="faq-d-a">
             High keeps the full pixel dimensions with the lightest compression.
             Medium, the default, re-encodes as JPEG at about 75 percent and
             scales images down so the longest side is at most 2500 pixels; Low
@@ -475,12 +394,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="webp-to-pdf.4.q"
-              >Will transparent areas stay transparent?</span
-            >
+            Will transparent areas stay transparent?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="webp-to-pdf.4.a">
+          <p class="faq-d-a">
             No. Images are re-encoded through the browser's canvas as JPEG when
             they're embedded, and JPEG has no alpha channel, so see-through
             regions come out as a solid background. Flatten the image onto a
@@ -489,12 +406,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="webp-to-pdf.5.q"
-              >Can I convert an animated WebP?</span
-            >
+            Can I convert an animated WebP?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="webp-to-pdf.5.a">
+          <p class="faq-d-a">
             Only the first frame is used, since the browser decodes the file as
             a still image before it's placed on the page. Each animation becomes
             a single static page.
@@ -502,12 +417,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="webp-to-pdf.6.q"
-              >Can I mix WebP with JPG or PNG files in the same PDF?</span
-            >
+            Can I mix WebP with JPG or PNG files in the same PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="webp-to-pdf.6.a">
+          <p class="faq-d-a">
             Not on this page; the file picker accepts .webp only. Use
             <a
               href="/image-to-pdf"
@@ -519,12 +432,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="webp-to-pdf.7.q"
-              >Are my images uploaded to make the PDF?</span
-            >
+            Are my images uploaded to make the PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="webp-to-pdf.7.a">
+          <p class="faq-d-a">
             No. Each WebP is decoded by your browser's own image engine and
             written into the PDF locally, so the pictures never leave your
             device.
@@ -532,12 +443,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="webp-to-pdf.8.q"
-              >Can I reorder or remove images before converting?</span
-            >
+            Can I reorder or remove images before converting?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="webp-to-pdf.8.a">
+          <p class="faq-d-a">
             You can remove any file from the list with its delete icon, but
             there's no drag reordering on this page, so pages follow the order
             in which you selected the files. Pick them in the order you want

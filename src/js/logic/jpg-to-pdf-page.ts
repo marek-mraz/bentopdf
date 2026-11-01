@@ -1,13 +1,19 @@
 import { createIcons, icons } from 'lucide';
 import { showAlert, showLoader, hideLoader } from '../ui.js';
 import { downloadFile, formatBytes } from '../utils/helpers.js';
+import {
+  createDragHandle,
+  enableFileListReorder,
+  moveItem,
+} from '../utils/sortable-file-list.js';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import type { PyMuPDFInstance } from '@/types';
 import {
   getSelectedQuality,
   compressImageFile,
 } from '../utils/image-compress.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const SUPPORTED_FORMATS = '.jpg,.jpeg,.jp2,.jpx';
 const SUPPORTED_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/jp2'];
@@ -100,8 +106,8 @@ function handleFiles(newFiles: FileList) {
 
   if (validFiles.length < newFiles.length) {
     showAlert(
-      t('alert.invalidFiles'),
-      t('tools:jpgToPdf.alert.someFilesWereSkipped')
+      'Invalid Files',
+      'Some files were skipped. Only JPG, JPEG, JP2, and JPX files are allowed.'
     );
   }
 
@@ -143,9 +149,11 @@ function updateUI() {
 
       const sizeSpan = document.createElement('span');
       sizeSpan.className = 'flex-shrink-0 text-gray-400 text-xs';
-      sizeSpan.textContent = `(${formatBytes(file.size)})`;
+      sizeSpan.textContent = trText('({{size}})', {
+        size: formatBytes(file.size),
+      });
 
-      infoContainer.append(nameSpan, sizeSpan);
+      infoContainer.append(createDragHandle(), nameSpan, sizeSpan);
 
       const removeBtn = document.createElement('button');
       removeBtn.className =
@@ -158,6 +166,10 @@ function updateUI() {
 
       fileDiv.append(infoContainer, removeBtn);
       fileDisplayArea.appendChild(fileDiv);
+    });
+    enableFileListReorder(fileDisplayArea, (oldIndex, newIndex) => {
+      files = moveItem(files, oldIndex, newIndex);
+      updateUI();
     });
     createIcons({ icons });
   } else {
@@ -175,16 +187,16 @@ async function ensurePyMuPDF(): Promise<PyMuPDFInstance> {
 
 async function convertToPdf() {
   if (files.length === 0) {
-    showAlert(t('alert.noFiles'), t('tools:jpgToPdf.alert.selectLeastOneJpg'));
+    showAlert('No Files', 'Please select at least one JPG or JPEG2000 image.');
     return;
   }
 
-  showLoader(t('loader.loadingEngine'));
+  showLoader('Loading engine...');
 
   try {
     const mupdf = await ensurePyMuPDF();
 
-    showLoader(t('multiTool.convertingImages'));
+    showLoader('Converting images to PDF...');
     const quality = getSelectedQuality();
     const compressedFiles: File[] = [];
     for (const file of files) {
@@ -195,19 +207,14 @@ async function convertToPdf() {
 
     downloadFile(pdfBlob, 'from_jpgs.pdf');
 
-    showAlert(
-      t('common.success'),
-      t('alert.pdfCreatedSuccessfully'),
-      'success',
-      () => {
-        resetState();
-      }
-    );
+    showAlert('Success', 'PDF created successfully!', 'success', () => {
+      resetState();
+    });
   } catch (e: unknown) {
     console.error('[JpgToPdf]', e);
     showAlert(
-      t('alert.conversionError'),
-      e instanceof Error ? e.message : t('multiTool.failedToConvertImages')
+      'Conversion Error',
+      e instanceof Error ? e.message : 'Failed to convert images to PDF.'
     );
   } finally {
     hideLoader();

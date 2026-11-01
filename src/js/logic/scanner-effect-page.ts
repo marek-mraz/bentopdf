@@ -10,7 +10,7 @@ import { PDFDocument } from 'pdf-lib';
 import { applyScannerEffect } from '../utils/image-effects.js';
 import * as pdfjsLib from 'pdfjs-dist';
 import type { ScanSettings } from '../types/scanner-effect-type.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import '../utils/setup-pdf-worker.js';
 
@@ -127,7 +127,10 @@ const updateUI = () => {
 
       const metaSpan = document.createElement('div');
       metaSpan.className = 'text-xs text-gray-400';
-      metaSpan.textContent = `${formatBytes(file.size)} • ${t('common.loadingPageCount')}`;
+      metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+        size: formatBytes(file.size),
+        loadingPageCount: t('common.loadingPageCount'),
+      });
 
       infoContainer.append(nameSpan, metaSpan);
 
@@ -150,7 +153,11 @@ const updateUI = () => {
           return getPDFDocument(buffer).promise;
         })
         .then((pdf: pdfjsLib.PDFDocumentProxy) => {
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdf.numPages} ${pdf.numPages !== 1 ? t('common.pages') : t('common.page')}`;
+          metaSpan.textContent = trText('{{size}} • {{numPages}} {{value}}', {
+            size: formatBytes(file.size),
+            numPages: pdf.numPages,
+            value: pdf.numPages !== 1 ? t('common.pages') : t('common.page'),
+          });
         })
         .catch(() => {
           metaSpan.textContent = formatBytes(file.size);
@@ -174,14 +181,11 @@ const resetState = () => {
 
 async function processAllPages(): Promise<void> {
   if (files.length === 0) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
 
-  showLoader(t('tools:scannerEffect.loader.applyingScannerEffect'));
+  showLoader('Applying scanner effect...');
 
   try {
     const settings = getSettings();
@@ -192,7 +196,7 @@ async function processAllPages(): Promise<void> {
 
     for (let i = 1; i <= doc.numPages; i++) {
       showLoader(
-        t('tools:scannerEffect.msg.processingPageOf', {
+        trText('Processing page {{i}} of {{numPages}}...', {
           i,
           numPages: doc.numPages,
         })
@@ -264,8 +268,8 @@ async function processAllPages(): Promise<void> {
       files[0]?.name || 'document.pdf'
     );
     showAlert(
-      t('common.success'),
-      t('tools:scannerEffect.alert.scannerEffectAppliedSuccessfully'),
+      'Success',
+      'Scanner effect applied successfully!',
       'success',
       () => {
         resetState();
@@ -274,8 +278,8 @@ async function processAllPages(): Promise<void> {
   } catch (e) {
     console.error(e);
     showAlert(
-      t('common.error'),
-      t('tools:scannerEffect.alert.failedApplyScannerEffect')
+      'Error',
+      'Failed to apply scanner effect. The file might be corrupted.'
     );
   } finally {
     hideLoader();
@@ -403,24 +407,21 @@ onPageReady(() => {
     );
 
     if (validFiles.length === 0) {
-      showAlert(
-        t('tools:addPageLabels.invalidFileTitle'),
-        t('tools:pdfToJpg.alert.invalidFileExplanation')
-      );
+      showAlert('Invalid File', 'Please upload a PDF file.');
       return;
     }
 
     try {
       const result = await loadPdfWithPasswordPrompt(validFiles[0]);
       if (!result) return;
-      showLoader(t('loader.loadingPreview'));
+      showLoader('Loading preview...');
       files = [result.file];
       updateUI();
       pdfjsDoc = result.pdf;
       await renderPreview();
     } catch (e) {
       console.error(e);
-      showAlert(t('common.error'), t('alert.failedLoadPdfPreview'));
+      showAlert('Error', 'Failed to load PDF for preview.');
     } finally {
       hideLoader();
     }

@@ -10,7 +10,8 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { createIcons, icons } from 'lucide';
 import { PosterizeState } from '@/types';
 import '../utils/setup-pdf-worker.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: PosterizeState = {
   file: null,
@@ -49,7 +50,7 @@ async function renderPosterizePreview(pageNum: number) {
   if (!pageState.pdfJsDoc) return;
 
   pageState.currentPage = pageNum;
-  showLoader(t('msg.posterizePage.renderingPreviewForPage', { pageNum }));
+  showLoader(trText('Rendering preview for page {{pageNum}}...', { pageNum }));
 
   const canvas = document.getElementById(
     'posterize-preview-canvas'
@@ -160,14 +161,11 @@ function updatePreviewNav() {
 
 async function posterize() {
   if (!pageState.pdfJsDoc || !pageState.pdfBytes) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
 
-  showLoader(t('tools:posterizePdf.loader.posterizingPdf'));
+  showLoader('Posterizing PDF...');
 
   try {
     const rows =
@@ -209,14 +207,14 @@ async function posterize() {
     const pageIndicesToProcess = parsePageRanges(pageRangeInput, totalPages);
 
     if (pageIndicesToProcess.length === 0) {
-      throw new Error(t('msg.posterizePage.invalidPageRangeSpecified'));
+      throw new Error(trText('Invalid page range specified.'));
     }
 
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d');
 
     if (!tempCtx) {
-      throw new Error('Could not create canvas context.');
+      throw new Error(trText('Could not create canvas context.'));
     }
 
     for (const pageIndex of pageIndicesToProcess) {
@@ -313,16 +311,10 @@ async function posterize() {
       pageState.file?.name || 'document.pdf'
     );
 
-    showAlert(
-      t('common.success'),
-      t('tools:posterizePdf.alert.pdfHasBeenPosterized')
-    );
+    showAlert('Success', 'Your PDF has been posterized.');
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      (e as Error).message || t('tools:posterizePdf.alert.couldNotPosterizePdf')
-    );
+    showAlert('Error', (e as Error).message || 'Could not posterize the PDF.');
   } finally {
     hideLoader();
   }

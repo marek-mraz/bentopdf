@@ -3,7 +3,8 @@ import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const FILETYPE = 'fb2';
 const EXTENSIONS = ['.fb2'];
@@ -85,19 +86,21 @@ onPageReady(() => {
     try {
       if (state.files.length === 0) {
         showAlert(
-          t('alert.noFiles'),
-          t('tools:fb2ToPdf.msg.pleaseSelectAtLeastOneFile', { TOOL_NAME })
+          'No Files',
+          trText('Please select at least one {{TOOL_NAME}} file.', {
+            TOOL_NAME,
+          })
         );
         return;
       }
 
-      showLoader(t('loader.loadingEngine'));
+      showLoader('Loading engine...');
       const pymupdf = await loadPyMuPDF();
 
       if (state.files.length === 1) {
         const originalFile = state.files[0];
         showLoader(
-          t('tools:fb2ToPdf.msg.converting', { name: originalFile.name })
+          trText('Converting {{name}}...', { name: originalFile.name })
         );
 
         const pdfBlob = await pymupdf.convertToPdf(originalFile, {
@@ -109,24 +112,24 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:fb2ToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: originalFile.name,
           }),
           'success',
           () => resetState()
         );
       } else {
-        showLoader(t('loader.convertingFiles'));
+        showLoader('Converting files...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
 
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:fb2ToPdf.msg.converting2', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -145,11 +148,11 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:fb2ToPdf.msg.successfullyConvertedFileSToPdf', {
-            count: state.files.length,
-            TOOL_NAME,
-          }),
+          'Conversion Complete',
+          trText(
+            'Successfully converted {{length}} {{TOOL_NAME}} file(s) to PDF.',
+            { length: state.files.length, TOOL_NAME }
+          ),
           'success',
           () => resetState()
         );
@@ -158,9 +161,9 @@ onPageReady(() => {
       console.error(`[${TOOL_NAME}2PDF] ERROR:`, e);
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:fb2ToPdf.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

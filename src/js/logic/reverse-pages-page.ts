@@ -6,7 +6,8 @@ import JSZip from 'jszip';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 interface ReverseState {
   files: File[];
@@ -99,13 +100,13 @@ async function reverseSingleFile(file: File): Promise<Uint8Array> {
 
 async function reversePages() {
   if (reverseState.files.length === 0) {
-    showAlert(t('alert.noFiles'), t('alert.selectOneMorePdf'));
+    showAlert('No Files', 'Please select one or more PDF files.');
     return;
   }
 
   try {
     const decryptedFiles = await batchDecryptIfNeeded(reverseState.files);
-    showLoader(t('tools:reversePages.loader.reversingPageOrder'));
+    showLoader('Reversing page order...');
     reverseState.files = decryptedFiles;
 
     const validFiles = reverseState.files.filter(function (f) {
@@ -123,10 +124,10 @@ async function reversePages() {
     for (let j = 0; j < validFiles.length; j++) {
       const file = validFiles[j];
       showLoader(
-        t('tools:reversePages.msg.reversing', {
+        trText('Reversing {{name}} ({{n}}/{{length}})...', {
           name: file.name,
-          value: j + 1,
-          count: validFiles.length,
+          n: j + 1,
+          length: validFiles.length,
         })
       );
 
@@ -148,8 +149,8 @@ async function reversePages() {
     }
 
     showAlert(
-      t('common.success'),
-      t('tools:reversePages.alert.pagesHaveBeenReversed'),
+      'Success',
+      'Pages have been reversed successfully!',
       'success',
       function () {
         resetState();
@@ -158,8 +159,8 @@ async function reversePages() {
   } catch (e) {
     console.error(e);
     showAlert(
-      t('common.error'),
-      t('tools:reversePages.alert.couldNotReversePdf')
+      'Error',
+      'Could not reverse the PDF pages. Please check that your files are valid PDFs.'
     );
   } finally {
     hideLoader();

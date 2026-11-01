@@ -7,7 +7,8 @@ import {
   type LoadProgress,
 } from '../utils/libreoffice-loader.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 onPageReady(() => {
   state.files = [];
@@ -91,10 +92,7 @@ onPageReady(() => {
       console.log('[Word2PDF] Number of files:', state.files.length);
 
       if (state.files.length === 0) {
-        showAlert(
-          t('alert.noFiles'),
-          t('tools:wordToPdf.alert.selectLeastOneWord')
-        );
+        showAlert('No Files', 'Please select at least one Word document.');
         hideLoader();
         return;
       }
@@ -118,7 +116,7 @@ onPageReady(() => {
         const originalFile = state.files[0];
         console.log('[Word2PDF] Converting single file:', originalFile.name);
 
-        showLoader(t('loader.processing'));
+        showLoader('Processing...');
 
         const pdfBlob = await converter.convertToPdf(originalFile);
         console.log('[Word2PDF] Conversion complete! PDF size:', pdfBlob.size);
@@ -132,8 +130,8 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:wordToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: originalFile.name,
           }),
           'success',
@@ -144,7 +142,7 @@ onPageReady(() => {
           '[Word2PDF] Converting multiple files:',
           state.files.length
         );
-        showLoader(t('loader.processing'));
+        showLoader('Processing...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
         const usedNames = new Set<string>();
@@ -156,9 +154,9 @@ onPageReady(() => {
             file.name
           );
           showLoader(
-            t('tools:wordToPdf.msg.converting', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -187,9 +185,9 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:wordToPdf.msg.successfullyConvertedWordDocumentSTo', {
-            count: state.files.length,
+          'Conversion Complete',
+          trText('Successfully converted {{length}} Word document(s) to PDF.', {
+            length: state.files.length,
           }),
           'success',
           () => resetState()
@@ -203,9 +201,9 @@ onPageReady(() => {
       );
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:wordToPdf.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

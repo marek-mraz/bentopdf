@@ -156,83 +156,52 @@
         <div id="tool-options" class="hidden mt-6 space-y-4">
           <div>
             <label
-              data-i18n="tools:protectPdf.ui.userPasswordRequired"
               for="user-password-input"
               class="block mb-2 text-sm font-medium text-gray-300"
               >User Password (Required)</label
             >
             <input
-              data-i18n-placeholder="tools:protectPdf.ui.enterPasswordToOpenPdfPlaceholder"
               type="password"
               id="user-password-input"
               placeholder="Enter password to open PDF"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             />
-            <p
-              data-i18n="tools:protectPdf.ui.passwordRequiredToOpenPdf"
-              class="text-xs text-gray-500 mt-1"
-            >
+            <p class="text-xs text-gray-500 mt-1">
               This password will be required to open the PDF.
             </p>
           </div>
 
           <div>
             <label
-              data-i18n="tools:protectPdf.ui.ownerPasswordOptional"
               for="owner-password-input"
               class="block mb-2 text-sm font-medium text-gray-300"
               >Owner Password (Optional)</label
             >
             <input
-              data-i18n-placeholder="tools:protectPdf.ui.enterPasswordPermissionsOptionalPlaceholder"
               type="password"
               id="owner-password-input"
               placeholder="Enter password for permissions (optional)"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             />
-            <p
-              data-i18n="tools:protectPdf.ui.ifProvidedUsageRestrictionsApplied"
-              class="text-xs text-gray-500 mt-1"
-            >
+            <p class="text-xs text-gray-500 mt-1">
               If provided, usage restrictions will be applied. Leave empty for
               no restrictions.
             </p>
           </div>
 
           <div class="p-4 bg-gray-900 rounded-lg border border-gray-700">
-            <h3
-              data-i18n="tools:protectPdf.ui.encryptionDetails"
-              class="text-sm font-semibold text-white mb-2"
-            >
+            <h3 class="text-sm font-semibold text-white mb-2">
               Encryption Details:
             </h3>
             <ul class="text-xs text-gray-400 space-y-1 list-disc list-inside">
-              <li
-                data-i18n="tools:protectPdf.ui.bitAesEncryptionHighestSecurity256"
-              >
-                256-bit AES encryption (highest security)
-              </li>
-              <li data-i18n="tools:protectPdf.ui.userPasswordRequiredToOpen">
-                User password required to open PDF
-              </li>
-              <li
-                data-i18n="tools:protectPdf.ui.ownerPasswordEnablesUsageRestrictions"
-              >
-                Owner password enables usage restrictions
-              </li>
-              <li
-                data-i18n="tools:protectPdf.ui.withoutOwnerPasswordNoRestrictions"
-              >
-                Without owner password: no restrictions applied
-              </li>
+              <li>256-bit AES encryption (highest security)</li>
+              <li>User password required to open PDF</li>
+              <li>Owner password enables usage restrictions</li>
+              <li>Without owner password: no restrictions applied</li>
             </ul>
           </div>
 
-          <button
-            data-i18n="tools:protectPdf.ui.encryptPdf"
-            id="process-btn"
-            class="btn-gradient w-full"
-          >
+          <button id="process-btn" class="btn-gradient w-full">
             Encrypt PDF
           </button>
         </div>
@@ -301,12 +270,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -319,12 +283,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -337,12 +296,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -364,74 +318,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -447,13 +363,11 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="protect-pdf.1.q"
-              >What is the difference between the user password and the owner
-              password?</span
-            >
+            What is the difference between the user password and the owner
+            password?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="protect-pdf.1.a">
+          <p class="faq-d-a">
             The user password is required and is what anyone must type to open
             the file. The owner password is optional; when you set a different
             one, the PDF also gets usage restrictions, so someone who opens it
@@ -463,12 +377,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="protect-pdf.2.q"
-              >What encryption does Protect PDF use?</span
-            >
+            What encryption does Protect PDF use?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="protect-pdf.2.a">
+          <p class="faq-d-a">
             256-bit AES, applied with QPDF's implementation of the PDF 2.0
             encryption standard. There is no option to pick a weaker cipher, so
             the strength of the protection comes down to how strong your
@@ -477,12 +389,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="protect-pdf.3.q"
-              >What happens if I forget the password?</span
-            >
+            What happens if I forget the password?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="protect-pdf.3.a">
+          <p class="faq-d-a">
             There is no recovery. AES-256 can't be brute-forced in any practical
             time, and BentoPDF keeps no copy of the file or the password. Store
             the password somewhere safe and keep an unprotected original for
@@ -491,13 +401,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="protect-pdf.4.q"
-              >Do I still get restrictions if I only enter a user
-              password?</span
-            >
+            Do I still get restrictions if I only enter a user password?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="protect-pdf.4.a">
+          <p class="faq-d-a">
             No. With only a user password the file needs the password to open,
             but once opened there are no limits on printing, copying, or
             editing. Add a separate owner password if you want those
@@ -506,13 +413,11 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="protect-pdf.5.q"
-              >Can I restrict printing or copying without requiring a password
-              to open the file?</span
-            >
+            Can I restrict printing or copying without requiring a password to
+            open the file?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="protect-pdf.5.a">
+          <p class="faq-d-a">
             Not with this tool, because the user password is mandatory here. Use
             <a
               href="/change-permissions"
@@ -525,12 +430,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="protect-pdf.6.q"
-              >How do I remove the password later?</span
-            >
+            How do I remove the password later?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="protect-pdf.6.a">
+          <p class="faq-d-a">
             Open the protected file in the
             <a href="/unlock-pdf" class="text-indigo-300 hover:text-indigo-400"
               >password removal tool</a
@@ -540,12 +443,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="protect-pdf.7.q"
-              >Will the protected PDF open in any reader?</span
-            >
+            Will the protected PDF open in any reader?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="protect-pdf.7.a">
+          <p class="faq-d-a">
             Any current PDF reader, including Adobe Reader, Preview, Chrome,
             Firefox, and Edge, opens AES-256 encrypted files. Very old readers
             released before AES-256 support was added may refuse the file.
@@ -553,12 +454,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="protect-pdf.8.q"
-              >Is my PDF or my password sent anywhere?</span
-            >
+            Is my PDF or my password sent anywhere?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="protect-pdf.8.a">
+          <p class="faq-d-a">
             No. QPDF runs as WebAssembly in your browser, so the file is
             encrypted on your device and neither the document nor the passwords
             are transmitted. Share the password with your recipient through a

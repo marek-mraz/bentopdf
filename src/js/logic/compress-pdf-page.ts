@@ -27,36 +27,38 @@ import {
   targetSizeToBytes,
   verifyHyperPassword,
 } from '../utils/compress.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 type OptionChangeHandler = (
   key: keyof HyperCompressOptions,
   value: number | boolean | null
 ) => void;
 
-const LOCK_MESSAGES = {
-  locked: {
-    text: 'tools:compressPdf.msg.lockLocked',
-    color: 'text-gray-400',
-    field: 'border-gray-600 focus:ring-indigo-500',
-  },
-  wrong: {
-    text: 'tools:compressPdf.msg.lockWrong',
-    color: 'text-red-400',
-    field: 'border-red-500 focus:ring-red-500',
-  },
-  unlocked: {
-    text: 'tools:compressPdf.msg.lockUnlocked',
-    color: 'text-green-400',
-    field: 'border-green-500 focus:ring-green-500',
-  },
-} as const;
+const getLockMessages = () =>
+  ({
+    locked: {
+      text: trText('Password protected'),
+      color: 'text-gray-400',
+      field: 'border-gray-600 focus:ring-indigo-500',
+    },
+    wrong: {
+      text: trText('Wrong password'),
+      color: 'text-red-400',
+      field: 'border-red-500 focus:ring-red-500',
+    },
+    unlocked: {
+      text: trText('Unlocked'),
+      color: 'text-green-400',
+      field: 'border-green-500 focus:ring-green-500',
+    },
+  }) as const;
 
 const PASSWORD_INPUT_CLASS =
   'w-full bg-gray-800 border text-gray-200 placeholder:text-gray-500 rounded-lg pl-9 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:border-transparent';
 
-const DPI_CHOICES = [
-  { value: 0, label: 'None' },
+const getDpiChoices = () => [
+  { value: 0, label: trText('None') },
   { value: 72, label: '72 DPI' },
   { value: 96, label: '96 DPI' },
   { value: 144, label: '144 DPI' },
@@ -65,207 +67,225 @@ const DPI_CHOICES = [
   { value: 300, label: '300 DPI' },
 ];
 
-const HYPER_OPTION_SECTIONS: HyperOptionSection[] = [
+const getOptionSections = (): HyperOptionSection[] => [
   {
-    title: 'Images',
+    title: trText('Images'),
     open: true,
     fields: [
       {
         key: 'imageQuality',
         type: 'number',
-        label: 'Image quality',
+        label: trText('Image quality'),
         min: 20,
         max: 100,
-        help: 'JPEG quality for re-encoded images, 20 to 100. Lower means smaller files and more visible artifacts.',
+        help: trText(
+          'JPEG quality for re-encoded images, 20 to 100. Lower means smaller files and more visible artifacts.'
+        ),
       },
       {
         key: 'maxDpi',
         type: 'dpi',
-        label: 'Maximum resolution',
-        help: 'Images above this are resampled down. None leaves resolution alone.',
+        label: trText('Maximum resolution'),
+        help: trText(
+          'Images above this are resampled down. None leaves resolution alone.'
+        ),
       },
       {
         key: 'forceDownsample',
         type: 'bool',
-        label: 'Always resample to that resolution',
-        help: 'Resamples even when an image is only slightly above the limit.',
+        label: trText('Always resample to that resolution'),
+        help: trText(
+          'Resamples even when an image is only slightly above the limit.'
+        ),
       },
       {
         key: 'grayscale',
         type: 'bool',
-        label: 'Convert to grayscale',
-        help: 'Reduces file size by removing color information.',
+        label: trText('Convert to grayscale'),
+        help: trText('Reduces file size by removing color information.'),
       },
       {
         key: 'reduceColor',
         type: 'bool',
-        label: 'Reduce color complexity',
-        help: 'Only where it does not change how the image looks.',
+        label: trText('Reduce color complexity'),
+        help: trText('Only where it does not change how the image looks.'),
       },
       {
         key: 'clipImages',
         type: 'bool',
-        label: 'Clip invisible parts of images',
+        label: trText('Clip invisible parts of images'),
       },
       {
         key: 'removeAlternates',
         type: 'bool',
-        label: 'Remove alternate images',
+        label: trText('Remove alternate images'),
       },
       {
         key: 'flattenIcc',
         type: 'bool',
-        label: 'Simplify large color profiles',
+        label: trText('Simplify large color profiles'),
       },
       {
         key: 'preferJpx',
         type: 'bool',
-        label: 'Prefer JPEG 2000 for photos',
-        help: 'Tries JPEG 2000 against JPEG for each image and keeps the smaller one.',
+        label: trText('Prefer JPEG 2000 for photos'),
+        help: trText(
+          'Tries JPEG 2000 against JPEG for each image and keeps the smaller one.'
+        ),
       },
       {
         key: 'lossless',
         type: 'bool',
-        label: 'Lossless (no image re-encoding)',
-        help: 'Turns off quality, resolution and every other lossy image step.',
+        label: trText('Lossless (no image re-encoding)'),
+        help: trText(
+          'Turns off quality, resolution and every other lossy image step.'
+        ),
       },
     ],
   },
   {
-    title: 'Fonts',
+    title: trText('Fonts'),
     fields: [
       {
         key: 'subsetFonts',
         type: 'bool',
-        label: 'Subset embedded fonts',
-        help: 'Keeps only the characters the document uses.',
+        label: trText('Subset embedded fonts'),
+        help: trText('Keeps only the characters the document uses.'),
       },
-      { key: 'mergeFonts', type: 'bool', label: 'Merge duplicate fonts' },
+      {
+        key: 'mergeFonts',
+        type: 'bool',
+        label: trText('Merge duplicate fonts'),
+      },
       {
         key: 'removeStandardFonts',
         type: 'bool',
-        label: 'Unembed standard fonts',
-        help: 'PDF readers supply the 14 standard PDF fonts themselves.',
+        label: trText('Unembed standard fonts'),
+        help: trText(
+          'PDF readers supply the 14 standard PDF fonts themselves.'
+        ),
       },
       {
         key: 'unembedAliasedFonts',
         type: 'bool',
-        label: 'Unembed standard-font look-alikes',
-        help: 'Arial, Times New Roman and Courier New map to the built-in equivalents. Only applied when safe.',
+        label: trText('Unembed standard-font look-alikes'),
+        help: trText(
+          'Arial, Times New Roman and Courier New map to the built-in equivalents. Only applied when safe.'
+        ),
       },
     ],
   },
   {
-    title: 'Content',
+    title: trText('Content'),
     fields: [
       {
         key: 'removeAnnots',
         type: 'bool',
-        label: 'Flatten annotations',
-        help: 'Comments and markup become part of the page. Form fields and links keep working.',
+        label: trText('Flatten annotations'),
+        help: trText(
+          'Comments and markup become part of the page. Form fields and links keep working.'
+        ),
       },
       {
         key: 'flattenForms',
         type: 'bool',
-        label: 'Flatten form fields',
-        help: 'Form fields stop being fillable.',
+        label: trText('Flatten form fields'),
+        help: trText('Form fields stop being fillable.'),
       },
       {
         key: 'flattenLinks',
         type: 'bool',
-        label: 'Flatten links',
-        help: 'Links stop being clickable.',
+        label: trText('Flatten links'),
+        help: trText('Links stop being clickable.'),
       },
     ],
   },
   {
-    title: 'Cleanup',
+    title: trText('Cleanup'),
     fields: [
       {
         key: 'removeThumbnails',
         type: 'bool',
-        label: 'Remove page thumbnails',
+        label: trText('Remove page thumbnails'),
       },
       {
         key: 'removeAppData',
         type: 'bool',
-        label: 'Remove application data',
-        help: 'Private data that editing apps store inside the PDF.',
+        label: trText('Remove application data'),
+        help: trText('Private data that editing apps store inside the PDF.'),
       },
-      { key: 'removeThreads', type: 'bool', label: 'Remove article threads' },
+      {
+        key: 'removeThreads',
+        type: 'bool',
+        label: trText('Remove article threads'),
+      },
       {
         key: 'removeSpiderInfo',
         type: 'bool',
-        label: 'Remove web capture information',
+        label: trText('Remove web capture information'),
       },
       {
         key: 'removeStructTree',
         type: 'bool',
-        label: 'Remove document structure tree',
-        help: 'Drops tagging, which screen readers rely on.',
+        label: trText('Remove document structure tree'),
+        help: trText('Drops tagging, which screen readers rely on.'),
       },
       {
         key: 'removeOutputIntents',
         type: 'bool',
-        label: 'Remove output intents',
+        label: trText('Remove output intents'),
       },
     ],
   },
   {
-    title: 'Rasterize',
+    title: trText('Rasterize'),
     fields: [
       {
         key: 'rasterizePages',
         type: 'bool',
-        label: 'Rasterize pages to images',
-        help: 'For image-only PDFs such as scans. Skipped when the document has selectable text, unless Override content protection is on.',
+        label: trText('Rasterize pages to images'),
+        help: trText(
+          'For image-only PDFs such as scans. Skipped when the document has selectable text, unless Override content protection is on.'
+        ),
       },
       {
         key: 'rasterizeDpi',
         type: 'number',
-        label: 'Rasterize resolution (DPI)',
+        label: trText('Rasterize resolution (DPI)'),
         min: 36,
         max: 600,
       },
       {
         key: 'rasterizeQuality',
         type: 'number',
-        label: 'Rasterize quality',
+        label: trText('Rasterize quality'),
         min: 1,
         max: 100,
       },
     ],
   },
   {
-    title: 'Output',
+    title: trText('Output'),
     fields: [
       {
         key: 'preserveConformance',
         type: 'bool',
-        label: 'Preserve PDF/A',
-        help: 'Keeps a PDF/A file conformant. Brotli and rasterizing are skipped while this is on.',
+        label: trText('Preserve PDF/A'),
+        help: trText(
+          'Keeps a PDF/A file conformant. Brotli and rasterizing are skipped while this is on.'
+        ),
       },
       {
         key: 'brotli',
         type: 'bool',
-        label: 'Brotli compression (PDF 2.0)',
-        help: 'Smaller files, but only readers with Brotli support can open them, such as Firefox, MuPDF 1.26+ and Ghostscript 10.06+.',
+        label: trText('Brotli compression (PDF 2.0)'),
+        help: trText(
+          'Smaller files, but only readers with Brotli support can open them, such as Firefox, MuPDF 1.26+ and Ghostscript 10.06+.'
+        ),
       },
     ],
   },
 ];
-
-// The panel can be built before initI18n() resolves; data-i18n lets
-// applyTranslations() in main.ts relabel it once the language is loaded.
-const setHyperOptionText = (
-  element: HTMLElement,
-  id: string,
-  english: string
-): void => {
-  const key = `tools:compressPdf.hyperOptions.${id}`;
-  element.dataset.i18n = key;
-  element.textContent = t(key, { defaultValue: english });
-};
 
 function buildOptionField(
   field: HyperOptionField,
@@ -277,7 +297,7 @@ function buildOptionField(
   if (field.help) {
     help = document.createElement('p');
     help.className = 'text-xs text-gray-500 mt-0.5';
-    setHyperOptionText(help, `${field.key}Help`, field.help);
+    help.textContent = field.help;
   }
 
   if (field.type === 'bool') {
@@ -291,7 +311,7 @@ function buildOptionField(
     const text = document.createElement('span');
     const title = document.createElement('span');
     title.className = 'block text-sm text-gray-300';
-    setHyperOptionText(title, field.key, field.label);
+    title.textContent = field.label;
     text.append(title);
     if (help) text.append(help);
     label.append(input, text);
@@ -307,7 +327,7 @@ function buildOptionField(
   const label = document.createElement('label');
   label.htmlFor = id;
   label.className = 'block mb-1 text-xs font-medium text-gray-400';
-  setHyperOptionText(label, field.key, field.label);
+  label.textContent = field.label;
   wrapper.append(label);
   const controlClass =
     'w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2 text-sm';
@@ -316,14 +336,10 @@ function buildOptionField(
     const select = document.createElement('select');
     select.id = id;
     select.className = controlClass;
-    for (const choice of DPI_CHOICES) {
+    for (const choice of getDpiChoices()) {
       const option = document.createElement('option');
       option.value = String(choice.value);
-      if (choice.value === 0) {
-        setHyperOptionText(option, 'dpiNone', choice.label);
-      } else {
-        option.textContent = choice.label;
-      }
+      option.textContent = choice.label;
       select.append(option);
     }
     select.addEventListener('change', () =>
@@ -372,20 +388,14 @@ function renderHyperOptions(
   onChange: OptionChangeHandler
 ): (options: HyperCompressOptions) => void {
   const syncs: ((options: HyperCompressOptions) => void)[] = [];
-  for (const section of HYPER_OPTION_SECTIONS) {
+  for (const section of getOptionSections()) {
     const details = document.createElement('details');
     details.className = 'group rounded-lg border border-gray-700';
     details.open = Boolean(section.open);
     const summary = document.createElement('summary');
     summary.className =
       'flex items-center justify-between cursor-pointer select-none list-none px-3 py-2 text-sm font-medium text-gray-200 [&::-webkit-details-marker]:hidden';
-    const summaryText = document.createElement('span');
-    setHyperOptionText(
-      summaryText,
-      `sections.${section.title.toLowerCase()}`,
-      section.title
-    );
-    summary.append(summaryText);
+    summary.textContent = section.title;
     const chevron = document.createElement('i');
     chevron.setAttribute('data-lucide', 'chevron-down');
     chevron.className =
@@ -416,18 +426,24 @@ function describeCompressResult(
   if (saved > 0) {
     const percent = ((saved / result.originalSize) * 100).toFixed(1);
     parts.push(
-      t('tools:compressPdf.msg.resultReduced', {
-        from: formatBytes(result.originalSize),
-        to: formatBytes(result.compressedSize),
-        percent,
-      })
+      trText(
+        'File size reduced from {{originalSize}} to {{compressedSize}} (Saved {{percent}}%).',
+        {
+          originalSize: formatBytes(result.originalSize),
+          compressedSize: formatBytes(result.compressedSize),
+          percent,
+        }
+      )
     );
   } else {
     parts.push(
-      t('tools:compressPdf.msg.resultNotReduced', {
-        from: formatBytes(result.originalSize),
-        to: formatBytes(result.compressedSize),
-      })
+      trText(
+        'Could not reduce file size further. Original: {{originalSize}}, New: {{compressedSize}}.',
+        {
+          originalSize: formatBytes(result.originalSize),
+          compressedSize: formatBytes(result.compressedSize),
+        }
+      )
     );
   }
 
@@ -435,51 +451,58 @@ function describeCompressResult(
   if (targetBytes !== undefined) {
     if (result.metTarget) {
       parts.push(
-        t('tools:compressPdf.msg.resultFitsTarget', {
-          target: formatBytes(targetBytes),
+        trText('It fits the {{targetBytes}} target.', {
+          targetBytes: formatBytes(targetBytes),
         })
       );
     } else if (preservingPdfa) {
       parts.push(
-        t('tools:compressPdf.msg.resultAboveTargetPdfa', {
-          target: formatBytes(targetBytes),
-        })
+        trText(
+          'It is still above the {{targetBytes}} target because Preserve PDF/A limits how far it can be compressed.',
+          { targetBytes: formatBytes(targetBytes) }
+        )
       );
     } else {
       parts.push(
-        t('tools:compressPdf.msg.resultAboveTarget', {
-          target: formatBytes(targetBytes),
-        })
+        `It is still above the ${formatBytes(targetBytes)} target. This is the smallest these settings allow; for image-only scans, turn on Rasterize pages under Custom Settings.`
       );
     }
   }
 
   if (result.signaturesRemoved) {
-    parts.push(t('tools:compressPdf.msg.resultSignaturesRemoved'));
+    parts.push(
+      trText(
+        'Its digital signatures were removed so it could be compressed. Sign it again if needed.'
+      )
+    );
   }
 
   if (result.pdfaOutcome === 'claim-withdrawn') {
-    parts.push(t('tools:compressPdf.msg.resultPdfaWithdrawn'));
+    parts.push(
+      trText(
+        'It no longer claims PDF/A conformance. Turn on Preserve PDF/A under Custom Settings to keep it.'
+      )
+    );
   } else if (preservingPdfa && (options.brotli || options.rasterizePages)) {
-    parts.push(t('tools:compressPdf.msg.resultPdfaKept'));
+    parts.push(trText('Brotli and rasterizing were skipped to keep it PDF/A.'));
   }
 
   if (saved <= 0) {
     return {
-      title: t('tools:compressPdf.msg.titleFinished'),
+      title: trText('Compression Finished'),
       message: parts.join(' '),
       type: 'warning',
     };
   }
   if (result.metTarget === false) {
     return {
-      title: t('tools:compressPdf.msg.titleTargetNotReached'),
+      title: trText('Target Not Reached'),
       message: parts.join(' '),
       type: 'warning',
     };
   }
   return {
-    title: t('tools:compressPdf.msg.titleComplete'),
+    title: trText('Compression Complete'),
     message: parts.join(' '),
     type: 'success',
   };
@@ -487,9 +510,7 @@ function describeCompressResult(
 
 function describeCompressionError(err: unknown, hadPassword: boolean): string {
   if (err instanceof HyperError && err.code === 'decrypt_failed') {
-    return hadPassword
-      ? t('tools:compressPdf.msg.errorWrongPassword')
-      : t('tools:compressPdf.msg.errorPasswordProtected');
+    return hadPassword ? 'wrong password' : 'password protected';
   }
   return err instanceof Error ? err.message : String(err);
 }
@@ -513,11 +534,11 @@ function createPasswordField(
 
   const input = document.createElement('input');
   input.type = 'password';
-  input.placeholder = t('tools:pdfWorkflow.ui.enterPasswordPlaceholder');
+  input.placeholder = trText('Enter password');
   input.autocomplete = 'off';
   input.value = value;
   input.setAttribute('aria-label', label);
-  input.className = `${PASSWORD_INPUT_CLASS} ${LOCK_MESSAGES.locked.field}`;
+  input.className = `${PASSWORD_INPUT_CLASS} ${getLockMessages().locked.field}`;
   input.addEventListener('input', () => onInput(input.value));
 
   const showIcon = createIcon('eye', '');
@@ -526,16 +547,14 @@ function createPasswordField(
   toggle.type = 'button';
   toggle.className =
     'absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-200';
-  toggle.setAttribute('aria-label', t('tools:compressPdf.msg.showPassword'));
+  toggle.setAttribute('aria-label', trText('Show password'));
   toggle.append(showIcon, hideIcon);
   toggle.addEventListener('click', () => {
     const reveal = input.type === 'password';
     input.type = reveal ? 'text' : 'password';
     toggle.setAttribute(
       'aria-label',
-      reveal
-        ? t('tools:compressPdf.msg.hidePassword')
-        : t('tools:compressPdf.msg.showPassword')
+      reveal ? trText('Hide password') : trText('Show password')
     );
     showIcon.classList.toggle('hidden', reveal);
     hideIcon.classList.toggle('hidden', !reveal);
@@ -690,16 +709,16 @@ onPageReady(() => {
       (file) => fileLocks.get(file)?.status === 'unlocked'
     ).length;
     if (sharedMissed && unlocked < files.length) {
-      sharedView.status.textContent = t(
-        'tools:compressPdf.msg.thatPasswordDidNotOpenAny'
+      sharedView.status.textContent = trText(
+        'That password did not open any of the remaining files.'
       );
       sharedView.status.className = 'text-xs mt-1 text-red-400';
       return;
     }
-    sharedView.status.textContent = t('tools:compressPdf.msg.unlockedOfFiles', {
-      unlocked,
-      count: files.length,
-    });
+    sharedView.status.textContent = trText(
+      'Unlocked {{unlocked}} of {{length}} files.',
+      { unlocked, length: files.length }
+    );
     sharedView.status.className = `text-xs mt-1 ${unlocked === files.length ? 'text-green-400' : 'text-gray-400'}`;
   };
 
@@ -707,9 +726,9 @@ onPageReady(() => {
     const lock = fileLocks.get(file);
     const view = lockViews.get(file);
     if (lock && view && lock.status !== 'checking' && lock.status !== 'open') {
-      const { text, color, field } = LOCK_MESSAGES[lock.status];
+      const { text, color, field } = getLockMessages()[lock.status];
       if (view.input.value !== lock.password) view.input.value = lock.password;
-      view.status.textContent = t(text);
+      view.status.textContent = text;
       view.status.className = `truncate ${color}`;
       view.input.className = `${PASSWORD_INPUT_CLASS} ${field}`;
       view.lockIcon.classList.toggle('hidden', lock.status === 'unlocked');
@@ -778,11 +797,9 @@ onPageReady(() => {
           sharedDiv.className = 'bg-gray-700 p-3 rounded-lg text-sm';
           const sharedLabel = document.createElement('div');
           sharedLabel.className = 'font-medium text-gray-200 text-sm';
-          sharedLabel.textContent = t(
-            'tools:compressPdf.msg.passwordForAllLockedFiles'
-          );
+          sharedLabel.textContent = trText('Password for all locked files');
           sharedView = createPasswordField(
-            'Password for all locked files',
+            trText('Password for all locked files'),
             sharedPassword,
             applySharedPassword
           );
@@ -818,7 +835,7 @@ onPageReady(() => {
 
           if (locked) {
             const view = createPasswordField(
-              `Password for ${file.name}`,
+              trText('Password for {{name}}', { name: file.name }),
               lock.password,
               (value) => {
                 lock.password = value;
@@ -829,7 +846,9 @@ onPageReady(() => {
             view.root.classList.add('mt-3');
             const sizeSpan = document.createElement('span');
             sizeSpan.className = 'flex-shrink-0 whitespace-nowrap';
-            sizeSpan.textContent = `${formatBytes(file.size)} ·`;
+            sizeSpan.textContent = trText('{{size}} ·', {
+              size: formatBytes(file.size),
+            });
             metaSpan.className = 'flex gap-1 min-w-0 text-xs text-gray-400';
             metaSpan.replaceChildren(sizeSpan, view.status);
             fileDiv.append(view.root);
@@ -841,7 +860,7 @@ onPageReady(() => {
             'ml-4 text-red-400 hover:text-red-300 flex-shrink-0';
           removeBtn.setAttribute(
             'aria-label',
-            t('tools:compressPdf.msg.remove', { name: file.name })
+            trText('Remove {{name}}', { name: file.name })
           );
           removeBtn.append(createIcon('trash', ''));
           removeBtn.onclick = () => {
@@ -888,9 +907,9 @@ onPageReady(() => {
     const password = isProtected(lock) ? lock.password : '';
     showLoader(
       targetBytes === undefined
-        ? t('tools:compressPdf.loader.compressing')
-        : t('tools:compressPdf.msg.compressingTo', {
-            value: formatBytes(targetBytes),
+        ? 'Compressing...'
+        : trText('Compressing to {{size}}...', {
+            size: formatBytes(targetBytes),
           })
     );
     const result = await compressWithHyper(await file.arrayBuffer(), {
@@ -902,10 +921,11 @@ onPageReady(() => {
 
     if (result.signed) {
       showAlert(
-        t('tools:compressPdf.alert.signedPdfNotChanged'),
-        t('tools:compressPdf.msg.isDigitallySignedSoItWas', {
-          name: file.name,
-        }),
+        'Signed PDF Not Changed',
+        trText(
+          '{{name}} is digitally signed, so it was left as it is. Compressing it would break the signature. To compress it anyway, turn on Override content protection under Custom Settings; its signatures will be removed.',
+          { name: file.name }
+        ),
         'warning',
         () => resetState()
       );
@@ -924,9 +944,10 @@ onPageReady(() => {
     showAlert(
       title,
       password
-        ? t('tools:compressPdf.msg.itWasPasswordProtectedSoThe', {
-            error: message,
-          })
+        ? trText(
+            '{{message}} It was password protected, so the compressed copy has no password. Use Protect PDF to add one again.',
+            { message }
+          )
         : message,
       type,
       () => resetState()
@@ -938,7 +959,7 @@ onPageReady(() => {
     runOptions: HyperCompressOptions,
     targetBytes: number | undefined
   ) => {
-    showLoader(t('tools:compressPdf.loader.compressingMultiplePdfs'));
+    showLoader('Compressing multiple PDFs...');
     const JSZip = (await import('jszip')).default;
     const zip = new JSZip();
     let totalOriginalSize = 0;
@@ -955,9 +976,9 @@ onPageReady(() => {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       showLoader(
-        t('tools:compressPdf.msg.compressing', {
-          value: i + 1,
-          count: files.length,
+        trText('Compressing {{n}}/{{length}}: {{name}}...', {
+          n: i + 1,
+          length: files.length,
           name: file.name,
         })
       );
@@ -989,15 +1010,15 @@ onPageReady(() => {
     if (compressedCount === 0) {
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:compressPdf.msg.noneOfTheFilesCouldBe', {
-          value: failures.join(', '),
+        'Error',
+        trText('None of the files could be compressed: {{join}}.', {
+          join: failures.join(', '),
         })
       );
       return;
     }
 
-    showLoader(t('tools:compressPdf.loader.creatingZip'));
+    showLoader('Creating ZIP...');
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     downloadFile(zipBlob, 'compressed-pdfs.zip');
     hideLoader();
@@ -1005,8 +1026,22 @@ onPageReady(() => {
     const totalSavings = totalOriginalSize - totalCompressedSize;
     const parts = [
       totalSavings > 0
-        ? `Compressed ${compressedCount} PDF(s). Total size reduced from ${formatBytes(totalOriginalSize)} to ${formatBytes(totalCompressedSize)} (Saved ${((totalSavings / totalOriginalSize) * 100).toFixed(1)}%).`
-        : `Compressed ${compressedCount} PDF(s). Total size: ${formatBytes(totalCompressedSize)}.`,
+        ? trText(
+            'Compressed {{compressedCount}} PDF(s). Total size reduced from {{totalOriginalSize}} to {{totalCompressedSize}} (Saved {{value}}%).',
+            {
+              compressedCount,
+              totalOriginalSize: formatBytes(totalOriginalSize),
+              totalCompressedSize: formatBytes(totalCompressedSize),
+              value: ((totalSavings / totalOriginalSize) * 100).toFixed(1),
+            }
+          )
+        : trText(
+            'Compressed {{compressedCount}} PDF(s). Total size: {{totalCompressedSize}}.',
+            {
+              compressedCount,
+              totalCompressedSize: formatBytes(totalCompressedSize),
+            }
+          ),
     ];
     if (signedCount > 0) {
       parts.push(
@@ -1034,14 +1069,12 @@ onPageReady(() => {
       );
     }
     if (failures.length > 0) {
-      parts.push(`Skipped: ${failures.join(', ')}.`);
+      parts.push(trText('Skipped: {{join}}.', { join: failures.join(', ') }));
     }
 
     const hasProblems = failures.length > 0 || missedTargetCount > 0;
     showAlert(
-      hasProblems
-        ? t('tools:compressPdf.alert.compressionFinished')
-        : t('tools:compressPdf.alert.compressionComplete'),
+      hasProblems ? 'Compression Finished' : 'Compression Complete',
       parts.join(' '),
       hasProblems ? 'warning' : totalSavings > 0 ? 'success' : 'info',
       () => resetState()
@@ -1050,7 +1083,7 @@ onPageReady(() => {
 
   const compress = async () => {
     if (state.files.length === 0) {
-      showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+      showAlert('No Files', 'Please select at least one PDF file.');
       return;
     }
 
@@ -1060,14 +1093,16 @@ onPageReady(() => {
     });
     if (needPassword.length > 0) {
       showAlert(
-        t('tools:compressPdf.alert.passwordNeeded'),
+        'Password Needed',
         needPassword.length === 1
-          ? t('tools:compressPdf.msg.isPasswordProtectedEnterItsPassword', {
-              name: needPassword[0].name,
-            })
-          : t('tools:compressPdf.msg.theseFilesArePasswordProtectedEnter', {
-              value: needPassword.map((file) => file.name).join(', '),
-            }),
+          ? trText(
+              '{{name}} is password protected. Enter its password on the file card, then compress again.',
+              { name: needPassword[0].name }
+            )
+          : trText(
+              'These files are password protected: {{names}}. Enter their passwords on the file cards, or remove them, then compress again.',
+              { names: needPassword.map((file) => file.name).join(', ') }
+            ),
         'warning',
         () => lockViews.get(needPassword[0])?.input.focus()
       );
@@ -1098,10 +1133,11 @@ onPageReady(() => {
         }
         updateUI();
         showAlert(
-          t('tools:compressPdf.alert.passwordNeeded'),
-          t('tools:compressPdf.msg.isPasswordProtectedEnterItsPassword', {
-            name: file.name,
-          }),
+          'Password Needed',
+          trText(
+            '{{name}} is password protected. Enter its password on the file card, then compress again.',
+            { name: file.name }
+          ),
           'warning',
           () => lockViews.get(file)?.input.focus()
         );
@@ -1109,9 +1145,9 @@ onPageReady(() => {
       }
       console.error('[CompressPDF] Error:', e);
       showAlert(
-        t('common.error'),
-        t('tools:compressPdf.msg.anErrorOccurredDuringCompressionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during compression. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }
@@ -1130,14 +1166,15 @@ onPageReady(() => {
       }
       if (rejected.length > 0) {
         showAlert(
-          t('tools:compressPdf.alert.notPdf'),
+          'Not a PDF',
           rejected.length === 1
-            ? t('tools:compressPdf.msg.isNotAValidPdfSo', {
-                value: rejected[0],
+            ? trText('{{name}} is not a valid PDF, so it was not added.', {
+                name: rejected[0],
               })
-            : t('tools:compressPdf.msg.theseFilesAreNotValidPdfs', {
-                value: rejected.join(', '),
-              }),
+            : trText(
+                'These files are not valid PDFs, so they were not added: {{names}}.',
+                { names: rejected.join(', ') }
+              ),
           'warning'
         );
       }

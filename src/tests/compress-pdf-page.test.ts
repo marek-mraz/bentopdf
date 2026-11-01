@@ -9,15 +9,13 @@ const mocks = vi.hoisted(() => ({
   showAlert: vi.fn(),
   downloadFile: vi.fn(),
 }));
-const page = vi.hoisted(() => ({
-  init: undefined as (() => unknown) | undefined,
-}));
 
-// The page starts through onPageReady(); capture its init to run it directly.
-vi.mock('../js/i18n/i18n', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('../js/i18n/i18n')>()),
-  onPageReady: (init: () => unknown) => {
-    page.init = init;
+const page = vi.hoisted(() => ({ ready: null as (() => void) | null }));
+
+vi.mock('../js/i18n/i18n.js', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../js/i18n/i18n.js')>()),
+  onPageReady: (callback: () => void) => {
+    page.ready = callback;
   },
 }));
 
@@ -73,10 +71,10 @@ async function openPage(): Promise<void> {
   const parsed = new DOMParser().parseFromString(pageMarkup, 'text/html');
   document.body.replaceChildren(...Array.from(parsed.body.childNodes));
   vi.resetModules();
-  page.init = undefined;
+  page.ready = null;
   await import('../js/logic/compress-pdf-page');
-  if (!page.init) throw new Error('page did not start');
-  page.init();
+  if (!page.ready) throw new Error('page did not start');
+  page.ready();
 }
 
 function pdfFile(name: string, body = OPEN_BODY, type = 'application/pdf') {

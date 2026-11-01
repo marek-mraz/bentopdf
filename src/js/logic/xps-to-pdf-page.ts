@@ -3,8 +3,10 @@ import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
+import { convertXpsToPdf } from '../utils/xps-repair.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const FILETYPE = 'xps';
 const EXTENSIONS = ['.xps', '.oxps'];
@@ -86,39 +88,39 @@ onPageReady(() => {
     try {
       if (state.files.length === 0) {
         showAlert(
-          t('alert.noFiles'),
-          t('tools:xpsToPdf.msg.pleaseSelectAtLeastOneFile', { TOOL_NAME })
+          'No Files',
+          trText('Please select at least one {{TOOL_NAME}} file.', {
+            TOOL_NAME,
+          })
         );
         return;
       }
 
-      showLoader(t('loader.loadingEngine'));
+      showLoader('Loading engine...');
       const pymupdf = await loadPyMuPDF();
 
       if (state.files.length === 1) {
         const originalFile = state.files[0];
         showLoader(
-          t('tools:xpsToPdf.msg.converting', { name: originalFile.name })
+          trText('Converting {{name}}...', { name: originalFile.name })
         );
 
-        const pdfBlob = await pymupdf.convertToPdf(originalFile, {
-          filetype: FILETYPE,
-        });
+        const pdfBlob = await convertXpsToPdf(pymupdf, originalFile);
         const fileName = originalFile.name.replace(/\.[^.]+$/, '') + '.pdf';
 
         downloadFile(pdfBlob, fileName);
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:xpsToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: originalFile.name,
           }),
           'success',
           () => resetState()
         );
       } else {
-        showLoader(t('loader.convertingFiles'));
+        showLoader('Converting files...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
         const usedNames = new Set<string>();
@@ -126,16 +128,14 @@ onPageReady(() => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:xpsToPdf.msg.converting2', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
 
-          const pdfBlob = await pymupdf.convertToPdf(file, {
-            filetype: FILETYPE,
-          });
+          const pdfBlob = await convertXpsToPdf(pymupdf, file);
           const baseName = file.name.replace(/\.[^.]+$/, '');
           const pdfBuffer = await pdfBlob.arrayBuffer();
           const zipEntryName = deduplicateFileName(
@@ -151,11 +151,11 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:xpsToPdf.msg.successfullyConvertedFileSToPdf', {
-            count: state.files.length,
-            TOOL_NAME,
-          }),
+          'Conversion Complete',
+          trText(
+            'Successfully converted {{length}} {{TOOL_NAME}} file(s) to PDF.',
+            { length: state.files.length, TOOL_NAME }
+          ),
           'success',
           () => resetState()
         );
@@ -164,9 +164,9 @@ onPageReady(() => {
       console.error(`[${TOOL_NAME}2PDF] ERROR:`, e);
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:xpsToPdf.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

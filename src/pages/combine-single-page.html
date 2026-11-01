@@ -163,7 +163,6 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label
-                data-i18n="tools:combineToSinglePage.ui.layoutDirection"
                 for="combine-orientation"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Layout Direction</label
@@ -172,24 +171,14 @@
                 id="combine-orientation"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
               >
-                <option
-                  data-i18n="tools:combineToSinglePage.ui.verticalTopToBottom"
-                  value="vertical"
-                  selected
-                >
+                <option value="vertical" selected>
                   Vertical (Top to Bottom)
                 </option>
-                <option
-                  data-i18n="tools:combineToSinglePage.ui.horizontalLeftToRight"
-                  value="horizontal"
-                >
-                  Horizontal (Left to Right)
-                </option>
+                <option value="horizontal">Horizontal (Left to Right)</option>
               </select>
             </div>
             <div>
               <label
-                data-i18n="tools:combineToSinglePage.ui.spacingPixels"
                 for="page-spacing"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Spacing (pixels)</label
@@ -207,7 +196,6 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label
-                data-i18n="toolPage.backgroundColor"
                 for="background-color"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Background Color</label
@@ -221,11 +209,7 @@
                   id="add-separator"
                   class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-600"
                 />
-                <span
-                  data-i18n="tools:combineToSinglePage.ui.addSeparatorLines"
-                  class="text-sm text-gray-300"
-                  >Add Separator Lines</span
-                >
+                <span class="text-sm text-gray-300">Add Separator Lines</span>
               </label>
             </div>
           </div>
@@ -236,7 +220,6 @@
           >
             <div>
               <label
-                data-i18n="tools:combineToSinglePage.ui.separatorThickness"
                 for="separator-thickness"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Separator Thickness</label
@@ -252,7 +235,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:combineToSinglePage.ui.separatorColor"
                 for="separator-color"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Separator Color</label
@@ -261,11 +243,7 @@
             </div>
           </div>
 
-          <button
-            data-i18n="tools:combineToSinglePage.ui.combinePages"
-            id="process-btn"
-            class="btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-4">
             Combine Pages
           </button>
         </div>
@@ -334,12 +312,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -352,12 +325,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -370,12 +338,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -397,74 +360,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -480,12 +405,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="combine-single-page.1.q"
-              >How do I merge all pages of a PDF into one long page?</span
-            >
+            How do I merge all pages of a PDF into one long page?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="combine-single-page.1.a">
+          <p class="faq-d-a">
             Upload the PDF, keep Layout Direction set to Vertical, and click the
             process button. Every page is placed top to bottom on one continuous
             page, with the output width matching the widest source page and
@@ -494,12 +417,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="combine-single-page.2.q"
-              >Can I put the pages side by side instead of stacked?</span
-            >
+            Can I put the pages side by side instead of stacked?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="combine-single-page.2.a">
+          <p class="faq-d-a">
             Choose Horizontal (Left to Right) in Layout Direction. Pages are
             laid out in order from left to right on a single wide page, and
             pages shorter than the tallest one are centered vertically.
@@ -507,12 +428,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="combine-single-page.3.q"
-              >Can I add a gap or a line between the pages?</span
-            >
+            Can I add a gap or a line between the pages?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="combine-single-page.3.a">
+          <p class="faq-d-a">
             Spacing (0 by default) adds a gap between pages, measured in the
             PDF's own units where 72 equals one inch, and Background Color fills
             that gap. Turn on Add Separator Lines to draw a line through the
@@ -522,13 +441,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="combine-single-page.4.q"
-              >Does the background color apply to the whole page or only the
-              gaps?</span
-            >
+            Does the background color apply to the whole page or only the gaps?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="combine-single-page.4.a">
+          <p class="faq-d-a">
             It fills the whole output page underneath the source pages, so it
             shows in the spacing between pages and in any margin where a
             narrower page is centered. With white selected, the default, no fill
@@ -537,12 +453,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="combine-single-page.5.q"
-              >Will the text in the combined page still be selectable?</span
-            >
+            Will the text in the combined page still be selectable?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="combine-single-page.5.a">
+          <p class="faq-d-a">
             No. Each source page is rendered to an image at 2x resolution and
             drawn onto the new page, so the result is a picture of your pages
             rather than live text. Keep the original PDF if you need to copy or
@@ -551,12 +465,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="combine-single-page.6.q"
-              >Is there a limit to how many pages I can stitch together?</span
-            >
+            Is there a limit to how many pages I can stitch together?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="combine-single-page.6.a">
+          <p class="faq-d-a">
             The tool doesn't set one, but the output grows with every page you
             add: a 100-page document becomes a page roughly 100 pages tall. Some
             readers struggle with very large pages; Adobe Reader, for example,
@@ -565,12 +477,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="combine-single-page.7.q"
-              >What is a single long-page PDF useful for?</span
-            >
+            What is a single long-page PDF useful for?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="combine-single-page.7.a">
+          <p class="faq-d-a">
             It suits scrolling previews for the web, design mockups, comic
             strips, and storyboards where the reader scrolls instead of flipping
             pages. If you want several pages printed on one sheet in a grid,
@@ -582,12 +492,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="combine-single-page.8.q"
-              >Does the combined PDF get uploaded to a server?</span
-            >
+            Does the combined PDF get uploaded to a server?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="combine-single-page.8.a">
+          <p class="faq-d-a">
             No. Rendering the pages and building the new single-page PDF both
             happen in your browser, and the file stays on your device the whole
             time.

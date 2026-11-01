@@ -7,7 +7,8 @@ import * as pdfjsLib from 'pdfjs-dist';
 import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
 import type { CropBox } from '@/types';
 import './utils/setup-pdf-worker.js';
-import { t } from './i18n/i18n';
+
+import { trText } from './i18n/i18n.js';
 
 const editorState: {
   pdf: PDFDocumentProxy | null;
@@ -62,7 +63,7 @@ function calculateFitScale(page: PDFPageProxy) {
  */
 async function renderPage(num: number) {
   editorState.pageRendering = true;
-  showLoader(t('msg.canvasEditor.loadingPage', { num }));
+  showLoader(trText('Loading page {{num}}...', { num }));
 
   try {
     const page = await editorState.pdf!.getPage(num);
@@ -92,10 +93,7 @@ async function renderPage(num: number) {
     redrawShapes();
   } catch (error) {
     console.error('Error rendering page:', error);
-    showAlert(
-      t('tools:pdfEditor.alert.renderError'),
-      t('tools:pdfEditor.alert.couldNotDisplayPage')
-    );
+    showAlert('Render Error', 'Could not display the page.');
   } finally {
     editorState.pageRendering = false;
     hideLoader();
@@ -314,8 +312,8 @@ export async function setupCanvasEditor(toolId: string) {
       async () => {
         if (Object.keys(editorState.cropBoxes).length === 0) {
           showAlert(
-            t('tools:pdfEditor.alert.noAreaSelected'),
-            t('tools:pdfEditor.alert.drawRectangleLeastOne')
+            'No Area Selected',
+            'Please draw a rectangle on at least one page to select the crop area.'
           );
           return;
         }
@@ -326,8 +324,8 @@ export async function setupCanvasEditor(toolId: string) {
             : false;
         if (success) {
           showAlert(
-            t('common.success'),
-            t('tools:pdfEditor.alert.pdfHasBeenCropped')
+            'Success!',
+            'Your PDF has been cropped and the download has started.'
           );
         }
       };

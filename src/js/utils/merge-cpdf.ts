@@ -1,6 +1,5 @@
 import { WasmProvider } from './wasm-provider';
 import { wfError } from '../workflow/errors';
-import { t } from '../i18n/i18n';
 
 export interface MergeFile {
   name: string;
@@ -12,9 +11,7 @@ export async function mergePdfsCpdf(
   options?: { retainPageLabels?: boolean }
 ): Promise<Uint8Array> {
   if (files.length === 0) {
-    throw new Error(
-      wfError('noPdfsConnected', { node: t('tools:mergePdf.name') })
-    );
+    throw new Error(wfError('noPdfsConnected', { node: 'Merge' }));
   }
 
   const cpdfBaseUrl = WasmProvider.getUrl('cpdf');

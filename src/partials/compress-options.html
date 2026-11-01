@@ -1,7 +1,6 @@
 <div id="compress-options" class="hidden mt-6 space-y-6">
   <div>
     <label
-      data-i18n="tools:compressPdf.ui.compressionLevel"
       for="compression-level"
       class="block mb-2 text-sm font-medium text-gray-300"
       >Compression Level</label
@@ -11,33 +10,13 @@
       autocomplete="off"
       class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500"
     >
-      <option data-i18n="tools:compressPdf.ui.lowBestQuality" value="low">
-        Low (Best Quality)
-      </option>
-      <option
-        data-i18n="tools:compressPdf.ui.mediumRecommended"
-        value="medium"
-        selected
-      >
-        Medium (Recommended)
-      </option>
-      <option data-i18n="tools:compressPdf.ui.highSmallestFiles" value="high">
-        High (Smallest Files)
-      </option>
-      <option
-        data-i18n="tools:compressPdf.ui.losslessNoQualityLoss"
-        value="lossless"
-      >
-        Lossless (No Quality Loss)
-      </option>
-      <option data-i18n="tools:compressPdf.ui.custom" value="custom">
-        Custom
-      </option>
+      <option value="low">Low (Best Quality)</option>
+      <option value="medium" selected>Medium (Recommended)</option>
+      <option value="high">High (Smallest Files)</option>
+      <option value="lossless">Lossless (No Quality Loss)</option>
+      <option value="custom">Custom</option>
     </select>
-    <p
-      data-i18n="tools:compressPdf.ui.poweredHyperCompressRecompressesImages"
-      class="mt-2 text-xs text-gray-400"
-    >
+    <p class="mt-2 text-xs text-gray-400">
       Powered by Hyper Compress: it recompresses images, subsets and merges
       fonts, and strips dead weight while text, links, and forms keep working.
       For image-only scans, turn on Rasterize pages under Custom Settings.
@@ -46,14 +25,12 @@
 
   <div>
     <label
-      data-i18n="tools:compressPdf.ui.targetFileSizeOptional"
       for="target-size"
       class="block mb-2 text-sm font-medium text-gray-300"
       >Target File Size (Optional)</label
     >
     <div class="flex gap-2">
       <input
-        data-i18n-placeholder="tools:compressPdf.ui.noTargetPlaceholder"
         type="number"
         id="target-size"
         min="0.01"
@@ -64,7 +41,6 @@
         class="flex-1 min-w-0 bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500"
       />
       <select
-        data-i18n-aria-label="pages.compressOptions.targetFileSizeUnit"
         id="target-size-unit"
         data-default-unit="{{targetUnit}}"
         aria-label="Target file size unit"
@@ -75,10 +51,7 @@
         <option value="mb" selected>MB</option>
       </select>
     </div>
-    <p
-      data-i18n="tools:compressPdf.ui.hyperCompressFindsBestQuality"
-      class="text-xs text-gray-500 mt-1"
-    >
+    <p class="text-xs text-gray-500 mt-1">
       Hyper Compress finds the best quality that fits. Leave it empty to use the
       level as is.
     </p>
@@ -91,9 +64,7 @@
       class="flex items-center gap-2 text-indigo-300 hover:text-indigo-400 text-sm font-medium"
     >
       <i data-lucide="settings" class="w-4 h-4"></i>
-      <span data-i18n="tools:compressPdf.ui.customSettings"
-        >Custom Settings</span
-      >
+      <span>Custom Settings</span>
       <i
         data-lucide="chevron-down"
         id="custom-settings-chevron"
@@ -105,10 +76,7 @@
       id="custom-settings-panel"
       class="hidden mt-4 p-4 bg-gray-900 rounded-lg border border-gray-700 space-y-3"
     >
-      <p
-        data-i18n="tools:compressPdf.ui.fineTuneHyperCompressPicking"
-        class="text-sm text-gray-400"
-      >
+      <p class="text-sm text-gray-400">
         Fine-tune Hyper Compress. Picking a compression level resets these,
         except Override content protection, Convert to grayscale, Preserve
         PDF/A, and Brotli.
@@ -121,14 +89,10 @@
           class="w-4 h-4 mt-0.5 rounded flex-shrink-0"
         />
         <span>
-          <span
-            data-i18n="tools:compressPdf.ui.overrideContentProtection"
-            class="block text-sm text-gray-300"
+          <span class="block text-sm text-gray-300"
             >Override content protection</span
           >
-          <span
-            data-i18n="tools:compressPdf.ui.defaultHyperCompressPreservesContent"
-            class="block text-xs text-gray-500 mt-0.5"
+          <span class="block text-xs text-gray-500 mt-0.5"
             >By default, Hyper Compress preserves content: it leaves digitally
             signed PDFs untouched and won't rasterize pages that have text. Turn
             this on to bypass both. Signed PDFs lose their signatures, and
@@ -140,11 +104,7 @@
     </div>
   </div>
 
-  <button
-    data-i18n="tools:compressPdf.name"
-    id="process-btn"
-    class="btn-gradient w-full mt-4"
-  >
+  <button id="process-btn" class="btn-gradient w-full mt-4">
     Compress PDF
   </button>
 </div>

@@ -154,7 +154,6 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label
-                data-i18n="toolPage.position"
                 for="position"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Position</label
@@ -163,48 +162,17 @@
                 id="position"
                 class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500"
               >
-                <option
-                  data-i18n="tools:pageNumbers.ui.bottomCenter"
-                  value="bottom-center"
-                >
-                  Bottom Center
-                </option>
-                <option
-                  data-i18n="tools:pageNumbers.ui.bottomLeft"
-                  value="bottom-left"
-                >
-                  Bottom Left
-                </option>
-                <option
-                  data-i18n="tools:pageNumbers.ui.bottomRight"
-                  value="bottom-right"
-                >
-                  Bottom Right
-                </option>
-                <option
-                  data-i18n="tools:pageNumbers.ui.topCenter"
-                  value="top-center"
-                >
-                  Top Center
-                </option>
-                <option
-                  data-i18n="tools:pageNumbers.ui.topLeft"
-                  value="top-left"
-                >
-                  Top Left
-                </option>
-                <option
-                  data-i18n="tools:pageNumbers.ui.topRight"
-                  value="top-right"
-                >
-                  Top Right
-                </option>
+                <option value="bottom-center">Bottom Center</option>
+                <option value="bottom-left">Bottom Left</option>
+                <option value="bottom-right">Bottom Right</option>
+                <option value="top-center">Top Center</option>
+                <option value="top-left">Top Left</option>
+                <option value="top-right">Top Right</option>
               </select>
             </div>
 
             <div>
               <label
-                data-i18n="tools:pageNumbers.ui.format"
                 for="number-format"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Format</label
@@ -222,7 +190,6 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label
-                data-i18n="toolPage.fontSize"
                 for="font-size"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Font Size</label
@@ -239,7 +206,6 @@
 
             <div>
               <label
-                data-i18n="toolPage.color"
                 for="text-color"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Color</label
@@ -248,11 +214,7 @@
             </div>
           </div>
 
-          <button
-            data-i18n="tools:pageNumbers.ui.addPageNumbers"
-            id="process-btn"
-            class="btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-4">
             Add Page Numbers
           </button>
         </div>
@@ -319,12 +281,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -337,12 +294,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -355,12 +307,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -382,74 +329,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -465,12 +374,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-numbers.1.q"
-              >Where on the page can the numbers go?</span
-            >
+            Where on the page can the numbers go?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-numbers.1.a">
+          <p class="faq-d-a">
             Six positions: bottom center, bottom left, bottom right, top center,
             top left, and top right. The margin adjusts to the page size
             automatically (about 4 percent of the page, between 8 and 40
@@ -480,12 +387,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-numbers.2.q"
-              >Can I show the total page count, like 3 of 12?</span
-            >
+            Can I show the total page count, like 3 of 12?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-numbers.2.a">
+          <p class="faq-d-a">
             Choose the "page X of Y" format and each page prints as 3 / 12. The
             other format prints only the number. There's no free-form template
             here; for wording such as "Page 3 of 12",
@@ -499,13 +404,11 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-numbers.3.q"
-              >Can I start numbering from a page other than the first, or skip a
-              cover page?</span
-            >
+            Can I start numbering from a page other than the first, or skip a
+            cover page?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-numbers.3.a">
+          <p class="faq-d-a">
             Not here; numbering always starts at 1 on the first page and runs to
             the last. To leave a cover unnumbered, split it off, number the
             rest, and merge the two back together. For Roman numerals on front
@@ -521,12 +424,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-numbers.4.q"
-              >What font is used, and can I change it?</span
-            >
+            What font is used, and can I change it?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-numbers.4.a">
+          <p class="faq-d-a">
             Numbers are set in Helvetica at the size you choose, from 6 to 72
             points, in any color from the color picker. The typeface itself is
             fixed.
@@ -534,12 +435,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-numbers.5.q"
-              >Are the numbers permanent?</span
-            >
+            Are the numbers permanent?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-numbers.5.a">
+          <p class="faq-d-a">
             They're drawn directly into the page content, not added as
             annotations, so every viewer shows them and they print with the
             document. That also means they can't be switched off later, so keep
@@ -548,13 +447,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-numbers.6.q"
-              >Will numbers land in the right spot on cropped or mixed-size
-              pages?</span
-            >
+            Will numbers land in the right spot on cropped or mixed-size pages?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-numbers.6.a">
+          <p class="faq-d-a">
             Each page is measured individually, using its crop box when one is
             set, so a document that mixes Letter and A4 or portrait and
             landscape pages still gets numbers inside the visible area at the
@@ -563,12 +459,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-numbers.7.q"
-              >Can I add a prefix like EXHIBIT-A or legal Bates numbers?</span
-            >
+            Can I add a prefix like EXHIBIT-A or legal Bates numbers?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-numbers.7.a">
+          <p class="faq-d-a">
             This tool prints plain numbers only. For prefixed, zero-padded
             numbering such as ABC000123 used in legal productions, use
             <a
@@ -580,12 +474,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-numbers.8.q"
-              >Does the tool upload my PDF to add the numbers?</span
-            >
+            Does the tool upload my PDF to add the numbers?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-numbers.8.a">
+          <p class="faq-d-a">
             No. The numbers are written by a PDF library running in your browser
             and the file never leaves your device, which makes it fine for
             contracts and confidential reports.

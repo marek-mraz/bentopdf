@@ -7,7 +7,8 @@
 
 import { WorkerBrowserConverter } from '@matbee/libreoffice-converter/browser';
 import type { InputFormat } from '@matbee/libreoffice-converter/browser';
-import { t } from '../i18n/i18n.js';
+
+import { trText } from '../i18n/i18n.js';
 
 const LIBREOFFICE_LOCAL_PATH = import.meta.env.BASE_URL + 'libreoffice-wasm/';
 
@@ -31,7 +32,12 @@ async function fetchAsDecompressedUrl(
 ): Promise<string> {
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: HTTP ${response.status}`);
+    throw new Error(
+      trText('Failed to fetch {{url}}: HTTP {{status}}', {
+        url,
+        status: response.status,
+      })
+    );
   }
 
   let blob = await response.blob();
@@ -73,7 +79,7 @@ export class LibreOfficeConverter {
       progressCallback?.({
         phase: 'loading',
         percent: 0,
-        message: t('msg.libreofficeLoader.loadingEngine'),
+        message: trText('Loading conversion engine...'),
       });
 
       const [sofficeWasmUrl, sofficeDataUrl] = await Promise.all([
@@ -100,8 +106,8 @@ export class LibreOfficeConverter {
           message: string;
         }) => {
           if (progressCallback && !this.initialized) {
-            const simplifiedMessage = t(
-              'msg.libreofficeLoader.loadingEnginePercent',
+            const simplifiedMessage = trText(
+              'Loading conversion engine ({{percent}}%)...',
               { percent: Math.round(info.percent) }
             );
             progressCallback({
@@ -126,7 +132,7 @@ export class LibreOfficeConverter {
       progressCallback?.({
         phase: 'ready',
         percent: 100,
-        message: t('msg.libreofficeLoader.engineReady'),
+        message: trText('Conversion engine ready!'),
       });
 
       // Null out the callback to prevent any late-firing progress updates
@@ -142,7 +148,7 @@ export class LibreOfficeConverter {
 
   async convertToPdf(file: File): Promise<Blob> {
     if (!this.converter) {
-      throw new Error('Converter not initialized');
+      throw new Error(trText('Converter not initialized'));
     }
 
     console.log(`[LibreOffice] Converting ${file.name} to PDF...`);

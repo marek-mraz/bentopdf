@@ -3,7 +3,8 @@ import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { createIcons, icons } from 'lucide';
 import JSZip from 'jszip';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 interface PdfToZipState {
   files: File[];
@@ -78,14 +79,11 @@ function updateUI() {
 
 async function createZipArchive() {
   if (pageState.files.length === 0) {
-    showAlert(
-      t('alert.noFiles'),
-      t('tools:pdfsToZip.alert.selectPdfFilesCreate')
-    );
+    showAlert('No Files', 'Please select PDF files to create a ZIP archive.');
     return;
   }
 
-  showLoader(t('loader.creatingZipArchive'));
+  showLoader('Creating ZIP archive...');
 
   try {
     const zip = new JSZip();
@@ -94,10 +92,10 @@ async function createZipArchive() {
     for (let i = 0; i < pageState.files.length; i++) {
       const file = pageState.files[i];
       showLoader(
-        t('tools:pdfsToZip.msg.adding', {
+        trText('Adding {{name}} ({{n}}/{{length}})...', {
           name: file.name,
-          value: i + 1,
-          count: pageState.files.length,
+          n: i + 1,
+          length: pageState.files.length,
         })
       );
       const arrayBuffer = await file.arrayBuffer();
@@ -105,14 +103,14 @@ async function createZipArchive() {
       zip.file(zipEntryName, arrayBuffer);
     }
 
-    showLoader(t('tools:pdfsToZip.loader.generatingZipFile'));
+    showLoader('Generating ZIP file...');
     const zipBlob = await zip.generateAsync({ type: 'blob' });
 
     downloadFile(zipBlob, 'pdfs_archive.zip');
 
     showAlert(
-      t('common.success'),
-      t('tools:pdfsToZip.alert.zipArchiveCreatedSuccessfully'),
+      'Success',
+      'ZIP archive created successfully!',
       'success',
       function () {
         resetState();
@@ -120,7 +118,7 @@ async function createZipArchive() {
     );
   } catch (e) {
     console.error(e);
-    showAlert(t('common.error'), t('tools:pdfsToZip.alert.couldNotCreateZip'));
+    showAlert('Error', 'Could not create ZIP archive.');
   } finally {
     hideLoader();
   }

@@ -2,17 +2,17 @@ import type {
   ComparePageModel,
   ComparePageResult,
   CompareCategorySummary,
-  CompareTextChange,
 } from '../types.ts';
-import { t } from '../../i18n/i18n.js';
 import { diffTextRuns } from './diff-text-runs.ts';
-import { diffTextRunsAsync } from '../worker-api.ts';
+import { diffStrings, diffTextRunsAsync } from '../worker-api.ts';
 import {
   classifyChangeCategory,
   diffAnnotations,
   diffImages,
   buildCategorySummary,
 } from './compare-content.ts';
+
+import { trText } from '../../i18n/i18n.js';
 
 const EMPTY_CATEGORY_SUMMARY: CompareCategorySummary = {
   text: 0,
@@ -22,47 +22,6 @@ const EMPTY_CATEGORY_SUMMARY: CompareCategorySummary = {
   formatting: 0,
   background: 0,
 };
-
-// diffTextRuns may run in a worker that has no translations, so the
-// descriptions of its changes are rebuilt here from the change fields.
-function localizeTextChange(change: CompareTextChange): void {
-  if (change.type === 'modified') {
-    change.description = t('tools:comparePdfs.msg.replacedText', {
-      before: change.beforeText,
-      after: change.afterText,
-    });
-  } else if (change.type === 'removed') {
-    change.description = t('tools:comparePdfs.msg.removedText', {
-      text: change.beforeText,
-    });
-  } else if (change.type === 'added') {
-    change.description = t('tools:comparePdfs.msg.addedText', {
-      text: change.afterText,
-    });
-  } else if (change.type === 'moved') {
-    change.description = t('tools:comparePdfs.msg.movedText', {
-      text: change.beforeText.slice(0, 80),
-    });
-  } else if (change.type === 'style-changed') {
-    const [head, ...details] = change.description.split('\n');
-    const count = Number(head.match(/\((\d+) regions\)/)?.[1] ?? 0);
-    const lines = [t('tools:comparePdfs.msg.styleChanged', { count })];
-    for (const detail of details) {
-      const size = detail.match(/^• Font size: (.*) → (.*)$/);
-      const font = detail.match(/^• Font: (.*) → (.*)$/);
-      if (size)
-        lines.push(
-          `• ${t('tools:comparePdfs.msg.fontSizeChange', { before: size[1], after: size[2] })}`
-        );
-      else if (font)
-        lines.push(
-          `• ${t('tools:comparePdfs.msg.fontChange', { before: font[1], after: font[2] })}`
-        );
-      else lines.push(detail);
-    }
-    change.description = lines.join('\n');
-  }
-}
 
 export function comparePageModels(
   leftPage: ComparePageModel | null,
@@ -97,9 +56,10 @@ function comparePageModelsCore(
           id: 'page-removed',
           type: 'page-removed',
           category: 'text',
-          description: t('tools:comparePdfs.msg.pageOnlyInFirst', {
-            page: leftPage.pageNumber,
-          }),
+          description: trText(
+            'Page {{pageNumber}} exists only in the first PDF.',
+            { pageNumber: leftPage.pageNumber }
+          ),
           beforeText: leftPage.plainText.slice(0, 200),
           afterText: '',
           beforeRects: [],
@@ -123,9 +83,10 @@ function comparePageModelsCore(
           id: 'page-added',
           type: 'page-added',
           category: 'text',
-          description: t('tools:comparePdfs.msg.pageOnlyInSecond', {
-            page: rightPage.pageNumber,
-          }),
+          description: trText(
+            'Page {{pageNumber}} exists only in the second PDF.',
+            { pageNumber: rightPage.pageNumber }
+          ),
           beforeText: '',
           afterText: rightPage.plainText.slice(0, 200),
           beforeRects: [],
@@ -160,7 +121,6 @@ function comparePageModelsCore(
     const pageHeight = Math.max(leftPage!.height, rightPage!.height);
 
     for (const c of allChanges) {
-      localizeTextChange(c);
       if (c.category === 'text') {
         c.category = classifyChangeCategory(c, pageHeight);
       }
@@ -198,5 +158,7 @@ function comparePageModelsCore(
     );
   }
 
-  return buildResult(diffTextRuns(leftPage.textItems, rightPage.textItems));
+  return buildResult(
+    diffTextRuns(leftPage.textItems, rightPage.textItems, diffStrings())
+  );
 }

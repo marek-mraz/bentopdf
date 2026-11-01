@@ -8,7 +8,7 @@ import { WorkflowError } from './types';
 import type { ExecutionProgress } from './types';
 import { updateNodeDisplay } from './editor';
 import { wfError } from './errors';
-import { t } from '../i18n/i18n';
+import { trText } from '../i18n/i18n';
 
 type AreaExtra = LitArea2D<ClassicScheme>;
 
@@ -79,7 +79,7 @@ function validateEncryptOrdering(
 ): string | null {
   for (const nodeId of pipelineNodes) {
     const node = editor.getNode(nodeId) as BaseWorkflowNode;
-    if (node?.nodeType !== 'EncryptNode') continue;
+    if (node?.label !== 'Encrypt') continue;
 
     const outConns = editor.getConnections().filter((c) => c.source === nodeId);
     for (const conn of outConns) {
@@ -141,7 +141,7 @@ export async function executeWorkflow(
       nodeId: node.id,
       nodeName: node.label,
       status: 'running',
-      message: t('tools:pdfWorkflow.processingNode', { node: node.label }),
+      message: trText('Processing {{name}}...', { name: node.label }),
     });
     await tick();
 

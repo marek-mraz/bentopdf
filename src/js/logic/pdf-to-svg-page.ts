@@ -6,7 +6,8 @@ import { loadPyMuPDF, isPyMuPDFAvailable } from '../utils/pymupdf-loader.js';
 import type { PyMuPDFInstance } from '@/types';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { showWasmRequiredDialog } from '../utils/wasm-provider.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 let pymupdf: PyMuPDFInstance | null = null;
 let files: File[] = [];
@@ -71,7 +72,7 @@ const resetState = () => {
 
 async function convert() {
   if (files.length === 0) {
-    showAlert(t('alert.noFiles'), t('alert.uploadLeastOnePdf'));
+    showAlert('No Files', 'Please upload at least one PDF file.');
     return;
   }
 
@@ -81,7 +82,7 @@ async function convert() {
     return;
   }
 
-  showLoader(t('loader.loadingEngine2'));
+  showLoader('Loading Engine...');
 
   try {
     // Load PyMuPDF dynamically if not already loaded
@@ -91,7 +92,7 @@ async function convert() {
 
     hideLoader();
     files = await batchDecryptIfNeeded(files);
-    showLoader(t('tools:pdfToSvg.loader.convertingSvg'));
+    showLoader('Converting to SVG...');
 
     const isSingleFile = files.length === 1;
 
@@ -101,14 +102,14 @@ async function convert() {
       const baseName = files[0].name.replace(/\.[^/.]+$/, '');
 
       if (pageCount === 1) {
-        showLoader(t('tools:pdfToSvg.loader.convertingSvg'));
+        showLoader('Converting to SVG...');
         const page = doc.getPage(0);
         const svgContent = page.toSvg();
         const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
         downloadFile(svgBlob, `${baseName}.svg`);
         showAlert(
-          t('common.success'),
-          t('tools:pdfToSvg.alert.pdfConvertedSvgSuccessfully'),
+          'Success',
+          'PDF converted to SVG successfully!',
           'success',
           () => resetState()
         );
@@ -116,8 +117,8 @@ async function convert() {
         const zip = new JSZip();
         for (let i = 0; i < pageCount; i++) {
           showLoader(
-            t('tools:pdfToSvg.msg.convertingPageOf', {
-              value: i + 1,
+            trText('Converting page {{n}} of {{pageCount}}...', {
+              n: i + 1,
               pageCount,
             })
           );
@@ -125,12 +126,12 @@ async function convert() {
           const svgContent = page.toSvg();
           zip.file(`page_${i + 1}.svg`, svgContent);
         }
-        showLoader(t('tools:jsonToPdf.status.creatingZip'));
+        showLoader('Creating ZIP file...');
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         downloadFile(zipBlob, `${baseName}_svg.zip`);
         showAlert(
-          t('common.success'),
-          t('tools:pdfToSvg.msg.convertedPagesToSvg', { pageCount }),
+          'Success',
+          trText('Converted {{pageCount}} pages to SVG!', { pageCount }),
           'success',
           () => resetState()
         );
@@ -142,9 +143,9 @@ async function convert() {
       for (let f = 0; f < files.length; f++) {
         const file = files[f];
         showLoader(
-          t('tools:pdfToSvg.msg.processingFileOf', {
-            value: f + 1,
-            count: files.length,
+          trText('Processing file {{n}} of {{length}}...', {
+            n: f + 1,
+            length: files.length,
           })
         );
         const doc = await pymupdf.open(file);
@@ -153,10 +154,10 @@ async function convert() {
 
         for (let i = 0; i < pageCount; i++) {
           showLoader(
-            t('tools:pdfToSvg.msg.filePage', {
-              value: f + 1,
-              count: files.length,
-              value2: i + 1,
+            trText('File {{n}}/{{length}}: Page {{n2}}/{{pageCount}}', {
+              n: f + 1,
+              length: files.length,
+              n2: i + 1,
               pageCount,
             })
           );
@@ -171,13 +172,13 @@ async function convert() {
         }
       }
 
-      showLoader(t('tools:jsonToPdf.status.creatingZip'));
+      showLoader('Creating ZIP file...');
       const zipBlob = await zip.generateAsync({ type: 'blob' });
       downloadFile(zipBlob, 'pdf_to_svg.zip');
       showAlert(
-        t('common.success'),
-        t('tools:pdfToSvg.msg.convertedFilesPagesToSvg', {
-          count: files.length,
+        'Success',
+        trText('Converted {{length}} files ({{totalPages}} pages) to SVG!', {
+          length: files.length,
           totalPages,
         }),
         'success',
@@ -186,10 +187,10 @@ async function convert() {
     }
   } catch (e) {
     console.error(e);
-    const message = e instanceof Error ? e.message : t('common.unknownError');
+    const message = e instanceof Error ? e.message : trText('Unknown error');
     showAlert(
-      t('common.error'),
-      t('tools:pdfToSvg.msg.failedToConvertPdfToSvg', { error: message })
+      'Error',
+      trText('Failed to convert PDF to SVG. {{message}}', { message })
     );
   } finally {
     hideLoader();
@@ -217,10 +218,7 @@ onPageReady(() => {
     );
 
     if (validFiles.length === 0) {
-      showAlert(
-        t('alert.invalidFiles'),
-        t('tools:pdfToSvg.alert.uploadPdfFiles')
-      );
+      showAlert('Invalid Files', 'Please upload PDF files.');
       return;
     }
 

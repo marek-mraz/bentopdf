@@ -4,7 +4,8 @@ import { createIcons, icons } from 'lucide';
 import { PDFDocument as PDFLibDocument, rgb, PageSizes } from 'pdf-lib';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 interface NUpState {
   file: File | null;
@@ -52,8 +53,8 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = t('tools:nUpPdf.msg.loading', {
-      value: formatBytes(pageState.file.size),
+    metaSpan.textContent = trText('{{size}} • Loading...', {
+      size: formatBytes(pageState.file.size),
     });
 
     infoContainer.append(nameSpan, metaSpan);
@@ -75,23 +76,23 @@ async function updateUI() {
         resetState();
         return;
       }
-      showLoader(t('tools:addPageLabels.loadingPdf'));
+      showLoader('Loading PDF...');
       result.pdf.destroy();
       pageState.file = result.file;
       pageState.pdfDoc = await loadPdfDocument(result.bytes);
       hideLoader();
 
       const pageCount = pageState.pdfDoc.getPageCount();
-      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+      metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
         size: formatBytes(pageState.file.size),
-        count: pageCount,
+        pageCount,
       });
 
       if (toolOptions) toolOptions.classList.remove('hidden');
     } catch (error) {
       console.error('Error loading PDF:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+      showAlert('Error', 'Failed to load PDF file.');
       resetState();
     }
   } else {
@@ -101,7 +102,7 @@ async function updateUI() {
 
 async function nUpTool() {
   if (!pageState.pdfDoc || !pageState.file) {
-    showAlert(t('common.error'), t('alert.uploadPdfFirst'));
+    showAlert('Error', 'Please upload a PDF first.');
     return;
   }
 
@@ -123,7 +124,7 @@ async function nUpTool() {
     (document.getElementById('border-color') as HTMLInputElement).value
   );
 
-  showLoader(t('tools:nUpPdf.loader.creatingNUpPdf'));
+  showLoader('Creating N-Up PDF...');
 
   try {
     const sourceDoc = pageState.pdfDoc;
@@ -159,7 +160,7 @@ async function nUpTool() {
 
     for (let i = 0; i < sourcePages.length; i += n) {
       showLoader(
-        t('tools:nUpPdf.msg.processingSheet', { value: Math.floor(i / n) + 1 })
+        trText('Processing sheet {{n}}...', { n: Math.floor(i / n) + 1 })
       );
       const chunk = sourcePages.slice(i, i + n);
       const outputPage = newDoc.addPage([pageWidth, pageHeight]);
@@ -214,8 +215,8 @@ async function nUpTool() {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:nUpPdf.alert.nUpPdfCreated'),
+      'Success',
+      'N-Up PDF created successfully!',
       'success',
       function () {
         resetState();
@@ -223,10 +224,7 @@ async function nUpTool() {
     );
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      t('tools:nUpPdf.alert.errorOccurredWhileCreating')
-    );
+    showAlert('Error', 'An error occurred while creating the N-Up PDF.');
   } finally {
     hideLoader();
   }

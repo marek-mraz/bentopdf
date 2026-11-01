@@ -4,7 +4,8 @@ import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
 import { convertXmlToPdf } from '../utils/xml-to-pdf.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const ACCEPTED_EXTENSIONS = ['.xml'];
 const FILETYPE_NAME = 'XML';
@@ -81,8 +82,10 @@ onPageReady(() => {
   const convert = async () => {
     if (state.files.length === 0) {
       showAlert(
-        t('alert.noFiles'),
-        t('tools:xmlToPdf.msg.pleaseSelectAtLeastOneFile', { FILETYPE_NAME })
+        'No Files',
+        trText('Please select at least one {{FILETYPE_NAME}} file.', {
+          FILETYPE_NAME,
+        })
       );
       return;
     }
@@ -101,15 +104,15 @@ onPageReady(() => {
 
         hideLoader();
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:xmlToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: file.name,
           }),
           'success',
           () => resetState()
         );
       } else {
-        showLoader(t('loader.convertingMultipleFiles'));
+        showLoader('Converting multiple files...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
         const usedNames = new Set<string>();
@@ -119,10 +122,10 @@ onPageReady(() => {
           const pdfBlob = await convertXmlToPdf(file, {
             onProgress: (percent, message) => {
               showLoader(
-                t('tools:xmlToPdf.msg.file', {
-                  value: i + 1,
-                  count: state.files.length,
-                  error: message,
+                trText('File {{n}}/{{length}}: {{message}}', {
+                  n: i + 1,
+                  length: state.files.length,
+                  message,
                 }),
                 percent
               );
@@ -142,9 +145,9 @@ onPageReady(() => {
 
         hideLoader();
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:xmlToPdf.msg.successfullyConvertedFilesToPdf', {
-            count: state.files.length,
+          'Conversion Complete',
+          trText('Successfully converted {{length}} files to PDF.', {
+            length: state.files.length,
           }),
           'success',
           () => resetState()
@@ -153,12 +156,12 @@ onPageReady(() => {
     } catch (err) {
       hideLoader();
       const message =
-        err instanceof Error ? err.message : t('common.unknownError');
+        err instanceof Error ? err.message : trText('Unknown error');
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
-        t('common.error'),
-        t('tools:xmlToPdf.msg.anErrorOccurredDuringConversionError', {
-          error: message,
+        'Error',
+        trText('An error occurred during conversion. Error: {{message}}', {
+          message,
         })
       );
     }

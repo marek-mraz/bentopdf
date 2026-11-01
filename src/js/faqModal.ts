@@ -1,5 +1,4 @@
-import { onPageReady } from './i18n/i18n';
-onPageReady(() => {
+document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('faq-modal');
   const openBtn = document.getElementById('faq-open-btn');
   const closeBtn = document.getElementById('faq-close-btn');

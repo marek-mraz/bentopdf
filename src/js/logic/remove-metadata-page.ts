@@ -7,7 +7,8 @@ import {
   loadPdfDocument,
   removeUnreferencedObjects,
 } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 interface PageState {
   file: File | null;
@@ -136,18 +137,14 @@ function handleFileSelect(files: FileList | null) {
 
 async function removeMetadata() {
   if (!pageState.file) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
 
   const loaderModal = document.getElementById('loader-modal');
   const loaderText = document.getElementById('loader-text');
   if (loaderModal) loaderModal.classList.remove('hidden');
-  if (loaderText)
-    loaderText.textContent = t('tools:removeMetadata.msg.removingAllMetadata');
+  if (loaderText) loaderText.textContent = trText('Removing all metadata...');
 
   try {
     if (loaderModal) loaderModal.classList.add('hidden');
@@ -157,10 +154,7 @@ async function removeMetadata() {
       return;
     }
     if (loaderModal) loaderModal.classList.remove('hidden');
-    if (loaderText)
-      loaderText.textContent = t(
-        'tools:removeMetadata.msg.removingAllMetadata'
-      );
+    if (loaderText) loaderText.textContent = trText('Removing all metadata...');
     result.pdf.destroy();
     const pdfDoc = await loadPdfDocument(result.bytes);
 
@@ -171,20 +165,12 @@ async function removeMetadata() {
       new Blob([new Uint8Array(newPdfBytes)], { type: 'application/pdf' }),
       pageState.file?.name || 'document.pdf'
     );
-    showAlert(
-      t('common.success'),
-      t('tools:removeMetadata.alert.metadataRemovedSuccessfully'),
-      'success',
-      () => {
-        resetState();
-      }
-    );
+    showAlert('Success', 'Metadata removed successfully!', 'success', () => {
+      resetState();
+    });
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      t('tools:removeMetadata.alert.errorOccurredWhileTrying')
-    );
+    showAlert('Error', 'An error occurred while trying to remove metadata.');
   } finally {
     if (loaderModal) loaderModal.classList.add('hidden');
   }

@@ -6,7 +6,8 @@ import {
   removeUnreferencedObjects,
 } from '../utils/load-pdf-document.js';
 import { escapeHtml } from '../utils/helpers.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trHtml, trText, onPageReady } from '../i18n/i18n.js';
 
 // State management
 const pageState: { pdfDoc: PDFDocument | null; file: File | null } = {
@@ -19,7 +20,7 @@ function showLoader(message: string = 'Processing...') {
   const loader = document.getElementById('loader-modal');
   const loaderText = document.getElementById('loader-text');
   if (loader) loader.classList.remove('hidden');
-  if (loaderText) loaderText.textContent = message;
+  if (loaderText) loaderText.textContent = trText(message);
 }
 
 function hideLoader() {
@@ -38,8 +39,8 @@ function showAlert(
   const alertMessage = document.getElementById('alert-message');
   const okBtn = document.getElementById('alert-ok');
 
-  if (alertTitle) alertTitle.textContent = title;
-  if (alertMessage) alertMessage.textContent = message;
+  if (alertTitle) alertTitle.textContent = trText(title);
+  if (alertMessage) alertMessage.textContent = trText(message);
   if (modal) modal.classList.remove('hidden');
 
   if (okBtn) {
@@ -76,9 +77,9 @@ function updateFileDisplay() {
             <div class="flex items-center justify-between">
                 <div class="flex-1 min-w-0">
                     <p class="truncate font-medium text-white">${escapeHtml(pageState.file.name)}</p>
-                    <p class="text-gray-400 text-sm">${fileSize} • ${pageCount} page${pageCount !== 1 ? 's' : ''}</p>
+                    <p class="text-gray-400 text-sm">${pageCount === 1 ? trHtml('{{fileSize}} • 1 page', { fileSize }) : trHtml('{{fileSize}} • {{pageCount}} pages', { fileSize, pageCount })}</p>
                 </div>
-                <button id="remove-file" class="text-red-400 hover:text-red-300 p-2 flex-shrink-0 ml-2" title="${t('common.removeFile')}">
+                <button id="remove-file" class="text-red-400 hover:text-red-300 p-2 flex-shrink-0 ml-2" title="${trHtml('Remove file')}">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -105,14 +106,14 @@ function resetState() {
 // File handling
 async function handleFileUpload(file: File) {
   if (!file || file.type !== 'application/pdf') {
-    showAlert(t('common.error'), t('tools:addPageLabels.invalidFileMessage'));
+    showAlert('Error', 'Please upload a valid PDF file.');
     return;
   }
 
   try {
     const result = await loadPdfWithPasswordPrompt(file);
     if (!result) return;
-    showLoader(t('tools:addPageLabels.loadingPdf'));
+    showLoader('Loading PDF...');
     result.pdf.destroy();
     pageState.pdfDoc = await loadPdfDocument(result.bytes);
     pageState.file = result.file;
@@ -120,7 +121,7 @@ async function handleFileUpload(file: File) {
     document.getElementById('options-panel')?.classList.remove('hidden');
   } catch (error) {
     console.error(error);
-    showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+    showAlert('Error', 'Failed to load PDF file.');
   } finally {
     hideLoader();
   }
@@ -129,11 +130,11 @@ async function handleFileUpload(file: File) {
 // Process function
 async function processRemoveAnnotations() {
   if (!pageState.pdfDoc) {
-    showAlert(t('common.error'), t('tools:addPageLabels.uploadFirstMessage'));
+    showAlert('Error', 'Please upload a PDF file first.');
     return;
   }
 
-  showLoader(t('tools:removeAnnotations.loader.removingAnnotations'));
+  showLoader('Removing annotations...');
   try {
     const pages = pageState.pdfDoc.getPages();
 
@@ -153,20 +154,12 @@ async function processRemoveAnnotations() {
       new Blob([new Uint8Array(newPdfBytes)], { type: 'application/pdf' }),
       pageState.file?.name || 'document.pdf'
     );
-    showAlert(
-      t('common.success'),
-      t('tools:removeAnnotations.alert.annotationsRemovedSuccessfully'),
-      'success',
-      () => {
-        resetState();
-      }
-    );
+    showAlert('Success', 'Annotations removed successfully!', 'success', () => {
+      resetState();
+    });
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      t('tools:removeAnnotations.alert.couldNotRemoveAnnotations')
-    );
+    showAlert('Error', 'Could not remove annotations.');
   } finally {
     hideLoader();
   }

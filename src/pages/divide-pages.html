@@ -153,63 +153,45 @@
         <div id="tool-options" class="hidden mt-6">
           <div class="p-3 bg-gray-900 rounded-lg border border-gray-700 mb-4">
             <p class="text-sm text-gray-300">
-              <strong data-i18n="merge.howItWorks" class="text-white"
-                >How it works:</strong
-              >
+              <strong class="text-white">How it works:</strong>
             </p>
             <ul
               class="list-disc list-inside text-xs text-gray-400 mt-1 space-y-1"
             >
               <li>
-                <strong data-i18n="tools:dividePages.ui.vertical"
-                  >Vertical:</strong
-                >
-                <span data-i18n="tools:dividePages.ui.splitEachPageIntoLeft"
-                  >Split each page into left and right halves.</span
-                >
+                <strong>Vertical:</strong> Split each page into left and right
+                halves.
               </li>
               <li>
-                <strong data-i18n="tools:dividePages.ui.horizontal"
-                  >Horizontal:</strong
-                >
-                <span data-i18n="tools:dividePages.ui.splitEachPageIntoTop"
-                  >Split each page into top and bottom halves.</span
-                >
+                <strong>Horizontal:</strong> Split each page into top and bottom
+                halves.
               </li>
-              <li data-i18n="tools:dividePages.ui.specifyWhichPagesToDivide">
+              <li>
                 Specify which pages to divide. Other pages will be kept as-is.
               </li>
-              <li data-i18n="tools:dividePages.ui.leaveBlankUseAllTo">
-                Leave blank or use "all" to divide all pages.
-              </li>
+              <li>Leave blank or use "all" to divide all pages.</li>
             </ul>
           </div>
 
           <div class="mb-4">
             <label
-              data-i18n="tools:dividePages.ui.pagesToDivide"
               for="page-range"
               class="block mb-2 text-sm font-medium text-gray-300"
               >Pages to Divide</label
             >
             <input
-              data-i18n-placeholder="tools:dividePages.ui.leaveBlankAllPagesPlaceholder"
               type="text"
               id="page-range"
               class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
               placeholder="e.g. 1-5, 8, 11-13 (leave blank for all pages)"
             />
-            <p
-              data-i18n="tools:dividePages.ui.enterPageNumbersSeparatedCommas"
-              class="mt-1 text-xs text-gray-400"
-            >
+            <p class="mt-1 text-xs text-gray-400">
               Enter page numbers separated by commas or ranges with hyphens.
             </p>
           </div>
 
           <div class="mb-4">
             <label
-              data-i18n="tools:dividePages.ui.splitDirection"
               for="split-type"
               class="block mb-2 text-sm font-medium text-gray-300"
               >Split Direction</label
@@ -218,26 +200,12 @@
               id="split-type"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             >
-              <option
-                data-i18n="tools:dividePages.ui.verticalLeftRight"
-                value="vertical"
-              >
-                Vertical (Left & Right)
-              </option>
-              <option
-                data-i18n="tools:dividePages.ui.horizontalTopBottom"
-                value="horizontal"
-              >
-                Horizontal (Top & Bottom)
-              </option>
+              <option value="vertical">Vertical (Left & Right)</option>
+              <option value="horizontal">Horizontal (Top & Bottom)</option>
             </select>
           </div>
 
-          <button
-            data-i18n="tools:dividePages.name"
-            id="process-btn"
-            class="btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-4">
             Divide Pages
           </button>
         </div>
@@ -306,12 +274,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -324,12 +287,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -342,12 +300,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -369,74 +322,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -452,12 +367,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="divide-pages.1.q"
-              >How do I split a two-page book scan into separate pages?</span
-            >
+            How do I split a two-page book scan into separate pages?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="divide-pages.1.a">
+          <p class="faq-d-a">
             Upload the PDF, choose Vertical (Left &amp; Right) as the split
             type, and process it. Each page is cut at the exact midpoint into a
             left page followed by a right page, so a book scanned two pages per
@@ -466,13 +379,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="divide-pages.2.q"
-              >What is the difference between vertical and horizontal
-              division?</span
-            >
+            What is the difference between vertical and horizontal division?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="divide-pages.2.a">
+          <p class="faq-d-a">
             Vertical cuts each page down the middle into left and right halves,
             which suits landscape pages with side-by-side content. Horizontal
             cuts across the middle into top and bottom halves, top half first,
@@ -481,12 +391,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="divide-pages.3.q"
-              >Can I divide only some pages and leave the rest alone?</span
-            >
+            Can I divide only some pages and leave the rest alone?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="divide-pages.3.a">
+          <p class="faq-d-a">
             Enter a page range such as 1-5, 8, 11-13 in the page range box. Only
             those pages are divided; every other page is copied into the output
             unchanged and in its original position. Leave the box blank to
@@ -495,12 +403,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="divide-pages.4.q"
-              >Does dividing pages lower the quality or change the text?</span
-            >
+            Does dividing pages lower the quality or change the text?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="divide-pages.4.a">
+          <p class="faq-d-a">
             No. The tool copies each page twice and sets a different crop box on
             each copy rather than re-rendering anything, so text stays
             selectable, vector graphics stay sharp, and images keep their
@@ -509,12 +415,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="divide-pages.5.q"
-              >Can I choose where the cut happens instead of the middle?</span
-            >
+            Can I choose where the cut happens instead of the middle?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="divide-pages.5.a">
+          <p class="faq-d-a">
             No, the split is always at the midpoint of the page. If the content
             is off-center or you need an uneven cut, use
             <a href="/crop-pdf" class="text-indigo-300 hover:text-indigo-400"
@@ -525,12 +429,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="divide-pages.6.q"
-              >How many pages will the output have?</span
-            >
+            How many pages will the output have?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="divide-pages.6.a">
+          <p class="faq-d-a">
             Each divided page becomes two pages, so a 10-page document with
             every page divided produces 20 pages. Pages outside your range still
             count once, and the halves keep the same order as the original.
@@ -538,12 +440,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="divide-pages.7.q"
-              >The halves come out sideways. What should I do?</span
-            >
+            The halves come out sideways. What should I do?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="divide-pages.7.a">
+          <p class="faq-d-a">
             Divide Pages doesn't rotate anything, so fix the orientation with
             <a href="/rotate-pdf" class="text-indigo-300 hover:text-indigo-400"
               >Rotate PDF</a
@@ -554,12 +454,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="divide-pages.8.q"
-              >Is my PDF uploaded when I divide its pages?</span
-            >
+            Is my PDF uploaded when I divide its pages?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="divide-pages.8.a">
+          <p class="faq-d-a">
             No. The page copying and crop-box changes happen in your browser,
             and the divided file is written on your device without any upload.
           </p>

@@ -8,7 +8,8 @@ import {
   WasmProvider,
 } from '../utils/wasm-provider.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const worker = new Worker(
   import.meta.env.BASE_URL + 'workers/edit-attachments.worker.js'
@@ -67,8 +68,8 @@ worker.onmessage = function (e) {
     );
 
     showAlert(
-      t('common.success'),
-      t('tools:editAttachments.alert.attachmentsUpdatedSuccessfully'),
+      'Success',
+      'Attachments updated successfully!',
       'success',
       function () {
         resetState();
@@ -76,17 +77,14 @@ worker.onmessage = function (e) {
     );
   } else if (data.status === 'error') {
     hideLoader();
-    showAlert(
-      t('common.error'),
-      data.message || t('alert.unknownErrorOccurred')
-    );
+    showAlert('Error', data.message || 'Unknown error occurred.');
   }
 };
 
 worker.onerror = function (error) {
   hideLoader();
   console.error('Worker error:', error);
-  showAlert(t('common.error'), t('tools:tableOfContents.workerErrorOccurred'));
+  showAlert('Error', 'Worker error occurred. Check console for details.');
 };
 
 function displayAttachments(attachments: AttachmentInfo[]) {
@@ -100,9 +98,7 @@ function displayAttachments(attachments: AttachmentInfo[]) {
   if (attachments.length === 0) {
     const noAttachments = document.createElement('p');
     noAttachments.className = 'text-gray-400 text-center py-4';
-    noAttachments.textContent = t(
-      'tools:editAttachments.msg.noAttachmentsFoundInThisPdf'
-    );
+    noAttachments.textContent = trText('No attachments found in this PDF.');
     attachmentsList.appendChild(noAttachments);
     return;
   }
@@ -114,9 +110,7 @@ function displayAttachments(attachments: AttachmentInfo[]) {
   const removeAllBtn = document.createElement('button');
   removeAllBtn.className =
     'bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm';
-  removeAllBtn.textContent = t(
-    'tools:editAttachments.msg.removeAllAttachments'
-  );
+  removeAllBtn.textContent = trText('Remove All Attachments');
   removeAllBtn.onclick = function () {
     if (pageState.allAttachments.length === 0) return;
 
@@ -139,9 +133,7 @@ function displayAttachments(attachments: AttachmentInfo[]) {
           }
         }
       });
-      removeAllBtn.textContent = t(
-        'tools:editAttachments.msg.removeAllAttachments'
-      );
+      removeAllBtn.textContent = trText('Remove All Attachments');
     } else {
       pageState.allAttachments.forEach(function (attachment) {
         pageState.attachmentsToRemove.add(attachment.index);
@@ -157,7 +149,7 @@ function displayAttachments(attachments: AttachmentInfo[]) {
           }
         }
       });
-      removeAllBtn.textContent = t('multiTool.deselectAll');
+      removeAllBtn.textContent = trText('Deselect All');
     }
   };
 
@@ -181,11 +173,9 @@ function displayAttachments(attachments: AttachmentInfo[]) {
     const levelSpan = document.createElement('span');
     levelSpan.className = 'text-gray-400 text-sm block';
     if (attachment.page === 0) {
-      levelSpan.textContent = t(
-        'tools:editAttachments.msg.documentLevelAttachment'
-      );
+      levelSpan.textContent = trText('Document-level attachment');
     } else {
-      levelSpan.textContent = t('tools:editAttachments.msg.pageAttachment', {
+      levelSpan.textContent = trText('Page {{page}} attachment', {
         page: attachment.page,
       });
     }
@@ -198,7 +188,7 @@ function displayAttachments(attachments: AttachmentInfo[]) {
     const removeBtn = document.createElement('button');
     removeBtn.className = `${pageState.attachmentsToRemove.has(attachment.index) ? 'bg-gray-600' : 'bg-red-600'} hover:bg-red-700 text-white px-3 py-1 rounded text-sm`;
     removeBtn.innerHTML = '<i data-lucide="trash-2" class="w-4 h-4"></i>';
-    removeBtn.title = t('tools:editAttachments.msg.removeAttachment');
+    removeBtn.title = trText('Remove attachment');
     removeBtn.onclick = function () {
       if (pageState.attachmentsToRemove.has(attachment.index)) {
         pageState.attachmentsToRemove.delete(attachment.index);
@@ -216,8 +206,8 @@ function displayAttachments(attachments: AttachmentInfo[]) {
         return pageState.attachmentsToRemove.has(att.index);
       });
       removeAllBtn.textContent = allSelected
-        ? t('multiTool.deselectAll')
-        : t('tools:editAttachments.msg.removeAllAttachments');
+        ? trText('Deselect All')
+        : trText('Remove All Attachments');
     };
 
     actionsDiv.append(removeBtn);
@@ -233,7 +223,7 @@ function displayAttachments(attachments: AttachmentInfo[]) {
 async function loadAttachments() {
   if (!pageState.file) return;
 
-  showLoader(t('tools:editAttachments.loader.loadingAttachments'));
+  showLoader('Loading attachments...');
 
   // Check if CPDF is configured
   if (!isCpdfAvailable()) {
@@ -256,31 +246,22 @@ async function loadAttachments() {
   } catch (error) {
     console.error('Error loading attachments:', error);
     hideLoader();
-    showAlert(
-      t('common.error'),
-      t('tools:editAttachments.alert.failedLoadAttachmentsFrom')
-    );
+    showAlert('Error', 'Failed to load attachments from PDF.');
   }
 }
 
 async function saveChanges() {
   if (!pageState.file) {
-    showAlert(
-      t('common.error'),
-      t('tools:editAttachments.alert.noPdfFileLoaded')
-    );
+    showAlert('Error', 'No PDF file loaded.');
     return;
   }
 
   if (pageState.attachmentsToRemove.size === 0) {
-    showAlert(
-      t('alert.noChanges'),
-      t('tools:editAttachments.alert.noAttachmentsSelectedRemoval')
-    );
+    showAlert('No Changes', 'No attachments selected for removal.');
     return;
   }
 
-  showLoader(t('tools:editAttachments.loader.processingAttachments'));
+  showLoader('Processing attachments...');
 
   // Check if CPDF is configured (double check)
   if (!isCpdfAvailable()) {
@@ -304,10 +285,7 @@ async function saveChanges() {
   } catch (error) {
     console.error('Error editing attachments:', error);
     hideLoader();
-    showAlert(
-      t('common.error'),
-      t('tools:editAttachments.alert.failedEditAttachments')
-    );
+    showAlert('Error', 'Failed to edit attachments.');
   }
 }
 

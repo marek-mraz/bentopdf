@@ -179,7 +179,6 @@
           <!-- Options Panel -->
           <div class="bg-gray-700/50 rounded-lg p-4 space-y-4">
             <h3
-              data-i18n="tools:emailToPdf.ui.conversionOptions"
               class="text-sm font-semibold text-gray-300 uppercase tracking-wide"
             >
               Conversion Options
@@ -187,10 +186,7 @@
 
             <!-- Page Size -->
             <div class="flex items-center justify-between">
-              <label
-                data-i18n="tools:emailToPdf.ui.pageSize"
-                for="page-size"
-                class="text-gray-300 text-sm"
+              <label for="page-size" class="text-gray-300 text-sm"
                 >Page Size</label
               >
               <select
@@ -198,10 +194,8 @@
                 class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-gray-200 text-sm focus:ring-indigo-500 focus:border-indigo-500"
               >
                 <option value="a4" selected>A4</option>
-                <option data-i18n="tools:emailToPdf.ui.letter" value="letter">
-                  Letter
-                </option>
-                <option data-i18n="footer.legal" value="legal">Legal</option>
+                <option value="letter">Letter</option>
+                <option value="legal">Legal</option>
               </select>
             </div>
 
@@ -213,10 +207,7 @@
                 checked
                 class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
               />
-              <label
-                data-i18n="tools:emailToPdf.ui.includeCcBccRecipientsIn"
-                for="include-cc-bcc"
-                class="ml-3 text-gray-300 text-sm"
+              <label for="include-cc-bcc" class="ml-3 text-gray-300 text-sm"
                 >Include CC and BCC recipients in header</label
               >
             </div>
@@ -230,7 +221,6 @@
                 class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500"
               />
               <label
-                data-i18n="tools:emailToPdf.ui.includeEmailAttachmentsList"
                 for="include-attachments"
                 class="ml-3 text-gray-300 text-sm"
                 >Include email attachments list</label
@@ -257,11 +247,7 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          data-i18n="loader.processing"
-          id="loader-text"
-          class="text-white text-lg font-medium"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Processing...
         </p>
       </div>
@@ -307,16 +293,10 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="tools:emailToPdf.ui.uploadEmailFile"
-              class="text-lg font-semibold text-white mb-1"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">
               Upload Email File
             </h3>
-            <p
-              data-i18n="tools:emailToPdf.ui.clickOrDragAndDropYour"
-              class="text-gray-400"
-            >
+            <p class="text-gray-400">
               Click or drag and drop your .eml or .msg file to begin
             </p>
           </div>
@@ -328,16 +308,8 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
-            <p
-              data-i18n="tools:emailToPdf.ui.clickTheConvertButtonToGenerate"
-              class="text-gray-400"
-            >
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
+            <p class="text-gray-400">
               Click the convert button to generate your PDF
             </p>
           </div>
@@ -349,18 +321,8 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
-            <p
-              data-i18n="tools:emailToPdf.ui.saveYourConvertedPdfFileInstantly"
-              class="text-gray-400"
-            >
-              Save your converted PDF file instantly
-            </p>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
+            <p class="text-gray-400">Save your converted PDF file instantly</p>
           </div>
         </div>
       </div>
@@ -379,74 +341,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="word-to-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:wordToPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Word to PDF
-          </h3>
-          <p data-i18n="tools:wordToPdf.subtitle" class="text-gray-400 text-sm">
-            Convert Word documents to PDF
-          </p>
+          <h3 class="text-white font-semibold mb-1">Word to PDF</h3>
+          <p class="text-gray-400 text-sm">Convert Word documents to PDF</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="txt-to-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:textToPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Text to PDF
-          </h3>
-          <p data-i18n="tools:textToPdf.subtitle" class="text-gray-400 text-sm">
-            Convert text files to PDF
-          </p>
+          <h3 class="text-white font-semibold mb-1">Text to PDF</h3>
+          <p class="text-gray-400 text-sm">Convert text files to PDF</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
       </div>
     </section>
@@ -462,12 +386,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="email-to-pdf.1.q"
-              >How do I get an .eml or .msg file out of my email client?</span
-            >
+            How do I get an .eml or .msg file out of my email client?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="email-to-pdf.1.a">
+          <p class="faq-d-a">
             In Gmail, open the message, use the three-dot menu, and choose
             Download message to save an .eml file. Outlook for Windows saves a
             .msg when you drag a message to a folder or use Save As; Apple Mail
@@ -477,12 +399,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="email-to-pdf.2.q"
-              >Do inline images and formatting survive the conversion?</span
-            >
+            Do inline images and formatting survive the conversion?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="email-to-pdf.2.a">
+          <p class="faq-d-a">
             HTML emails keep their layout, fonts, and colors, and images
             embedded in the message itself (the cid: kind used for signatures
             and pasted screenshots) are included. Images that the email loads
@@ -491,12 +411,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="email-to-pdf.3.q"
-              >Can I hide the CC and BCC lines?</span
-            >
+            Can I hide the CC and BCC lines?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="email-to-pdf.3.a">
+          <p class="faq-d-a">
             Turn off Include CC and BCC before converting and the header block
             shows only From, To, Date, and Subject. The same panel has a toggle
             for the attachments list at the bottom of the PDF.
@@ -504,12 +422,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="email-to-pdf.4.q"
-              >Which page sizes are available?</span
-            >
+            Which page sizes are available?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="email-to-pdf.4.a">
+          <p class="faq-d-a">
             A4, US Letter, and Legal, with a 50-point margin on every side. Long
             emails flow onto as many pages as needed. The page size applies to
             the whole batch, so pick it before you click Convert.
@@ -517,13 +433,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="email-to-pdf.5.q"
-              >Can I convert a whole thread or mailbox (.mbox, .pst) at
-              once?</span
-            >
+            Can I convert a whole thread or mailbox (.mbox, .pst) at once?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="email-to-pdf.5.a">
+          <p class="faq-d-a">
             The tool reads individual message files only, one email per PDF. It
             doesn't open .mbox or .pst mailboxes, so export the messages you
             need as separate .eml or .msg files first; you can then drop them
@@ -532,12 +445,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="email-to-pdf.6.q"
-              >Are links in the email clickable in the PDF?</span
-            >
+            Are links in the email clickable in the PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="email-to-pdf.6.a">
+          <p class="faq-d-a">
             Web and mailto links are re-created as clickable links wherever the
             link text can be matched on the page. Very short link text (three
             characters or fewer) isn't matched, so those particular links appear
@@ -546,12 +457,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="email-to-pdf.7.q"
-              >What is the converted email's PDF named?</span
-            >
+            What is the converted email's PDF named?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="email-to-pdf.7.a">
+          <p class="faq-d-a">
             A single email becomes a PDF with the same base name as the .eml or
             .msg file. Several emails are packaged into emails-converted.zip
             with one PDF per message.
@@ -559,13 +468,11 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="email-to-pdf.8.q"
-              >Does converting an email trigger tracking pixels or contact the
-              sender's server?</span
-            >
+            Does converting an email trigger tracking pixels or contact the
+            sender's server?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="email-to-pdf.8.a">
+          <p class="faq-d-a">
             No. The message is parsed and rendered entirely in your browser, and
             no remote images, scripts, or stylesheets referenced by the email
             are fetched. Open-tracking pixels never fire, and the email's

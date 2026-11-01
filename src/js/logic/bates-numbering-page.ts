@@ -7,7 +7,8 @@ import JSZip from 'jszip';
 import Sortable from 'sortablejs';
 import { FileEntry, Position, StylePreset } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const FONT_MAP: Record<string, keyof typeof StandardFonts> = {
   Helvetica: 'Helvetica',
@@ -173,24 +174,21 @@ function initSortable() {
 }
 
 async function handleFiles(fileList: FileList) {
-  showLoader(t('tools:batesNumbering.loader.loadingPdfs'));
+  showLoader('Loading PDFs...');
   try {
     for (const file of Array.from(fileList)) {
       if (file.type !== 'application/pdf') continue;
       hideLoader();
       const result = await loadPdfWithPasswordPrompt(file);
       if (!result) continue;
-      showLoader(t('tools:batesNumbering.loader.loadingPdfs'));
+      showLoader('Loading PDFs...');
       result.pdf.destroy();
       const pdfDoc = await loadPdfDocument(result.bytes);
       files.push({ file: result.file, pageCount: pdfDoc.getPageCount() });
     }
 
     if (files.length === 0) {
-      showAlert(
-        t('tools:addPageLabels.invalidFileTitle'),
-        t('tools:batesNumbering.alert.uploadValidPdfFiles')
-      );
+      showAlert('Invalid File', 'Please upload valid PDF files.');
       return;
     }
 
@@ -200,7 +198,7 @@ async function handleFiles(fileList: FileList) {
     updatePreview();
   } catch (error) {
     console.error(error);
-    showAlert(t('common.error'), t('tools:mergePdf.alert.loadError'));
+    showAlert('Error', 'Failed to load one or more PDF files.');
   } finally {
     hideLoader();
   }
@@ -237,9 +235,9 @@ function renderFileList() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+    metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
       size: formatBytes(entry.file.size),
-      count: entry.pageCount,
+      pageCount: entry.pageCount,
     });
 
     infoContainer.append(nameSpan, metaSpan);
@@ -263,10 +261,16 @@ function renderFileList() {
 
   const summary = document.createElement('div');
   summary.className = 'text-xs text-gray-400 mt-1';
-  summary.textContent = t('tools:batesNumbering.msg.fileSummary', {
-    count: files.length,
-    totalPages,
-  });
+  summary.textContent =
+    files.length !== 1
+      ? trText('{{length}} files • {{totalPages}} total pages', {
+          length: files.length,
+          totalPages,
+        })
+      : trText('{{length}} file • {{totalPages}} total pages', {
+          length: files.length,
+          totalPages,
+        });
   fileListEl.appendChild(summary);
 }
 
@@ -340,33 +344,11 @@ function updatePreview() {
     for (const entry of files) {
       const name = entry.file.name.replace(/\.pdf$/i, '');
       lines.push(
-        t('tools:batesNumbering.msg.previewLine', {
-          file: fileCounter,
-          page: 1,
-          text: formatBatesText(
-            template,
-            batesCounter,
-            1,
-            fileCounter,
-            name,
-            padding
-          ),
-        })
+        `File ${fileCounter}, Page 1: ${formatBatesText(template, batesCounter, 1, fileCounter, name, padding)}`
       );
       if (entry.pageCount > 1) {
         lines.push(
-          t('tools:batesNumbering.msg.previewLine', {
-            file: fileCounter,
-            page: 2,
-            text: formatBatesText(
-              template,
-              batesCounter + 1,
-              2,
-              fileCounter,
-              name,
-              padding
-            ),
-          })
+          `File ${fileCounter}, Page 2: ${formatBatesText(template, batesCounter + 1, 2, fileCounter, name, padding)}`
         );
       }
       batesCounter += entry.pageCount;
@@ -377,18 +359,7 @@ function updatePreview() {
     const lastBates = batesCounter - 1;
     lines.push('...');
     lines.push(
-      t('tools:batesNumbering.msg.previewLine', {
-        file: fileStart + files.length - 1,
-        page: lastEntry.pageCount,
-        text: formatBatesText(
-          template,
-          lastBates,
-          lastEntry.pageCount,
-          fileStart + files.length - 1,
-          lastName,
-          padding
-        ),
-      })
+      `File ${fileStart + files.length - 1}, Page ${lastEntry.pageCount}: ${formatBatesText(template, lastBates, lastEntry.pageCount, fileStart + files.length - 1, lastName, padding)}`
     );
   }
 
@@ -475,11 +446,11 @@ function resetState() {
 
 async function applyBatesNumbers() {
   if (files.length === 0) {
-    showAlert(t('common.error'), t('alert.uploadLeastOnePdf'));
+    showAlert('Error', 'Please upload at least one PDF file.');
     return;
   }
 
-  showLoader(t('tools:batesNumbering.loader.applyingBatesNumbers'));
+  showLoader('Applying Bates numbers...');
   try {
     const template = (
       document.getElementById('bates-template') as HTMLInputElement
@@ -577,11 +548,11 @@ async function applyBatesNumbers() {
     }
 
     showAlert(
-      t('common.success'),
-      t('tools:batesNumbering.msg.batesNumbersAppliedSuccessfullyThrough', {
-        batesStart,
-        value: batesCounter - 1,
-      }),
+      'Success',
+      trText(
+        'Bates numbers applied successfully! ({{batesStart}} through {{n}})',
+        { batesStart, n: batesCounter - 1 }
+      ),
       'success',
       () => {
         resetState();
@@ -589,10 +560,7 @@ async function applyBatesNumbers() {
     );
   } catch (e) {
     console.error(e);
-    showAlert(
-      t('common.error'),
-      t('tools:batesNumbering.alert.failedApplyBatesNumbers')
-    );
+    showAlert('Error', 'Failed to apply Bates numbers.');
   } finally {
     hideLoader();
   }

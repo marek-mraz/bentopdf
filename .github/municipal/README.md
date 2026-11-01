@@ -81,7 +81,7 @@ balíkov sú v image pod `/wasm/licenses/`.
 
 ## PDF engine a začierňovanie
 
-Engine od upstreamu (do 051abe5b72a9, PDFium embedpdf fce2b00) pri dvoch
+Engine od upstreamu (do 3f6b6114b166, PDFium embedpdf fce2b00) pri dvoch
 označeniach na jednom riadku textu posunul text uprostred spracovania a
 ďalšie znaky porovnával s posunutými pozíciami: označený text zostal v
 súbore pod čiernym obdĺžnikom a zmizol neoznačený text vedľa neho. Opravené
@@ -118,6 +118,25 @@ WRITE=1 bash .github/municipal/verify-engine.sh   # nie: zbuilduje engine/ s pat
 # áno (OK): zmazať engine/, oba patche a krok 2a
 # len jednu: zmazať patch tej opravenej, potom WRITE=1 verify-engine.sh
 ```
+
+## Prehliadač a súradnice označení
+
+Prehliadač `bentopdf-viewer` (postavený na embedpdf 2.9.1, aj vo verzii
+3f6b6114b166) prepočítava súradnice zo stránky na PDF bez začiatku
+orezania (CropBox/MediaBox). Na strane, ktorej CropBox nezačína v 0,0
+(orezané PDF, skeny, tlačové PDF so spadávkou), sa označenie zapísalo
+posunuté o tento začiatok: čierny obdĺžnik zakryl prázdne miesto a
+označený text zostal v súbore. Okrem toho zaokrúhľoval okraje označenia
+nadol na celé body, takže na pravom a hornom okraji mohol zostať pásik
+široký do 1 bodu.
+
+`viewer/patch-viewer.mjs` prenesie obe opravy z embedpdf 2.14
+(`getPageOrigin` a okraje bez zaokrúhlenia) do hlavného aj workerového
+enginu prehliadača. `prepare.sh` (krok 2a2) ho spustí pri každom builde,
+tarball zabalí znova bez časov a vlastníkov a opraví integritu v
+`package-lock.json`. Skript sa zastaví, keď niektorú zmenu nenájde práve raz
+alebo keď prehliadač už `getPageOrigin` má. Vtedy krok 2a2 aj skript
+zmažte.
 
 ## Binárne súbory tretích strán
 

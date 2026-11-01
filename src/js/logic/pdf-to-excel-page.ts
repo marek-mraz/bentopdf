@@ -4,7 +4,8 @@ import { createIcons, icons } from 'lucide';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import * as XLSX from 'xlsx';
-import { t, onPageReady } from '../i18n/i18n';
+import { trText, onPageReady } from '../i18n/i18n.js';
+
 let file: File | null = null;
 
 const updateUI = () => {
@@ -58,14 +59,11 @@ const resetState = () => {
 
 async function convert() {
   if (!file) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
 
-  showLoader(t('loader.loadingEngine2'));
+  showLoader('Loading Engine...');
 
   try {
     const pymupdf = await loadPyMuPDF();
@@ -76,7 +74,7 @@ async function convert() {
     pwResult.pdf.destroy();
     file = pwResult.file;
 
-    showLoader(t('loader.extractingTables'));
+    showLoader('Extracting tables...');
 
     const doc = await pymupdf.open(file);
     const pageCount = doc.pageCount;
@@ -91,7 +89,10 @@ async function convert() {
 
     for (let i = 0; i < pageCount; i++) {
       showLoader(
-        t('tools:pdfToExcel.msg.scanningPageOf', { value: i + 1, pageCount })
+        trText('Scanning page {{n}} of {{pageCount}}...', {
+          n: i + 1,
+          pageCount,
+        })
       );
       const page = doc.getPage(i);
       const tables = page.findTables();
@@ -105,25 +106,21 @@ async function convert() {
     }
 
     if (allTables.length === 0) {
-      showAlert(t('alert.noTablesFound'), t('alert.noTablesWereDetected'));
+      showAlert('No Tables Found', 'No tables were detected in this PDF.');
       return;
     }
 
-    showLoader(t('tools:pdfToExcel.loader.creatingExcelFile'));
+    showLoader('Creating Excel file...');
 
     const workbook = XLSX.utils.book_new();
 
     if (allTables.length === 1) {
       const worksheet = XLSX.utils.aoa_to_sheet(allTables[0].rows);
-      XLSX.utils.book_append_sheet(
-        workbook,
-        worksheet,
-        t('tools:pdfToExcel.msg.sheetTable')
-      );
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Table');
     } else {
       allTables.forEach((table, idx) => {
-        const sheetName = t('tools:pdfToExcel.msg.sheetTableOnPage', {
-          number: idx + 1,
+        const sheetName = trText('Table {{n}} (Page {{page}})', {
+          n: idx + 1,
           page: table.page,
         }).substring(0, 31);
         const worksheet = XLSX.utils.aoa_to_sheet(table.rows);
@@ -137,19 +134,19 @@ async function convert() {
     });
     downloadFile(blob, `${baseName}.xlsx`);
     showAlert(
-      t('common.success'),
-      t('tools:pdfToExcel.msg.extractedTableSToExcel', {
-        count: allTables.length,
+      'Success',
+      trText('Extracted {{length}} table(s) to Excel!', {
+        length: allTables.length,
       }),
       'success',
       resetState
     );
   } catch (e) {
     console.error(e);
-    const message = e instanceof Error ? e.message : t('common.unknownError');
+    const message = e instanceof Error ? e.message : trText('Unknown error');
     showAlert(
-      t('common.error'),
-      t('tools:pdfToExcel.msg.failedToConvertPdfToExcel', { error: message })
+      'Error',
+      trText('Failed to convert PDF to Excel. {{message}}', { message })
     );
   } finally {
     hideLoader();
@@ -175,10 +172,7 @@ onPageReady(() => {
     );
 
     if (!validFile) {
-      showAlert(
-        t('tools:addPageLabels.invalidFileTitle'),
-        t('tools:pdfToJpg.alert.invalidFileExplanation')
-      );
+      showAlert('Invalid File', 'Please upload a PDF file.');
       return;
     }
 

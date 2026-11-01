@@ -6,6 +6,7 @@ import { makeUniqueFileKey } from '../utils/deduplicate-filename.js';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import { getEditorDisabledCategories } from '../utils/disabled-tools.js';
 import { editorFontFallback } from '../config/editor-fonts.js';
+import { viewerTheme } from '../config/viewer-theme.js';
 import { needsFontEmbedding } from '../utils/freetext-script.js';
 
 const embedPdfWasmUrl = new URL(
@@ -30,7 +31,8 @@ import type {
   RedactionTextSlice,
   RedactionTextSource,
 } from '@/types';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const FREETEXT_SUBTYPE = 3;
 
@@ -221,7 +223,7 @@ function confirmChoice(
     cancelBtn.type = 'button';
     cancelBtn.className =
       'flex-1 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200';
-    cancelBtn.textContent = t('warning.cancel');
+    cancelBtn.textContent = trText('Cancel');
 
     const confirmBtn = document.createElement('button');
     confirmBtn.type = 'button';
@@ -376,14 +378,11 @@ async function handleFiles(files: FileList) {
     (f) => f.type === 'application/pdf'
   );
   if (pdfFiles.length === 0) {
-    showAlert(
-      t('tools:addPageLabels.invalidFileTitle'),
-      t('tools:addPageLabels.invalidFileMessage')
-    );
+    showAlert('Invalid File', 'Please upload a valid PDF file.');
     return;
   }
 
-  showLoader(t('tools:pdfEditor.loader.loadingPdfEditor'));
+  showLoader('Loading PDF Editor...');
 
   try {
     const pdfWrapper = document.getElementById('embed-pdf-wrapper');
@@ -394,7 +393,7 @@ async function handleFiles(files: FileList) {
 
     hideLoader();
     const decryptedFiles = await batchDecryptIfNeeded(pdfFiles);
-    showLoader(t('tools:pdfEditor.loader.loadingPdfEditor'));
+    showLoader('Loading PDF Editor...');
 
     if (decryptedFiles.length === 0) {
       hideLoader();
@@ -417,6 +416,7 @@ async function handleFiles(files: FileList) {
         worker: true,
         wasmUrl: embedPdfWasmUrl,
         fontFallback: editorFontFallback,
+        theme: viewerTheme,
         export: {
           defaultFileName: firstFile.name,
         },
@@ -498,7 +498,7 @@ async function handleFiles(files: FileList) {
         downloadBtn = document.createElement('button');
         downloadBtn.id = 'download-edited-pdf';
         downloadBtn.className = 'btn-gradient w-full mt-6';
-        downloadBtn.textContent = t('tools:pdfEditor.msg.downloadEditedPdf');
+        downloadBtn.textContent = trText('Download Edited PDF');
         pdfWrapper.appendChild(downloadBtn);
       }
       downloadBtn.classList.remove('hidden');
@@ -509,11 +509,16 @@ async function handleFiles(files: FileList) {
           const pendingCount = redactionPlugin?.getState().pendingCount ?? 0;
           if (redactionPlugin && pendingCount > 0) {
             const shouldApply = await confirmChoice(
-              t('tools:pdfEditor.msg.applyRedactionsTitle'),
-              t('tools:pdfEditor.msg.applyRedactionsMessage', {
-                count: pendingCount,
-              }),
-              t('tools:pdfEditor.msg.applyAndDownload')
+              trText('Apply redactions?'),
+              pendingCount === 1
+                ? trText(
+                    "This document has 1 redaction mark that hasn't been applied. Until a mark is applied, the content under it is still in the file. Apply all marks and download?"
+                  )
+                : trText(
+                    "This document has {{count}} redaction marks that haven't been applied. Until a mark is applied, the content under it is still in the file. Apply all marks and download?",
+                    { count: pendingCount }
+                  ),
+              trText('Apply and download')
             );
             if (!shouldApply) return;
             if (documentId && redactionTracker) {
@@ -553,8 +558,8 @@ async function handleFiles(files: FileList) {
               });
             if (!committed || redactionPlugin.getState().pendingCount > 0) {
               showAlert(
-                t('tools:pdfEditor.alert.redactionFailed'),
-                t('tools:pdfEditor.alert.someRedactionMarksCould')
+                'Redaction Failed',
+                'Some redaction marks could not be applied, so the file was not downloaded. Apply or remove them in the editor and try again.'
               );
               return;
             }
@@ -614,13 +619,15 @@ async function handleFiles(files: FileList) {
             });
             if (exported.isEncrypted) {
               const shouldDownload = await confirmChoice(
-                t('tools:pdfEditor.msg.encryptedFileTitle'),
-                t('tools:pdfEditor.msg.encryptedFileMessage'),
-                t('tools:pdfEditor.msg.downloadAnyway')
+                trText('Encrypted file'),
+                trText(
+                  "Your redactions are applied to the pages, but this file is encrypted, so BentoPDF can't also remove copies of the redacted text from its properties, bookmarks, and attachments. For a full cleanup, redact an unencrypted copy and add a password afterwards with Protect PDF. Download anyway?"
+                ),
+                trText('Download anyway')
               );
               if (!shouldDownload) return;
             } else {
-              showLoader(t('tools:pdfEditor.loader.removingRedactedTextFrom'));
+              showLoader('Removing redacted text from document data...');
               try {
                 outBytes = await scrubRedactedText(
                   outBytes,
@@ -629,8 +636,8 @@ async function handleFiles(files: FileList) {
               } catch (err) {
                 console.error('Redaction cleanup failed:', err);
                 showAlert(
-                  t('common.error'),
-                  t('tools:pdfEditor.alert.couldNotRemoveRedacted')
+                  'Error',
+                  'Could not remove the redacted text from the document data, so the file was not downloaded.'
                 );
                 return;
               } finally {
@@ -644,10 +651,7 @@ async function handleFiles(files: FileList) {
           downloadFile(blob, currentFileName);
         } catch (err) {
           console.error('Error downloading PDF:', err);
-          showAlert(
-            t('common.error'),
-            t('tools:pdfEditor.alert.failedDownloadEditedPdf')
-          );
+          showAlert('Error', 'Failed to download the edited PDF.');
         }
       };
       downloadBtn.onclick = downloadEditedPdf;
@@ -687,10 +691,7 @@ async function handleFiles(files: FileList) {
     }
   } catch (error) {
     console.error('Error loading PDF Editor:', error);
-    showAlert(
-      t('common.error'),
-      t('tools:pdfEditor.alert.failedLoadPdfEditor')
-    );
+    showAlert('Error', 'Failed to load the PDF Editor.');
   } finally {
     hideLoader();
   }

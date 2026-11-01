@@ -17,7 +17,7 @@ import { computeComparisonForPair } from '../../logic/compare-render.ts';
 import { LRUCache } from '../lru-cache.ts';
 import { loadPdfDocument } from '../../utils/load-pdf-document.js';
 
-import { t } from '../../i18n/i18n.js';
+import { trText } from '../../i18n/i18n.js';
 
 const HIGHLIGHT_COLORS: Record<
   string,
@@ -101,10 +101,12 @@ export async function exportComparePdf(
   }
 ) {
   if (!pdfDoc1 && !pdfDoc2) {
-    throw new Error(t('msg.exportComparePdf.atLeastOnePdfDocumentIs'));
+    throw new Error(
+      trText('At least one PDF document is required for export.')
+    );
   }
   if (!pairs || pairs.length === 0) {
-    throw new Error(t('msg.exportComparePdf.noPagePairsToExport'));
+    throw new Error(trText('No page pairs to export.'));
   }
 
   const outDoc = await PDFDocument.create();
@@ -141,9 +143,9 @@ export async function exportComparePdf(
   for (let i = 0; i < pairs.length; i++) {
     const pair = pairs[i];
     onProgress?.(
-      t('tools:comparePdfs.renderingPage', {
-        current: i + 1,
-        total: pairs.length,
+      trText('Rendering page {{n}} of {{length}}...', {
+        n: i + 1,
+        length: pairs.length,
       }),
       Math.round(((i + 1) / pairs.length) * 100)
     );

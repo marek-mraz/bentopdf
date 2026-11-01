@@ -3,13 +3,18 @@ import path from 'path';
 import { JSDOM } from 'jsdom';
 import { fileURLToPath } from 'url';
 import { serializeJsonLd } from './json-ld.mjs';
-import { applyLinkedText } from './i18n-linked-text.mjs';
+import { ENGLISH_ONLY_PAGES, processPage } from './content-segments.mjs';
+import { completeDocsLanguages } from './docs-languages.mjs';
+import { createTranslationChecker } from './page-translation.mjs';
+import { canonicalBasePath } from './indexing-policy.mjs';
+import { applyServerTranslations } from './server-translations.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DIST_DIR = path.resolve(__dirname, '../dist');
 const LOCALES_DIR = path.resolve(__dirname, '../public/locales');
+const CONTENT_DIR = path.resolve(__dirname, '../translations');
 const SITE_URL = (process.env.SITE_URL || 'https://www.bentopdf.com').replace(
   /\/+$/,
   ''
@@ -20,16 +25,22 @@ const languages = fs.readdirSync(LOCALES_DIR).filter((file) => {
   return fs.statSync(path.join(LOCALES_DIR, file)).isDirectory();
 });
 
+const OFFICIAL_DOCS_URL = 'https://www.bentopdf.com/docs';
+
+const docsLanguages = completeDocsLanguages(
+  path.resolve(__dirname, '../docs'),
+  languages.filter((lang) => lang !== 'en'),
+  process.env.DOCS_LANGUAGES
+).enabled;
+
 const toCamelCase = (str) => {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 };
 
-const KEY_MAPPING = JSON.parse(
-  fs.readFileSync(
-    path.resolve(__dirname, '../src/js/config/page-i18n-keys.json'),
-    'utf-8'
-  )
-);
+const KEY_MAPPING = {
+  index: 'home',
+  404: 'notFound',
+};
 
 function loadAllTranslations() {
   const translations = {};
@@ -37,16 +48,16 @@ function loadAllTranslations() {
     if (lang === 'en') continue;
     const commonPath = path.join(LOCALES_DIR, `${lang}/common.json`);
     const toolsPath = path.join(LOCALES_DIR, `${lang}/tools.json`);
-    const faqPath = path.join(LOCALES_DIR, `${lang}/faq.json`);
+    const contentPath = path.join(CONTENT_DIR, lang, 'content.json');
     translations[lang] = {
+      content: fs.existsSync(contentPath)
+        ? JSON.parse(fs.readFileSync(contentPath, 'utf-8'))
+        : {},
       common: fs.existsSync(commonPath)
         ? JSON.parse(fs.readFileSync(commonPath, 'utf-8'))
         : {},
       tools: fs.existsSync(toolsPath)
         ? JSON.parse(fs.readFileSync(toolsPath, 'utf-8'))
-        : {},
-      faq: fs.existsSync(faqPath)
-        ? JSON.parse(fs.readFileSync(faqPath, 'utf-8'))
         : {},
     };
   }
@@ -61,79 +72,16 @@ function loadEnglishTools() {
 
 const ENGLISH_TOOLS = loadEnglishTools();
 
+const contentTotals = {};
+
 // TODO@ALAM: Let users build only a single language
 function buildUrl(langPrefix, pagePath) {
   const parts = [SITE_URL];
-  if (BASE_PATH && BASE_PATH !== '') parts.push(BASE_PATH.replace(/^\//, ''));
+  const canonicalBase = canonicalBasePath();
+  if (canonicalBase) parts.push(canonicalBase.replace(/^\//, ''));
   if (langPrefix) parts.push(langPrefix);
   if (pagePath) parts.push(pagePath.replace(/^\//, ''));
   return parts.filter(Boolean).join('/').replace(/\/+$/, '') || SITE_URL;
-}
-
-function resolveTranslation(langResources, key) {
-  let namespace = 'common';
-  let keyPath = key;
-  const colonIndex = key.indexOf(':');
-  if (colonIndex !== -1) {
-    namespace = key.slice(0, colonIndex);
-    keyPath = key.slice(colonIndex + 1);
-  }
-  let node = langResources[namespace];
-  for (const segment of keyPath.split('.')) {
-    if (node == null || typeof node !== 'object') return null;
-    node = node[segment];
-  }
-  return typeof node === 'string' && node ? node : null;
-}
-
-const I18N_ATTRIBUTES = [
-  'placeholder',
-  'title',
-  'aria-label',
-  'alt',
-  'label',
-  'content',
-];
-
-function applyServerTranslations(document, langResources) {
-  const roots = [
-    document,
-    ...Array.from(document.querySelectorAll('template'), (tpl) => tpl.content),
-  ];
-  for (const root of roots) {
-    root.querySelectorAll('[data-i18n]').forEach((element) => {
-      const key = element.getAttribute('data-i18n');
-      const translation = key && resolveTranslation(langResources, key);
-      if (translation) element.textContent = translation;
-    });
-
-    root.querySelectorAll('[data-i18n-linked]').forEach((element) => {
-      const key = element.getAttribute('data-i18n-linked');
-      const translation = key && resolveTranslation(langResources, key);
-      if (translation && !applyLinkedText(element, translation)) {
-        console.warn(`[i18n] Skipped malformed translation: ${key}`);
-      }
-    });
-
-    for (const attr of I18N_ATTRIBUTES) {
-      root.querySelectorAll(`[data-i18n-${attr}]`).forEach((element) => {
-        const key = element.getAttribute(`data-i18n-${attr}`);
-        const translation = key && resolveTranslation(langResources, key);
-        if (translation) element.setAttribute(attr, translation);
-      });
-    }
-  }
-
-  // Tool page FAQs are translated here only; the faq namespace is not loaded
-  // at runtime, so English pages keep the text in the HTML.
-  document.querySelectorAll('[data-i18n-faq]').forEach((element) => {
-    const key = element.getAttribute('data-i18n-faq');
-    if (!key) return;
-    const translation = resolveTranslation(langResources, `faq:${key}`);
-    if (translation && !applyLinkedText(element, translation)) {
-      console.warn(`[i18n] Skipped malformed FAQ translation: ${key}`);
-    }
-  });
 }
 
 const ORGANIZATION_LD_MARKER = 'data-bentopdf-organization';
@@ -192,7 +140,13 @@ function removeStaticBreadcrumbLd(document) {
   }
 }
 
-function injectToolBreadcrumb(document, lang, toolName, toolUrl) {
+function injectToolBreadcrumb(
+  document,
+  lang,
+  toolName,
+  toolUrl,
+  label = 'Breadcrumb'
+) {
   const h1 = document.querySelector('h1[data-i18n^="tools:"]');
   if (!h1) return;
   if (document.querySelector(`[${BREADCRUMB_MARKER}]`)) return;
@@ -201,8 +155,9 @@ function injectToolBreadcrumb(document, lang, toolName, toolUrl) {
   const homeUrl = buildUrl(lang === 'en' ? '' : lang, '');
 
   const nav = document.createElement('nav');
-  nav.setAttribute('aria-label', 'Breadcrumb');
+  nav.setAttribute('aria-label', label);
   nav.setAttribute(BREADCRUMB_MARKER, '');
+  nav.setAttribute('data-no-i18n', '');
   nav.className = 'text-sm text-gray-400 mb-4';
 
   const homeLink = document.createElement('a');
@@ -263,14 +218,20 @@ function translationKeyForFile(filenameNoExt) {
   return KEY_MAPPING[filenameNoExt] || toCamelCase(filenameNoExt);
 }
 
+let isPageTranslated = null;
+
 function translatedLangsForFile(filenameNoExt, translations) {
-  const translationKey = translationKeyForFile(filenameNoExt);
-  return languages.filter(
-    (l) =>
-      l === 'en' ||
-      filenameNoExt === 'index' ||
-      Boolean(translations[l] && translations[l].tools[translationKey])
-  );
+  if (!isPageTranslated) {
+    const toolsByLang = {};
+    for (const lang of languages) {
+      toolsByLang[lang] = translations[lang] ? translations[lang].tools : {};
+    }
+    isPageTranslated = createTranslationChecker(
+      toolsByLang,
+      translationKeyForFile
+    );
+  }
+  return languages.filter((l) => isPageTranslated(filenameNoExt, l));
 }
 
 function processFileForLanguage(
@@ -291,8 +252,28 @@ function processFileForLanguage(
 
   document.documentElement.lang = lang;
   document.documentElement.dir = ['ar', 'fa'].includes(lang) ? 'rtl' : 'ltr';
+  document.querySelector('script[data-language-redirect]')?.remove();
+  if (ENGLISH_ONLY_PAGES.has(filenameNoExt)) {
+    const englishContent = document.getElementById('app');
+    englishContent?.setAttribute('lang', 'en');
+    englishContent?.setAttribute('dir', 'ltr');
+  }
+
+  const metaContent = (selector) =>
+    document.querySelector(selector)?.getAttribute('content') ?? null;
+  const englishMeta = {
+    title: document.title,
+    description: metaContent('meta[name="description"]'),
+  };
 
   applyServerTranslations(document, translations[lang]);
+  const contentStats = processPage(document, filenameNoExt, {
+    translate: (id) => translations[lang].content[id] || null,
+  });
+  contentTotals[lang] ??= { found: 0, translated: 0, invalid: 0 };
+  contentTotals[lang].found += contentStats.found;
+  contentTotals[lang].translated += contentStats.translated;
+  contentTotals[lang].invalid += contentStats.invalid.length;
 
   let title = null;
   let description = null;
@@ -306,7 +287,11 @@ function processFileForLanguage(
     description = tools[translationKey].subtitle;
   }
 
-  if (title) {
+  const titleTranslated = document.title !== englishMeta.title;
+  const descriptionTranslated =
+    metaContent('meta[name="description"]') !== englishMeta.description;
+
+  if (title && !titleTranslated) {
     document.title = title;
     const metaTitle = document.querySelector('meta[property="og:title"]');
     if (metaTitle) metaTitle.content = title;
@@ -316,7 +301,7 @@ function processFileForLanguage(
     if (metaTwitterTitle) metaTwitterTitle.content = title;
   }
 
-  if (description) {
+  if (description && !descriptionTranslated) {
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.content = description;
     const metaOgDesc = document.querySelector(
@@ -371,7 +356,29 @@ function processFileForLanguage(
 
   const localizedToolName = resolveToolName(translationKey, tools);
   if (localizedToolName) {
-    injectToolBreadcrumb(document, lang, localizedToolName, localizedUrl);
+    injectToolBreadcrumb(
+      document,
+      lang,
+      localizedToolName,
+      localizedUrl,
+      translations[lang].common?.nav?.breadcrumb || 'Breadcrumb'
+    );
+  }
+
+  if (docsLanguages.includes(lang)) {
+    const localDocs = `${BASE_PATH}/docs`;
+    document.querySelectorAll('a[href]').forEach((link) => {
+      const href = link.getAttribute('href');
+      for (const docsUrl of [OFFICIAL_DOCS_URL, localDocs]) {
+        if (href === docsUrl || href?.startsWith(`${docsUrl}/`)) {
+          link.setAttribute(
+            'href',
+            href.replace(docsUrl, `${docsUrl}/${lang}`)
+          );
+          break;
+        }
+      }
+    });
   }
 
   const links = document.querySelectorAll('a[href]');
@@ -394,7 +401,13 @@ function processFileForLanguage(
 
     if (href.startsWith('/assets/') || href.includes('/assets/')) return;
 
-    if (href === '/blog' || href.startsWith('/blog/')) return;
+    const hrefWithoutBase =
+      BASE_PATH && href.startsWith(`${BASE_PATH}/`)
+        ? href.slice(BASE_PATH.length)
+        : href;
+    if (/^\/(blog|docs)(\/|$)/.test(hrefWithoutBase)) {
+      return;
+    }
 
     const langPrefixRegex = new RegExp(
       `^(${BASE_PATH})?/(${languages.join('|')})(/|$)`
@@ -542,6 +555,20 @@ async function generateI18nPages() {
     }
 
     updateEnglishFile(filePath, originalContent, translatedLangs);
+  }
+
+  const covered = Object.entries(contentTotals).filter(
+    ([, totals]) => totals.translated > 0
+  );
+  if (covered.length > 0) {
+    console.log(
+      `   Page content translated: ${covered
+        .map(
+          ([lang, totals]) =>
+            `${lang} ${Math.round((totals.translated / totals.found) * 100)}%${totals.invalid ? ` (${totals.invalid} rejected)` : ''}`
+        )
+        .join(', ')}`
+    );
   }
 
   console.log('✅ i18n pages generated successfully!');

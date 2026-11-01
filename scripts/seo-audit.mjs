@@ -1,18 +1,25 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { canonicalBasePath, isIndexingBlocked } from './indexing-policy.mjs';
+import { createTranslationChecker } from './page-translation.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DIST_DIR = path.resolve(__dirname, '../dist');
 const LOCALES_DIR = path.resolve(__dirname, '../public/locales');
-const SITE_URL = (process.env.SITE_URL || 'https://www.bentopdf.com').replace(
+// The blog is BentoPDF's own content, so generate-blog.mjs and the hand-written
+// blog pages keep their canonicals on the official site, also in self-hosted
+// builds with a custom SITE_URL or BASE_URL.
+const OFFICIAL_SITE_URL = 'https://www.bentopdf.com';
+const SITE_URL = (process.env.SITE_URL || OFFICIAL_SITE_URL).replace(
   /\/+$/,
   ''
 );
 const BASE_PATH = (process.env.BASE_URL || '/').replace(/\/$/, '');
 const HOST = new URL(SITE_URL).hostname;
+const OFFICIAL_HOST = new URL(OFFICIAL_SITE_URL).hostname;
 
 const NOINDEX_ALLOWLIST = new Set(['404.html', 'wasm-settings.html']);
 const SKIP_DIRS = new Set([
@@ -73,12 +80,7 @@ const LOCALE_DIRS = new Set(
     .filter((d) => fs.statSync(path.join(LOCALES_DIR, d)).isDirectory())
 );
 
-const KEY_MAPPING = JSON.parse(
-  fs.readFileSync(
-    path.resolve(__dirname, '../src/js/config/page-i18n-keys.json'),
-    'utf-8'
-  )
-);
+const KEY_MAPPING = { index: 'home', 404: 'notFound' };
 const toCamelCase = (str) =>
   str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 
@@ -90,9 +92,18 @@ for (const lang of LOCALE_DIRS) {
     : {};
 }
 
+const isPageTranslated = createTranslationChecker(
+  toolsByLang,
+  (baseName) => KEY_MAPPING[baseName] || toCamelCase(baseName)
+);
+
 function hasTrailingSlash(href) {
   const { pathname } = new URL(href);
   return pathname !== '/' && pathname.endsWith('/');
+}
+
+function isBlogPage(rel) {
+  return rel.startsWith('blog/');
 }
 
 function expectedCanonicalForFile(rel) {
@@ -100,17 +111,15 @@ function expectedCanonicalForFile(rel) {
   const fileName = parts.pop();
   const baseName = fileName.replace(/\.html$/, '');
   const slug = baseName === 'index' ? '' : baseName;
-  const translationKey = KEY_MAPPING[baseName] || toCamelCase(baseName);
+  if (isBlogPage(rel)) {
+    return `${OFFICIAL_SITE_URL}/blog${slug ? `/${slug}` : ''}`;
+  }
   const segments = [SITE_URL];
-  if (BASE_PATH) segments.push(BASE_PATH.replace(/^\//, ''));
+  const canonicalBase = canonicalBasePath();
+  if (canonicalBase) segments.push(canonicalBase.replace(/^\//, ''));
   for (const dir of parts) {
-    if (dir === 'blog') {
-      segments.push(dir);
-    } else if (LOCALE_DIRS.has(dir)) {
-      const translated =
-        baseName === 'index' ||
-        Boolean(toolsByLang[dir] && toolsByLang[dir][translationKey]);
-      if (translated) segments.push(dir);
+    if (LOCALE_DIRS.has(dir)) {
+      if (isPageTranslated(baseName, dir)) segments.push(dir);
     }
   }
   if (slug) segments.push(slug);
@@ -182,10 +191,11 @@ function auditHtml(file, knownSlugs) {
           `${file.rel}: canonical "${actual}" ends with "/" (the server redirects it to the slashless form)`
         );
       }
-      if (url.hostname !== HOST) {
+      const expectedHost = isBlogPage(file.rel) ? OFFICIAL_HOST : HOST;
+      if (url.hostname !== expectedHost) {
         warn(
           'canonical',
-          `${file.rel}: canonical host "${url.hostname}" != expected "${HOST}"`
+          `${file.rel}: canonical host "${url.hostname}" != expected "${expectedHost}"`
         );
       }
     } catch {
@@ -212,6 +222,7 @@ function auditHtml(file, knownSlugs) {
   if (
     robots &&
     /noindex/i.test(robots) &&
+    !isIndexingBlocked() &&
     !NOINDEX_ALLOWLIST.has(file.rel) &&
     !NOINDEX_ALLOWLIST.has(path.basename(file.rel))
   ) {

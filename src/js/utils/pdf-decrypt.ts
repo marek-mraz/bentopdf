@@ -2,7 +2,7 @@ import { getCpdf, isCpdfAvailable } from './cpdf-helper';
 import { isPyMuPDFAvailable, loadPyMuPDF } from './pymupdf-loader';
 import type { CpdfInstance } from '@/types';
 
-import { t } from '../i18n/i18n.js';
+import { trText } from '../i18n/i18n.js';
 
 export type PdfDecryptEngine = 'cpdf' | 'pymupdf';
 
@@ -78,7 +78,7 @@ async function decryptWithCpdf(
     pdf = null;
 
     if (!(outputBytes instanceof Uint8Array) || outputBytes.length === 0) {
-      throw new Error('CoherentPDF produced an empty decrypted file.');
+      throw new Error(trText('CoherentPDF produced an empty decrypted file.'));
     }
 
     return copyBytes(outputBytes);
@@ -104,13 +104,15 @@ async function decryptWithPyMuPDF(
     if (document.needsPass || document.isEncrypted) {
       const authenticated = document.authenticate(password);
       if (!authenticated) {
-        throw new Error(t('msg.pdfDecrypt.invalidPdfPassword'));
+        const error = new Error(trText('Invalid PDF password.'));
+        error.name = 'PasswordError';
+        throw error;
       }
     }
 
     const outputBytes = document.save();
     if (!(outputBytes instanceof Uint8Array) || outputBytes.length === 0) {
-      throw new Error('PyMuPDF produced an empty decrypted file.');
+      throw new Error(trText('PyMuPDF produced an empty decrypted file.'));
     }
 
     return copyBytes(outputBytes);
@@ -147,7 +149,7 @@ export async function decryptPdfBytes(
     console.info(
       `${DECRYPT_LOG_PREFIX} CoherentPDF is not configured, skipping to PyMuPDF`
     );
-    errors.push(`CoherentPDF: ${t('msg.pdfDecrypt.notConfigured')}`);
+    errors.push(trText('CoherentPDF: not configured.'));
   }
 
   if (isPyMuPDFAvailable()) {
@@ -168,7 +170,7 @@ export async function decryptPdfBytes(
     }
   } else {
     console.warn(`${DECRYPT_LOG_PREFIX} PyMuPDF is not configured`);
-    errors.push(`PyMuPDF: ${t('msg.pdfDecrypt.notConfigured')}`);
+    errors.push(trText('PyMuPDF: not configured.'));
   }
 
   throw new Error(errors.join('\n'));

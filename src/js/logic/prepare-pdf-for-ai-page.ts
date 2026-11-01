@@ -1,5 +1,5 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import {
   downloadFile,
   readFileAsArrayBuffer,
@@ -52,7 +52,10 @@ onPageReady(() => {
 
         const metaSpan = document.createElement('div');
         metaSpan.className = 'text-xs text-gray-400';
-        metaSpan.textContent = `${formatBytes(file.size)} • ${t('common.loadingPageCount')}`;
+        metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+          size: formatBytes(file.size),
+          loadingPageCount: t('common.loadingPageCount'),
+        });
 
         infoContainer.append(nameSpan, metaSpan);
 
@@ -71,15 +74,15 @@ onPageReady(() => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+          metaSpan.textContent = trText('{{size}} • {{numPages}} pages', {
             size: formatBytes(file.size),
-            count: pdfDoc.numPages,
+            numPages: pdfDoc.numPages,
           });
         } catch (error) {
           console.error('Error loading PDF:', error);
-          metaSpan.textContent = t(
-            'tools:preparePdfForAi.msg.couldNotLoadPageCount',
-            { value: formatBytes(file.size) }
+          metaSpan.textContent = trText(
+            '{{size}} • Could not load page count',
+            { size: formatBytes(file.size) }
           );
         }
       }
@@ -105,16 +108,16 @@ onPageReady(() => {
   const extractForAI = async () => {
     try {
       if (state.files.length === 0) {
-        showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+        showAlert('No Files', 'Please select at least one PDF file.');
         return;
       }
 
-      showLoader(t('loader.loadingEngine'));
+      showLoader('Loading engine...');
       const pymupdf = await loadPyMuPDF();
 
       hideLoader();
       state.files = await batchDecryptIfNeeded(state.files);
-      showLoader(t('tools:preparePdfForAi.loader.extracting'));
+      showLoader('Extracting...');
 
       const total = state.files.length;
       let completed = 0;
@@ -123,7 +126,7 @@ onPageReady(() => {
       if (total === 1) {
         const file = state.files[0];
         showLoader(
-          t('tools:preparePdfForAi.msg.extractingForAi', { name: file.name })
+          trText('Extracting {{name}} for AI...', { name: file.name })
         );
 
         const llamaDocs = await (pymupdf as PyMuPDFInstance).pdfToLlamaIndex(
@@ -138,8 +141,8 @@ onPageReady(() => {
 
         hideLoader();
         showAlert(
-          t('alert.extractionComplete'),
-          t('tools:preparePdfForAi.alert.successfullyExtractedPdfAi'),
+          'Extraction Complete',
+          `Successfully extracted PDF for AI/LLM use.`,
           'success',
           () => resetState()
         );
@@ -152,9 +155,9 @@ onPageReady(() => {
           try {
             const file = state.files[fi];
             showLoader(
-              t('tools:preparePdfForAi.msg.extractingForAi2', {
+              trText('Extracting {{name}} for AI ({{n}}/{{total}})...', {
                 name: file.name,
-                value: completed + 1,
+                n: completed + 1,
                 total,
               })
             );
@@ -174,7 +177,7 @@ onPageReady(() => {
           }
         }
 
-        showLoader(t('loader.creatingZipArchive'));
+        showLoader('Creating ZIP archive...');
         const zipBlob = await zip.generateAsync({ type: 'blob' });
 
         downloadFile(zipBlob, 'pdf-for-ai.zip');
@@ -183,17 +186,18 @@ onPageReady(() => {
 
         if (failed === 0) {
           showAlert(
-            t('alert.extractionComplete'),
-            t('tools:preparePdfForAi.msg.successfullyExtractedPdfSForAi', {
-              completed,
-            }),
+            'Extraction Complete',
+            trText(
+              'Successfully extracted {{completed}} PDF(s) for AI/LLM use.',
+              { completed }
+            ),
             'success',
             () => resetState()
           );
         } else {
           showAlert(
-            t('tools:preparePdfForAi.alert.extractionPartial'),
-            t('tools:preparePdfForAi.msg.extractedPdfSFailed', {
+            'Extraction Partial',
+            trText('Extracted {{completed}} PDF(s), failed {{failed}}.', {
               completed,
               failed,
             }),
@@ -205,9 +209,9 @@ onPageReady(() => {
     } catch (e: unknown) {
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:preparePdfForAi.msg.anErrorOccurredDuringExtractionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during extraction. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

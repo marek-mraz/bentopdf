@@ -260,7 +260,7 @@
         <button
           id="alert-ok"
           class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
-          data-i18n="alert.ok"
+          data-i18n="common.ok"
         >
           OK
         </button>
@@ -465,12 +465,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-page-labels.1.q"
-              >How do I label appendix pages A-1, A-2, A-3?</span
-            >
+            How do I label appendix pages A-1, A-2, A-3?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-page-labels.1.a">
+          <p class="faq-d-a">
             Add a rule for the appendix page range, keep Decimal Arabic as the
             style, and type A- in the Label Prefix field. With the default start
             value of 1 the pages become A-1, A-2, A-3, and a second rule with
@@ -479,12 +477,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-page-labels.2.q"
-              >Can page numbering start at 0 or at a number other than 1?</span
-            >
+            Can page numbering start at 0 or at a number other than 1?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-page-labels.2.a">
+          <p class="faq-d-a">
             Each rule has a Start Value field that defaults to 1. Set it to 0
             for zero-based numbering, or to any other number, for example 15 so
             a chapter extracted from a longer book keeps its original page
@@ -493,12 +489,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-page-labels.3.q"
-              >What does 'Continue numbering across disjoint ranges' do?</span
-            >
+            What does 'Continue numbering across disjoint ranges' do?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-page-labels.3.a">
+          <p class="faq-d-a">
             Turn it on when one rule covers pages that aren't contiguous, such
             as 1-9,30-40 or odd, and you want the labels to keep counting in
             sequence across the gap. With it off, each separate block of pages
@@ -507,12 +501,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-page-labels.4.q"
-              >What happens to the page labels the PDF already has?</span
-            >
+            What happens to the page labels the PDF already has?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-page-labels.4.a">
+          <p class="faq-d-a">
             The 'Remove existing page labels' box is checked by default, so the
             old labels are cleared before your rules are applied. Uncheck it if
             you only want to relabel some pages and keep the existing labels on
@@ -521,12 +513,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-page-labels.5.q"
-              >Which page range formats can I type?</span
-            >
+            Which page range formats can I type?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-page-labels.5.a">
+          <p class="faq-d-a">
             Leave the field empty to cover every page, or use forms like 1-4, 7,
             odd, or 1-9,30-40. Page numbers refer to physical positions in the
             file, not to labels the PDF may already display.
@@ -534,12 +524,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-page-labels.6.q"
-              >Can I add labels to a password-protected PDF?</span
-            >
+            Can I add labels to a password-protected PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-page-labels.6.a">
+          <p class="faq-d-a">
             Not directly. The tool stops with a Protected PDF message, so remove
             the password first with
             <a href="/unlock-pdf" class="text-indigo-300 hover:text-indigo-400"
@@ -550,12 +538,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-page-labels.7.q"
-              >Why does the tool ask me to configure CoherentPDF?</span
-            >
+            Why does the tool ask me to configure CoherentPDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-page-labels.7.a">
+          <p class="faq-d-a">
             Page labels are written by the CoherentPDF engine, which normally
             loads from a CDN the first time you use the tool. If that default
             has been turned off in a self-hosted build, you'll be prompted to
@@ -570,12 +556,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-page-labels.8.q"
-              >How do I check that the labels were applied?</span
-            >
+            How do I check that the labels were applied?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-page-labels.8.a">
+          <p class="faq-d-a">
             Open the downloaded PDF in a reader that displays page labels, such
             as Adobe Acrobat or Firefox's built-in viewer, and look at the page
             number box in the toolbar. It shows the label, for example iv or

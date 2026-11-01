@@ -9,7 +9,7 @@ import { createIcons, icons } from 'lucide';
 import { PDFDocument } from 'pdf-lib';
 import { applyGreyscale } from '../utils/image-effects.js';
 import * as pdfjsLib from 'pdfjs-dist';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
 import '../utils/setup-pdf-worker.js';
 
@@ -42,7 +42,10 @@ const updateUI = () => {
 
       const metaSpan = document.createElement('div');
       metaSpan.className = 'text-xs text-gray-400';
-      metaSpan.textContent = `${formatBytes(file.size)} • ${t('common.loadingPageCount')}`; // Initial state
+      metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+        size: formatBytes(file.size),
+        loadingPageCount: t('common.loadingPageCount'),
+      }); // Initial state
 
       infoContainer.append(nameSpan, metaSpan);
 
@@ -64,7 +67,11 @@ const updateUI = () => {
           return getPDFDocument(buffer).promise;
         })
         .then((pdf) => {
-          metaSpan.textContent = `${formatBytes(file.size)} • ${pdf.numPages} ${pdf.numPages !== 1 ? t('common.pages') : t('common.page')}`;
+          metaSpan.textContent = trText('{{size}} • {{numPages}} {{value}}', {
+            size: formatBytes(file.size),
+            numPages: pdf.numPages,
+            value: pdf.numPages !== 1 ? t('common.pages') : t('common.page'),
+          });
         })
         .catch((e) => {
           console.warn('Error loading PDF page count:', e);
@@ -88,16 +95,13 @@ const resetState = () => {
 
 async function convert() {
   if (files.length === 0) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
   try {
     const result = await loadPdfWithPasswordPrompt(files[0], files, 0);
     if (!result) return;
-    showLoader(t('tools:pdfToGreyscale.loader.convertingGreyscale'));
+    showLoader('Converting to greyscale...');
     const { pdf: pdfjsDoc } = result;
     const newPdfDoc = await PDFDocument.create();
 
@@ -144,8 +148,8 @@ async function convert() {
       files[0]?.name || 'document.pdf'
     );
     showAlert(
-      t('common.success'),
-      t('tools:pdfToGreyscale.alert.pdfConvertedGreyscaleSuccessfully'),
+      'Success',
+      'PDF converted to greyscale successfully!',
       'success',
       () => {
         resetState();
@@ -154,8 +158,8 @@ async function convert() {
   } catch (e) {
     console.error(e);
     showAlert(
-      t('common.error'),
-      t('tools:pdfToGreyscale.alert.failedConvertPdfGreyscale')
+      'Error',
+      'Failed to convert PDF to greyscale. The file might be corrupted.'
     );
   } finally {
     hideLoader();
@@ -181,10 +185,7 @@ onPageReady(() => {
     );
 
     if (validFiles.length === 0) {
-      showAlert(
-        t('tools:addPageLabels.invalidFileTitle'),
-        t('tools:pdfToJpg.alert.invalidFileExplanation')
-      );
+      showAlert('Invalid File', 'Please upload a PDF file.');
       return;
     }
 

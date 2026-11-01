@@ -156,10 +156,7 @@
 
         <!-- Attachment Options (hidden until PDF loaded) -->
         <div id="tool-options" class="hidden mt-6">
-          <h2
-            data-i18n="tools:addAttachments.ui.selectFilesToAttach"
-            class="text-lg font-semibold text-white mb-3"
-          >
+          <h2 class="text-lg font-semibold text-white mb-3">
             Select Files to Attach
           </h2>
 
@@ -169,18 +166,8 @@
           >
             <div class="flex flex-col items-center justify-center">
               <i data-lucide="paperclip" class="w-8 h-8 mb-2 text-gray-400"></i>
-              <p
-                data-i18n="tools:addAttachments.ui.clickDropFilesToAttach"
-                class="text-sm text-gray-400"
-              >
-                Click or drop files to attach
-              </p>
-              <p
-                data-i18n="tools:addAttachments.ui.anyFileType"
-                class="text-xs text-gray-500"
-              >
-                Any file type
-              </p>
+              <p class="text-sm text-gray-400">Click or drop files to attach</p>
+              <p class="text-xs text-gray-500">Any file type</p>
             </div>
             <input
               id="attachment-files-input"
@@ -194,10 +181,7 @@
 
           <!-- Attachment Level Options (hidden until attachments added) -->
           <div id="attachment-level-options" class="hidden mt-4">
-            <h3
-              data-i18n="tools:addAttachments.ui.attachmentLevel"
-              class="text-md font-medium text-white mb-2"
-            >
+            <h3 class="text-md font-medium text-white mb-2">
               Attachment Level
             </h3>
             <div class="flex gap-4 mb-3">
@@ -209,9 +193,7 @@
                   checked
                   class="accent-indigo-500"
                 />
-                <span data-i18n="tools:addAttachments.ui.documentLevel"
-                  >Document Level</span
-                >
+                <span>Document Level</span>
               </label>
               <label class="flex items-center gap-2 text-gray-300">
                 <input
@@ -220,9 +202,7 @@
                   value="page"
                   class="accent-indigo-500"
                 />
-                <span data-i18n="tools:addAttachments.ui.pageLevel"
-                  >Page Level</span
-                >
+                <span>Page Level</span>
               </label>
             </div>
 
@@ -231,11 +211,8 @@
                 for="attachment-page-range"
                 class="text-sm text-gray-400 block mb-1"
               >
-                <span data-i18n="tools:addAttachments.ui.pageRangeTotal"
-                  >Page Range (e.g., 1,3,5-7) - Total:</span
-                >
-                <span id="attachment-total-pages">0</span>
-                <span data-i18n="tools:addAttachments.ui.pages">pages</span>
+                Page Range (e.g., 1,3,5-7) - Total:
+                <span id="attachment-total-pages">0</span> pages
               </label>
               <input
                 type="text"
@@ -246,11 +223,7 @@
             </div>
           </div>
 
-          <button
-            data-i18n="tools:addAttachments.name"
-            id="process-btn"
-            class="hidden btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="hidden btn-gradient w-full mt-4">
             Add Attachments
           </button>
         </div>
@@ -319,12 +292,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -337,12 +305,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -355,12 +318,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -382,74 +340,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -465,12 +385,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-attachments.1.q"
-              >What kinds of files can I embed in a PDF?</span
-            >
+            What kinds of files can I embed in a PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-attachments.1.a">
+          <p class="faq-d-a">
             Any file type: spreadsheets, images, ZIP archives, CAD drawings,
             even executables. The tool doesn't inspect or convert the file; it
             stores the bytes inside the PDF under the original file name, and
@@ -479,13 +397,11 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-attachments.2.q"
-              >What's the difference between document-level and page-level
-              attachments?</span
-            >
+            What's the difference between document-level and page-level
+            attachments?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-attachments.2.a">
+          <p class="faq-d-a">
             Document-level attachments belong to the PDF as a whole and appear
             in the reader's attachments panel. Page-level attachments are tied
             to the pages you list in the page range field (for example 1,3,5-7),
@@ -496,13 +412,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-attachments.3.q"
-              >Where do the attached files show up when someone opens the
-              PDF?</span
-            >
+            Where do the attached files show up when someone opens the PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-attachments.3.a">
+          <p class="faq-d-a">
             In readers that have an attachments panel, such as Adobe Acrobat
             Reader or Firefox's built-in viewer, they're listed by file name and
             can be opened or saved from there. Viewers without that panel won't
@@ -511,12 +424,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-attachments.4.q"
-              >Does embedding files make the PDF bigger?</span
-            >
+            Does embedding files make the PDF bigger?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-attachments.4.a">
+          <p class="faq-d-a">
             Yes, by roughly the size of each attachment, since the file's bytes
             are stored inside the PDF. A 40 MB spreadsheet attached to a 1 MB
             report yields a PDF of about 41 MB, so keep attachment size in mind
@@ -525,12 +436,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-attachments.5.q"
-              >Is the file I attach uploaded anywhere when I embed it?</span
-            >
+            Is the file I attach uploaded anywhere when I embed it?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-attachments.5.a">
+          <p class="faq-d-a">
             No. The PDF and the attachments are read and combined in your
             browser by the CoherentPDF WebAssembly module, and the result is
             downloaded straight from the page. Nothing is sent to a server.
@@ -538,13 +447,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-attachments.6.q"
-              >Why does the tool say an advanced processing module is
-              required?</span
-            >
+            Why does the tool say an advanced processing module is required?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-attachments.6.a">
+          <p class="faq-d-a">
             Embedding uses the CoherentPDF (cpdf) module, which loads on demand
             from a CDN the first time you use it rather than shipping with the
             main site. If you self-host BentoPDF or work in an air-gapped setup,
@@ -559,12 +465,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-attachments.7.q"
-              >Can I remove an attachment later?</span
-            >
+            Can I remove an attachment later?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-attachments.7.a">
+          <p class="faq-d-a">
             Yes.
             <a
               href="/edit-attachments"
@@ -578,12 +482,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="add-attachments.8.q"
-              >Will attaching files break a digital signature on the PDF?</span
-            >
+            Will attaching files break a digital signature on the PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="add-attachments.8.a">
+          <p class="faq-d-a">
             Yes. Adding attachments rewrites the file, which invalidates any
             existing digital signature. Attach the files first, then sign the
             finished PDF with

@@ -7,7 +7,8 @@ import {
   type LoadProgress,
 } from '../utils/libreoffice-loader.js';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const ACCEPTED_EXTENSIONS = ['.pub'];
 const FILETYPE_NAME = 'PUB';
@@ -82,43 +83,45 @@ onPageReady(() => {
   const convert = async () => {
     if (state.files.length === 0) {
       showAlert(
-        t('alert.noFiles'),
-        t('tools:pubToPdf.msg.pleaseSelectAtLeastOneFile', { FILETYPE_NAME })
+        'No Files',
+        trText('Please select at least one {{FILETYPE_NAME}} file.', {
+          FILETYPE_NAME,
+        })
       );
       return;
     }
     try {
       const converter = getLibreOfficeConverter();
-      showLoader(t('loader.loadingEngine'));
+      showLoader('Loading engine...');
       await converter.initialize((progress: LoadProgress) => {
         showLoader(progress.message, progress.percent);
       });
       if (state.files.length === 1) {
         const file = state.files[0];
-        showLoader(t('tools:pubToPdf.msg.converting', { name: file.name }));
+        showLoader(trText('Converting {{name}}...', { name: file.name }));
         const pdfBlob = await converter.convertToPdf(file);
         const baseName = file.name.replace(/\.[^/.]+$/, '');
         downloadFile(pdfBlob, `${baseName}.pdf`);
         hideLoader();
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:pubToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: file.name,
           }),
           'success',
           () => resetState()
         );
       } else {
-        showLoader(t('loader.convertingMultipleFiles'));
+        showLoader('Converting multiple files...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
         const usedNames = new Set<string>();
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:pubToPdf.msg.converting2', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -134,9 +137,9 @@ onPageReady(() => {
         downloadFile(zipBlob, `${FILETYPE_NAME.toLowerCase()}-to-pdf.zip`);
         hideLoader();
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:pubToPdf.msg.successfullyConvertedFilesToPdf', {
-            count: state.files.length,
+          'Conversion Complete',
+          trText('Successfully converted {{length}} files to PDF.', {
+            length: state.files.length,
           }),
           'success',
           () => resetState()
@@ -145,12 +148,12 @@ onPageReady(() => {
     } catch (err) {
       hideLoader();
       const message =
-        err instanceof Error ? err.message : t('common.unknownError');
+        err instanceof Error ? err.message : trText('Unknown error');
       console.error(`[${FILETYPE_NAME}ToPDF] Error:`, err);
       showAlert(
-        t('common.error'),
-        t('tools:pubToPdf.msg.anErrorOccurredDuringConversionError', {
-          error: message,
+        'Error',
+        trText('An error occurred during conversion. Error: {{message}}', {
+          message,
         })
       );
     }

@@ -161,27 +161,20 @@
         <!-- Extract Options (shown after file upload) -->
         <div id="extract-options" class="hidden mt-6">
           <p class="mb-2 font-medium text-white">
-            <span data-i18n="toolPage.totalPages">Total Pages:</span>
-            <span id="total-pages"></span>
+            Total Pages: <span id="total-pages"></span>
           </p>
           <label
-            data-i18n="tools:extractPages.ui.enterPagesToExtract"
             for="pages-to-extract"
             class="block mb-2 text-sm font-medium text-gray-300"
             >Enter pages to extract (e.g., 2, 4-6, 9):</label
           >
           <input
-            data-i18n-placeholder="tools:extractPages.ui.pageRangePlaceholder"
             type="text"
             id="pages-to-extract"
             class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 mb-6"
             placeholder="e.g., 2, 4-6, 9"
           />
-          <button
-            data-i18n="tools:extractPages.ui.extractDownloadZip"
-            id="process-btn"
-            class="btn-gradient w-full"
-          >
+          <button id="process-btn" class="btn-gradient w-full">
             Extract & Download ZIP
           </button>
         </div>
@@ -197,11 +190,7 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          data-i18n="loader.processing"
-          id="loader-text"
-          class="text-white text-lg font-medium"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Processing...
         </p>
       </div>
@@ -249,12 +238,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -267,12 +251,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -285,12 +264,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -312,74 +286,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -395,12 +331,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="extract-pages.1.q"
-              >Can I choose which pages to extract?</span
-            >
+            Can I choose which pages to extract?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="extract-pages.1.a">
+          <p class="faq-d-a">
             Yes. Type page numbers and ranges separated by commas, such as 2,
             4-6, 9, and only those pages are pulled out. Numbering starts at 1,
             and the total page count is shown next to the file so you can check
@@ -409,12 +343,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="extract-pages.2.q"
-              >Do the extracted pages come as one PDF or separate files?</span
-            >
+            Do the extracted pages come as one PDF or separate files?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="extract-pages.2.a">
+          <p class="faq-d-a">
             Separate files. Each selected page becomes its own single-page PDF
             named like report_page_4.pdf, and they download together in a ZIP
             called report_extracted_pages.zip. To end up with one PDF that
@@ -429,12 +361,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="extract-pages.3.q"
-              >Does extracting keep the original quality?</span
-            >
+            Does extracting keep the original quality?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="extract-pages.3.a">
+          <p class="faq-d-a">
             Yes. Pages are copied, not re-rendered, so text, images, fonts, and
             vector graphics are unchanged from the source, and text stays
             selectable and searchable.
@@ -442,12 +372,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="extract-pages.4.q"
-              >Are bookmarks, links, and annotations preserved?</span
-            >
+            Are bookmarks, links, and annotations preserved?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="extract-pages.4.a">
+          <p class="faq-d-a">
             Comments, highlights, and other annotations on the page travel with
             it. Bookmarks are not carried over, since each output is a new file
             built from the copied page, and links that jump to other pages of
@@ -456,13 +384,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="extract-pages.5.q"
-              >Can I extract the same page more than once or in a different
-              order?</span
-            >
+            Can I extract the same page more than once or in a different order?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="extract-pages.5.a">
+          <p class="faq-d-a">
             Each page appears once in the ZIP no matter how often it's listed,
             and the files are named by their original page numbers rather than
             the order you typed. Use
@@ -476,12 +401,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="extract-pages.6.q"
-              >Can I extract pages from a password-protected PDF?</span
-            >
+            Can I extract pages from a password-protected PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="extract-pages.6.a">
+          <p class="faq-d-a">
             The tool prompts for the password when the file is loaded, then
             extracts normally. The extracted files are new PDFs without the
             password.
@@ -489,12 +412,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="extract-pages.7.q"
-              >Is my PDF uploaded when I extract pages from it?</span
-            >
+            Is my PDF uploaded when I extract pages from it?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="extract-pages.7.a">
+          <p class="faq-d-a">
             No. The document is opened and the pages are copied in your browser,
             and the ZIP is built locally, so nothing is transmitted. A 500-page
             file only takes as long as your own machine needs to copy the
@@ -503,12 +424,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="extract-pages.8.q"
-              >Can I extract hundreds of pages at once?</span
-            >
+            Can I extract hundreds of pages at once?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="extract-pages.8.a">
+          <p class="faq-d-a">
             There's no hard limit, but every extracted page becomes a separate
             PDF inside the ZIP, so a large selection means many small files and
             more memory use in the browser tab. For cutting a whole document

@@ -151,17 +151,11 @@
         <div id="file-display-area" class="mt-4 space-y-2"></div>
 
         <div id="tool-options" class="hidden mt-6">
-          <h2
-            data-i18n="tools:editMetadata.name"
-            class="text-lg font-semibold text-white mb-4"
-          >
-            Edit Metadata
-          </h2>
+          <h2 class="text-lg font-semibold text-white mb-4">Edit Metadata</h2>
 
           <div class="space-y-4">
             <div>
               <label
-                data-i18n="tools:editMetadata.ui.title"
                 for="meta-title"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Title</label
@@ -174,7 +168,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:editMetadata.ui.author"
                 for="meta-author"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Author</label
@@ -187,7 +180,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:editMetadata.ui.subject"
                 for="meta-subject"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Subject</label
@@ -200,7 +192,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:editMetadata.ui.keywordsCommaSeparated"
                 for="meta-keywords"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Keywords (comma-separated)</label
@@ -213,7 +204,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:editMetadata.ui.creator"
                 for="meta-creator"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Creator</label
@@ -226,7 +216,6 @@
             </div>
             <div>
               <label
-                data-i18n="tools:editMetadata.ui.producer"
                 for="meta-producer"
                 class="block mb-2 text-sm font-medium text-gray-300"
                 >Producer</label
@@ -240,7 +229,6 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label
-                  data-i18n="tools:editMetadata.ui.creationDate"
                   for="meta-creation-date"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Creation Date</label
@@ -253,7 +241,6 @@
               </div>
               <div>
                 <label
-                  data-i18n="tools:editMetadata.ui.modificationDate"
                   for="meta-mod-date"
                   class="block mb-2 text-sm font-medium text-gray-300"
                   >Modification Date</label
@@ -269,16 +256,8 @@
 
           <!-- Custom Fields Section -->
           <div class="mt-6">
-            <h3
-              data-i18n="tools:editMetadata.ui.customFields"
-              class="text-md font-semibold text-white mb-2"
-            >
-              Custom Fields
-            </h3>
-            <p
-              data-i18n="tools:editMetadata.ui.noteCustomFieldsNotSupported"
-              class="text-xs text-gray-400 mb-3"
-            >
+            <h3 class="text-md font-semibold text-white mb-2">Custom Fields</h3>
+            <p class="text-xs text-gray-400 mb-3">
               Note: Custom fields are not supported by all PDF readers.
             </p>
             <div id="custom-fields-container" class="space-y-3"></div>
@@ -287,18 +266,11 @@
               type="button"
               class="flex items-center gap-2 mt-3 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm"
             >
-              <i data-lucide="plus" class="w-4 h-4"></i>
-              <span data-i18n="tools:editMetadata.ui.addCustomField"
-                >Add Custom Field</span
-              >
+              <i data-lucide="plus" class="w-4 h-4"></i> Add Custom Field
             </button>
           </div>
 
-          <button
-            data-i18n="tools:editMetadata.ui.saveMetadata"
-            id="process-btn"
-            class="btn-gradient w-full mt-6"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-6">
             Save Metadata
           </button>
         </div>
@@ -367,12 +339,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -385,12 +352,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -403,12 +365,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -430,74 +387,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -513,12 +432,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="edit-metadata.1.q"
-              >Which metadata fields can I change?</span
-            >
+            Which metadata fields can I change?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="edit-metadata.1.a">
+          <p class="faq-d-a">
             Title, Author, Subject, Keywords, Creator, Producer, Creation Date,
             and Modification Date, plus any custom key-value pairs you add. The
             form loads with the file's current values, so you only edit what
@@ -527,12 +444,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="edit-metadata.2.q"
-              >How do I delete a field like Author completely?</span
-            >
+            How do I delete a field like Author completely?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="edit-metadata.2.a">
+          <p class="faq-d-a">
             Clear the box and save. Whatever is in the form is written back, so
             an emptied field is stored as empty. To strip every field at once,
             including hidden ones, use
@@ -546,13 +461,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="edit-metadata.3.q"
-              >Why does the modification date change even though I didn't touch
-              it?</span
-            >
+            Why does the modification date change even though I didn't touch it?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="edit-metadata.3.a">
+          <p class="faq-d-a">
             If the Modification Date box is left empty, the tool stamps the
             current date and time when it saves. Set a specific date in the
             picker if a particular value needs to be kept.
@@ -560,12 +472,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="edit-metadata.4.q"
-              >Can I add my own fields such as Department or Project ID?</span
-            >
+            Can I add my own fields such as Department or Project ID?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="edit-metadata.4.a">
+          <p class="faq-d-a">
             Yes. Click the add button, enter a key and a value, and the pair is
             written into the PDF's info dictionary alongside the standard
             fields. Not every reader lists custom entries, but they stay in the
@@ -580,13 +490,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="edit-metadata.5.q"
-              >I changed the title but Acrobat still shows the old one.
-              Why?</span
-            >
+            I changed the title but Acrobat still shows the old one. Why?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="edit-metadata.5.a">
+          <p class="faq-d-a">
             The tool writes to the document info dictionary. Some PDFs also
             carry an XMP metadata stream, and readers like Acrobat prefer XMP
             when both exist, so the old title can still appear there. Run
@@ -600,12 +507,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="edit-metadata.6.q"
-              >How should I enter keywords?</span
-            >
+            How should I enter keywords?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="edit-metadata.6.a">
+          <p class="faq-d-a">
             Separate them with commas, for example invoice, 2026, Q3. They're
             saved as a keyword list that document management systems and desktop
             search can index.
@@ -613,13 +518,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="edit-metadata.7.q"
-              >Does editing metadata alter the pages or send my file
-              anywhere?</span
-            >
+            Does editing metadata alter the pages or send my file anywhere?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="edit-metadata.7.a">
+          <p class="faq-d-a">
             No. Only the info dictionary is rewritten; pages, fonts, links, and
             bookmarks are untouched, and the whole edit happens in your browser,
             so the document never leaves your device.
@@ -627,12 +529,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="edit-metadata.8.q"
-              >Can I edit metadata on a password-protected PDF?</span
-            >
+            Can I edit metadata on a password-protected PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="edit-metadata.8.a">
+          <p class="faq-d-a">
             If the file needs a password to open, the tool asks for it and then
             loads the document normally. Without the password the file can't be
             opened here.

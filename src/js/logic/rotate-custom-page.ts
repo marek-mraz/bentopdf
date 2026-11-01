@@ -18,7 +18,8 @@ import {
   roundToStep,
   parseAngleInput,
 } from '../utils/rotation-utils.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 interface RotateState {
   file: File | null;
@@ -102,7 +103,7 @@ function createPageWrapper(
   const pageLabel = document.createElement('div');
   pageLabel.className =
     'absolute top-1 left-1 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded';
-  pageLabel.textContent = `${pageNumber}`;
+  pageLabel.textContent = trText('{{pageNumber}}', { pageNumber });
 
   container.appendChild(canvasWrapper);
   container.appendChild(pageLabel);
@@ -205,8 +206,8 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = t('tools:rotateCustom.msg.loading', {
-      value: formatBytes(pageState.file.size),
+    metaSpan.textContent = trText('{{size}} • Loading...', {
+      size: formatBytes(pageState.file.size),
     });
 
     infoContainer.append(nameSpan, metaSpan);
@@ -228,7 +229,7 @@ async function updateUI() {
         resetState();
         return;
       }
-      showLoader(t('tools:addPageLabels.loadingPdf'));
+      showLoader('Loading PDF...');
 
       pageState.pdfDoc = await loadPdfDocument(result.bytes);
 
@@ -237,9 +238,9 @@ async function updateUI() {
       const pageCount = pageState.pdfDoc.getPageCount();
       pageState.rotations = new Array(pageCount).fill(0);
 
-      metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+      metaSpan.textContent = trText('{{size}} • {{pageCount}} pages', {
         size: formatBytes(pageState.file.size),
-        count: pageCount,
+        pageCount,
       });
 
       await renderThumbnails();
@@ -249,7 +250,7 @@ async function updateUI() {
     } catch (error) {
       console.error('Error loading PDF:', error);
       hideLoader();
-      showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+      showAlert('Error', 'Failed to load PDF file.');
       resetState();
     }
   } else {
@@ -259,11 +260,11 @@ async function updateUI() {
 
 async function applyRotations() {
   if (!pageState.pdfDoc || !pageState.file) {
-    showAlert(t('common.error'), t('alert.uploadPdfFirst'));
+    showAlert('Error', 'Please upload a PDF first.');
     return;
   }
 
-  showLoader(t('loader.applyingRotations'));
+  showLoader('Applying rotations...');
 
   try {
     const pageCount = pageState.pdfDoc.getPageCount();
@@ -318,8 +319,8 @@ async function applyRotations() {
     );
 
     showAlert(
-      t('common.success'),
-      t('alert.rotationsAppliedSuccessfully'),
+      'Success',
+      'Rotations applied successfully!',
       'success',
       function () {
         resetState();
@@ -327,7 +328,7 @@ async function applyRotations() {
     );
   } catch (e) {
     console.error(e);
-    showAlert(t('common.error'), t('alert.couldNotApplyRotations'));
+    showAlert('Error', 'Could not apply rotations.');
   } finally {
     hideLoader();
   }

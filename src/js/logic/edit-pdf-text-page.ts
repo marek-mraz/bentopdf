@@ -1,7 +1,7 @@
 import '@phosphor-icons/web/regular';
 import { createIcons, icons } from 'lucide';
 import { showAlert, showLoader, hideLoader } from '../ui.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import {
   fallbackFontLanguages,
@@ -64,26 +64,10 @@ function menuItem(
   return item;
 }
 
-// [scope, menu label key, short label key, icon]
-const SCOPES: [string, string, string, string][] = [
-  [
-    'text',
-    'tools:editPdfText.msg.editText',
-    'tools:editPdfText.filterText',
-    'ph-text-t',
-  ],
-  [
-    'image',
-    'tools:editPdfText.msg.editImages',
-    'tools:editPdfText.filterImages',
-    'ph-image',
-  ],
-  [
-    'shape',
-    'tools:editPdfText.msg.editShapes',
-    'tools:editPdfText.filterShapes',
-    'ph-shapes',
-  ],
+const getScopes = (): [string, string, string][] => [
+  ['text', trText('Edit Text'), 'ph-text-t'],
+  ['image', trText('Edit Images'), 'ph-image'],
+  ['shape', trText('Edit Shapes'), 'ph-shapes'],
 ];
 
 function setupEditMenu() {
@@ -105,11 +89,17 @@ function setupEditMenu() {
     }
     scopeSel.value = value;
     scopeSel.dispatchEvent(new Event('change'));
+    const names: Record<string, string> = {
+      text: trText('Text'),
+      image: trText('Images'),
+      shape: trText('Shapes'),
+    };
     label.textContent = picked.has('all')
-      ? t('tools:editPdfText.ui.editAll')
-      : t('tools:editPdfText.msg.edit', {
-          value: SCOPES.filter(([k]) => picked.has(k))
-            .map(([, , short]) => t(short))
+      ? trText('Edit All')
+      : trText('Edit {{scopes}}', {
+          scopes: getScopes()
+            .filter(([k]) => picked.has(k))
+            .map(([k]) => names[k])
             .join(' + '),
         });
   };
@@ -138,7 +128,7 @@ function setupEditMenu() {
       menu.replaceChildren();
       menu.appendChild(
         menuItem(
-          t('tools:editPdfText.ui.editAll'),
+          trText('Edit All'),
           picked.has('all'),
           () => {
             picked = new Set(['all']);
@@ -148,16 +138,16 @@ function setupEditMenu() {
           'ph-selection-all'
         )
       );
-      for (const [key, lbl, , glyph] of SCOPES) {
+      for (const [key, lbl, glyph] of getScopes()) {
         menu.appendChild(
           menuItem(
-            t(lbl),
+            lbl,
             picked.has(key),
             () => {
               if (picked.has('all')) picked.clear();
               if (picked.has(key)) picked.delete(key);
               else picked.add(key);
-              if (picked.size === 0 || picked.size === SCOPES.length)
+              if (picked.size === 0 || picked.size === getScopes().length)
                 picked = new Set(['all']);
               apply();
               rebuild();
@@ -231,26 +221,16 @@ function setupZoomMenu() {
     }
     menu.appendChild(document.createElement('hr'));
     menu.appendChild(
-      zoomRow(
-        t('tools:editPdfText.msg.fitToPage'),
-        false,
-        'ph-arrows-out',
-        () => {
-          fitPage();
-          menu.remove();
-        }
-      )
+      zoomRow('Fit to Page', false, 'ph-arrows-out', () => {
+        fitPage();
+        menu.remove();
+      })
     );
     menu.appendChild(
-      zoomRow(
-        t('tools:editBookmarks.ui.fitToWidth'),
-        false,
-        'ph-arrows-out-line-horizontal',
-        () => {
-          document.getElementById('zoomFit')?.click();
-          menu.remove();
-        }
-      )
+      zoomRow('Fit to Width', false, 'ph-arrows-out-line-horizontal', () => {
+        document.getElementById('zoomFit')?.click();
+        menu.remove();
+      })
     );
     menu.appendChild(document.createElement('hr'));
     const form = document.createElement('form');
@@ -259,7 +239,7 @@ function setupZoomMenu() {
     inp.type = 'number';
     inp.min = '20';
     inp.max = '600';
-    inp.placeholder = t('tools:editPdfText.msg.customZoom');
+    inp.placeholder = trText('Custom Zoom');
     const pctSpan = document.createElement('span');
     pctSpan.textContent = '%';
     form.append(inp, pctSpan);
@@ -326,7 +306,7 @@ function relocateAddText() {
   icon.className = 'ph ph-text-t';
   addTextBtn.appendChild(icon);
   addTextBtn.classList.add('btn', 'icon');
-  addTextBtn.title = t('tools:editPdfText.msg.addATextBox');
+  addTextBtn.title = trText('Add a text box');
   findBtn.parentElement.insertBefore(addTextBtn, findBtn);
   const sync = () =>
     addTextBtn.classList.toggle('on', !editBtn.classList.contains('on'));
@@ -362,10 +342,10 @@ function setupDocPanel() {
     const head = document.createElement('div');
     head.className = 'docmodal-head';
     const title = document.createElement('span');
-    title.textContent = t('tools:editPdfText.msg.documentProperties');
+    title.textContent = trText('Document Properties');
     const x = document.createElement('button');
     x.className = 'btn icon';
-    x.title = t('preview.close');
+    x.title = trText('Close');
     const xi = document.createElement('i');
     xi.className = 'ph ph-x';
     x.appendChild(xi);
@@ -376,55 +356,44 @@ function setupDocPanel() {
     const inch = (pt: number) => (pt / 72).toFixed(2);
     const groups: [string, [string, string][]][] = [
       [
-        t('tools:editPdfText.msg.description'),
+        trText('Description'),
         [
-          [t('tools:editPdfText.msg.file'), desc.meta.name],
-          [t('tools:editMetadata.ui.title'), f.Title || '—'],
-          [t('tools:editMetadata.ui.author'), f.Author || '—'],
-          [t('tools:editMetadata.ui.subject'), f.Subject || '—'],
-          [t('tools:editPdfText.msg.keywords'), f.Keywords || '—'],
+          [trText('File'), desc.meta.name],
+          [trText('Title'), f.Title || '—'],
+          [trText('Author'), f.Author || '—'],
+          [trText('Subject'), f.Subject || '—'],
+          [trText('Keywords'), f.Keywords || '—'],
           [
-            t('tools:editPdfText.msg.created'),
+            trText('Created'),
             f.CreationDate ? formatPdfDate(f.CreationDate) : '—',
           ],
-          [
-            t('tools:editPdfText.msg.modified'),
-            f.ModDate ? formatPdfDate(f.ModDate) : '—',
-          ],
-          [t('tools:editPdfText.msg.application'), f.Creator || '—'],
+          [trText('Modified'), f.ModDate ? formatPdfDate(f.ModDate) : '—'],
+          [trText('Application'), f.Creator || '—'],
         ],
       ],
       [
-        t('tools:editPdfText.msg.advanced'),
+        trText('Advanced'),
         [
-          [t('tools:editPdfText.msg.pdfProducer'), f.Producer || '—'],
+          [trText('PDF Producer'), f.Producer || '—'],
+          [trText('File Size'), `${(desc.meta.size / 1024).toFixed(0)} KB`],
           [
-            t('tools:editPdfText.msg.fileSize'),
-            `${(desc.meta.size / 1024).toFixed(0)} KB`,
-          ],
-          [
-            t('tools:textToPdf.pageSize'),
+            trText('Page Size'),
             desc.pageSize
               ? `${inch(desc.pageSize.w)} × ${inch(desc.pageSize.h)} in`
               : '—',
           ],
           [
-            t('tools:editPdfText.msg.numberOfPages'),
+            trText('Number of Pages'),
             desc.info?.pages ? String(desc.info.pages) : '—',
           ],
           ...(desc.info?.signatures
-            ? ([
-                [
-                  t('tools:editPdfText.msg.signatures'),
-                  String(desc.info.signatures),
-                ],
-              ] as [string, string][])
-            : []),
-          ...(desc.pdfa
-            ? ([[t('tools:editPdfText.msg.conformance'), 'PDF/A']] as [
+            ? ([[trText('Signatures'), String(desc.info.signatures)]] as [
                 string,
                 string,
               ][])
+            : []),
+          ...(desc.pdfa
+            ? ([[trText('Conformance'), 'PDF/A']] as [string, string][])
             : []),
         ],
       ],
@@ -625,12 +594,12 @@ function setupFallbackFonts(
 async function launchEditor(file: File) {
   if (launching) return;
   launching = true;
-  showLoader(t('tools:editPdfText.loader.loadingPdfTextEditor'));
+  showLoader('Loading PDF Text Editor...');
   try {
     hideLoader();
     const decrypted = await batchDecryptIfNeeded([file]);
     if (decrypted.length === 0) return;
-    showLoader(t('tools:editPdfText.loader.loadingPdfTextEditor'));
+    showLoader('Loading PDF Text Editor...');
     document.getElementById('uploader')?.classList.add('hidden');
     document.getElementById('tool-landing')?.classList.add('hidden');
     document.getElementById('text-editor-app')?.removeAttribute('hidden');
@@ -659,7 +628,7 @@ async function launchEditor(file: File) {
     }
     const engineOk = await appModule.engineReady;
     if (!engineOk) {
-      throw new Error(t('tools:editPdfText.msg.wasmEngineFailedToInitialize'));
+      throw new Error('WASM engine failed to initialize');
     }
     await appModule.openFile(decrypted[0]);
     if (window.matchMedia('(max-width: 768px)').matches) fitMobileWidth();
@@ -678,10 +647,7 @@ function handleFiles(files: FileList) {
     (f) => f.type === 'application/pdf' || /\.pdf$/i.test(f.name)
   );
   if (!pdf) {
-    showAlert(
-      t('tools:addPageLabels.invalidFileTitle'),
-      t('tools:addPageLabels.invalidFileMessage')
-    );
+    showAlert('Invalid File', 'Please upload a valid PDF file.');
     return;
   }
   void launchEditor(pdf);
@@ -866,7 +832,7 @@ function initializePage() {
       if (document.activeElement !== pageInput)
         pageInput.value = String(current);
       pageInput.max = String(total);
-      pageTotal.textContent = `/ ${total}`;
+      pageTotal.textContent = trText('/ {{total}}', { total });
     };
     new MutationObserver(sync).observe(pageLabel, {
       childList: true,

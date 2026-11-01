@@ -1,4 +1,3 @@
-import { t } from './i18n/i18n.js';
 /**
  * Service Worker Registration
  * Registers the service worker to enable offline caching
@@ -6,6 +5,8 @@ import { t } from './i18n/i18n.js';
  * Note: Service Worker is disabled in development mode to prevent
  * conflicts with Vite's HMR (Hot Module Replacement)
  */
+
+import { trText } from './i18n/i18n';
 
 // Skip service worker registration in development mode
 const isDevelopment =
@@ -49,6 +50,7 @@ if (isDevelopment) {
   console.log('Service Worker will be active in production builds');
 } else if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
+    const hadController = Boolean(navigator.serviceWorker.controller);
     const swPath = `${import.meta.env.BASE_URL}sw.js`;
     console.log('[SW] Registering Service Worker at:', swPath);
     navigator.serviceWorker
@@ -83,7 +85,13 @@ if (isDevelopment) {
               ) {
                 console.log('[SW] New version available! Reload to update.');
 
-                if (confirm(t('msg.swRegister.aNewVersionOfBentopdfIs'))) {
+                if (
+                  confirm(
+                    trText(
+                      'A new version of BentoPDF is available. Reload to update?'
+                    )
+                  )
+                ) {
                   newWorker.postMessage({ type: 'SKIP_WAITING' });
                   window.location.reload();
                 }
@@ -101,6 +109,7 @@ if (isDevelopment) {
     });
 
     navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController) return;
       console.log('[SW] New service worker activated, reloading...');
       window.location.reload();
     });

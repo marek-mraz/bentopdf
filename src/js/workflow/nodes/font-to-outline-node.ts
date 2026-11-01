@@ -20,7 +20,7 @@ export class FontToOutlineNode extends BaseWorkflowNode {
   async data(
     inputs: Record<string, SocketData[]>
   ): Promise<Record<string, SocketData>> {
-    const pdfInputs = requirePdfInput(inputs, this.label);
+    const pdfInputs = requirePdfInput(inputs, 'Font to Outline');
 
     return {
       pdf: await processBatch(pdfInputs, async (input) => {

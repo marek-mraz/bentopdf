@@ -1,7 +1,4 @@
-import {
-  tesseractLanguageName,
-  tesseractLanguages,
-} from '../config/tesseract-languages.js';
+import { tesseractLanguages } from '../config/tesseract-languages.js';
 import { showAlert } from '../ui.js';
 import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
@@ -376,9 +373,9 @@ onPageReady(async function () {
       const selected = Array.from(
         langList.querySelectorAll('.lang-checkbox:checked')
       ).map(function (cb) {
-        return tesseractLanguageName(
+        return tesseractLanguages[
           (cb as HTMLInputElement).value as keyof typeof tesseractLanguages
-        );
+        ];
       });
 
       if (selectedLangsDisplay) {

@@ -4,7 +4,8 @@ import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
 import { parseEmailFile, renderEmailToHtml } from './email-to-pdf.js';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const EXTENSIONS = ['.eml', '.msg'];
 const TOOL_NAME = 'Email';
@@ -87,10 +88,11 @@ onPageReady(() => {
     try {
       if (state.files.length === 0) {
         showAlert(
-          t('alert.noFiles'),
-          t('tools:emailToPdf.msg.pleaseSelectAtLeastOneFile', {
-            TOOL_NAME: t('tools:emailToPdf.msg.toolName'),
-          })
+          'No Files',
+          trText(
+            'Please select at least one {{TOOL_NAME}} file (.eml or .msg).',
+            { TOOL_NAME }
+          )
         );
         return;
       }
@@ -110,18 +112,16 @@ onPageReady(() => {
       const includeCcBcc = includeCcBccCheckbox?.checked ?? true;
       const includeAttachments = includeAttachmentsCheckbox?.checked ?? true;
 
-      showLoader(t('tools:emailToPdf.loader.loadingPdfEngine'));
+      showLoader('Loading PDF engine...');
       const pymupdf = await loadPyMuPDF();
 
       if (state.files.length === 1) {
         const originalFile = state.files[0];
-        showLoader(
-          t('tools:emailToPdf.msg.parsing', { name: originalFile.name })
-        );
+        showLoader(trText('Parsing {{name}}...', { name: originalFile.name }));
 
         const email = await parseEmailFile(originalFile);
 
-        showLoader(t('tools:emailToPdf.loader.generatingPdf'));
+        showLoader('Generating PDF...');
         const htmlContent = renderEmailToHtml(email, {
           includeCcBcc,
           includeAttachments,
@@ -148,24 +148,24 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:emailToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: originalFile.name,
           }),
           'success',
           () => resetState()
         );
       } else {
-        showLoader(t('tools:emailToPdf.loader.convertingEmails'));
+        showLoader('Converting emails...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
 
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:emailToPdf.msg.converting', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -207,11 +207,11 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:emailToPdf.msg.successfullyConvertedFileSToPdf', {
-            count: state.files.length,
-            TOOL_NAME: t('tools:emailToPdf.msg.toolName'),
-          }),
+          'Conversion Complete',
+          trText(
+            'Successfully converted {{length}} {{TOOL_NAME}} file(s) to PDF.',
+            { length: state.files.length, TOOL_NAME }
+          ),
           'success',
           () => resetState()
         );
@@ -220,9 +220,9 @@ onPageReady(() => {
       console.error(`[${TOOL_NAME}2PDF] ERROR:`, e);
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:emailToPdf.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

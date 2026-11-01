@@ -178,7 +178,6 @@
         <div id="jpg-to-pdf-options" class="hidden mt-6">
           <div class="mb-4">
             <label
-              data-i18n="toolPage.pdfQuality"
               for="jpg-pdf-quality"
               class="block mb-2 text-sm font-medium text-gray-300"
             >
@@ -188,33 +187,16 @@
               id="jpg-pdf-quality"
               class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"
             >
-              <option data-i18n="toolPage.highQualityLargerFile" value="high">
-                High Quality (Larger file)
-              </option>
-              <option
-                data-i18n="toolPage.mediumQualityBalanced"
-                value="medium"
-                selected
-              >
-                Medium Quality (Balanced)
-              </option>
-              <option data-i18n="toolPage.lowQualitySmallerFile" value="low">
-                Low Quality (Smaller file)
-              </option>
+              <option value="high">High Quality (Larger file)</option>
+              <option value="medium" selected>Medium Quality (Balanced)</option>
+              <option value="low">Low Quality (Smaller file)</option>
             </select>
-            <p
-              data-i18n="toolPage.controlsImageCompressionWhenEmbedding"
-              class="mt-1 text-xs text-gray-400"
-            >
+            <p class="mt-1 text-xs text-gray-400">
               Controls image compression when embedding into PDF
             </p>
           </div>
 
-          <button
-            data-i18n="toolPage.convertToPdf"
-            id="process-btn"
-            class="btn-gradient w-full mt-6"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-6">
             Convert to PDF
           </button>
         </div>
@@ -230,11 +212,7 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          data-i18n="loader.processing"
-          id="loader-text"
-          class="text-white text-lg font-medium"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Processing...
         </p>
       </div>
@@ -282,12 +260,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -300,12 +273,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -318,12 +286,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -345,74 +308,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -428,12 +353,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="svg-to-pdf.1.q"
-              >Is the PDF vector or an image?</span
-            >
+            Is the PDF vector or an image?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="svg-to-pdf.1.a">
+          <p class="faq-d-a">
             An image. Each SVG is rendered by your browser onto a canvas and the
             bitmap is placed on a PDF page, so the result won't scale without
             loss and the text isn't selectable. If you need true vector output,
@@ -442,12 +365,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="svg-to-pdf.2.q"
-              >What size will the page be?</span
-            >
+            What size will the page be?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="svg-to-pdf.2.a">
+          <p class="faq-d-a">
             The page matches the SVG's width and height attributes in pixels,
             one pixel per PDF point. An SVG with no width and height (only a
             viewBox) renders at 800 by 600, so set explicit dimensions in the
@@ -456,12 +377,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="svg-to-pdf.3.q"
-              >What do the quality settings change for SVG conversion?</span
-            >
+            What do the quality settings change for SVG conversion?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="svg-to-pdf.3.a">
+          <p class="faq-d-a">
             High keeps the lossless PNG at full size. Medium re-encodes it as
             JPEG at 75 percent quality and limits the longest side to 2500
             pixels; Low uses 50 percent and 1500 pixels, which also shrinks the
@@ -470,12 +389,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="svg-to-pdf.4.q"
-              >Can I control the output resolution, for example 300 DPI?</span
-            >
+            Can I control the output resolution, for example 300 DPI?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="svg-to-pdf.4.a">
+          <p class="faq-d-a">
             There is no DPI setting; the render uses the SVG's own pixel
             dimensions. To get more pixels, increase the width and height
             attributes in the SVG source while keeping the viewBox, then
@@ -484,13 +401,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="svg-to-pdf.5.q"
-              >Why did my SVG come out with missing text, fonts, or
-              images?</span
-            >
+            Why did my SVG come out with missing text, fonts, or images?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="svg-to-pdf.5.a">
+          <p class="faq-d-a">
             The SVG is rendered from its own markup, so references to external
             files (linked images, imported fonts, external CSS) can't be loaded
             in that context and fall back or disappear. Embed images as data
@@ -499,22 +413,20 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="svg-to-pdf.6.q">Is transparency kept?</span>
+            Is transparency kept?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="svg-to-pdf.6.a">
+          <p class="faq-d-a">
             No. The canvas is filled with white before the SVG is drawn, so
             transparent areas become white in the PDF.
           </p>
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="svg-to-pdf.7.q"
-              >Can I put several SVGs into one PDF?</span
-            >
+            Can I put several SVGs into one PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="svg-to-pdf.7.a">
+          <p class="faq-d-a">
             Upload multiple files and they become consecutive pages of a single
             from_svgs.pdf, in the order shown in the file list. Each page takes
             the size of its own SVG.
@@ -522,12 +434,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="svg-to-pdf.8.q"
-              >Is the SVG uploaded to be converted?</span
-            >
+            Is the SVG uploaded to be converted?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="svg-to-pdf.8.a">
+          <p class="faq-d-a">
             No. Rendering happens on a canvas in your browser and the PDF is
             built with pdf-lib on your device; nothing is sent anywhere.
           </p>

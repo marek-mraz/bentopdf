@@ -75,7 +75,7 @@ for tgz in "$TMP"/bundle/*.tgz; do
 done
 
 # 2a. PDF engine: upstream's engine plus engine/*.patch, built and verified by
-# verify-engine.sh. The engine bundled up to 051abe5b72a9 left marked text in
+# verify-engine.sh. The engine bundled up to 3f6b6114b166 left marked text in
 # the file when two redaction marks shared a line. A new upstream engine stops
 # the build until someone checks it (check-redaction.mjs) and patches it if
 # needed: WRITE=1 verify-engine.sh, or delete the patch once upstream has it.
@@ -98,7 +98,7 @@ grep -qF "$(openssl dgst -sha512 -binary "$VENDORED" | base64 -w0)" package-lock
 # origin, so on a page whose CropBox or MediaBox does not start at 0,0 a
 # redaction landed off the mark and left the marked text in the file; it also
 # floored mark edges to whole points. viewer/patch-viewer.mjs backports
-# embedpdf's fixes and stops the build on any other viewer. The tarball is
+# embedpdf's fixes and stops the build when the code no longer matches. The tarball is
 # repacked without times or owners, so binaries.sha256 pins one result.
 mkdir "$TMP/viewer"
 tar xzf "$VIEWER" -C "$TMP/viewer"

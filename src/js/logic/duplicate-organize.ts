@@ -11,7 +11,8 @@ import { icons, createIcons } from 'lucide';
 import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import * as pdfjsLib from 'pdfjs-dist';
 import '../utils/setup-pdf-worker.js';
-import { t } from '../i18n/i18n';
+
+import { trText } from '../i18n/i18n.js';
 
 const duplicateOrganizeState: {
   sortableInstances: { pageGrid?: Sortable };
@@ -77,7 +78,10 @@ function attachEventListeners(element: HTMLElement) {
       renumberPages();
       initializePageGridSortable();
     } else {
-      showAlert(t('alert.cannotDelete'), t('alert.youCannotDeleteLast'));
+      showAlert(
+        'Cannot Delete',
+        'You cannot delete the last page of the document.'
+      );
     }
   });
 }
@@ -89,7 +93,7 @@ export async function renderDuplicateOrganizeThumbnails() {
   // Cleanup any previous lazy loading observers
   cleanupLazyRendering();
 
-  showLoader(t('tools:mergePdf.loader.renderingPreviews'));
+  showLoader('Rendering page previews...');
   const pdfData = await state.pdfDoc.save();
   hideLoader();
   const loadResult = await loadPdfWithPasswordPrompt(
@@ -98,7 +102,7 @@ export async function renderDuplicateOrganizeThumbnails() {
     0
   );
   if (!loadResult) return;
-  showLoader(t('tools:mergePdf.loader.renderingPreviews'));
+  showLoader('Rendering page previews...');
   const pdfjsDoc = loadResult.pdf;
 
   grid.textContent = '';
@@ -131,7 +135,7 @@ export async function renderDuplicateOrganizeThumbnails() {
     const duplicateBtn = document.createElement('button');
     duplicateBtn.className =
       'duplicate-btn bg-green-600 hover:bg-green-700 text-white rounded-full w-8 h-8 flex items-center justify-center';
-    duplicateBtn.title = t('tools:duplicateOrganize.msg.duplicatePage');
+    duplicateBtn.title = trText('Duplicate Page');
     const duplicateIcon = document.createElement('i');
     duplicateIcon.setAttribute('data-lucide', 'copy-plus');
     duplicateIcon.className = 'w-5 h-5';
@@ -140,7 +144,7 @@ export async function renderDuplicateOrganizeThumbnails() {
     const deleteBtn = document.createElement('button');
     deleteBtn.className =
       'delete-btn bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center';
-    deleteBtn.title = t('tools:duplicateOrganize.msg.deletePage');
+    deleteBtn.title = trText('Delete Page');
     const deleteIcon = document.createElement('i');
     deleteIcon.setAttribute('data-lucide', 'x-circle');
     deleteIcon.className = 'w-5 h-5';
@@ -162,7 +166,7 @@ export async function renderDuplicateOrganizeThumbnails() {
       lazyLoadMargin: '400px',
       onProgress: (current, total) => {
         showLoader(
-          t('tools:duplicateOrganize.msg.renderingPagePreviews', {
+          trText('Rendering page previews: {{current}}/{{total}}', {
             current,
             total,
           })
@@ -176,17 +180,14 @@ export async function renderDuplicateOrganizeThumbnails() {
     initializePageGridSortable();
   } catch (error) {
     console.error('Error rendering thumbnails:', error);
-    showAlert(
-      t('common.error'),
-      t('tools:duplicateOrganize.alert.failedRenderPagePreviews')
-    );
+    showAlert('Error', 'Failed to render page previews');
   } finally {
     hideLoader();
   }
 }
 
 export async function processAndSave() {
-  showLoader(t('loader.buildingNewPdf'));
+  showLoader('Building new PDF...');
   try {
     const grid = document.getElementById('page-grid');
     const finalPageElements = grid.querySelectorAll('.page-thumbnail');
@@ -201,7 +202,7 @@ export async function processAndSave() {
     console.log('Original PDF Page Count:', state.pdfDoc?.getPageCount());
 
     if (finalIndices.length === 0) {
-      showAlert(t('common.error'), t('alert.noValidPagesSave'));
+      showAlert('Error', 'No valid pages to save.');
       return;
     }
 
@@ -212,8 +213,8 @@ export async function processAndSave() {
     if (invalidIndices.length > 0) {
       console.error('Found invalid indices:', invalidIndices);
       showAlert(
-        t('common.error'),
-        t('tools:duplicateOrganize.alert.somePagesCouldNot')
+        'Error',
+        'Some pages could not be processed. Please try again.'
       );
       return;
     }
@@ -229,8 +230,8 @@ export async function processAndSave() {
   } catch (e) {
     console.error('Save error:', e);
     showAlert(
-      t('common.error'),
-      t('tools:duplicateOrganize.alert.failedSaveNewPdf')
+      'Error',
+      'Failed to save the new PDF. Check console for details.'
     );
   } finally {
     hideLoader();

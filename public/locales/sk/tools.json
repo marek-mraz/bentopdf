@@ -20,348 +20,41 @@
   },
   "convertToPdf": "Previesť do PDF",
   "pdfMultiTool": {
-    "name": "Multifunkčný nástroj PDF",
-    "subtitle": "Zlúčiť, rozdeliť, organizovať, mazať, otáčať, pridávať prázdne strany, extrahovať a duplikovať v jednotnom rozhraní.",
-    "ui": {
-      "closeFaq": "Zavrieť časté otázky"
-    },
-    "msg": {
-      "repairing": "Opravuje sa {{name}}...",
-      "failedToInsertPdfTheFile": "PDF sa nepodarilo vložiť. Súbor môže byť poškodený.",
-      "noSelection": "Nič nie je vybrané",
-      "pleaseSelectPagesToRotate": "Vyberte strany, ktoré chcete otočiť.",
-      "pleaseSelectPagesToDuplicate": "Vyberte strany, ktoré chcete duplikovať.",
-      "pleaseSelectPagesToMarkFor": "Vyberte strany, na ktorých sa má dokument rozdeliť.",
-      "pleaseUploadPdfsFirst": "Najskôr nahrajte PDF.",
-      "downloadedPdfFilesInAZip": "Stiahnuté PDF súbory v archíve ZIP: {{count}}.",
-      "failedToCreateSplitPdfs": "Rozdelené PDF sa nepodarilo vytvoriť.",
-      "pdfDownloadedSuccessfully": "PDF bolo úspešne stiahnuté.",
-      "failedToCreatePdf": "PDF sa nepodarilo vytvoriť.",
-      "page": "Strana {{value}} "
-    }
+    "name": "Multinástroj PDF",
+    "subtitle": "Spojiť, rozdeliť, organizovať, mazať, otáčať, pridávať prázdne strany, extrahovať a duplikovať v jednotnom rozhraní."
   },
   "mergePdf": {
-    "name": "Zlúčiť PDF",
-    "subtitle": "Zlúčiť viacero PDF do jedného súboru. Zachováva záložky.",
+    "name": "Spojiť PDF",
+    "subtitle": "Spojiť viacero PDF do jedného súboru. Zachováva záložky.",
     "retainPageLabels": "Zachovať pôvodné označenia strán z každého súboru",
     "retainPageLabelsHint": "Vypnuté (predvolené): spojené PDF používa prirodzené číslovanie strán 1–N. Zapnuté: zachovajú sa pôvodné označenia strán každého súboru (môže produkovať duplicitné označenia).",
     "removeDuplicateFonts": "Odstrániť duplicitné písma",
     "alert": {
       "thumbnailError": "Nepodarilo sa vykresliť náhľady strán",
       "noSelection": "Nie sú vybrané žiadne súbory ani strany na spojenie.",
-      "mergeSuccess": "PDF súbory boli úspešne spojené!",
-      "mergeFailed": "Nepodarilo sa spojiť PDF súbory.",
-      "mergeError": "Nepodarilo sa spojiť PDF súbory. Skontrolujte, či sú všetky súbory platné a nie sú chránené heslom.",
-      "workerError": "V procese spájania nastala neočakávaná chyba.",
-      "loadError": "Nepodarilo sa načítať jeden alebo viac PDF súborov"
+      "mergeSuccess": "PDF boli úspešne spojené!",
+      "mergeFailed": "Nepodarilo sa spojiť PDF.",
+      "mergeError": "Nepodarilo sa spojiť PDF. Skontrolujte, či sú všetky súbory platné a nie sú chránené heslom.",
+      "workerError": "Pri spájaní nastala neočakávaná chyba.",
+      "loadError": "Nepodarilo sa načítať jeden alebo viac súborov PDF"
     },
     "loader": {
       "renderingPreviews": "Vykresľujú sa náhľady strán...",
-      "merging": "Spájajú sa PDF súbory...",
-      "loadingDocuments": "Načítavajú sa PDF dokumenty..."
-    },
-    "ui": {
-      "clickDrag": "Kliknite a potiahnite ikonu",
-      "iconToChangeOrderFiles": "a zmeňte tak poradie súborov.",
-      "pagesRangeTotal": "Strany (napr. 1-3, 5) – celkom: {{count}}",
-      "leaveBlankAllPages": "Prázdne pole = všetky strany",
-      "selectOrDragAndDropMultiple": "Vyberte alebo pretiahnite viac PDF súborov, ktoré chcete zlúčiť",
-      "arrangeOrder": "Usporiadať poradie",
-      "dragFilesUpOrDownTo": "Ťahaním súborov nahor alebo nadol zmeníte ich poradie",
-      "mergeFiles": "Zlúčiť súbory",
-      "clickTheMergeButtonToCombine": "Kliknutím na tlačidlo zlúčenia spojíte všetky PDF do jedného dokumentu",
-      "saveYourMergedPdfAllPages": "Uložte zlúčené PDF – všetky strany spojené v poradí, ktoré ste zvolili"
-    },
-    "msg": {
-      "page": "Strana {{pageNumber}}"
+      "merging": "Spájajú sa PDF...",
+      "loadingDocuments": "Načítavajú sa dokumenty PDF..."
     }
   },
   "splitPdf": {
     "name": "Rozdeliť PDF",
-    "subtitle": "Extrahovať rozsah strán do nového PDF.",
-    "alert": {
-      "failedRenderPagePreviews": "Náhľady strán sa nepodarilo vykresliť.",
-      "pdfSplitSuccessfully": "PDF bolo úspešne rozdelené!",
-      "failedSplitPdfCheck": "PDF sa nepodarilo rozdeliť. Skontrolujte svoj výber."
-    },
-    "loader": {
-      "splittingPdf": "Rozdeľuje sa PDF..."
-    },
-    "ui": {
-      "splitMode": "Režim rozdelenia",
-      "extractPageRangeDefault": "Extrahovať podľa rozsahu strán (predvolené)",
-      "splitEvenOddPages": "Rozdeliť na párne a nepárne strany",
-      "splitAllPagesIntoSeparate": "Rozdeliť všetky strany do samostatných súborov",
-      "selectPagesVisually": "Vybrať strany vizuálne",
-      "splitBookmarks": "Rozdeliť podľa záložiek",
-      "splitTimes": "Rozdeliť po N stranách",
-      "enterPageNumbersSeparatedCommas": "Zadajte čísla strán oddelené čiarkami (napr. 2, 8, 14).",
-      "enterPageRangesUsingHyphen": "Zadajte rozsahy strán so spojovníkom (napr. 5-10).",
-      "combineThemComplexSelections": "Pre zložitejší výber ich môžete kombinovať (napr. 1-3, 7, 12-15).",
-      "pageRange": "Rozsah strán",
-      "pageRangePlaceholder": "napr. 1-5, 8, 11-13",
-      "extractAllEvenPagesAll": "Extrahuje všetky párne strany (2, 4, 6...) alebo všetky nepárne strany (1, 3, 5...) do nového PDF.",
-      "evenPages": "Párne strany",
-      "oddPages": "Nepárne strany",
-      "everySinglePagePdfSaved": "Každá strana PDF sa uloží ako samostatný súbor PDF.",
-      "resultDownloadedZipFileContaining": "Výsledok sa stiahne ako súbor ZIP so všetkými stranami.",
-      "clickOnPageThumbnailsBelow": "Kliknutím na miniatúry strán nižšie vyberte strany, ktoré chcete extrahovať.",
-      "selectedPagesHighlighted": "Vybrané strany sa zvýraznia.",
-      "splitPdfBasedOnIts": "Rozdelí PDF podľa jeho záložiek (osnovy).",
-      "selectBookmarkLevelToSplit": "Vyberte úroveň záložiek, podľa ktorej sa má rozdeliť.",
-      "bookmarkLevel": "Úroveň záložiek",
-      "allLevels": "Všetky úrovne",
-      "levelTopLevelOnly": "Úroveň 0 (len najvyššia)",
-      "level1": "Úroveň 1",
-      "level2": "Úroveň 2",
-      "level3": "Úroveň 3",
-      "splitPdfIntoMultipleFiles": "Rozdelí PDF na viacero súborov, z ktorých každý obsahuje N strán.",
-      "pagesPerFile": "Strán na súbor (N)",
-      "output": "Výstup",
-      "singleCombinedPdf": "Jedno spojené PDF",
-      "multipleFilesDownloadedTogetherZip": "Viacero súborov sa stiahne spolu ako ZIP.",
-      "onePdfPerRange": "Samostatné PDF pre každý rozsah",
-      "onePdfPerPage": "Samostatné PDF pre každú stranu",
-      "selectThePdfFileYouWant": "Vyberte PDF súbor, ktorý chcete rozdeliť alebo z ktorého chcete extrahovať strany",
-      "chooseSplitMethod": "Zvoliť spôsob rozdelenia",
-      "selectSpecificPagesPageRangesOr": "Vyberte konkrétne strany, rozsahy strán alebo rozdeľte na jednotlivé strany",
-      "previewSelect": "Náhľad a výber",
-      "viewPageThumbnailsAndSelectExactly": "Pozrite si miniatúry strán a vyberte presne tie, ktoré chcete",
-      "splitDownload": "Rozdeliť a stiahnuť",
-      "downloadExtractedPagesAsSeparatePdfs": "Stiahnite extrahované strany ako samostatné PDF alebo ako súbor ZIP"
-    },
-    "msg": {
-      "renderingPagePreviews": "Vykresľujú sa náhľady strán: {{current}}/{{total}}",
-      "chooseAValidPageRange": "Zvoľte platný rozsah strán.",
-      "pleaseSelectEvenOrOddPages": "Vyberte párne alebo nepárne strany.",
-      "noBookmarksFoundAtTheSelected": "Na zvolenej úrovni sa nenašli žiadne záložky.",
-      "nMustBeAtLeast1": "N musí byť aspoň 1.",
-      "noPagesWereSelectedForSplitting": "Na rozdelenie neboli vybrané žiadne strany.",
-      "thePdfHasPagesWhichIs": "PDF má {{totalPages}} strán, čo nie je deliteľné číslom {{nValue}}. Posledné PDF bude obsahovať strán: {{remainder}}.",
-      "noPdfDocumentLoaded": "Nie je načítaný žiadny PDF dokument."
-    }
+    "subtitle": "Extrahovať rozsah strán do nového PDF."
   },
   "compressPdf": {
     "name": "Komprimovať PDF",
-    "subtitle": "Zmenšiť veľkosť súboru vášho PDF.",
-    "loader": {
-      "compressing": "Komprimuje sa...",
-      "compressingMultiplePdfs": "Komprimuje sa viacero PDF súborov...",
-      "creatingZip": "Vytvára sa ZIP..."
-    },
-    "alert": {
-      "signedPdfNotChanged": "Podpísané PDF sa nezmenilo",
-      "compressionFinished": "Kompresia skončila",
-      "compressionComplete": "Kompresia dokončená",
-      "passwordNeeded": "Potrebné heslo",
-      "notPdf": "Nie je to PDF"
-    },
-    "landing": {
-      "forEmail": {
-        "shrinkPdfsToFitAny": "Zmenšite PDF tak, aby sa zmestilo do limitu príloh akéhokoľvek e-mailu.",
-        "toEmailLargePdfCompress": "Ak chcete poslať veľké PDF e-mailom, najskôr ho skomprimujte pod limit príloh vášho poskytovateľa: pridajte súbor nižšie a kliknite na Komprimovať PDF. Cieľová veľkosť je nastavená na 10 MB, čo vyhovuje aj prísnym firemným poštovým serverom; podľa potreby ju upravte. Všetko prebieha vo vašom prehliadači, takže dôverná zmluva sa na ceste k adresátovi nikdy nedostane na server tretej strany.",
-        "emailAttachmentLimitsInPractice": "Limity e-mailových príloh v praxi",
-        "gmailAllows25mbPerMessage": "Gmail povoľuje 25 MB na správu, Outlook.com 20 MB, Yahoo 25 MB, iCloud 20 MB a firemné poštové servery sú často oveľa prísnejšie, bežne 10 MB a niekedy 5 MB. Limit platí pre celú správu po zakódovaní, ktoré zväčší prílohy asi o tretinu, takže do limitu „25 MB“ sa zmestí súbor s veľkosťou približne 18 MB. Ak si nie ste istí, zvoľte cieľ výrazne pod limitom.",
-        "betterThanDownloadLink": "Lepšie ako odkaz na stiahnutie",
-        "cloudLinksExpireNeedPermissions": "Platnosť odkazov do cloudu vyprší, vyžadujú oprávnenia a bezpečnostné filtre ich často zadržia. Skomprimovaná príloha jednoducho dorazí. Stredná úroveň často zmenší naskenovanú zmluvu alebo prezentáciu o 60 až 90 %, takže z väčšiny príliš veľkých súborov urobí pohodlné prílohy, ktoré zostanú čitateľné a vytlačiteľné.",
-        "recurringEmailWorkflows": "Pre opakované odosielanie e-mailov",
-        "ifRegularlySendBatchesDocuments": "Ak pravidelne posielate viacero dokumentov, skomprimujte ich všetky naraz; každý súbor sa vo vašom prehliadači spracuje samostatne. Pred kompresiou môžete viacero príloh spojiť nástrojom Spojiť PDF do jedného prehľadného súboru."
-      },
-      "to100kb": {
-        "getPdfUnder100kbPortals": "Zmenšite PDF pod 100 KB pre portály s prísnym limitom nahrávania.",
-        "toCompressPdfTo100kb": "Ak chcete PDF skomprimovať na 100 KB, pridajte súbor nižšie a kliknite na Komprimovať PDF. Cieľová veľkosť je už nastavená na 100 KB, takže Hyper Compress zvolí najlepšiu kvalitu obrázkov, ktorá sa ešte zmestí. Všetko prebieha vo vašom prehliadači a PDF sa nikdy nenahrá na server, takže aj citlivé dokumenty, napríklad skeny dokladov či žiadosti, zostanú vo vašom zariadení.",
-        "whenNeedPdfUnder100kb": "Kedy potrebujete PDF pod 100 KB",
-        "capCommonOnJobApplication": "Limit 100 KB je bežný na portáloch pre uchádzačov o zamestnanie, v systémoch elektronického podávania na úradoch, v prihláškach na vysoké školy a na vízových či imigračných stránkach. Tieto systémy väčšie súbory zvyčajne rovno odmietnu, často bez zrozumiteľnej chybovej správy, takže kompresia pred nahraním vám ušetrí neúspešné podanie.",
-        "whatToExpect100kb": "Čo očakávať pri 100 KB",
-        "textBasedPdfFewPages": "Textové PDF s niekoľkými stranami – životopis, motivačný list alebo vyplnený formulár – sa ľahko skomprimuje pod 100 KB bez viditeľnej zmeny. Naskenované dokumenty a súbory s množstvom fotografií sú náročnejšie: na dosiahnutie 100 KB potrebujú výraznejšie zmenšenie obrázkov, preto počítajte s viditeľne menej ostrými obrázkami. Ak sa sken stále nedostane na 100 KB, výsledok ukáže najmenšiu veľkosť, akú sa podarilo dosiahnuť. Ak sken nemá textovú vrstvu, zapnite vo Vlastných nastaveniach možnosť Rastrovať strany, ktorá z každej strany vytvorí jeden optimalizovaný obrázok, alebo dokument rozdeľte a skomprimujte len strany, ktoré naozaj potrebujete odovzdať.",
-        "tipsSmallestPossibleFile": "Tipy na čo najmenší súbor",
-        "removePagesDoNotNeed": "Pred kompresiou odstráňte strany, ktoré nepotrebujete. Uprednostnite dokumenty exportované priamo z editora pred skenmi – jednostranový formulár vyplnený na počítači má často 20 KB, kým tá istá strana naskenovaná má 500 KB. Ak skenujete sami, skenujte pri 150 DPI v odtieňoch sivej namiesto 300 DPI farebne."
-      },
-      "to1mb": {
-        "reduceLargePdfsBelowMost": "Zmenšite veľké PDF pod najbežnejší limit nahrávania 1 MB.",
-        "toCompressPdfTo1mb": "Ak chcete PDF skomprimovať na 1 MB, pridajte súbor nižšie a kliknite na Komprimovať PDF. Cieľová veľkosť je už nastavená na 1 MB. Jeden megabajt je najbežnejší limit nahrávania na webe, takmer každý dokument ho dosiahne bez viditeľnej straty kvality a všetko sa spracuje súkromne vo vašom prehliadači.",
-        "mostCommonUploadLimit": "Najbežnejší limit nahrávania",
-        "countlessWebFormsCapAttachments": "Nespočetné webové formuláre obmedzujú prílohy na 1 MB: personálne systémy, nahlasovanie poistných udalostí, realitné portály, prílohy v CRM. Aj rozsiahle správy s fotografiami sa pri strednej úrovni zvyčajne skomprimujú pod 1 MB, pretože väčšinu veľkosti PDF tvoria neoptimalizované obrázky a duplicitné vložené písma, ktoré kompresia najskôr odstráni bez straty.",
-        "veryLargeFiles": "Veľmi veľké súbory",
-        "to100mbScannedBookBrochure": "Naskenovaná kniha alebo brožúra s veľkosťou 50 až 100 MB potrebuje na zmenšenie pod 1 MB oveľa silnejšiu kompresiu obrázkov; cieľová veľkosť to rieši postupným znižovaním kvality a extrémne dlhé dokumenty sa nemusia zmestiť pri žiadnej kvalite. V takom prípade rozdeľte PDF na logické časti, napríklad kapitoly alebo oddiely, a každú časť skomprimujte pod 1 MB."
-      },
-      "to200kb": {
-        "reducePdfBelow200kbWithout": "Zmenšite PDF pod 200 KB bez straty čitateľnosti.",
-        "toGetPdfUnder200kb": "Ak chcete PDF zmenšiť pod 200 KB, pridajte súbor nižšie a kliknite na Komprimovať PDF. Cieľová veľkosť je už nastavená na 200 KB, takže Hyper Compress nájde najlepšiu kvalitu, ktorá sa zmestí. Kompresia prebieha lokálne vo vašom prehliadači – bez nahrávania, bez registrácie a bez obmedzenia počtu súborov.",
-        "when200kbTarget": "Keď je cieľom 200 KB",
-        "ceilingShowsUpOnBank": "Limit 200 KB sa objavuje pri overovaní totožnosti v bankách, na portáloch pre štipendiá a registráciu na skúšky a v mnohých službách e-governmentu. Je to prívetivejší cieľ ako 100 KB: väčšina bežných dokumentov ho dosiahne pri strednej úrovni bez viditeľnej straty kvality.",
-        "gettingStubbornFileUnder200kb": "Ako dostať problematický súbor pod 200 KB",
-        "ifScannedDocumentStaysAbove": "Ak naskenovaný dokument zostane nad 200 KB, výsledok ukáže, ako blízko sa podarilo dostať. Pri skene bez textovej vrstvy môže funkcia Rastrovať strany vo Vlastných nastaveniach dosiahnuť menšiu veľkosť. Pri viacstranových skenoch pomôže najskôr odstrániť prázdne alebo nepotrebné strany: každá odstránená naskenovaná strana často ušetrí 100 KB ešte pred začiatkom kompresie."
-      },
-      "to2mb": {
-        "meet2mbPortalLimitsWhile": "Dodržte limit 2 MB na portáloch a zachovajte vysokú kvalitu obrázkov.",
-        "toCompressPdfTo2mb": "Ak chcete PDF skomprimovať na 2 MB, pridajte súbor nižšie, pre najlepšiu kvalitu obrázkov zvoľte nízku úroveň a kliknite na Komprimovať PDF. Cieľová veľkosť je už nastavená na 2 MB, pri ktorých si portfóliá a správy zachovajú vysokú kvalitu obrázkov, a kompresia prebieha celá vo vašom zariadení.",
-        "qualityFirstCompression": "Kompresia s dôrazom na kvalitu",
-        "toWorkRarelyNeedDestructive": "S rezervou 2 MB len zriedka potrebujete stratové nastavenia. Nízka úroveň odstráni zbytočnú záťaž, napríklad duplicitné písma, nepoužívané objekty a pozostatky po úpravách, a obrázky ponechá vo vysokej kvalite. To vyhovuje dizajnérskym portfóliám, správam s množstvom fotografií a dokumentom pripraveným na tlač, ktoré aj tak musia prejsť kontrolou pri nahrávaní.",
-        "common2mbSituations": "Bežné situácie s limitom 2 MB",
-        "universityThesisSubmissionSystemsConference": "Systémy na odovzdávanie záverečných prác, nahrávanie konferenčných príspevkov a mnohé portály verejného obstarávania obmedzujú súbory na 2 MB. Dokumenty exportované z Wordu alebo Google Docs sa takmer vždy zmestia pri nízkej úrovni; pri exportoch z InDesignu alebo Canvy s obrázkami v plnom rozlíšení zníži cieľ 2 MB kvalitu obrázkov len natoľko, nakoľko je to nevyhnutné."
-      },
-      "to500kb": {
-        "bringPdfUnder500kbWhile": "Zmenšite PDF pod 500 KB a zachovajte ostré obrázky.",
-        "toCompressPdfTo500kb": "Ak chcete PDF skomprimovať na 500 KB, pridajte súbor nižšie a kliknite na Komprimovať PDF. Cieľová veľkosť je už nastavená na 500 KB. Je to pohodlný cieľ: väčšina dokumentov ho dosiahne bez viditeľného rozdielu a váš súbor nikdy neopustí prehliadač.",
-        "sweetSpotTarget": "Ideálny cieľ",
-        "halfMegabyteMostForgivingCommon": "Pol megabajtu je najzhovievavejší z bežných limitov nahrávania; používajú ho redakčné systémy, tendrové portály a systémy na odovzdávanie úloh. Stredná úroveň často sama dostane kancelársky dokument alebo ľahký sken pod 500 KB, pričom obrázky zostanú ostré a text dokonale čistý.",
-        "ifJustOverLine": "Ak ste len kúsok nad limitom",
-        "whenMediumLevelAloneLands": "Ak samotná stredná úroveň skončí tesne nad 500 KB, cieľová veľkosť prinúti Hyper Compress znížiť kvalitu obrázkov o niečo viac, kým sa súbor nezmestí. Skontrolujte, či dokument neobsahuje vloženú fotografiu na titulnej strane alebo logo vo vysokom rozlíšení na každej strane: opakované obrázky sú častou skrytou záťažou, s ktorou si kompresia dobre poradí."
-      }
-    },
-    "ui": {
-      "compressToSpecificSize": "Komprimovať na konkrétnu veľkosť",
-      "compressPdfTo100kb": "Komprimovať PDF na 100 KB",
-      "getPdfUnder100kbPortals": "Zmenšite PDF pod 100 KB pre portály s prísnym limitom nahrávania.",
-      "compressPdfTo200kb": "Komprimovať PDF na 200 KB",
-      "reducePdfBelow200kbWithout": "Zmenšite PDF pod 200 KB bez straty čitateľnosti.",
-      "compressPdfTo500kb": "Komprimovať PDF na 500 KB",
-      "bringPdfUnder500kbWhile": "Zmenšite PDF pod 500 KB a zachovajte ostré obrázky.",
-      "compressPdfTo1mb": "Komprimovať PDF na 1 MB",
-      "reduceLargePdfsBelowMost": "Zmenšite veľké PDF pod najbežnejší limit nahrávania 1 MB.",
-      "compressPdfTo2mb": "Komprimovať PDF na 2 MB",
-      "meet2mbPortalLimitsWhile": "Dodržte limit 2 MB na portáloch a zachovajte vysokú kvalitu obrázkov.",
-      "compressPdfEmail": "Komprimovať PDF na e-mail",
-      "shrinkPdfsToFitAny": "Zmenšite PDF tak, aby sa zmestilo do limitu príloh akéhokoľvek e-mailu.",
-      "compressionLevel": "Úroveň kompresie",
-      "lowBestQuality": "Nízka (najlepšia kvalita)",
-      "mediumRecommended": "Stredná (odporúčaná)",
-      "highSmallestFiles": "Vysoká (najmenšie súbory)",
-      "losslessNoQualityLoss": "Bezstratová (bez straty kvality)",
-      "custom": "Vlastná",
-      "poweredHyperCompressRecompressesImages": "Využíva Hyper Compress: prekomprimuje obrázky, zredukuje a zlúči písma a odstráni zbytočnú záťaž, pričom text, odkazy a formuláre fungujú ďalej. Pri skenoch, ktoré obsahujú len obrázky, zapnite vo Vlastných nastaveniach možnosť Rastrovať strany.",
-      "targetFileSizeOptional": "Cieľová veľkosť súboru (voliteľné)",
-      "noTargetPlaceholder": "Bez cieľovej veľkosti",
-      "hyperCompressFindsBestQuality": "Hyper Compress nájde najlepšiu kvalitu, ktorá sa zmestí. Ak chcete použiť úroveň bez zmeny, nechajte pole prázdne.",
-      "customSettings": "Vlastné nastavenia",
-      "fineTuneHyperCompressPicking": "Podrobné nastavenia Hyper Compress. Výberom úrovne kompresie sa tieto nastavenia vrátia na predvolené hodnoty, okrem možností Obísť ochranu obsahu, Previesť do odtieňov sivej, Zachovať PDF/A a Brotli.",
-      "overrideContentProtection": "Obísť ochranu obsahu",
-      "defaultHyperCompressPreservesContent": "Hyper Compress predvolene chráni obsah: digitálne podpísané PDF nemení a nerastruje strany, ktoré obsahujú text. Zapnutím tejto možnosti obídete obe ochrany. Podpísané PDF prídu o podpisy a možnosť Rastrovať strany prevedie aj text na obrázky."
-    },
-    "hyperOptions": {
-      "sections": {
-        "images": "Obrázky",
-        "fonts": "Písma",
-        "content": "Obsah",
-        "cleanup": "Čistenie",
-        "rasterize": "Rastrovanie",
-        "output": "Výstup"
-      },
-      "dpiNone": "Žiadne",
-      "imageQuality": "Kvalita obrázkov",
-      "imageQualityHelp": "Kvalita JPEG pre znovu zakódované obrázky, od 20 do 100. Nižšia hodnota znamená menší súbor a viditeľnejšie artefakty.",
-      "maxDpi": "Maximálne rozlíšenie",
-      "maxDpiHelp": "Obrázky s vyšším rozlíšením sa prevzorkujú nadol. Pri možnosti Žiadne sa rozlíšenie nemení.",
-      "forceDownsample": "Vždy prevzorkovať na toto rozlíšenie",
-      "forceDownsampleHelp": "Prevzorkuje aj obrázky, ktoré limit prekračujú len mierne.",
-      "grayscale": "Previesť do odtieňov sivej",
-      "grayscaleHelp": "Zmenší súbor odstránením farebných informácií.",
-      "reduceColor": "Zjednodušiť farby",
-      "reduceColorHelp": "Iba tam, kde to nezmení vzhľad obrázka.",
-      "clipImages": "Orezať neviditeľné časti obrázkov",
-      "removeAlternates": "Odstrániť alternatívne obrázky",
-      "flattenIcc": "Zjednodušiť veľké farebné profily",
-      "preferJpx": "Uprednostniť JPEG 2000 pri fotografiách",
-      "preferJpxHelp": "Pri každom obrázku porovná JPEG 2000 s JPEG a ponechá menší výsledok.",
-      "lossless": "Bezstratovo (bez opätovného kódovania obrázkov)",
-      "losslessHelp": "Vypne kvalitu, rozlíšenie a všetky ostatné stratové úpravy obrázkov.",
-      "subsetFonts": "Vytvoriť podmnožiny vložených písiem",
-      "subsetFontsHelp": "Ponechá iba znaky, ktoré dokument používa.",
-      "mergeFonts": "Zlúčiť duplicitné písma",
-      "removeStandardFonts": "Nevkladať štandardné písma",
-      "removeStandardFontsHelp": "14 štandardných písiem PDF poskytujú samotné čítačky PDF.",
-      "unembedAliasedFonts": "Nevkladať písma podobné štandardným",
-      "unembedAliasedFontsHelp": "Arial, Times New Roman a Courier New sa nahradia vstavanými ekvivalentmi. Použije sa iba vtedy, keď je to bezpečné.",
-      "removeAnnots": "Zlúčiť anotácie",
-      "removeAnnotsHelp": "Komentáre a značky sa stanú súčasťou strany. Polia formulárov a odkazy fungujú ďalej.",
-      "flattenForms": "Zlúčiť polia formulárov",
-      "flattenFormsHelp": "Polia formulárov už nebude možné vyplniť.",
-      "flattenLinks": "Zlúčiť odkazy",
-      "flattenLinksHelp": "Na odkazy už nebude možné kliknúť.",
-      "removeThumbnails": "Odstrániť miniatúry strán",
-      "removeAppData": "Odstrániť údaje aplikácií",
-      "removeAppDataHelp": "Súkromné údaje, ktoré si editory ukladajú do PDF.",
-      "removeThreads": "Odstrániť vlákna článkov",
-      "removeSpiderInfo": "Odstrániť informácie o zachytení webu",
-      "removeStructTree": "Odstrániť stromovú štruktúru dokumentu",
-      "removeStructTreeHelp": "Odstráni značkovanie, na ktoré sa spoliehajú čítačky obrazovky.",
-      "removeOutputIntents": "Odstrániť výstupné zámery",
-      "rasterizePages": "Rastrovať strany na obrázky",
-      "rasterizePagesHelp": "Pre PDF, ktoré obsahujú iba obrázky, napríklad skeny. Ak má dokument označiteľný text, preskočí sa, pokiaľ nie je zapnutá možnosť Obísť ochranu obsahu.",
-      "rasterizeDpi": "Rozlíšenie rastrovania (DPI)",
-      "rasterizeQuality": "Kvalita rastrovania",
-      "preserveConformance": "Zachovať PDF/A",
-      "preserveConformanceHelp": "Súbor PDF/A zostane v súlade so štandardom. Kým je táto možnosť zapnutá, Brotli a rastrovanie sa preskočia.",
-      "brotli": "Kompresia Brotli (PDF 2.0)",
-      "brotliHelp": "Menšie súbory, otvoria ich však iba čítačky s podporou Brotli, napríklad Firefox, MuPDF 1.26+ a Ghostscript 10.06+."
-    },
-    "msg": {
-      "showPassword": "Zobraziť heslo",
-      "hidePassword": "Skryť heslo",
-      "thatPasswordDidNotOpenAny": "Toto heslo neotvorilo žiadny zo zostávajúcich súborov.",
-      "unlockedOfFiles": "Odomknuté súbory: {{unlocked}} z {{count}}.",
-      "passwordForAllLockedFiles": "Heslo pre všetky zamknuté súbory",
-      "compressingTo": "Komprimuje sa na {{value}}...",
-      "isDigitallySignedSoItWas": "{{name}} je digitálne podpísaný, preto zostal bez zmeny. Kompresia by porušila podpis. Ak ho chcete komprimovať aj tak, v časti Vlastné nastavenia zapnite Prepísať ochranu obsahu; jeho podpisy sa odstránia.",
-      "itWasPasswordProtectedSoThe": "{{error}} Súbor bol chránený heslom, takže komprimovaná kópia heslo nemá. Heslo znova pridáte nástrojom Zašifrovať PDF.",
-      "compressing": "Komprimuje sa {{value}}/{{count}}: {{name}}...",
-      "noneOfTheFilesCouldBe": "Žiadny zo súborov sa nepodarilo skomprimovať: {{value}}.",
-      "isPasswordProtectedEnterItsPassword": "{{name}} je chránený heslom. Zadajte jeho heslo na karte súboru a potom komprimujte znova.",
-      "theseFilesArePasswordProtectedEnter": "Tieto súbory sú chránené heslom: {{value}}. Zadajte ich heslá na kartách súborov alebo ich odstráňte a potom komprimujte znova.",
-      "anErrorOccurredDuringCompressionError": "Pri kompresii sa vyskytla chyba. Chyba: {{value}}",
-      "isNotAValidPdfSo": "{{value}} nie je platné PDF, preto nebol pridaný.",
-      "theseFilesAreNotValidPdfs": "Tieto súbory nie sú platné PDF, preto neboli pridané: {{value}}.",
-      "remove": "Odstrániť {{name}}",
-      "lockLocked": "Chránené heslom",
-      "lockWrong": "Nesprávne heslo",
-      "lockUnlocked": "Odomknuté",
-      "resultReduced": "Veľkosť súboru sa zmenšila z {{from}} na {{to}} (ušetrené {{percent}} %).",
-      "resultNotReduced": "Veľkosť súboru sa nepodarilo ďalej zmenšiť. Pôvodná: {{from}}, nová: {{to}}.",
-      "resultFitsTarget": "Zmestí sa do cieľovej veľkosti {{target}}.",
-      "resultAboveTargetPdfa": "Stále je nad cieľovou veľkosťou {{target}}, pretože Zachovať PDF/A obmedzuje, ako veľmi sa dá komprimovať.",
-      "resultAboveTarget": "Stále je nad cieľovou veľkosťou {{target}}. Toto je najmenšia veľkosť, akú tieto nastavenia dovolia; pri skenoch zložených len z obrázkov zapnite Rastrovať strany vo Vlastných nastaveniach.",
-      "resultSignaturesRemoved": "Digitálne podpisy boli odstránené, aby sa súbor dal komprimovať. V prípade potreby ho podpíšte znova.",
-      "resultPdfaWithdrawn": "Súbor už nedeklaruje zhodu s PDF/A. Ak ju chcete zachovať, zapnite Zachovať PDF/A vo Vlastných nastaveniach.",
-      "resultPdfaKept": "Brotli a rastrovanie sa vynechali, aby súbor zostal v PDF/A.",
-      "titleFinished": "Kompresia skončila",
-      "titleTargetNotReached": "Cieľ sa nedosiahol",
-      "titleComplete": "Kompresia dokončená",
-      "errorWrongPassword": "nesprávne heslo",
-      "errorPasswordProtected": "chránený heslom"
-    }
+    "subtitle": "Zmenšiť veľkosť súboru vášho PDF."
   },
   "pdfEditor": {
-    "name": "PDF Editor",
-    "subtitle": "Anotovať, zvýrazňovať, redigovať, komentovať, pridávať tvary/obrázky, vyhľadávať a prezerať PDF.",
-    "alert": {
-      "renderError": "Chyba vykresľovania",
-      "couldNotDisplayPage": "Stranu sa nepodarilo zobraziť.",
-      "noAreaSelected": "Nie je vybraná oblasť",
-      "drawRectangleLeastOne": "Nakreslite obdĺžnik aspoň na jednej strane a vyberte tak oblasť orezania.",
-      "pdfHasBeenCropped": "PDF bolo orezané a sťahovanie sa začalo.",
-      "redactionFailed": "Začiernenie zlyhalo",
-      "someRedactionMarksCould": "Niektoré značky začiernenia sa nepodarilo použiť, preto sa súbor nestiahol. Použite ich alebo ich odstráňte v editore a skúste to znova.",
-      "couldNotRemoveRedacted": "Začiernený text sa nepodarilo odstrániť z údajov dokumentu, preto sa súbor nestiahol.",
-      "failedDownloadEditedPdf": "Upravené PDF sa nepodarilo stiahnuť.",
-      "failedLoadPdfEditor": "PDF editor sa nepodarilo načítať."
-    },
-    "loader": {
-      "loadingPdfEditor": "Načítava sa PDF editor...",
-      "removingRedactedTextFrom": "Odstraňuje sa začiernený text z údajov dokumentu..."
-    },
-    "msg": {
-      "downloadEditedPdf": "Stiahnuť upravené PDF",
-      "applyAndDownload": "Použiť a stiahnuť",
-      "applyRedactionsMessage_few": "Tento dokument obsahuje {{count}} značky začiernenia, ktoré ešte neboli použité. Kým značku nepoužijete, obsah pod ňou zostáva v súbore. Chcete použiť všetky značky a stiahnuť súbor?",
-      "applyRedactionsMessage_many": "Tento dokument obsahuje {{count}} značiek začiernenia, ktoré ešte neboli použité. Kým značku nepoužijete, obsah pod ňou zostáva v súbore. Chcete použiť všetky značky a stiahnuť súbor?",
-      "applyRedactionsMessage_one": "Tento dokument obsahuje 1 značku začiernenia, ktorá ešte nebola použitá. Kým značku nepoužijete, obsah pod ňou zostáva v súbore. Chcete použiť všetky značky a stiahnuť súbor?",
-      "applyRedactionsMessage_other": "Tento dokument obsahuje {{count}} značiek začiernenia, ktoré ešte neboli použité. Kým značku nepoužijete, obsah pod ňou zostáva v súbore. Chcete použiť všetky značky a stiahnuť súbor?",
-      "applyRedactionsTitle": "Použiť začiernenia?",
-      "downloadAnyway": "Napriek tomu stiahnuť",
-      "encryptedFileMessage": "Začiernenia sú použité na stranách, ale tento súbor je šifrovaný, takže BentoPDF nemôže odstrániť kópie začierneného textu z jeho vlastností, záložiek a príloh. Na úplné vyčistenie začiernite nešifrovanú kópiu a heslo pridajte až potom pomocou nástroja Zašifrovať PDF. Napriek tomu stiahnuť?",
-      "encryptedFileTitle": "Šifrovaný súbor"
-    }
+    "name": "Editor PDF",
+    "subtitle": "Anotovať, zvýrazňovať, redigovať, komentovať, pridávať tvary/obrázky, vyhľadávať a prezerať PDF."
   },
   "editPdfText": {
     "name": "Upraviť text PDF",
@@ -479,203 +172,32 @@
     "tipNextPage": "Ďalšia strana",
     "tipDocumentProperties": "Vlastnosti dokumentu",
     "tipHideBar": "Skryť panel",
-    "tipShowBar": "Zobraziť panel",
-    "loader": {
-      "loadingPdfTextEditor": "Načítava sa editor textu PDF..."
-    },
-    "ui": {
-      "spelling": "Kontrola pravopisu",
-      "rulers": "Pravítka",
-      "findReplace": "Nájsť a nahradiť",
-      "matchCase": "Rozlišovať veľké a malé písmená",
-      "wholeWord": "Celé slová",
-      "ignoreAccents": "Ignorovať diakritiku",
-      "everythingRunsLocallyInBrowser": "Všetko prebieha lokálne vo vašom prehliadači a nič sa nenahráva.",
-      "saveImagePngEditIn": "Uložte tento obrázok ako PNG a upravte ho v ľubovoľnej aplikácii; uložené zmeny sa automaticky znova načítajú",
-      "format": "Formát",
-      "lineSpacing": "Riadkovanie",
-      "paragraphSpacing": "Medzera medzi odsekmi",
-      "characterSpacing": "Medzery medzi znakmi",
-      "wordSpacing": "Medzery medzi slovami",
-      "horizontalScale": "Vodorovná mierka %",
-      "firstLineIndent": "Odsadenie prvého riadka",
-      "hangingIndent": "Predsadenie",
-      "selectOrDragAndDropThe": "Vyberte alebo pretiahnite PDF, ktorého text chcete upraviť",
-      "everyEditableParagraphIsOutlinedClick": "Každý upraviteľný odsek je ohraničený. Kliknite naň a píšte; text sa počas úprav priebežne preformátuje",
-      "changeFontsSizeColorAlignmentAnd": "Meňte písma, veľkosť, farbu, zarovnanie a riadkovanie, presúvajte alebo nahrádzajte obrázky, pridávajte nové textové polia",
-      "downloadACleanPdfWithYour": "Stiahnite čisté PDF so zapracovanými úpravami; všetko zostáva vo vašom zariadení",
-      "editAll": "Upraviť všetko",
-      "englishUs": "Angličtina (USA)",
-      "englishUk": "Angličtina (UK)",
-      "deutsch": "Nemčina",
-      "franAis": "Francúzština",
-      "espaOl": "Španielčina",
-      "italiano": "Taliančina",
-      "portuguS": "Portugalčina",
-      "iIiIii": "i. ii. iii.",
-      "iIiIii2": "I. II. III."
-    },
-    "msg": {
-      "customZoom": "Vlastné priblíženie",
-      "addATextBox": "Pridať textové pole",
-      "documentProperties": "Vlastnosti dokumentu",
-      "wasmEngineFailedToInitialize": "Engine WASM sa nepodarilo inicializovať",
-      "edit": "Upraviť {{value}}",
-      "action": "Akcia",
-      "advanced": "Rozšírené",
-      "alignObjects": "Zarovnanie objektov",
-      "application": "Aplikácia",
-      "character": "Znak",
-      "closePanel": "Zavrieť panel",
-      "conformance": "Súlad so štandardom",
-      "created": "Vytvorené",
-      "decreaseSize": "Zmenšiť veľkosť",
-      "description": "Popis",
-      "doneBackToTools": "Hotovo – späť na nástroje",
-      "editImages": "Upraviť obrázky",
-      "editScope": "Rozsah úprav",
-      "editShapes": "Upraviť tvary",
-      "editText": "Upraviť text",
-      "editTool": "Nástroj úprav",
-      "file": "Súbor",
-      "fileSize": "Veľkosť súboru",
-      "firstIndent": "Odsadenie prvého riadka",
-      "fitToPage": "Prispôsobiť strane",
-      "goToPage": "Prejsť na stranu",
-      "hScale": "Vodorovná mierka %",
-      "increaseSize": "Zväčšiť veľkosť",
-      "keywords": "Kľúčové slová",
-      "line": "Riadok",
-      "modified": "Upravené",
-      "more": "Viac",
-      "numberOfPages": "Počet strán",
-      "paragraph": "Odsek",
-      "pathStroke": "Obrys cesty",
-      "pdfProducer": "Tvorca PDF",
-      "selectFont": "Vyberte písmo",
-      "signatures": "Podpisy",
-      "toggleStyle": "Prepnúť štýl",
-      "word": "Slovo"
-    }
+    "tipShowBar": "Zobraziť panel"
   },
   "jpgToPdf": {
     "name": "JPG do PDF",
-    "subtitle": "Vytvoriť PDF z obrázkov JPG, JPEG a JPEG2000 (JP2/JPX).",
-    "alert": {
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len súbory JPG, JPEG, JP2 a JPX.",
-      "selectLeastOneJpg": "Vyberte aspoň jeden obrázok JPG alebo JPEG2000."
-    }
+    "subtitle": "Vytvoriť PDF z obrázkov JPG, JPEG a JPEG2000 (JP2/JPX)."
   },
   "signPdf": {
     "name": "Podpísať PDF",
-    "subtitle": "Nakresliť, napísať alebo nahrať svoj podpis.",
-    "loader": {
-      "loadingPdfViewer": "Načítava sa prehliadač PDF...",
-      "flatteningSavingPdf": "Splošťuje sa a ukladá PDF..."
-    },
-    "alert": {
-      "waitPdfViewerLoad": "Počkajte, kým sa prehliadač PDF načíta.",
-      "pdfViewerStillInitializing": "Prehliadač PDF sa ešte inicializuje.",
-      "signedPdfSavedSuccessfully": "Podpísané PDF bolo úspešne uložené!",
-      "signedPdfDownloadedSuccessfully": "Podpísané PDF bolo úspešne stiahnuté!",
-      "exportFailed": "Export zlyhal",
-      "couldNotExportSigned": "Podpísané PDF sa nepodarilo exportovať. Skúste to znova."
-    },
-    "ui": {
-      "flattenPdfUseSaveButton": "Zlúčiť vrstvy PDF (použite tlačidlo Uložiť nižšie)",
-      "saveDownloadSignedPdf": "Uložiť a stiahnuť podpísané PDF"
-    }
+    "subtitle": "Nakresliť, napísať alebo nahrať svoj podpis."
   },
   "cropPdf": {
     "name": "Orezať PDF",
-    "subtitle": "Orezať okraje každej strany vo vašom PDF.",
-    "ui": {
-      "previousPage": "Predchádzajúca strana",
-      "nextPage": "Nasledujúca strana",
-      "flatteningCropConvertsPagesTo": "Trvalé orezanie (prevedie strany na obrázky)",
-      "applyToAllPages": "Použiť na všetky strany",
-      "cropDownload": "Orezať a stiahnuť",
-      "page1Of1": "Strana 1 z 1"
-    },
-    "msg": {
-      "renderingPage": "Vykresľuje sa strana {{num}}...",
-      "pageOf": "Strana {{currentPageNum}} z {{numPages}}",
-      "processingPageOf": "Spracúva sa strana {{pageNum}} z {{totalPages}}..."
-    }
+    "subtitle": "Orezať okraje každej strany vo vašom PDF."
   },
   "extractPages": {
     "name": "Extrahovať strany",
-    "subtitle": "Uložiť výber strán ako nové súbory.",
-    "alert": {
-      "enterPageNumbersExtract": "Zadajte čísla strán na extrahovanie.",
-      "invalidPages": "Neplatné strany",
-      "noValidPageNumbers": "Nenašli sa žiadne platné čísla strán.",
-      "failedExtractPages": "Strany sa nepodarilo extrahovať."
-    },
-    "loader": {
-      "extractingPages": "Extrahujú sa strany..."
-    },
-    "ui": {
-      "enterPagesToExtract": "Zadajte strany na extrahovanie (napr. 2, 4-6, 9):",
-      "pageRangePlaceholder": "napr. 2, 4-6, 9",
-      "extractDownloadZip": "Extrahovať a stiahnuť ZIP"
-    },
-    "msg": {
-      "extractedPageSSuccessfully": "Extrahované strany: {{count}}. Hotovo!"
-    }
+    "subtitle": "Uložiť výber strán ako nové súbory."
   },
   "duplicateOrganize": {
     "name": "Duplikovať a organizovať",
     "subtitle": "Duplikovať, preusporiadať a odstrániť strany.",
-    "saveChanges": "Uložiť zmeny",
-    "alert": {
-      "failedRenderPagePreviews": "Náhľady strán sa nepodarilo vykresliť",
-      "somePagesCouldNot": "Niektoré strany sa nepodarilo spracovať. Skúste to znova.",
-      "failedSaveNewPdf": "Nové PDF sa nepodarilo uložiť. Podrobnosti nájdete v konzole.",
-      "invalidOrder": "Neplatné poradie",
-      "enterPageOrder": "Zadajte poradie strán.",
-      "invalidPageNumbers": "Neplatné čísla strán",
-      "enterPositiveNumbers": "Zadajte kladné čísla.",
-      "incorrectPageCount": "Nesprávny počet strán",
-      "duplicatePageNumbers": "Duplicitné čísla strán",
-      "ensureAllPageNumbers": "Skontrolujte, či sú všetky čísla strán v poradí jedinečné.",
-      "invalidPageOrder": "Neplatné poradie strán",
-      "specifiedPageOrderIncomplete": "Zadané poradie strán je neúplné alebo obsahuje neplatné čísla strán. Zadajte novú pozíciu pre každú pôvodnú stranu.",
-      "pagesHaveBeenReordered": "Strany boli preusporiadané.",
-      "pdfOrganizedSuccessfully": "PDF bolo úspešne usporiadané!",
-      "failedSaveChanges": "Zmeny sa nepodarilo uložiť."
-    },
-    "ui": {
-      "pageOrderCommaSeparated": "Poradie strán (oddelené čiarkami)",
-      "pageRangePlaceholder": "napr. 3,1,4,2",
-      "applyOrder": "Použiť poradie"
-    },
-    "msg": {
-      "theNumberOfPagesSpecifiedDoes": "Zadaný počet strán ({{count}}) nezodpovedá aktuálnemu počtu strán v dokumente ({{currentGridCount}}). Zadajte úplné poradie všetkých strán.",
-      "duplicatePage": "Duplikovať stranu",
-      "deletePage": "Odstrániť stranu",
-      "renderingPagePreviews": "Vykresľujú sa náhľady strán: {{current}}/{{total}}"
-    }
+    "saveChanges": "Uložiť zmeny"
   },
   "deletePages": {
     "name": "Odstrániť strany",
-    "subtitle": "Odstrániť konkrétne strany z vášho dokumentu.",
-    "alert": {
-      "selectPagesDelete": "Vyberte strany na odstránenie.",
-      "cannotDeleteAllPages": "Nie je možné odstrániť všetky strany.",
-      "failedDeletePages": "Strany sa nepodarilo odstrániť."
-    },
-    "loader": {
-      "deletingPages": "Odstraňujú sa strany..."
-    },
-    "ui": {
-      "enterPagesToDelete": "Zadajte strany na odstránenie (napr. 2, 4-6, 9):",
-      "pageRangePlaceholder": "napr. 2, 4-6, 9",
-      "deletePagesDownload": "Odstrániť strany a stiahnuť"
-    },
-    "msg": {
-      "deletedPageSSuccessfully": "Odstránené strany: {{size}}. Hotovo!"
-    }
+    "subtitle": "Odstrániť konkrétne strany z vášho dokumentu."
   },
   "editBookmarks": {
     "name": "Upraviť záložky",
@@ -686,48 +208,7 @@
     "jsonFormat": "JSON formát",
     "uploadCsvAction": "Kliknutím nahrajte CSV",
     "uploadJsonAction": "Kliknutím nahrajte JSON",
-    "orDragHere": "alebo potiahnite sem",
-    "ui": {
-      "deleteAll": "Odstrániť všetky",
-      "pdfViewer": "Prehliadač PDF",
-      "bookmarks": "Záložky",
-      "goTo": "Prejsť na:",
-      "go": "Prejsť",
-      "zoomOut": "Oddialiť",
-      "zoomIn": "Priblížiť",
-      "fitToWidth": "Prispôsobiť šírke",
-      "clickOnPdfToSet": "Kliknutím do PDF nastavíte cieľ záložky",
-      "searchBookmarksPlaceholder": "Hľadať záložky...",
-      "bookmarkTitlePlaceholder": "Názov záložky...",
-      "addToPage": "Pridať na stranu",
-      "batchMode": "Hromadný režim",
-      "selected": "vybraných",
-      "batchOperations": "Hromadné operácie",
-      "setColor": "Nastaviť farbu...",
-      "none": "Žiadna",
-      "red": "Červená",
-      "blue": "Modrá",
-      "green": "Zelená",
-      "yellow": "Žltá",
-      "purple": "Fialová",
-      "setStyle": "Nastaviť štýl...",
-      "normal": "Normálne",
-      "bold": "Tučné",
-      "italic": "Kurzíva",
-      "boldItalic": "Tučná kurzíva",
-      "deleteSelected": "Odstrániť vybrané",
-      "expandAll": "Rozbaliť všetko",
-      "collapseAll": "Zbaliť všetko",
-      "importCsv": "Importovať CSV",
-      "importJson": "Importovať JSON",
-      "exportCsv": "Exportovať CSV",
-      "exportJson": "Exportovať JSON",
-      "noBookmarksYetAddOne": "Zatiaľ žiadne záložky. Pridajte prvú vyššie!",
-      "savePdfBookmarks": "Uložiť PDF so záložkami",
-      "extractExistingBookmarks": "Extrahovať existujúce záložky",
-      "pdfBookmarkEditor": "Editor záložiek PDF",
-      "page11": "Strana 1 / 1"
-    }
+    "orDragHere": "alebo potiahnite sem"
   },
   "tableOfContents": {
     "name": "Obsah",
@@ -743,42 +224,11 @@
     "errorReadingFileWithMessage": "Chyba pri čítaní súboru: {{message}}",
     "successGeneratedDownloadStarted": "Obsah bol úspešne vygenerovaný! Sťahovanie začalo.",
     "workerErrorWithMessage": "Chyba: {{message}}",
-    "workerErrorOccurred": "Vyskytla sa chyba pracovného vlákna (worker). Podrobnosti nájdete v konzole.",
-    "ui": {
-      "timesRoman": "Times Roman",
-      "timesBold": "Times tučné",
-      "timesItalic": "Times kurzíva",
-      "timesBoldItalic": "Times tučná kurzíva",
-      "helvetica": "Helvetica",
-      "helveticaBold": "Helvetica tučné",
-      "helveticaOblique": "Helvetica šikmé",
-      "helveticaBoldOblique": "Helvetica tučné šikmé",
-      "courier": "Courier",
-      "courierBold": "Courier tučné",
-      "courierOblique": "Courier šikmé",
-      "courierBoldOblique": "Courier tučné šikmé"
-    }
+    "workerErrorOccurred": "Vyskytla sa chyba pracovného vlákna (worker). Podrobnosti nájdete v konzole."
   },
   "pageNumbers": {
     "name": "Čísla strán",
-    "subtitle": "Vložiť čísla strán do vášho dokumentu.",
-    "loader": {
-      "addingPageNumbers": "Pridávajú sa čísla strán..."
-    },
-    "alert": {
-      "pageNumbersAddedSuccessfully": "Čísla strán boli úspešne pridané!",
-      "couldNotAddPage": "Čísla strán sa nepodarilo pridať."
-    },
-    "ui": {
-      "bottomCenter": "Dole v strede",
-      "bottomLeft": "Vľavo dole",
-      "bottomRight": "Vpravo dole",
-      "topCenter": "Hore v strede",
-      "topLeft": "Vľavo hore",
-      "topRight": "Vpravo hore",
-      "format": "Formát",
-      "addPageNumbers": "Pridať čísla strán"
-    }
+    "subtitle": "Vložiť čísla strán do vášho dokumentu."
   },
   "addPageLabels": {
     "name": "Pridať označenia strán",
@@ -841,168 +291,20 @@
   },
   "batesNumbering": {
     "name": "Batesovo číslovanie",
-    "subtitle": "Pridať sekvenčné Batesovo číslovanie do jedného alebo viacerých PDF súborov.",
-    "loader": {
-      "loadingPdfs": "Načítavajú sa PDF súbory...",
-      "applyingBatesNumbers": "Pridáva sa Batesovo číslovanie..."
-    },
-    "alert": {
-      "uploadValidPdfFiles": "Nahrajte platné PDF súbory.",
-      "failedApplyBatesNumbers": "Batesovo číslovanie sa nepodarilo pridať."
-    },
-    "ui": {
-      "pdfFilesMultipleSupported": "PDF súbory (aj viacero)",
-      "selectStyle": "Vyberte štýl",
-      "customStyleOther": "Vlastný štýl (iný)",
-      "customizeStyle": "Upraviť štýl",
-      "placeholdersBatesPageFileFilename": "Zástupné symboly: [BATES] [PAGE] [FILE] [FILENAME]",
-      "preview": "Náhľad:",
-      "batesPadding": "Doplnenie Batesovho čísla nulami",
-      "digits6": "6 číslic (000001)",
-      "digits5": "5 číslic (00001)",
-      "digits4": "4 číslice (0001)",
-      "digits3": "3 číslice (001)",
-      "noPadding": "Bez doplnenia (1)",
-      "headerCenter": "Hlavička – v strede",
-      "headerLeft": "Hlavička – vľavo",
-      "headerRight": "Hlavička – vpravo",
-      "footerCenter": "Päta – v strede",
-      "footerLeft": "Päta – vľavo",
-      "footerRight": "Päta – vpravo",
-      "batesStarts": "Batesovo číslo začína od",
-      "fileCounterStarts": "Počítadlo súborov začína od",
-      "font": "Písmo",
-      "applyBatesNumbers": "Použiť Batesovo číslovanie",
-      "exhibit1CaseXyz000001Page": "Príloha 1 Vec XYZ 000001 Strana 1",
-      "exhibit1CaseXyz00001Page": "Príloha 1 Vec XYZ 00001 Strana 1",
-      "exhibit1CaseXyz0001Page": "Príloha 1 Vec XYZ 0001 Strana 1",
-      "exhibit1CaseXyz001Page": "Príloha 1 Vec XYZ 001 Strana 1",
-      "exhibit1CaseXyz1Page": "Príloha 1 Vec XYZ 1 Strana 1",
-      "exhibit1CaseXyz000001": "Príloha 1 Vec XYZ 000001",
-      "exhibit1CaseXyz00001": "Príloha 1 Vec XYZ 00001",
-      "exhibit1CaseXyz0001": "Príloha 1 Vec XYZ 0001",
-      "exhibit1CaseXyz001": "Príloha 1 Vec XYZ 001",
-      "exhibit1CaseXyz1": "Príloha 1 Vec XYZ 1",
-      "caseXyz000001": "Vec XYZ 000001",
-      "caseXyz00001": "Vec XYZ 00001",
-      "caseXyz0001": "Vec XYZ 0001",
-      "caseXyz001": "Vec XYZ 001",
-      "caseXyz1": "Vec XYZ 1",
-      "helvetica": "Helvetica",
-      "timesNewRoman": "Times New Roman",
-      "courier": "Courier",
-      "uploadOneOrMorePdfFiles": "Nahrajte jeden alebo viac PDF súborov. Ťahaním zmeníte poradie pri číslovaní viacerých súborov.",
-      "configureStyle": "Nastaviť štýl",
-      "chooseAPresetOrCreateA": "Vyberte predvoľbu alebo vytvorte vlastnú šablónu so zástupnými značkami ako [BATES], [PAGE], [FILE].",
-      "getYourBatesStampedPdfsInstantly": "PDF s Batesovým číslovaním dostanete okamžite. Viac súborov sa doručí ako ZIP.",
-      "groupExhibitCaseBatesPage": "Príloha + vec + Bates + strana",
-      "groupExhibitCaseBates": "Príloha + vec + Bates",
-      "groupCaseBates": "Vec + Bates",
-      "groupBatesNumberOnly": "Iba Batesovo číslo"
-    },
-    "msg": {
-      "batesNumbersAppliedSuccessfullyThrough": "Batesove čísla boli úspešne pridané! ({{batesStart}} až {{value}})",
-      "fileSummary_one": "{{count}} súbor • strán celkom: {{totalPages}}",
-      "fileSummary_few": "{{count}} súbory • strán celkom: {{totalPages}}",
-      "fileSummary_many": "{{count}} súboru • strán celkom: {{totalPages}}",
-      "fileSummary_other": "{{count}} súborov • strán celkom: {{totalPages}}",
-      "previewLine": "Súbor {{file}}, strana {{page}}: {{text}}"
-    }
+    "subtitle": "Pridať sekvenčné Batesovo číslovanie do jedného alebo viacerých PDF súborov."
   },
   "addWatermark": {
     "name": "Pridať vodoznak",
     "subtitle": "Vytlačiť text alebo obrázok na vaše PDF strany.",
-    "applyToAllPages": "Aplikovať na všetky strany",
-    "loader": {
-      "addingWatermark": "Pridáva sa vodoznak..."
-    },
-    "alert": {
-      "watermarkAddedSuccessfully": "Vodoznak bol úspešne pridaný!",
-      "couldNotAddWatermark": "Vodoznak sa nepodarilo pridať."
-    },
-    "ui": {
-      "changeFile": "Zmeniť súbor",
-      "preview": "Náhľad",
-      "dragWatermarkToPosition": "Potiahnutím umiestnite vodoznak",
-      "image": "Obrázok",
-      "layout": "Rozloženie",
-      "single": "Jeden vodoznak",
-      "tiled": "Dlaždice",
-      "tiledRepeatsWatermarkAcrossWhole": "Režim Dlaždice opakuje vodoznak po celej strane.",
-      "pageRange": "Rozsah strán",
-      "pageRangePlaceholder": "all (všetky) alebo 1-3, 5, 7-9",
-      "useAllSpecifyPages": "Zadajte „all“ (všetky strany) alebo konkrétne strany, napr. 1-3, 5, 7-9",
-      "opacity": "Nepriehľadnosť:",
-      "angle": "Uhol:",
-      "watermarkImage": "Obrázok vodoznaku",
-      "scale": "Mierka:",
-      "horizontalGap": "Vodorovná medzera:",
-      "verticalGap": "Zvislá medzera:",
-      "topLeft": "Vľavo hore",
-      "top": "Hore",
-      "topRight": "Vpravo hore",
-      "left": "Vľavo",
-      "center": "V strede",
-      "right": "Vpravo",
-      "bottomLeft": "Vľavo dole",
-      "bottom": "Dole",
-      "bottomRight": "Vpravo dole",
-      "flattenWatermark": "Zlúčiť vodoznak so stranou",
-      "bakesWatermarkIntoPagePixels": "Vodoznak sa natrvalo vloží do obrazu strany, takže ho nemožno ľahko odstrániť. Text už nebude možné označiť.",
-      "confidential": "DÔVERNÉ"
-    },
-    "msg": {
-      "pages": "{{name}} ({{value}}, strán: {{totalPageCount}})",
-      "pleaseEnterTextForTheWatermark": "Zadajte text vodoznaku.",
-      "pleaseSelectAnImageFileFor": "Vyberte obrázok pre vodoznak.",
-      "unsupportedImagePleaseUseAPng": "Nepodporovaný obrázok. Pre vodoznak použite PNG alebo JPG.",
-      "flatteningPageOf": "Zlučuje sa strana {{i}} z {{totalPages}}..."
-    }
+    "applyToAllPages": "Aplikovať na všetky strany"
   },
   "headerFooter": {
     "name": "Hlavička a pätička",
-    "subtitle": "Pridať text do hornej a dolnej časti strán.",
-    "loader": {
-      "addingHeaderFooter": "Pridáva sa hlavička a päta..."
-    },
-    "alert": {
-      "headerFooterAddedSuccessfully": "Hlavička a päta boli úspešne pridané!",
-      "couldNotAddHeader": "Hlavičku ani pätu sa nepodarilo pridať."
-    },
-    "ui": {
-      "formattingOptions": "Možnosti formátovania",
-      "pageRangeOptional": "Rozsah strán (voliteľné)",
-      "pageRangePlaceholder": "napr. 1-3, 5",
-      "totalPages": "Počet strán:",
-      "fontColor": "Farba písma",
-      "headerLeft": "Hlavička – vľavo",
-      "headerCenter": "Hlavička – v strede",
-      "headerRight": "Hlavička – vpravo",
-      "footerLeft": "Päta – vľavo",
-      "footerCenter": "Päta – v strede",
-      "footerRight": "Päta – vpravo",
-      "addHeaderFooter": "Pridať hlavičku a pätu"
-    },
-    "msg": {
-      "invalidPageRangeSpecified": "Zadaný rozsah strán je neplatný."
-    }
+    "subtitle": "Pridať text do hornej a dolnej časti strán."
   },
   "invertColors": {
     "name": "Invertovať farby",
-    "subtitle": "Vytvoriť verziu vášho PDF v \"tmavom režime\".",
-    "loader": {
-      "invertingPdfColors": "Invertujú sa farby PDF..."
-    },
-    "alert": {
-      "colorsInvertedSuccessfully": "Farby boli úspešne invertované!",
-      "couldNotInvertPdf": "Farby PDF sa nepodarilo invertovať."
-    },
-    "ui": {
-      "clickButtonBelowToInvert": "Kliknutím na tlačidlo nižšie invertujete všetky farby vo vašom PDF."
-    },
-    "msg": {
-      "processingPageOf": "Spracúva sa strana {{i}} z {{numPages}}..."
-    }
+    "subtitle": "Vytvoriť verziu vášho PDF v \"tmavom režime\"."
   },
   "scannerEffect": {
     "name": "Efekt skenera",
@@ -1019,23 +321,7 @@
     "noise": "Šum",
     "yellowish": "Zožltnutie",
     "resolution": "Rozlíšenie",
-    "processButton": "Aplikovať efekt skenera",
-    "loader": {
-      "applyingScannerEffect": "Používa sa efekt skenera..."
-    },
-    "alert": {
-      "scannerEffectAppliedSuccessfully": "Efekt skenera bol úspešne použitý!",
-      "failedApplyScannerEffect": "Efekt skenera sa nepodarilo použiť. Súbor môže byť poškodený."
-    },
-    "ui": {
-      "clickOrDragAndDropYour": "Kliknite alebo pretiahnite PDF súbor pre začiatok",
-      "adjustSettings": "Upraviť nastavenia",
-      "customizeTheScannerEffectWithReal": "Prispôsobte efekt skenera so živým náhľadom",
-      "saveYourScannedLookingPdfInstantly": "Okamžite uložte PDF, ktoré vyzerá ako naskenované"
-    },
-    "msg": {
-      "processingPageOf": "Spracúva sa strana {{i}} z {{numPages}}..."
-    }
+    "processButton": "Aplikovať efekt skenera"
   },
   "adjustColors": {
     "name": "Úprava farieb",
@@ -1049,53 +335,15 @@
     "tint": "Tónovanie",
     "gamma": "Gama",
     "sepia": "Sépia",
-    "processButton": "Aplikovať úpravy farieb",
-    "loader": {
-      "applyingColorAdjustments": "Upravujú sa farby..."
-    },
-    "alert": {
-      "colorAdjustmentsAppliedSuccessfully": "Farby boli úspešne upravené!",
-      "failedApplyColorAdjustments": "Farby sa nepodarilo upraviť. Súbor môže byť poškodený."
-    },
-    "ui": {
-      "clickOrDragAndDropYour": "Kliknite alebo pretiahnite PDF súbor pre začiatok",
-      "fineTuneColorSettingsWithReal": "Dolaďte nastavenia farieb so živým náhľadom",
-      "saveYourColorAdjustedPdfInstantly": "Okamžite uložte PDF s upravenými farbami"
-    },
-    "msg": {
-      "processingPageOf": "Spracúva sa strana {{i}} z {{numPages}}..."
-    }
+    "processButton": "Aplikovať úpravy farieb"
   },
   "backgroundColor": {
     "name": "Farba pozadia",
-    "subtitle": "Zmeniť farbu pozadia vášho PDF.",
-    "loader": {
-      "changingBackgroundColor": "Mení sa farba pozadia..."
-    },
-    "alert": {
-      "backgroundColorChangedSuccessfully": "Farba pozadia bola úspešne zmenená!",
-      "couldNotChangeBackground": "Farbu pozadia sa nepodarilo zmeniť."
-    },
-    "ui": {
-      "changeBackgroundColor": "Zmeniť farbu pozadia"
-    }
+    "subtitle": "Zmeniť farbu pozadia vášho PDF."
   },
   "changeTextColor": {
     "name": "Zmeniť farbu textu",
-    "subtitle": "Zmeniť farbu textu vo vašom PDF.",
-    "loader": {
-      "changingTextColor": "Mení sa farba textu..."
-    },
-    "alert": {
-      "textColorChangedSuccessfully": "Farba textu bola úspešne zmenená!",
-      "couldNotChangeText": "Farbu textu sa nepodarilo zmeniť."
-    },
-    "ui": {
-      "newTextColor": "Nová farba textu"
-    },
-    "msg": {
-      "processingPageOf": "Spracúva sa strana {{i}} z {{numPages}}..."
-    }
+    "subtitle": "Zmeniť farbu textu vo vašom PDF."
   },
   "addStamps": {
     "name": "Pridať pečiatky",
@@ -1103,291 +351,57 @@
     "usernameLabel": "Používateľské meno pečiatky",
     "usernamePlaceholder": "Zadajte svoje meno (pre pečiatky)",
     "usernameHint": "Toto meno sa zobrazí na vami vytvorených pečiatkach.",
-    "saveButton": "Uložiť opečiatkované PDF",
-    "ui": {
-      "stampEditor": "Editor pečiatok",
-      "useToolbarImageStampTool": "Na umiestnenie pečiatok použite nástroj obrázkovej pečiatky na paneli nástrojov."
-    },
-    "msg": {
-      "viewerNotReadyPleaseUploadA": "Zobrazovač nie je pripravený. Nahrajte PDF a počkajte, kým sa načíta.",
-      "couldNotAccessTheStampedPdf": "Export PDF s pečiatkami nie je dostupný. Ako náhradu použite tlačidlo Export → PDF na paneli zobrazovača.",
-      "couldNotExportTheStampedPdf": "PDF s pečiatkami sa nepodarilo exportovať. Ako náhradu použite tlačidlo Export → PDF na paneli zobrazovača."
-    }
+    "saveButton": "Uložiť opečiatkované PDF"
   },
   "removeAnnotations": {
     "name": "Odstrániť anotácie",
-    "subtitle": "Odstrániť komentáre, zvýraznenia a odkazy.",
-    "loader": {
-      "removingAnnotations": "Odstraňujú sa anotácie..."
-    },
-    "alert": {
-      "annotationsRemovedSuccessfully": "Anotácie boli úspešne odstránené!",
-      "couldNotRemoveAnnotations": "Anotácie sa nepodarilo odstrániť."
-    },
-    "ui": {
-      "clickButtonBelowToRemove": "Kliknutím na tlačidlo nižšie odstránite všetky anotácie z vášho PDF."
-    }
+    "subtitle": "Odstrániť komentáre, zvýraznenia a odkazy."
   },
   "pdfFormFiller": {
     "name": "Vypĺňanie PDF formulárov",
     "subtitle": "Vyplňte formuláre priamo v prehliadači. Podporuje aj formuláre XFA.",
     "uploadHint": "Nahrajte PDF s formulárovými poľami. Vyplňte ich priamo v prehliadači nižšie, potom kliknite na tlačidlo pre uloženie a stiahnutie vyplneného formulára. Podporuje aj formuláre XFA.",
     "xfaNoteTitle": "Poznámka k formulárom XFA:",
-    "xfaNoteDescription": "XFA (XML Forms Architecture) je starší formát, ktorý podporujú len niektoré prehliadače PDF, napríklad BentoPDF a Firefox. Ak otvoríte XFA PDF v inom softvéri a uvidíte prázdne strany alebo žiadne formulárové polia, znamená to, že tento prehliadač nepodporuje XFA. Pre správne zobrazenie a vyplnenie XFA formulárov použite Firefox alebo Vypĺňanie formulárov v BentoPDF.",
-    "loader": {
-      "loadingPdfForm": "Načítava sa PDF formulár..."
-    },
-    "alert": {
-      "failedLoadPdfForm": "Prehliadač PDF formulárov sa nepodarilo načítať.",
-      "waitFormFinishLoading": "Počkajte, kým sa formulár načíta.",
-      "useDownloadButtonPdf": "Použite tlačidlo Stiahnuť v paneli nástrojov prehliadača PDF vyššie.",
-      "cannotAccessViewerControls": "Ovládacie prvky prehliadača nie sú dostupné. Použite tlačidlo Stiahnuť v paneli nástrojov prehliadača PDF vyššie."
-    },
-    "ui": {
-      "saveDownloadFilledForm": "Uložiť a stiahnuť vyplnený formulár"
-    }
+    "xfaNoteDescription": "XFA (XML Forms Architecture) je starší formát, ktorý podporujú len niektoré prehliadače PDF, napríklad BentoPDF a Firefox. Ak otvoríte XFA PDF v inom softvéri a uvidíte prázdne strany alebo žiadne formulárové polia, znamená to, že tento prehliadač nepodporuje XFA. Pre správne zobrazenie a vyplnenie XFA formulárov použite Firefox alebo Vypĺňanie formulárov v BentoPDF."
   },
   "createPdfForm": {
     "name": "Vytvoriť PDF formulár",
     "subtitle": "Vytvárajte vyplniteľné PDF formuláre s textovými poľami (drag-and-drop).",
     "orSeparator": "ALEBO",
-    "createBlankPdf": "Vytvoriť prázdne PDF",
-    "ui": {
-      "pageSize": "Veľkosť strany:",
-      "custom": "Vlastná",
-      "widthPts": "Šírka (pt)",
-      "heightPts": "Výška (pt)",
-      "inchPoints1": "1 palec = 72 bodov",
-      "startCreating": "Začať vytvárať",
-      "properties": "Vlastnosti",
-      "fieldCount": "Počet polí:",
-      "pressDeleteToRemoveSelected": "Vybrané pole odstránite klávesom Delete",
-      "goTo": "Prejsť na:",
-      "go": "Prejsť",
-      "grid": "Mriežka:",
-      "toggleGrid": "Zobraziť/skryť mriežku",
-      "addPage": "Pridať stranu",
-      "fields": "Polia:",
-      "textField": "Textové pole",
-      "checkbox": "Začiarkavacie políčko",
-      "radioButton": "Prepínač",
-      "radio": "Prepínač",
-      "dropdown": "Rozbaľovací zoznam",
-      "optionList": "Zoznam možností",
-      "list": "Zoznam",
-      "button": "Tlačidlo",
-      "signature": "Podpis",
-      "dateField": "Pole dátumu",
-      "date": "Dátum",
-      "imageField": "Pole obrázka",
-      "image": "Obrázok",
-      "barcodeField": "Pole čiarového kódu",
-      "barcode": "Čiarový kód",
-      "downloadPdfForm": "Stiahnuť PDF formulár",
-      "letter8511": "Letter (8,5\" × 11\")",
-      "a4210mm297mm": "A4 (210 mm × 297 mm)",
-      "a5148mm210mm": "A5 (148 mm × 210 mm)",
-      "legal8514": "Legal (8,5\" × 14\")",
-      "tabloid1117": "Tabloid (11\" × 17\")",
-      "a3297mm420mm": "A3 (297 mm × 420 mm)",
-      "selectAFieldToEditProperties": "Vyberte pole na úpravu vlastností",
-      "page1Of1": "Strana 1 z 1",
-      "anErrorOccurred": "Vyskytla sa chyba."
-    },
-    "msg": {
-      "pleaseEnterAValidPageNumber": "Zadajte platné číslo strany od 1 do {{count}}",
-      "item1": "Položka 1",
-      "fieldNameCannotBeEmpty": "Názov poľa nemôže byť prázdny",
-      "fieldNameConflict": "Konflikt názvov polí",
-      "theFollowingFieldNamesAlreadyExist": "Tieto názvy polí už v nahratom PDF existujú: {{conflictList}}. Pred stiahnutím tieto polia premenujte.",
-      "duplicateFieldNames": "Duplicitné názvy polí",
-      "theFollowingFieldNamesAreUsed": "Tieto názvy polí sú použité viackrát: {{duplicateList}}. Pred stiahnutím ich premenujte na jedinečné názvy.",
-      "pleaseAddAtLeastOneField": "Pred stiahnutím pridajte aspoň jedno pole.",
-      "noPagesFoundPleaseCreateA": "Nenašli sa žiadne strany. Vytvorte prázdne PDF alebo nejaké nahrajte.",
-      "yourPdfHasBeenDownloadedSuccessfully": "Vaše PDF bolo úspešne stiahnuté.",
-      "duplicateFieldName": "Duplicitný názov poľa",
-      "aFieldNamedAlreadyExistsPlease": "Pole s názvom „{{fieldName}}“ už existuje. Pred stiahnutím ho premenujte na jedinečný názov.",
-      "errorGeneratingPdf": "Chyba pri vytváraní PDF: {{errorMessage}}",
-      "pageOf": "Strana {{value}} z {{count}}",
-      "errorLoadingPdfFilePleaseTry": "Chyba pri načítaní PDF. Skúste to znova s platným PDF.",
-      "areYouSureYouWantTo": "Naozaj chcete všetko obnoviť? Celá vaša práca sa stratí.",
-      "fieldNameExistsInPdf": "Pole s názvom „{{name}}“ už v tomto PDF existuje. Použite jedinečný názov.",
-      "fieldNameExistsInForm": "Pole s názvom „{{name}}“ už v tomto formulári existuje. Použite jedinečný názov.",
-      "okay": "OK",
-      "signHere": "Podpíšte tu",
-      "invalidData": "Neplatné údaje",
-      "action": "Akcia",
-      "alignCenter": "Na stred",
-      "alignLeft": "Vľavo",
-      "alignRight": "Vpravo",
-      "alignment": "Zarovnanie",
-      "barcodeFormat": "Formát čiarového kódu",
-      "barcodeHintAnyData": "Ľubovoľný text, URL alebo údaje",
-      "barcodeHintCode128": "Znaky ASCII (písmená, číslice, symboly)",
-      "barcodeHintCode39": "Veľké písmená A-Z, číslice 0-9 a - . $ / + % MEDZERA",
-      "barcodeHintDigits": "Presne {{min}} alebo {{max}} číslic",
-      "barcodeValue": "Hodnota čiarového kódu",
-      "borderColor": "Farba okraja",
-      "browserNote": "Poznámka k prehliadaču:",
-      "browserNoteText": "Firefox a Chrome môžu počas výberu zobraziť formát vlastného výberu dátumu. Správny formát sa použije po dokončení zadávania dátumu.",
-      "checkedState": "Začiarknuté",
-      "clickToUploadImage": "Kliknutím nahrajte obrázok",
-      "customFormat": "Vlastný formát",
-      "customFormatPlaceholder": "napr. {{example}}",
-      "dateFormat": "Formát dátumu",
-      "deleteField": "Odstrániť pole",
-      "descriptionForScreenReaders": "Popis pre čítačky obrazovky",
-      "divideIntoBoxes": "Rozdeliť do políčok (0 = vypnuté)",
-      "exampleOfCurrentFormat": "Ukážka aktuálneho formátu:",
-      "existingRadioGroups": "Existujúce skupiny prepínačov",
-      "exportValue": "Exportovaná hodnota",
-      "fieldName": "Názov poľa",
-      "groupNameParenthesized": "(názov skupiny)",
-      "groupNameSameForGroup": "Názov skupiny (rovnaký pre celú skupinu)",
-      "hide": "Skryť",
-      "hideBorder": "Skryť okraj",
-      "imageFieldNote": "Kliknutím na toto pole v PDF sa otvorí výber súboru na nahratie obrázka.",
-      "javascriptCode": "Kód JavaScript",
-      "label": "Popis",
-      "labelPrompt": "Popis / výzva",
-      "maxLengthUnlimited": "Maximálna dĺžka (0 = bez obmedzenia)",
-      "multiLine": "Viacriadkové",
-      "none": "Žiadna",
-      "openUrl": "Otvoriť URL",
-      "optionN": "Možnosť {{num}}",
-      "optionsOnePerLine": "Možnosti (jedna na riadok alebo oddelené čiarkou)",
-      "printForm": "Vytlačiť formulár",
-      "readOnly": "Iba na čítanie",
-      "required": "Povinné",
-      "resetForm": "Vynulovať formulár",
-      "runJavascript": "Spustiť JavaScript",
-      "selectAField": "Vyberte pole...",
-      "selectExistingGroup": "-- Vyberte existujúcu skupinu --",
-      "selectToAddToExistingGroup": "Výberom pridáte tento prepínač do existujúcej skupiny",
-      "selectedOption": "Vybraná možnosť",
-      "show": "Zobraziť",
-      "showHideField": "Zobraziť/skryť pole",
-      "signatureFieldsNote": "Podpisové polia sú podpisové polia AcroForm a zobrazia sa len v pokročilom prehliadači PDF.",
-      "targetField": "Cieľové pole",
-      "textColor": "Farba textu",
-      "toggle": "Prepnúť",
-      "tooltipHelpText": "Popis / pomocný text",
-      "transparentBackground": "Priehľadné pozadie",
-      "useFormFillerForOptions": "Na skutočné vyplnenie alebo zmenu možností použite nástroj Vypĺňanie PDF formulárov.",
-      "value": "Hodnota",
-      "visibility": "Viditeľnosť"
-    }
+    "createBlankPdf": "Vytvoriť prázdne PDF"
   },
   "removeBlankPages": {
     "name": "Odstrániť prázdne strany",
     "subtitle": "Automaticky detegovať a odstrániť prázdne strany.",
-    "sensitivityHint": "Vyššia = prísnejšia, iba úplne prázdne strany. Nižšia = umožňuje strany s určitým obsahom.",
-    "loader": {
-      "detectingBlankPages": "Zisťujú sa prázdne strany..."
-    },
-    "alert": {
-      "info": "Informácia",
-      "noBlankPagesDetected": "V tomto PDF sa nenašli žiadne prázdne strany.",
-      "couldNotDetectBlank": "Prázdne strany sa nepodarilo zistiť.",
-      "noPagesSelectedRemoval": "Nie sú vybrané žiadne strany na odstránenie.",
-      "couldNotRemoveBlank": "Prázdne strany sa nepodarilo odstrániť."
-    },
-    "ui": {
-      "sensitivity": "Citlivosť:",
-      "detectBlankPages": "Zistiť prázdne strany",
-      "detectedBlankPages": "Zistené prázdne strany",
-      "removeSelectedBlankPages": "Odstrániť vybrané prázdne strany"
-    },
-    "msg": {
-      "foundBlankPageSClickOn": "Nájdené prázdne strany: {{count}}. Kliknutím na stranu zrušíte jej výber.",
-      "removingBlankPageS": "Odstraňujú sa prázdne strany: {{count}}...",
-      "removedBlankPageSSuccessfully": "Úspešne odstránené prázdne strany: {{count}}!",
-      "pageAlt": "Strana {{num}}"
-    }
+    "sensitivityHint": "Vyššia = prísnejšia, iba úplne prázdne strany. Nižšia = umožňuje strany s určitým obsahom."
   },
   "imageToPdf": {
     "name": "Obrázky do PDF",
-    "subtitle": "Previesť obrázky JPG, PNG, BMP, GIF, TIFF, PNM, PGM, PBM, PPM, PAM, JXR, JPX, JP2, PSD, SVG, HEIC, WebP do PDF.",
-    "alert": {
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len podporované formáty obrázkov.",
-      "selectLeastOneImage": "Vyberte aspoň jeden obrázok."
-    },
-    "loader": {
-      "processingImages": "Spracúvajú sa obrázky..."
-    },
-    "ui": {
-      "jpgPngBmpGifTiffPnm": "JPG, PNG, BMP, GIF, TIFF, PNM, PGM, PBM, PPM, PAM, JXR, JPX, JP2, PSD, SVG, HEIC, WebP"
-    }
+    "subtitle": "Previesť obrázky JPG, PNG, BMP, GIF, TIFF, PNM, PGM, PBM, PPM, PAM, JXR, JPX, JP2, PSD, SVG, HEIC, WebP do PDF."
   },
   "pngToPdf": {
     "name": "PNG do PDF",
-    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov PNG.",
-    "alert": {
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len obrázky PNG."
-    },
-    "msg": {
-      "couldNotLoadImage": "Súbor sa nepodarilo načítať ako obrázok. Môže byť poškodený."
-    }
+    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov PNG."
   },
   "webpToPdf": {
     "name": "WebP do PDF",
-    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov WebP.",
-    "alert": {
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len obrázky WebP."
-    },
-    "msg": {
-      "couldNotLoadImage": "Zadaný súbor sa nepodarilo načítať ako obrázok. Môže byť poškodený."
-    }
+    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov WebP."
   },
   "svgToPdf": {
     "name": "SVG do PDF",
-    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov SVG.",
-    "alert": {
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolená je len grafika SVG.",
-      "selectLeastOneSvg": "Vyberte aspoň jeden súbor SVG."
-    },
-    "loader": {
-      "creatingPdfFromSvg": "Vytvára sa PDF zo súborov SVG..."
-    },
-    "msg": {
-      "couldNotProcessTheFileMay": "„{{name}}“ sa nepodarilo spracovať. Súbor môže byť poškodený."
-    }
+    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov SVG."
   },
   "bmpToPdf": {
     "name": "BMP do PDF",
-    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov BMP.",
-    "alert": {
-      "selectLeastOneBmp": "Vyberte aspoň jeden súbor BMP.",
-      "failedConvertBmpPdf": "Nepodarilo sa skonvertovať BMP do PDF. Niektorý zo súborov môže byť neplatný.",
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len súbory BMP."
-    },
-    "loader": {
-      "convertingBmpPdf": "Konvertuje sa BMP do PDF..."
-    }
+    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov BMP."
   },
   "heicToPdf": {
     "name": "HEIC do PDF",
-    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov HEIC.",
-    "alert": {
-      "selectLeastOneHeic": "Vyberte aspoň jeden súbor HEIC.",
-      "failedConvertHeicPdf": "Nepodarilo sa skonvertovať HEIC do PDF. Niektorý zo súborov môže byť neplatný.",
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len súbory HEIC/HEIF."
-    },
-    "loader": {
-      "convertingHeicPdf": "Konvertuje sa HEIC do PDF..."
-    }
+    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov HEIC."
   },
   "tiffToPdf": {
     "name": "TIFF do PDF",
-    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov TIFF.",
-    "alert": {
-      "selectLeastOneTiff": "Vyberte aspoň jeden súbor TIFF.",
-      "failedConvertTiffPdf": "Nepodarilo sa skonvertovať TIFF do PDF. Niektorý zo súborov môže byť neplatný.",
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len súbory TIFF."
-    },
-    "loader": {
-      "convertingTiffPdf": "Konvertuje sa TIFF do PDF..."
-    }
+    "subtitle": "Vytvoriť PDF z jedného alebo viacerých obrázkov TIFF."
   },
   "textToPdf": {
     "name": "Text do PDF",
@@ -1400,66 +414,7 @@
     "textColor": "Farba textu",
     "pageSize": "Veľkosť strany",
     "rtlAutoDetectNote": "Jazyky sprava doľava (RTL, napr. arabčina, urdčina, perzština atď.) sú automaticky detegované a smer textu sa prispôsobí.",
-    "createButton": "Vytvoriť PDF",
-    "alert": {
-      "selectLeastOneText": "Vyberte aspoň jeden textový súbor.",
-      "noText": "Žiadny text",
-      "enterSomeTextConvert": "Zadajte text na konverziu.",
-      "textConvertedPdfSuccessfully": "Text bol úspešne skonvertovaný do PDF!",
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len textové súbory."
-    },
-    "loader": {
-      "creatingPdf": "Vytvára sa PDF..."
-    },
-    "ui": {
-      "startTypingHerePlaceholder": "Začnite písať...",
-      "helveticaSansSerif": "Helvetica (bezpätkové)",
-      "tiroSerif": "Tiro (pätkové)",
-      "courierMonospace": "Courier (neproporcionálne)",
-      "timesSerif": "Times (pätkové)",
-      "a08411189Mm": "A0 (841 × 1189 mm)",
-      "a1594841Mm": "A1 (594 × 841 mm)",
-      "a2420594Mm": "A2 (420 × 594 mm)",
-      "a6105148Mm": "A6 (105 × 148 mm)",
-      "a774105Mm": "A7 (74 × 105 mm)",
-      "a85274Mm": "A8 (52 × 74 mm)",
-      "a93752Mm": "A9 (37 × 52 mm)",
-      "a102637Mm": "A10 (26 × 37 mm)",
-      "b010001414Mm": "B0 (1000 × 1414 mm)",
-      "b17071000Mm": "B1 (707 × 1000 mm)",
-      "b2500707Mm": "B2 (500 × 707 mm)",
-      "b3353500Mm": "B3 (353 × 500 mm)",
-      "b4250353Mm": "B4 (250 × 353 mm)",
-      "b5176250Mm": "B5 (176 × 250 mm)",
-      "b6125176Mm": "B6 (125 × 176 mm)",
-      "b788125Mm": "B7 (88 × 125 mm)",
-      "b86288Mm": "B8 (62 × 88 mm)",
-      "b94462Mm": "B9 (44 × 62 mm)",
-      "b103144Mm": "B10 (31 × 44 mm)",
-      "c09171297Mm": "C0 (917 × 1297 mm)",
-      "c1648917Mm": "C1 (648 × 917 mm)",
-      "c2458648Mm": "C2 (458 × 648 mm)",
-      "c3324458Mm": "C3 (324 × 458 mm)",
-      "c4229324Mm": "C4 (229 × 324 mm)",
-      "c5162229Mm": "C5 (162 × 229 mm)",
-      "c6114162Mm": "C6 (114 × 162 mm)",
-      "c781114Mm": "C7 (81 × 114 mm)",
-      "c85781Mm": "C8 (57 × 81 mm)",
-      "c94057Mm": "C9 (40 × 57 mm)",
-      "c102840Mm": "C10 (28 × 40 mm)",
-      "letter8511In": "Letter (8,5 × 11 in)",
-      "legal8514In": "Legal (8,5 × 14 in)",
-      "tabloid1117In": "Tabloid (11 × 17 in)",
-      "ledger1711In": "Ledger (17 × 11 in)",
-      "t11171117In": "11×17 (11 × 17 in)",
-      "groupIsoASeries": "Rad ISO A",
-      "groupIsoBSeries": "Rad ISO B",
-      "groupIsoCSeriesEnvelopes": "Rad ISO C (obálky)",
-      "groupNorthAmerican": "Severoamerické"
-    },
-    "msg": {
-      "failedToConvertTextToPdf": "Text sa nepodarilo skonvertovať do PDF. {{value}}"
-    }
+    "createButton": "Vytvoriť PDF"
   },
   "jsonToPdf": {
     "name": "JSON do PDF",
@@ -1495,15 +450,6 @@
     },
     "loader": {
       "converting": "Konvertovanie do JPG..."
-    },
-    "ui": {
-      "selectThePdfFileYouWant": "Vyberte PDF súbor, ktorý chcete konvertovať na obrázky",
-      "chooseQuality": "Zvoliť kvalitu",
-      "selectImageQualityLowMediumHigh": "Vyberte kvalitu obrázkov (nízka, stredná, vysoká, maximálna)",
-      "selectPages": "Vybrať strany",
-      "convertAllPagesOrChooseSpecific": "Konvertujte všetky strany alebo vyberte konkrétne strany na extrakciu",
-      "downloadImages": "Stiahnuť obrázky",
-      "saveJpgImagesIndividuallyOrAs": "Uložte obrázky JPG jednotlivo alebo ako archív ZIP"
     }
   },
   "pdfToPng": {
@@ -1573,18 +519,7 @@
       "noFileExplanation": "Najskôr nahrajte PDF súbor.",
       "conversionSuccess": "PDF bolo úspešne skonvertované do TIFF!",
       "conversionError": "Nepodarilo sa skonvertovať PDF do TIFF. Súbor môže byť poškodený.",
-      "conversionOutOfMemory": "Prehliadaču došla pamäť počas konverzie. Skúste nižšie DPI alebo vypnite možnosť viacstranového TIFF, aby sa strany konvertovali po jednej.",
-      "failedLoadImageProcessor": "Nástroj na spracovanie obrázkov sa nepodarilo načítať. Skontrolujte, či váš prehliadač podporuje SharedArrayBuffer (vyžaduje HTTPS alebo localhost)."
-    },
-    "ui": {
-      "lzwLossless": "LZW (bezstratová)",
-      "deflateZipLossless": "Deflate / ZIP (bezstratová)",
-      "ccittGroupDocuments": "CCITT Group 4 (čiernobiele dokumenty)",
-      "jpegLossy": "JPEG (stratová)",
-      "noneUncompressed": "Žiadna (bez kompresie)",
-      "colorRgb": "Farebne (RGB)",
-      "greyscale": "V odtieňoch sivej",
-      "blackWhiteBit": "Čiernobielo (1 bit)"
+      "conversionOutOfMemory": "Prehliadaču počas konverzie došla pamäť. Skúste nižšie DPI alebo zrušte možnosť viacstranového TIFF a konvertujte strany po jednej."
     }
   },
   "pdfToCbz": {
@@ -1615,37 +550,11 @@
       "noFileExplanation": "Najskôr nahrajte PDF súbor.",
       "conversionSuccess": "PDF bolo úspešne skonvertované do CBZ!",
       "conversionError": "Nepodarilo sa skonvertovať PDF do CBZ. Súbor môže byť poškodený."
-    },
-    "ui": {
-      "autoDetectedFilenamePlaceholder": "Automaticky zistené z názvu súboru",
-      "actionAdventureSciFiPlaceholder": "akčný, dobrodružný, sci-fi",
-      "selectThePdfYouWantTo": "Vyberte PDF, ktoré chcete konvertovať na komiksový archív",
-      "chooseSettings": "Zvoliť nastavenia",
-      "pickImageFormatQualityAndOptional": "Vyberte formát obrázkov, kvalitu a voliteľné metadáta",
-      "downloadCbz": "Stiahnuť CBZ",
-      "getYourCbzFileReadyFor": "Súbor .cbz pripravený pre akúkoľvek čítačku komiksov"
-    },
-    "msg": {
-      "pdfHasNoPages": "PDF nemá žiadne strany",
-      "yearRange": "Rok musí byť v rozsahu 1900 až 2100",
-      "ratingRange": "Hodnotenie musí byť v rozsahu 0 až 5",
-      "positiveNumber": "Musí to byť kladné číslo",
-      "positiveInteger": "Musí to byť kladné celé číslo"
     }
   },
   "pdfToGreyscale": {
     "name": "PDF do odtieňov sivej",
-    "subtitle": "Previesť všetky farby na čiernu a bielu.",
-    "loader": {
-      "convertingGreyscale": "Konvertuje sa do odtieňov sivej..."
-    },
-    "alert": {
-      "pdfConvertedGreyscaleSuccessfully": "PDF bolo úspešne skonvertované do odtieňov sivej!",
-      "failedConvertPdfGreyscale": "Nepodarilo sa skonvertovať PDF do odtieňov sivej. Súbor môže byť poškodený."
-    },
-    "ui": {
-      "convertToGreyscale": "Previesť do odtieňov sivej"
-    }
+    "subtitle": "Previesť všetky farby na čiernu a bielu."
   },
   "pdfToJson": {
     "name": "PDF do JSON",
@@ -1721,28 +630,9 @@
   },
   "alternateMerge": {
     "name": "Striedavo spojiť a zmiešať strany",
-    "subtitle": "Zlúčiť PDF striedaním strán z každého PDF. Zachováva záložky.",
+    "subtitle": "Spojiť PDF striedaním strán z každého PDF. Zachováva záložky.",
     "retainPageLabels": "Zachovať pôvodné označenia strán z každého súboru",
-    "retainPageLabelsHint": "Vypnuté (predvolené): spojené PDF používa prirodzené číslovanie strán 1–N. Zapnuté: zachovajú sa pôvodné označenia strán každého súboru (môže produkovať duplicitné označenia).",
-    "loader": {
-      "loadingPdfFiles": "Načítavajú sa PDF súbory...",
-      "alternatingMixingPages": "Strany sa striedajú a miešajú..."
-    },
-    "alert": {
-      "notEnoughFiles": "Málo súborov",
-      "uploadLeastTwoPdf": "Nahrajte aspoň dva PDF súbory na striedanie a zmiešanie.",
-      "leastTwoValidPdfs": "Sú potrebné aspoň dva platné PDF súbory.",
-      "pdfsHaveBeenMixed": "PDF súbory boli úspešne zmiešané!"
-    },
-    "ui": {
-      "filesOrder": "Poradie súborov",
-      "dragToReorderPagesInterleaved": "Potiahnutím zmeníte poradie. Strany sa budú striedať v tomto poradí.",
-      "mixPages": "Zmiešať strany"
-    },
-    "msg": {
-      "pdfFilesSelected": "Vybrané PDF súbory: {{count}}",
-      "errorMixingPdfs": "Pri striedavom spájaní PDF súborov sa vyskytla chyba."
-    }
+    "retainPageLabelsHint": "Vypnuté (predvolené): spojené PDF používa prirodzené číslovanie strán 1–N. Zapnuté: zachovajú sa pôvodné označenia strán každého súboru (môže produkovať duplicitné označenia)."
   },
   "duplexCollate": {
     "name": "Usporiadať obojstranné skenovanie",
@@ -1791,317 +681,55 @@
   },
   "addAttachments": {
     "name": "Pridať prílohy",
-    "subtitle": "Vložiť jeden alebo viac súborov do vášho PDF.",
-    "alert": {
-      "selectLeastOneFile": "Vyberte aspoň jeden súbor na priloženie.",
-      "specifyPageRangePage": "Zadajte rozsah strán pre prílohy na úrovni strán."
-    },
-    "loader": {
-      "embeddingFilesIntoPdf": "Vkladajú sa súbory do PDF...",
-      "attachingFilesPdf": "Prikladajú sa súbory k PDF..."
-    },
-    "ui": {
-      "selectFilesToAttach": "Vyberte súbory na priloženie",
-      "clickDropFilesToAttach": "Kliknite alebo sem pretiahnite súbory na priloženie",
-      "anyFileType": "Ľubovoľný typ súboru",
-      "attachmentLevel": "Úroveň prílohy",
-      "documentLevel": "Na úrovni dokumentu",
-      "pageLevel": "Na úrovni strany",
-      "pageRangeTotal": "Rozsah strán (napr. 1,3,5-7) – spolu:",
-      "pages": "str."
-    },
-    "msg": {
-      "fileSAttachedSuccessfully": "Úspešne priložené súbory: {{count}}.",
-      "loading": "{{value}} • Načítava sa...",
-      "reading": "Číta sa {{name}} ({{value}}/{{count}})...",
-      "failedToAttachFiles": "Súbory sa nepodarilo priložiť: {{value}}"
-    }
+    "subtitle": "Vložiť jeden alebo viac súborov do vášho PDF."
   },
   "extractAttachments": {
     "name": "Extrahovať prílohy",
-    "subtitle": "Extrahovať všetky vložené súbory z PDF do ZIP.",
-    "alert": {
-      "noAttachments": "Žiadne prílohy",
-      "pdfFileSDo": "Vybrané PDF súbory neobsahujú žiadne prílohy na extrahovanie."
-    },
-    "loader": {
-      "readingFiles": "Čítajú sa súbory..."
-    },
-    "msg": {
-      "attachmentSExtractedSuccessfully": "Úspešne extrahované prílohy: {{count}}!",
-      "extractionCompletedAttachmentSInZip": "Extrakcia dokončená! Prílohy v súbore ZIP: {{count}} ({{value}}). Sťahovanie sa začalo.",
-      "pdfFileSSelected": "Vybrané PDF súbory: {{count}}",
-      "extractingAttachmentsFromFileS": "Extrahujú sa prílohy zo súborov: {{count}}...",
-      "errorReadingFiles": "Chyba pri čítaní súborov: {{error}}",
-      "unknownWorkerError": "Vo worker procese sa vyskytla neznáma chyba."
-    }
+    "subtitle": "Extrahovať všetky vložené súbory z PDF do ZIP."
   },
   "editAttachments": {
     "name": "Upraviť prílohy",
-    "subtitle": "Zobraziť alebo odstrániť prílohy vo vašom PDF.",
-    "alert": {
-      "attachmentsUpdatedSuccessfully": "Prílohy boli úspešne aktualizované!",
-      "failedLoadAttachmentsFrom": "Prílohy sa nepodarilo načítať z PDF.",
-      "noPdfFileLoaded": "Nie je načítaný žiadny PDF súbor.",
-      "noAttachmentsSelectedRemoval": "Nie sú vybrané žiadne prílohy na odstránenie.",
-      "failedEditAttachments": "Prílohy sa nepodarilo upraviť."
-    },
-    "loader": {
-      "loadingAttachments": "Načítavajú sa prílohy...",
-      "processingAttachments": "Spracúvajú sa prílohy..."
-    },
-    "ui": {
-      "attachments": "Prílohy",
-      "saveChanges": "Uložiť zmeny"
-    },
-    "msg": {
-      "noAttachmentsFoundInThisPdf": "V tomto PDF sa nenašli žiadne prílohy.",
-      "removeAllAttachments": "Odstrániť všetky prílohy",
-      "documentLevelAttachment": "Príloha dokumentu",
-      "pageAttachment": "Príloha na strane {{page}}",
-      "removeAttachment": "Odstrániť prílohu"
-    }
+    "subtitle": "Zobraziť alebo odstrániť prílohy vo vašom PDF."
   },
   "dividePages": {
     "name": "Rozdeliť strany",
-    "subtitle": "Rozdeliť strany horizontálne alebo vertikálne.",
-    "alert": {
-      "invalidRange": "Neplatný rozsah",
-      "enterValidPageRange": "Zadajte platný rozsah strán (napr. 1-5, 8, 11-13).",
-      "pagesHaveBeenDivided": "Strany boli úspešne rozdelené!",
-      "errorOccurredWhileDividing": "Pri rozdeľovaní PDF nastala chyba."
-    },
-    "loader": {
-      "splittingPdfPages": "Rozdeľujú sa strany PDF..."
-    },
-    "ui": {
-      "vertical": "Zvislo:",
-      "splitEachPageIntoLeft": "Rozdelí každú stranu na ľavú a pravú polovicu.",
-      "horizontal": "Vodorovne:",
-      "splitEachPageIntoTop": "Rozdelí každú stranu na hornú a dolnú polovicu.",
-      "specifyWhichPagesToDivide": "Zadajte, ktoré strany sa majú rozdeliť. Ostatné strany zostanú bez zmeny.",
-      "leaveBlankUseAllTo": "Ak chcete rozdeliť všetky strany, nechajte pole prázdne alebo zadajte „all“.",
-      "pagesToDivide": "Strany na rozdelenie",
-      "leaveBlankAllPagesPlaceholder": "napr. 1-5, 8, 11-13 (prázdne = všetky strany)",
-      "enterPageNumbersSeparatedCommas": "Zadajte čísla strán oddelené čiarkami alebo rozsahy so spojovníkom.",
-      "splitDirection": "Smer rozdelenia",
-      "verticalLeftRight": "Zvislo (vľavo a vpravo)",
-      "horizontalTopBottom": "Vodorovne (hore a dole)"
-    },
-    "msg": {
-      "loading": "{{value}} • Načítava sa...",
-      "processingPageOf": "Spracúva sa strana {{pageNum}} z {{count}}..."
-    }
+    "subtitle": "Rozdeliť strany horizontálne alebo vertikálne."
   },
   "addBlankPage": {
     "name": "Pridať prázdnu stranu",
-    "subtitle": "Vložiť prázdnu stranu kdekoľvek do vášho PDF.",
-    "alert": {
-      "invalidInput": "Neplatný vstup",
-      "enterValidNumberPages": "Zadajte platný počet strán (1 alebo viac)."
-    },
-    "ui": {
-      "specifyPositionWhereBlankPages": "Zadajte pozíciu, na ktorú sa majú vložiť prázdne strany.",
-      "positionInsertsBeginningPositionEqual": "Pozícia 0 vloží strany na začiatok, pozícia rovná počtu strán ich vloží na koniec.",
-      "blankPagesMatchSizeFirst": "Prázdne strany budú mať rovnakú veľkosť ako prvá strana dokumentu.",
-      "insertAfterPage": "Vložiť za stranu",
-      "numberBlankPages": "Počet prázdnych strán",
-      "addBlankPages": "Pridať prázdne strany",
-      "enter0ToInsertAtThe": "Zadajte 0 pre vloženie na začiatok."
-    },
-    "msg": {
-      "loading": "{{value}} • Načítava sa...",
-      "enter0ToInsertAtThe": "Zadajte 0 pre vloženie na začiatok alebo {{pageCount}} pre vloženie na koniec.",
-      "pleaseEnterANumberBetween0": "Zadajte číslo od 0 do {{totalPages}}.",
-      "adding_one": "Pridáva sa {{count}} prázdna strana...",
-      "adding_few": "Pridávajú sa {{count}} prázdne strany...",
-      "adding_many": "Pridáva sa {{count}} prázdnej strany...",
-      "adding_other": "Pridáva sa {{count}} prázdnych strán...",
-      "added_one": "Úspešne pridaná {{count}} prázdna strana!",
-      "added_few": "Úspešne pridané {{count}} prázdne strany!",
-      "added_many": "Úspešne pridanej {{count}} prázdnej strany!",
-      "added_other": "Úspešne pridaných {{count}} prázdnych strán!",
-      "couldNotAdd_one": "Prázdnu stranu sa nepodarilo pridať.",
-      "couldNotAdd_few": "Prázdne strany sa nepodarilo pridať.",
-      "couldNotAdd_many": "Prázdne strany sa nepodarilo pridať.",
-      "couldNotAdd_other": "Prázdne strany sa nepodarilo pridať."
-    }
+    "subtitle": "Vložiť prázdnu stranu kdekoľvek do vášho PDF."
   },
   "reversePages": {
     "name": "Obrátiť poradie strán",
-    "subtitle": "Obrátiť poradie všetkých strán vo vašom dokumente.",
-    "loader": {
-      "reversingPageOrder": "Obracia sa poradie strán..."
-    },
-    "alert": {
-      "pagesHaveBeenReversed": "Poradie strán bolo úspešne obrátené!",
-      "couldNotReversePdf": "Strany PDF sa nepodarilo obrátiť. Skontrolujte, či sú súbory platné PDF."
-    },
-    "ui": {
-      "allPagesReversedFirstBecomes": "Poradie všetkých strán sa obráti (prvá bude posledná, posledná prvá).",
-      "ifUploadMultiplePdfsEach": "Ak nahráte viacero PDF, každé sa obráti a všetky sa stiahnu ako súbor ZIP."
-    },
-    "msg": {
-      "reversing": "Obracia sa poradie v {{name}} ({{value}}/{{count}})..."
-    }
+    "subtitle": "Obrátiť poradie všetkých strán vo vašom dokumente."
   },
   "rotatePdf": {
     "name": "Otočiť PDF",
-    "subtitle": "Otáčať strany v 90-stupňových intervaloch.",
-    "ui": {
-      "batchActions": "Hromadné akcie",
-      "left": "Doľava",
-      "right": "Doprava",
-      "applyRotations": "Použiť otočenia"
-    },
-    "msg": {
-      "loading": "{{value}} • Načítava sa..."
-    }
+    "subtitle": "Otáčať strany v 90-stupňových intervaloch."
   },
   "rotateCustom": {
     "name": "Otočiť o vlastné stupne",
-    "subtitle": "Otočiť strany o akýkoľvek vlastný uhol.",
-    "ui": {
-      "batchRotation": "Hromadné otočenie",
-      "applyToAll": "Použiť na všetky",
-      "applyRotations": "Použiť otočenia"
-    },
-    "msg": {
-      "loading": "{{value}} • Načítava sa..."
-    }
+    "subtitle": "Otočiť strany o akýkoľvek vlastný uhol."
   },
   "nUpPdf": {
     "name": "N-Up PDF",
-    "subtitle": "Usporiadať viacero strán na jeden list.",
-    "loader": {
-      "creatingNUpPdf": "Vytvára sa PDF N-Up..."
-    },
-    "alert": {
-      "nUpPdfCreated": "PDF N-Up bolo úspešne vytvorené!",
-      "errorOccurredWhileCreating": "Pri vytváraní PDF N-Up nastala chyba."
-    },
-    "ui": {
-      "chooseHowManyPagesTo": "Zvoľte, koľko strán sa má zmestiť na každý list (2, 4, 9 alebo 16).",
-      "selectOutputPageSizeOrientation": "Vyberte veľkosť a orientáciu výstupných strán.",
-      "optionallyAddMarginsBordersAround": "Voliteľne pridajte okolo každej strany okraje a rámik.",
-      "pagesPerSheet": "Strán na list",
-      "up1x2": "2 na list (1×2)",
-      "up2x4": "4 na list (2×2)",
-      "up3x9": "9 na list (3×3)",
-      "up4x16": "16 na list (4×4)",
-      "outputPageSize": "Veľkosť výstupnej strany",
-      "auto": "Automaticky",
-      "addMargins": "Pridať okraje",
-      "addBorder": "Pridať rámik",
-      "borderColor": "Farba rámika",
-      "createUpPdf": "Vytvoriť PDF N-Up",
-      "letter85X11": "Letter (8,5\" × 11\")"
-    },
-    "msg": {
-      "loading": "{{value}} • Načítava sa...",
-      "processingSheet": "Spracúva sa hárok {{value}}..."
-    }
+    "subtitle": "Usporiadať viacero strán na jeden list."
   },
   "combineToSinglePage": {
     "name": "Spojiť do jednej strany",
-    "subtitle": "Zošijte všetky strany do jedného súvislého posúvania.",
-    "loader": {
-      "combiningPages": "Spájajú sa strany..."
-    },
-    "alert": {
-      "pagesCombinedSuccessfully": "Strany boli úspešne spojené!",
-      "errorOccurredWhileCombining": "Pri spájaní strán nastala chyba."
-    },
-    "ui": {
-      "layoutDirection": "Smer rozloženia",
-      "verticalTopToBottom": "Zvislo (zhora nadol)",
-      "horizontalLeftToRight": "Vodorovne (zľava doprava)",
-      "spacingPixels": "Medzera (px)",
-      "addSeparatorLines": "Pridať deliace čiary",
-      "separatorThickness": "Hrúbka deliacej čiary",
-      "separatorColor": "Farba deliacej čiary",
-      "combinePages": "Spojiť strany"
-    },
-    "msg": {
-      "loading": "{{value}} • Načítava sa...",
-      "processingPageOf": "Spracúva sa strana {{value}} z {{count}}..."
-    }
+    "subtitle": "Zošijte všetky strany do jedného súvislého posúvania."
   },
   "viewMetadata": {
     "name": "Zobraziť metadáta",
-    "subtitle": "Skontrolujte skryté vlastnosti vášho PDF.",
-    "alert": {
-      "copied": "Skopírované",
-      "metadataCopiedClipboardAs": "Metadáta boli skopírované do schránky ako JSON.",
-      "failedCopyMetadataClipboard": "Metadáta sa nepodarilo skopírovať do schránky."
-    },
-    "ui": {
-      "documentMetadata": "Metadáta dokumentu",
-      "copyMetadataJson": "Kopírovať metadáta ako JSON"
-    },
-    "msg": {
-      "noInfoDictionaryDataFound": "- Nenašli sa žiadne údaje slovníka Info -",
-      "noInteractiveFormFieldsFound": "- Nenašli sa žiadne interaktívne polia formulára -",
-      "noParseableXmpPropertiesFound": "- Nenašli sa žiadne čitateľné vlastnosti XMP -",
-      "errorParsingXmpXmlDisplayingRaw": "- Chyba pri čítaní XMP XML. Zobrazuje sa nespracované. -",
-      "noXmpMetadataFound": "- Nenašli sa žiadne metadáta XMP -",
-      "altContainer": "(alternatívny kontajner)",
-      "emptyResource": "(Prázdny zdroj)",
-      "infoDictionary": "Informačný slovník",
-      "interactiveFormFields": "Interaktívne polia formulára",
-      "notSet": "- Nenastavené -",
-      "xmpMetadata": "Metadáta XMP"
-    }
+    "subtitle": "Skontrolujte skryté vlastnosti vášho PDF."
   },
   "editMetadata": {
     "name": "Upraviť metadáta",
-    "subtitle": "Zmeniť autora, názov a ďalšie vlastnosti.",
-    "loader": {
-      "updatingMetadata": "Aktualizujú sa metadáta..."
-    },
-    "alert": {
-      "metadataUpdatedSuccessfully": "Metadáta boli úspešne aktualizované!",
-      "couldNotUpdateMetadata": "Metadáta sa nepodarilo aktualizovať. Skontrolujte, či sú formáty dátumov správne."
-    },
-    "ui": {
-      "title": "Názov",
-      "author": "Autor",
-      "subject": "Predmet",
-      "keywordsCommaSeparated": "Kľúčové slová (oddelené čiarkou)",
-      "creator": "Aplikácia",
-      "producer": "Tvorca PDF",
-      "creationDate": "Dátum vytvorenia",
-      "modificationDate": "Dátum úpravy",
-      "customFields": "Vlastné polia",
-      "noteCustomFieldsNotSupported": "Poznámka: Vlastné polia nepodporujú všetky čítačky PDF.",
-      "addCustomField": "Pridať vlastné pole",
-      "saveMetadata": "Uložiť metadáta"
-    },
-    "msg": {
-      "keyEGDepartment": "Kľúč (napr. Oddelenie)",
-      "valueEGMarketing": "Hodnota (napr. Marketing)",
-      "loading": "{{value}} • Načítava sa..."
-    }
+    "subtitle": "Zmeniť autora, názov a ďalšie vlastnosti."
   },
   "pdfsToZip": {
     "name": "PDF do ZIP",
-    "subtitle": "Zabaliť viacero PDF súborov do archívu ZIP.",
-    "alert": {
-      "selectPdfFilesCreate": "Vyberte PDF súbory na vytvorenie ZIP archívu.",
-      "zipArchiveCreatedSuccessfully": "ZIP archív bol úspešne vytvorený!",
-      "couldNotCreateZip": "ZIP archív sa nepodarilo vytvoriť."
-    },
-    "loader": {
-      "generatingZipFile": "Generuje sa ZIP súbor..."
-    },
-    "ui": {
-      "allSelectedPdfFilesPackaged": "Všetky vybrané PDF súbory sa zabalia do jedného archívu ZIP.",
-      "fileNamesPreservedInArchive": "Názvy súborov v archíve zostanú zachované.",
-      "createZipArchive": "Vytvoriť archív ZIP"
-    },
-    "msg": {
-      "adding": "Pridáva sa {{name}} ({{value}}/{{count}})..."
-    }
+    "subtitle": "Zabaliť viacero PDF súborov do archívu ZIP."
   },
   "comparePdfs": {
     "name": "Porovnať PDF",
@@ -2114,7 +742,7 @@
     "sideBySide": "Vedľa seba",
     "flicker": "Blikanie",
     "syncScroll": "Synchrónne posúvanie",
-    "export": "Exportovať",
+    "export": "Export",
     "exportAsPdf": "Exportovať ako PDF",
     "splitView": "Rozdelené zobrazenie",
     "alternating": "Striedavo",
@@ -2145,217 +773,31 @@
     "loadingFile": "Načítavanie {{name}}...",
     "invalidFile": "Neplatný súbor",
     "invalidFileMsg": "Vyberte platný súbor PDF.",
-    "loadError": "Nepodarilo sa načítať PDF. Môže byť poškodené alebo chránené heslom.",
-    "ui": {
-      "zoomOut": "Oddialiť",
-      "zoomIn": "Priblížiť",
-      "resetZoomToFit": "Obnoviť priblíženie na celú stranu",
-      "allChanges": "Všetky zmeny",
-      "contentOnly": "Len obsah",
-      "overlayView": "Zobrazenie s prekrytím",
-      "changeType": "Typ zmeny",
-      "moved": "Presunuté",
-      "style": "Štýl",
-      "content": "Obsah",
-      "images": "Obrázky",
-      "headers": "Hlavičky",
-      "annotations": "Anotácie",
-      "formatting": "Formátovanie",
-      "backgrounds": "Pozadia"
-    },
-    "msg": {
-      "indexingPdf1PageOf": "Indexuje sa PDF 1, strana {{pageNumber}} z {{totalPages}}...",
-      "indexingPdf2PageOf": "Indexuje sa PDF 2, strana {{pageNumber}} z {{totalPages}}...",
-      "replacedText": "„{{before}}“ nahradené textom „{{after}}“",
-      "removedText": "Odstránené „{{text}}“",
-      "addedText": "Pridané „{{text}}“",
-      "movedText": "Presunuté „{{text}}“",
-      "styleChanged_one": "Zmenený štýl ({{count}} oblasť)",
-      "styleChanged_few": "Zmenený štýl ({{count}} oblasti)",
-      "styleChanged_many": "Zmenený štýl ({{count}} oblasti)",
-      "styleChanged_other": "Zmenený štýl ({{count}} oblastí)",
-      "fontChange": "Písmo: {{before}} → {{after}}",
-      "fontSizeChange": "Veľkosť písma: {{before}} → {{after}}",
-      "pageOnlyInFirst": "Strana {{page}} existuje iba v prvom PDF.",
-      "pageOnlyInSecond": "Strana {{page}} existuje iba v druhom PDF.",
-      "modifiedLabel": "Upravené",
-      "styleChangedLabel": "Zmenený štýl",
-      "pageAdded": "Pridaná strana",
-      "pageRemoved": "Odstránená strana"
-    }
+    "loadError": "Nepodarilo sa načítať PDF. Môže byť poškodené alebo chránené heslom."
   },
   "posterizePdf": {
     "name": "Vytvoriť plagát z PDF",
-    "subtitle": "Rozdeliť veľkú stranu na viacero menších strán.",
-    "loader": {
-      "posterizingPdf": "Vytvára sa plagát z PDF..."
-    },
-    "alert": {
-      "pdfHasBeenPosterized": "PDF bolo rozdelené na plagát.",
-      "couldNotPosterizePdf": "Plagát z PDF sa nepodarilo vytvoriť."
-    },
-    "ui": {
-      "pagePreview": "Náhľad strany",
-      "gridLayout": "Rozloženie mriežky",
-      "rows": "Riadky",
-      "columns": "Stĺpce",
-      "outputPageSettings": "Nastavenia výstupnej strany",
-      "pageSize": "Veľkosť strany",
-      "automaticRecommended": "Automaticky (odporúčané)",
-      "advancedOptions": "Rozšírené možnosti",
-      "contentScaling": "Prispôsobenie obsahu",
-      "preservesAllContentMayAdd": "Zachová celý obsah, môže pridať okraje.",
-      "fillCrop": "Vyplniť (orezať)",
-      "fillsPageMayCropContent": "Vyplní stranu, môže orezať obsah.",
-      "overlapAssembly": "Prekrytie (na zostavenie)",
-      "points": "Body",
-      "inches": "Palce",
-      "pageRangeOptional": "Rozsah strán (voliteľné)",
-      "pageRangePlaceholder": "napr. 1-3, 5",
-      "totalPages": "Počet strán:",
-      "letter": "Letter",
-      "mm": "mm"
-    }
+    "subtitle": "Rozdeliť veľkú stranu na viacero menších strán."
   },
   "fixPageSize": {
     "name": "Zjednotiť veľkosť strán",
-    "subtitle": "Štandardizovať všetky strany na jednotnú veľkosť.",
-    "alert": {
-      "pageSizesStandardizedSuccessfully": "Veľkosti strán boli úspešne zjednotené!",
-      "errorOccurredWhileStandardizing": "Pri zjednocovaní strán nastala chyba."
-    },
-    "ui": {
-      "targetPageSize": "Cieľová veľkosť strany",
-      "custom": "Vlastná...",
-      "width": "Šírka",
-      "height": "Výška",
-      "units": "Jednotky",
-      "inches": "Palce",
-      "millimeters": "Milimetre",
-      "autoKeepOriginal": "Automaticky (zachovať pôvodnú)",
-      "contentScaling": "Prispôsobenie obsahu",
-      "preservesAllContentMayAdd": "Zachová celý obsah, môže pridať okraje.",
-      "fillCrop": "Vyplniť (orezať)",
-      "fillsPageMayCropContent": "Vyplní stranu, môže orezať obsah.",
-      "colorMarginsPadding": "Farba okrajov",
-      "letter8511In": "Letter (8,5 × 11 in)",
-      "legal8514In": "Legal (8,5 × 14 in)",
-      "tabloid1117In": "Tabloid (11 × 17 in)"
-    },
-    "msg": {
-      "standardizingPages": "Zjednocujú sa strany..."
-    }
+    "subtitle": "Štandardizovať všetky strany na jednotnú veľkosť."
   },
   "linearizePdf": {
     "name": "Linearizovať PDF",
-    "subtitle": "Optimalizovať PDF pre rýchle prehliadanie na webe.",
-    "alert": {
-      "noPdfFiles": "Žiadne PDF súbory",
-      "linearizationFailed": "Linearizácia zlyhala"
-    },
-    "ui": {
-      "whatLinearization": "Čo je linearizácia?",
-      "optimizesPdfStructureWebViewing": "Optimalizuje štruktúru PDF na zobrazenie na webe",
-      "enablesProgressiveLoadingFirstPage": "Umožňuje postupné načítavanie (prvá strana sa zobrazí rýchlejšie)",
-      "improvesUserExperienceOnlinePdfs": "Zlepšuje používateľský zážitok pri PDF online",
-      "alsoKnownFastWebView": "Známe aj ako „Fast Web View“ alebo „Optimalizované“",
-      "linearizePdf": "Linearizovať PDF"
-    },
-    "msg": {
-      "optimizingPdfsForWebViewLinearizing": "PDF sa optimalizujú na zobrazenie na webe (linearizácia)...",
-      "optimizing": "Optimalizuje sa {{name}} ({{value}}/{{count}})...",
-      "processingFailedFor": "Spracovanie {{name}} zlyhalo.",
-      "noPdfFilesCouldBeLinearized": "Žiadne PDF sa nepodarilo linearizovať.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}.",
-      "filesFailed_few": "{{count}} súbory zlyhali.",
-      "filesFailed_many": "{{count}} súborov zlyhalo.",
-      "filesFailed_one": "{{count}} súbor zlyhal.",
-      "filesFailed_other": "{{count}} súborov zlyhalo.",
-      "linearizedSuccessfully_few": "{{count}} PDF súbory boli úspešne linearizované.",
-      "linearizedSuccessfully_many": "{{count}} PDF súborov bolo úspešne linearizovaných.",
-      "linearizedSuccessfully_one": "{{count}} PDF súbor bol úspešne linearizovaný.",
-      "linearizedSuccessfully_other": "{{count}} PDF súborov bolo úspešne linearizovaných."
-    }
+    "subtitle": "Optimalizovať PDF pre rýchle prehliadanie na webe."
   },
   "pageDimensions": {
     "name": "Rozmery strany",
-    "subtitle": "Analyzovať veľkosť strany, orientáciu a jednotky.",
-    "ui": {
-      "units": "Jednotky:",
-      "pointsPt": "Body (pt)",
-      "inchesIn": "Palce (in)",
-      "millimetersMm": "Milimetre (mm)",
-      "pixelsPx": "Pixely (px)",
-      "exportToCsv": "Exportovať do CSV",
-      "page": "Strana č.",
-      "dimensions": "Rozmery",
-      "standardSize": "Štandardná veľkosť",
-      "aspectRatio": "Pomer strán",
-      "area": "Plocha",
-      "rotation": "Otočenie"
-    },
-    "msg": {
-      "differentDimensions": "Tento dokument obsahuje strany s rôznymi rozmermi:",
-      "documentType": "Typ dokumentu",
-      "heightUnit": "Výška ({{unit}})",
-      "mixedPageSizesDetected": "Zistené rôzne veľkosti strán",
-      "mixedSizes": "Rôzne veľkosti",
-      "pageCount_few": "{{count}} strany",
-      "pageCount_many": "{{count}} strany",
-      "pageCount_one": "{{count}} strana",
-      "pageCount_other": "{{count}} strán",
-      "totalPages": "Počet strán",
-      "uniform": "Jednotná",
-      "uniquePageSizes": "Rôzne veľkosti strán",
-      "widthUnit": "Šírka ({{unit}})"
-    }
+    "subtitle": "Analyzovať veľkosť strany, orientáciu a jednotky."
   },
   "removeRestrictions": {
     "name": "Odstrániť obmedzenia",
-    "subtitle": "Odstrániť ochranu heslom a bezpečnostné obmedzenia spojené s digitálne podpísanými PDF súbormi.",
-    "alert": {
-      "pdfRestrictionsRemovedSuccessfully": "Obmedzenia PDF boli úspešne odstránené! Súbor je teraz možné plne upravovať a tlačiť.",
-      "operationFailed": "Operácia zlyhala",
-      "pdfMightCorruptedPassword": "PDF môže byť poškodené alebo chránené heslom."
-    },
-    "ui": {
-      "ownerPasswordOptional": "Heslo vlastníka (voliteľné)",
-      "enterOwnerPasswordIfRequiredPlaceholder": "Ak je potrebné, zadajte heslo vlastníka",
-      "leaveEmptyIfPdfHas": "Ak PDF nemá heslo vlastníka, nechajte pole prázdne.",
-      "whatRemoved": "Čo sa odstráni:",
-      "passwordProtection": "Ochrana heslom",
-      "printingRestrictions": "Obmedzenia tlače",
-      "editingRestrictions": "Obmedzenia úprav",
-      "copyingRestrictions": "Obmedzenia kopírovania",
-      "allOtherSecurityLimitations": "Všetky ostatné bezpečnostné obmedzenia"
-    },
-    "msg": {
-      "readingPdf": "Číta sa PDF...",
-      "removingRestrictions": "Odstraňujú sa obmedzenia...",
-      "failedToRemoveRestrictionsThePdf": "Obmedzenia sa nepodarilo odstrániť. PDF môže vyžadovať správne heslo vlastníka.",
-      "failedToRemoveRestrictions": "Obmedzenia sa nepodarilo odstrániť: {{value}}",
-      "preparingDownload": "Pripravuje sa stiahnutie...",
-      "operationResultedInAnEmptyFile": "Výsledkom operácie je prázdny súbor.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}"
-    }
+    "subtitle": "Odstrániť ochranu heslom a bezpečnostné obmedzenia spojené s digitálne podpísanými PDF súbormi."
   },
   "repairPdf": {
     "name": "Opraviť PDF",
-    "subtitle": "Obnoviť údaje z poškodených alebo zničených PDF súborov.",
-    "loader": {
-      "initializingRepairEngine": "Inicializuje sa nástroj na opravu..."
-    },
-    "alert": {
-      "repairFailed": "Oprava zlyhala",
-      "unableRepairAnyUploaded": "Žiadny z nahraných PDF súborov sa nepodarilo opraviť.",
-      "partialSuccess": "Čiastočný úspech",
-      "allFilesRepairedSuccessfully": "Všetky súbory boli úspešne opravené!",
-      "unexpectedErrorOccurredDuring": "Počas opravy nastala neočakávaná chyba."
-    },
-    "msg": {
-      "repairing": "Opravuje sa {{name}} ({{value}}/{{count}})...",
-      "repairedFileSFailedToRepair": "Opravené súbory: {{count}}. Nepodarilo sa opraviť: {{failedList}}"
-    }
+    "subtitle": "Obnoviť údaje z poškodených alebo zničených PDF súborov."
   },
   "encryptPdf": {
     "name": "Zašifrovať PDF",
@@ -2363,228 +805,59 @@
   },
   "sanitizePdf": {
     "name": "Vyčistiť PDF",
-    "subtitle": "Odstrániť metadáta, anotácie, skripty a ďalšie.",
-    "alert": {
-      "noPdfDocumentLoaded": "Nie je načítaný žiadny PDF dokument.",
-      "noItemsWereSelected": "Na odstránenie neboli vybrané žiadne položky alebo sa v PDF nenašli.",
-      "sanitizedWithWarnings": "Vyčistené s upozorneniami",
-      "pdfHasBeenSanitized": "PDF bolo vyčistené a stiahnuté."
-    },
-    "ui": {
-      "sanitizationOptions": "Možnosti vyčistenia:",
-      "flattenForms": "Zlúčiť formulárové polia so stranou",
-      "removeMetadata": "Odstrániť metadáta",
-      "removeAnnotations": "Odstrániť anotácie",
-      "removeJavascript": "Odstrániť JavaScript",
-      "removeEmbeddedFiles": "Odstrániť vložené súbory",
-      "removeLayersOcg": "Odstrániť vrstvy (OCG)",
-      "removeLinks": "Odstrániť odkazy",
-      "removeStructureTree": "Odstrániť strom štruktúry",
-      "removeMarkinfo": "Odstrániť MarkInfo",
-      "removeEmbeddedFonts": "Odstrániť vložené písma",
-      "sanitizationRemovesSensitiveContentPermanently": "Vyčistenie natrvalo odstráni citlivý obsah. Niektoré možnosti môžu ovplyvniť zobrazenie PDF."
-    },
-    "msg": {
-      "sanitizingPdf": "PDF sa čistí...",
-      "thePdfWasDownloadedButThese": "PDF bolo stiahnuté, ale tieto kroky sa nepodarilo dokončiť: {{value}}. Obsah, ktorého sa týkajú, môže byť stále v súbore.",
-      "anErrorOccurredDuringSanitization": "Pri čistení sa vyskytla chyba: {{msg}}"
-    }
+    "subtitle": "Odstrániť metadáta, anotácie, skripty a ďalšie."
   },
   "decryptPdf": {
     "name": "Dešifrovať PDF",
-    "subtitle": "Odomknúť PDF odstránením ochrany heslom."
+    "subtitle": "Odstráňte heslo z PDF, aby sa dalo voľne otvoriť. Vyžaduje sa aktuálne heslo."
   },
   "flattenPdf": {
-    "name": "Zlúčiť vrstvy PDF",
-    "subtitle": "Urobiť formulárové polia a anotácie neupraviteľnými.",
-    "ui": {
-      "whatFlattened": "Čo sa zlúči:",
-      "formFieldsTextFieldsCheckboxes": "Polia formulára (textové polia, začiarkavacie políčka, prepínače atď.)",
-      "annotationsComments": "Anotácie a komentáre",
-      "interactiveElements": "Interaktívne prvky",
-      "noteFlattenedContentCannotEdited": "Poznámka: Zlúčený obsah už nebude možné upravovať ani vypĺňať.",
-      "flattenPdf": "Zlúčiť vrstvy PDF"
-    },
-    "msg": {
-      "flatteningPdf": "PDF sa zlučuje do jednej vrstvy...",
-      "flatteningMultiplePdfs": "Viac PDF sa zlučuje do jednej vrstvy...",
-      "flattening": "Zlučuje sa {{value}}/{{count}}: {{name}}...",
-      "processedPdfs": "Spracované PDF: {{processedCount}}.",
-      "unexpectedError": "Vyskytla sa neočakávaná chyba."
-    }
+    "name": "Sploštiť PDF",
+    "subtitle": "Urobiť formulárové polia a anotácie neupraviteľnými."
   },
   "removeMetadata": {
     "name": "Odstrániť metadáta",
-    "subtitle": "Odstrániť skryté dáta z vášho PDF.",
-    "alert": {
-      "metadataRemovedSuccessfully": "Metadáta boli úspešne odstránené!",
-      "errorOccurredWhileTrying": "Pri odstraňovaní metadát nastala chyba."
-    },
-    "ui": {
-      "whatRemoved": "Čo sa odstráni:",
-      "titleAuthorSubjectKeywords": "Názov, autor, predmet, kľúčové slová",
-      "creatorProducerInformation": "Údaje o aplikácii a tvorcovi PDF",
-      "creationModificationDates": "Dátum vytvorenia a úpravy",
-      "xmpMetadataStreams": "Metadáta XMP",
-      "documentIds": "Identifikátory dokumentu",
-      "pieceinfoPrivateApplicationData": "PieceInfo (súkromné údaje aplikácií)",
-      "removeAllMetadata": "Odstrániť všetky metadáta"
-    },
-    "msg": {
-      "removingAllMetadata": "Odstraňujú sa všetky metadáta..."
-    }
+    "subtitle": "Odstrániť skryté dáta z vášho PDF."
   },
   "changePermissions": {
     "name": "Zmeniť oprávnenia",
-    "subtitle": "Nastaviť alebo zmeniť používateľské oprávnenia na PDF.",
-    "alert": {
-      "ownerPasswordRequired": "Vyžaduje sa heslo vlastníka",
-      "ownerPasswordRequiredWhen": "Pri nastavovaní oprávnení sa vyžaduje heslo vlastníka",
-      "currentPasswordYouEntered": "Zadané aktuálne heslo je nesprávne. Skúste to znova.",
-      "passwordRequired": "Vyžaduje sa heslo",
-      "pdfPasswordProtectedEnter": "Toto PDF je chránené heslom. Pokračujte zadaním aktuálneho hesla.",
-      "pdfMightCorruptedPassword": "PDF môže byť poškodené alebo chránené heslom."
-    },
-    "ui": {
-      "currentPasswordIfEncrypted": "Aktuálne heslo (ak je PDF zašifrované)",
-      "enterCurrentPasswordPlaceholder": "Zadajte aktuálne heslo",
-      "newUserPassword": "Nové heslo používateľa",
-      "passwordToOpenPdfPlaceholder": "Heslo na otvorenie PDF",
-      "newOwnerPassword": "Nové heslo vlastníka",
-      "passwordPermissionsPlaceholder": "Heslo pre oprávnenia",
-      "requiredWhenSettingPermissionsUser": "Povinné pri nastavovaní oprávnení alebo hesla používateľa. Ak chcete PDF namiesto toho dešifrovať, nechajte všetky polia prázdne.",
-      "permissionsRequiresOwnerPassword": "Oprávnenia (vyžadujú heslo vlastníka)",
-      "allowPrinting": "Povoliť tlač",
-      "allowCopyingText": "Povoliť kopírovanie textu",
-      "allowModifying": "Povoliť úpravy",
-      "allowAnnotating": "Povoliť anotácie",
-      "allowFillingForms": "Povoliť vypĺňanie formulárov",
-      "allowDocumentAssembly": "Povoliť zostavenie dokumentu",
-      "allowPageExtraction": "Povoliť extrahovanie strán"
-    },
-    "msg": {
-      "readingPdf": "Číta sa PDF...",
-      "processingPdfPermissions": "Spracúvajú sa oprávnenia PDF...",
-      "preparingDownload": "Pripravuje sa stiahnutie...",
-      "processingResultedInAnEmptyFile": "Výsledkom spracovania je prázdny súbor.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}",
-      "processingFailed": "Spracovanie zlyhalo: {{error}}",
-      "decryptedSuccessfully": "PDF bolo úspešne dešifrované! Všetko šifrovanie a obmedzenia boli odstránené.",
-      "permissionsChanged": "Oprávnenia PDF boli úspešne zmenené!"
-    }
+    "subtitle": "Nastaviť alebo zmeniť používateľské oprávnenia na PDF."
   },
   "odtToPdf": {
     "name": "ODT do PDF",
     "subtitle": "Previesť súbory OpenDocument Text do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "ODT súbory",
-    "convertButton": "Previesť do PDF",
-    "alert": {
-      "selectLeastOneOdt": "Vyberte aspoň jeden súbor ODT."
-    },
-    "msg": {
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedOdtFileSTo": "Do PDF boli úspešne skonvertované súbory ODT: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "csvToPdf": {
     "name": "CSV do PDF",
     "subtitle": "Previesť tabuľkové súbory CSV do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "CSV súbory",
-    "convertButton": "Previesť do PDF",
-    "alert": {
-      "selectLeastOneCsv": "Vyberte aspoň jeden súbor CSV."
-    },
-    "loader": {
-      "preparingConversion": "Pripravuje sa konverzia..."
-    },
-    "msg": {
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedCsvFileSTo": "Do PDF boli úspešne skonvertované súbory CSV: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "rtfToPdf": {
     "name": "RTF do PDF",
     "subtitle": "Previesť dokumenty Rich Text Format do PDF. Podporuje viacero súborov.",
     "acceptedFormats": "RTF súbory",
-    "convertButton": "Previesť do PDF",
-    "alert": {
-      "selectLeastOneRtf": "Vyberte aspoň jeden súbor RTF."
-    },
-    "loader": {
-      "convertingMultipleRtfFiles": "Konvertuje sa viacero súborov RTF do PDF..."
-    },
-    "msg": {
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedRtfFileSTo": "Do PDF boli úspešne skonvertované súbory RTF: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "wordToPdf": {
     "name": "Word do PDF",
     "subtitle": "Previesť Word dokumenty (DOCX, DOC, ODT, RTF) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "DOCX, DOC, ODT, RTF súbory",
-    "convertButton": "Previesť do PDF",
-    "alert": {
-      "selectLeastOneWord": "Vyberte aspoň jeden dokument Word.",
-      "uploadDocxFileFirst": "Najskôr nahrajte súbor .docx.",
-      "previewError": "Chyba náhľadu"
-    },
-    "loader": {
-      "preparingPreview": "Pripravuje sa náhľad...",
-      "generatingHighQualityPdf": "Generuje sa PDF vo vysokej kvalite..."
-    },
-    "ui": {
-      "uploadWordFiles": "Nahrať súbory Word",
-      "selectOrDragDocxOrDoc": "Vyberte alebo pretiahnite súbory DOCX alebo DOC, ktoré chcete konvertovať",
-      "autoConvert": "Automatická konverzia",
-      "conversionStartsAutomaticallyProcessingI": "Konverzia začne automaticky a prebieha vo vašom prehliadači",
-      "previewResults": "Náhľad výsledkov",
-      "seeYourConvertedPdfWithPreserved": "Pozrite si skonvertované PDF so zachovaným formátovaním",
-      "downloadPdfs": "Stiahnuť PDF",
-      "saveYourPdfFilesFormattingPerfectly": "Uložte PDF súbory – formátovanie dokonale zachované"
-    },
-    "msg": {
-      "couldNotGenerateAPreviewThe": "Náhľad sa nepodarilo vytvoriť. Súbor môže byť poškodený alebo obsahovať nepodporované prvky. Chyba: {{error}}",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedWordDocumentSTo": "Do PDF boli úspešne skonvertované dokumenty Word: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "excelToPdf": {
     "name": "Excel do PDF",
     "subtitle": "Previesť tabuľky Excel (XLSX, XLS, ODS, CSV) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "XLSX, XLS, ODS, CSV súbory",
-    "convertButton": "Previesť do PDF",
-    "alert": {
-      "selectLeastOneExcel": "Vyberte aspoň jeden súbor Excel."
-    },
-    "msg": {
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedExcelFileSTo": "Do PDF boli úspešne skonvertované súbory Excel: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "powerpointToPdf": {
     "name": "PowerPoint do PDF",
     "subtitle": "Previesť prezentácie PowerPoint (PPTX, PPT, ODP) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "PPTX, PPT, ODP súbory",
-    "convertButton": "Previesť do PDF",
-    "alert": {
-      "selectLeastOnePowerpoint": "Vyberte aspoň jeden súbor PowerPoint."
-    },
-    "msg": {
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedPowerpointFileSTo": "Do PDF boli úspešne skonvertované súbory PowerPoint: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "markdownToPdf": {
     "name": "Markdown do PDF",
@@ -2604,11 +877,10 @@
     "optAllowHtml": "Povoliť HTML značky",
     "optBreaks": "Previesť nové riadky na <br>",
     "optLinkify": "Automaticky prevádzať URL na odkazy",
-    "optTypographer": "Typografia (chytré úvodzovky, atď.)",
-    "sampleDocument": "# Vitajte v editore Markdown BentoPDF\n\nToto je editor Markdown so **živým náhľadom** a plnou podporou doplnkov.\n\n${toc}\n\n## Základné formátovanie\n\n- **Tučný** a *kurzívou písaný* text\n- ~~Prečiarknutý~~ text\n- [Odkazy](https://bentopdf.com)\n- ==Zvýraznený text== pomocou mark\n- ++Vložený text++ pomocou ins\n- H~2~O ako dolný index\n- E=mc^2^ ako horný index\n\n## Zoznamy úloh\n\n- [x] Dokončená úloha\n- [x] Ďalšia hotová položka\n- [ ] Rozpracovaná úloha\n- [ ] Budúca práca\n\n## Podpora emoji :rocket:\n\nPoužívajte skratky emoji: :smile: :heart: :thumbsup: :star: :fire:\n\n## Kód so zvýrazňovaním syntaxe\n\n```javascript\nfunction greet(name) {\n  console.log(`Ahoj, ${name}!`);\n  return { message: 'Vitajte!' };\n}\n```\n\n```python\ndef fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n```\n\n## Tabuľky\n\n| Funkcia | Podporované | Poznámky |\n|---------|:---------:|-------|\n| Nadpisy | ✓ | Viac úrovní |\n| Zoznamy | ✓ | Číslované aj nečíslované |\n| Kód | ✓ | So zvýrazňovaním |\n| Tabuľky | ✓ | So zarovnaním |\n| Emoji | ✓ | :white_check_mark: |\n| Mermaid | ✓ | Diagramy! |\n\n## Diagramy Mermaid\n\n### Vývojový diagram\n\n```mermaid\ngraph TD\n    A[Začiatok] --> B{Rozhodnutie}\n    B -->|Áno| C[OK]\n    B -->|Nie| D[Zrušiť]\n```\n\n### Sekvenčný diagram\n\n```mermaid\nsequenceDiagram\n    participant U as Používateľ\n    participant BentoPDF\n    participant Server\n    U->>BentoPDF: Nahrá PDF\n    BentoPDF->>BentoPDF: Spracuje lokálne\n    BentoPDF-->>U: Stiahne výsledok\n    Note over BentoPDF: Server netreba!\n```\n\n### Koláčový graf\n\n```mermaid\npie title Používanie nástrojov PDF\n    \"Zlúčiť\" : 35\n    \"Komprimovať\" : 25\n    \"Konvertovať\" : 20\n    \"Upraviť\" : 15\n    \"Iné\" : 5\n```\n\n### Diagram tried\n\n```mermaid\nclassDiagram\n    class PDFDocument {\n        +String title\n        +int pageCount\n        +merge()\n        +split()\n        +compress()\n    }\n    class Page {\n        +int number\n        +rotate()\n        +crop()\n    }\n    PDFDocument \"1\" --> \"*\" Page\n```\n\n### Ganttov diagram\n\n```mermaid\ngantt\n    title Harmonogram projektu\n    dateFormat YYYY-MM-DD\n    section Plánovanie\n        Prieskum      :a1, 2024-01-01, 7d\n        Návrh         :a2, after a1, 5d\n    section Vývoj\n        Implementácia :a3, after a2, 14d\n        Testovanie    :a4, after a3, 7d\n```\n\n### Vzťahy entít\n\n```mermaid\nerDiagram\n    USER ||--o{ DOCUMENT : uploads\n    DOCUMENT ||--|{ PAGE : contains\n    DOCUMENT {\n        string id\n        string name\n        date created\n    }\n    PAGE {\n        int number\n        string content\n    }\n```\n\n### Myšlienková mapa\n\n```mermaid\nmindmap\n    root((BentoPDF))\n        Konvertovať\n            Word do PDF\n            Excel do PDF\n            Obrázok do PDF\n        Upraviť\n            Zlúčiť\n            Rozdeliť\n            Komprimovať\n        Zabezpečiť\n            Zašifrovať\n            Podpísať\n            Vodoznak\n```\n\n## Poznámky pod čiarou\n\nToto je veta s poznámkou pod čiarou[^1].\n\n## Zoznamy definícií\n\nPojem 1\n:   Definícia pojmu 1\n\nPojem 2\n:   Definícia pojmu 2\n:   Ďalšia definícia pojmu 2\n\n## Skratky\n\nŠpecifikáciu HTML spravuje W3C.\n\n*[HTML]: Hyper Text Markup Language\n*[W3C]: World Wide Web Consortium\n\n---\n\nZačnite písať a uvidíte, čo sa stane!\n\n[^1]: Toto je text poznámky pod čiarou.\n"
+    "optTypographer": "Typografia (chytré úvodzovky, atď.)"
   },
   "pdfBooklet": {
-    "name": "PDF Brožúra",
+    "name": "PDF brožúra",
     "subtitle": "Preusporiadať strany pre obojstrannú tlač brožúry. Preložte a zošijte, aby ste vytvorili brožúru.",
     "howItWorks": "Ako to funguje:",
     "step1": "Nahrajte PDF súbor.",
@@ -2621,368 +893,120 @@
     "pagesPerSheet": "Strán na list",
     "createBooklet": "Vytvoriť brožúru",
     "processing": "Spracováva sa...",
-    "pageCount": "Počet strán bude doplnený na násobok 4, ak to bude potrebné.",
-    "alert": {
-      "loadPdfFirst": "Najskôr načítajte PDF.",
-      "errorOccurredWhileCreating": "Pri vytváraní brožúry nastala chyba."
-    },
-    "loader": {
-      "creatingBooklet": "Vytvára sa brožúra..."
-    },
-    "ui": {
-      "sourceRotation": "Otočenie zdrojových strán",
-      "noRotation": "Bez otočenia",
-      "rotateClockwise": "Otočiť v smere hodinových ručičiek (90°)",
-      "rotateCounterClockwise": "Otočiť proti smeru hodinových ručičiek (90°)",
-      "alternateOddCwEvenCcw": "Striedavo (nepárne v smere, párne proti smeru)",
-      "gridMode": "Režim mriežky",
-      "booklet1": "1×2 (brožúra)",
-      "autoBestLayout": "Automaticky (najlepšie rozloženie)",
-      "generatePreview": "Vygenerovať náhľad",
-      "letter8511": "Letter (8,5\" × 11\")",
-      "legal8514": "Legal (8,5\" × 14\")",
-      "tabloid1117": "Tabloid (11\" × 17\")",
-      "ledger1711": "Ledger (17\" × 11\")",
-      "executive725105": "Executive (7,25\" × 10,5\")",
-      "folio8513": "Folio (8,5\" × 13\")",
-      "t4a016822378Mm": "4A0 (1682 × 2378 mm)",
-      "t2a011891682Mm": "2A0 (1189 × 1682 mm)",
-      "a08411189Mm": "A0 (841 × 1189 mm)",
-      "a1594841Mm": "A1 (594 × 841 mm)",
-      "a2420594Mm": "A2 (420 × 594 mm)",
-      "a6105148Mm": "A6 (105 × 148 mm)",
-      "b010001414Mm": "B0 (1000 × 1414 mm)",
-      "b17071000Mm": "B1 (707 × 1000 mm)",
-      "b2500707Mm": "B2 (500 × 707 mm)",
-      "b3353500Mm": "B3 (353 × 500 mm)",
-      "b4250353Mm": "B4 (250 × 353 mm)",
-      "b5176250Mm": "B5 (176 × 250 mm)",
-      "c09171297Mm": "C0 (917 × 1297 mm)",
-      "c1648917Mm": "C1 (648 × 917 mm)",
-      "c2458648Mm": "C2 (458 × 648 mm)",
-      "c3324458Mm": "C3 (324 × 458 mm)",
-      "c4229324Mm": "C4 (229 × 324 mm)",
-      "c5162229Mm": "C5 (162 × 229 mm)",
-      "c6114162Mm": "C6 (114 × 162 mm)",
-      "c781114Mm": "C7 (81 × 114 mm)",
-      "uploadAPdfAndClickGenerate": "Nahrajte PDF a kliknite na „Vytvoriť náhľad“, aby ste videli rozloženie brožúry",
-      "groupUsSizes": "Americké formáty",
-      "groupASeriesIso216": "Rad A (ISO 216)",
-      "groupBSeriesIso216": "Rad B (ISO 216)",
-      "groupCSeriesEnvelopes": "Rad C (obálky)"
-    },
-    "msg": {
-      "bookletCreatedWithSheets": "Brožúra bola vytvorená, počet hárkov: {{numSheets}}!",
-      "generatingPreview": "Vytvára sa náhľad...",
-      "blank": "(prázdna)",
-      "sheet": "List {{number}}",
-      "sheetBack": "List {{number}} – zadná strana",
-      "sheetFront": "List {{number}} – predná strana"
-    }
+    "pageCount": "Počet strán bude doplnený na násobok 4, ak to bude potrebné."
   },
   "xpsToPdf": {
     "name": "XPS do PDF",
     "subtitle": "Previesť dokumenty XPS/OXPS do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "XPS, OXPS súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{TOOL_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFileSToPdf": "Do PDF boli úspešne skonvertované súbory {{TOOL_NAME}}: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "mobiToPdf": {
     "name": "MOBI do PDF",
     "subtitle": "Previesť e-knihy MOBI do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "MOBI súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{TOOL_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFileSToPdf": "Do PDF boli úspešne skonvertované súbory {{TOOL_NAME}}: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "epubToPdf": {
     "name": "EPUB do PDF",
     "subtitle": "Previesť e-knihy EPUB do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "EPUB súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{TOOL_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFileSToPdf": "Do PDF boli úspešne skonvertované súbory {{TOOL_NAME}}: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "fb2ToPdf": {
     "name": "FB2 do PDF",
     "subtitle": "Previesť e-knihy FictionBook (FB2) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "FB2 súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{TOOL_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFileSToPdf": "Do PDF boli úspešne skonvertované súbory {{TOOL_NAME}}: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "cbzToPdf": {
     "name": "CBZ do PDF",
     "subtitle": "Previesť komiksové archívy (CBZ/CBR) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "CBZ, CBR súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "archiveHasTooManyImagesMax": "Archív obsahuje príliš veľa obrázkov (najviac {{MAX_CBZ_PAGES}}).",
-      "archiveContainsAnOversizedImageEntry": "Archív obsahuje príliš veľký obrázok.",
-      "archiveIsTooLargeWhenDecompressed": "Archív je po rozbalení príliš veľký.",
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{TOOL_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFileSToPdf": "Do PDF boli úspešne skonvertované súbory {{TOOL_NAME}}: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}",
-      "failedToConvertToPng": "Súbor {{name}} sa nepodarilo previesť do PNG",
-      "failedToLoadImage": "Nepodarilo sa načítať obrázok: {{name}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "wpdToPdf": {
     "name": "WPD do PDF",
     "subtitle": "Previesť dokumenty WordPerfect (WPD) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "WPD súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "wpsToPdf": {
     "name": "WPS do PDF",
     "subtitle": "Previesť dokumenty WPS Office do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "WPS súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "xmlToPdf": {
     "name": "XML do PDF",
     "subtitle": "Previesť dokumenty XML do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "XML súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "file": "Súbor {{value}}/{{count}}: {{error}}",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{error}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "pagesToPdf": {
     "name": "Pages do PDF",
     "subtitle": "Previesť dokumenty Apple Pages do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "Pages súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "odgToPdf": {
     "name": "ODG do PDF",
     "subtitle": "Previesť súbory OpenDocument Graphics (ODG) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "ODG súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{error}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "odsToPdf": {
     "name": "ODS do PDF",
     "subtitle": "Previesť súbory OpenDocument Spreadsheet (ODS) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "ODS súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{error}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "odpToPdf": {
     "name": "ODP do PDF",
     "subtitle": "Previesť súbory OpenDocument Presentation (ODP) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "ODP súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{error}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "pubToPdf": {
     "name": "PUB do PDF",
     "subtitle": "Previesť súbory Microsoft Publisher (PUB) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "PUB súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{error}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "vsdToPdf": {
     "name": "VSD do PDF",
     "subtitle": "Previesť súbory Microsoft Visio (VSD, VSDX) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "VSD, VSDX súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFilesToPdf": "Do PDF boli úspešne skonvertované súbory: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{error}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "psdToPdf": {
     "name": "PSD do PDF",
     "subtitle": "Previesť súbory Adobe Photoshop (PSD) do formátu PDF. Podporuje viacero súborov.",
     "acceptedFormats": "PSD súbory",
-    "convertButton": "Previesť do PDF",
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{FILETYPE_NAME}}.",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "successfullyConvertedPsdFilesToA": "Súbory PSD ({{count}}) boli úspešne skonvertované do jedného PDF.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{error}}"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "pdfToSvg": {
     "name": "PDF do SVG",
-    "subtitle": "Previesť každú stranu PDF súboru na škálovateľnú vektorovú grafiku (SVG) pre dokonalú kvalitu v akejkoľvek veľkosti.",
-    "loader": {
-      "convertingSvg": "Konvertuje sa do SVG..."
-    },
-    "alert": {
-      "pdfConvertedSvgSuccessfully": "PDF bolo úspešne skonvertované do SVG!",
-      "uploadPdfFiles": "Nahrajte PDF súbory."
-    },
-    "ui": {
-      "convertToSvg": "Previesť do SVG"
-    },
-    "msg": {
-      "convertingPageOf": "Konvertuje sa strana {{value}} z {{pageCount}}...",
-      "convertedPagesToSvg": "Do SVG boli skonvertované strany: {{pageCount}}!",
-      "processingFileOf": "Spracúva sa súbor {{value}} z {{count}}...",
-      "filePage": "Súbor {{value}}/{{count}}: strana {{value2}}/{{pageCount}}",
-      "convertedFilesPagesToSvg": "Do SVG boli skonvertované súbory: {{count}} (strán: {{totalPages}})!",
-      "failedToConvertPdfToSvg": "PDF sa nepodarilo skonvertovať do SVG. {{error}}"
-    }
+    "subtitle": "Previesť každú stranu PDF súboru na škálovateľnú vektorovú grafiku (SVG) pre dokonalú kvalitu v akejkoľvek veľkosti."
   },
   "extractTables": {
     "name": "Extrahovať PDF tabuľky",
-    "subtitle": "Extrahovať tabuľky z PDF súborov a exportovať ich ako CSV, JSON alebo Markdown.",
-    "alert": {
-      "extracted1TableSuccessfully": "Úspešne extrahovaná 1 tabuľka!"
-    },
-    "ui": {
-      "exportFormat": "Formát exportu",
-      "extractTables": "Extrahovať tabuľky"
-    },
-    "msg": {
-      "scanningPageOf": "Prehľadáva sa strana {{value}} z {{pageCount}}...",
-      "extractedTablesSuccessfully": "Úspešne extrahované tabuľky: {{count}}!",
-      "failedToExtractTables": "Tabuľky sa nepodarilo extrahovať. {{error}}"
-    }
+    "subtitle": "Extrahovať tabuľky z PDF súborov a exportovať ich ako CSV, JSON alebo Markdown."
   },
   "pdfToCsv": {
     "name": "PDF do CSV",
-    "subtitle": "Extrahovať tabuľky z PDF a previesť ich do formátu CSV.",
-    "alert": {
-      "pdfConvertedCsvSuccessfully": "PDF bolo úspešne skonvertované do CSV!"
-    },
-    "ui": {
-      "convertToCsv": "Previesť do CSV"
-    },
-    "msg": {
-      "scanningPageOf": "Prehľadáva sa strana {{value}} z {{pageCount}}...",
-      "failedToConvertPdfToCsv": "PDF sa nepodarilo skonvertovať do CSV. {{error}}"
-    }
+    "subtitle": "Extrahovať tabuľky z PDF a previesť ich do formátu CSV."
   },
   "pdfToExcel": {
     "name": "PDF do Excelu",
-    "subtitle": "Extrahovať tabuľky z PDF a previesť ich do formátu Excel (XLSX).",
-    "loader": {
-      "creatingExcelFile": "Vytvára sa súbor Excel..."
-    },
-    "ui": {
-      "convertToExcel": "Previesť do Excelu"
-    },
-    "msg": {
-      "scanningPageOf": "Prehľadáva sa strana {{value}} z {{pageCount}}...",
-      "extractedTableSToExcel": "Tabuľky extrahované do Excelu: {{count}}!",
-      "failedToConvertPdfToExcel": "PDF sa nepodarilo skonvertovať do Excelu. {{error}}",
-      "sheetTable": "Tabuľka",
-      "sheetTableOnPage": "Tabuľka {{number}} (strana {{page}})"
-    }
+    "subtitle": "Extrahovať tabuľky z PDF a previesť ich do formátu Excel (XLSX)."
   },
   "pdfToText": {
-    "name": "PDF do Textu",
+    "name": "PDF do textu",
     "subtitle": "Extrahovať text z PDF súborov a uložiť ho ako obyčajný text (.txt). Podporuje viacero súborov.",
     "noteLabel": "Poznámka:",
     "noteText": "Tento nástroj funguje IBA s digitálne vytvorenými PDF. Pre naskenované dokumenty alebo PDF založené na obrázkoch použite radšej náš nástroj Rozpoznávanie textu (OCR) PDF.",
-    "convertButton": "Extrahovať text",
-    "alert": {
-      "someFilesWereSkipped": "Niektoré súbory boli preskočené. Povolené sú len súbory PDF.",
-      "textExtractedSuccessfully": "Text bol úspešne extrahovaný!",
-      "extractionError": "Chyba extrahovania",
-      "failedExtractTextFrom": "Text sa nepodarilo extrahovať z PDF."
-    },
-    "loader": {
-      "extractingText": "Extrahuje sa text...",
-      "extractingTextFromMultiple": "Extrahuje sa text z viacerých súborov..."
-    },
-    "msg": {
-      "extractingTextFrom": "Extrahuje sa text z {{name}}...",
-      "extractingTextFromFile": "Extrahuje sa text zo súboru {{value}}/{{count}}: {{name}}...",
-      "extractedTextFromPdfFiles": "Text bol extrahovaný z PDF súborov: {{count}}!"
-    }
+    "convertButton": "Extrahovať text"
   },
   "digitalSignPdf": {
     "name": "Digitálny podpis PDF",
@@ -3068,84 +1092,12 @@
     "applySignature": "Aplikovať digitálny podpis",
     "successMessage": "PDF bolo úspešne podpísané! Podpis je možné overiť v akejkoľvek PDF čítačke.",
     "internetRequiredTitle": "Vyžaduje sa internetové pripojenie",
-    "internetRequiredDescription": "Podpisovanie môže vyžadovať načítanie informácií o reťazci certifikátov zo servera vydavateľa vášho certifikátu, aby sa podpis overil.",
-    "msg": {
-      "noCertificateFoundInPfxFile": "V súbore PFX sa nenašiel žiadny certifikát",
-      "noPrivateKeyFoundInPfx": "V súbore PFX sa nenašiel žiadny súkromný kľúč",
-      "failedToExtractCertificateFromPfx": "Zo súboru PFX sa nepodarilo extrahovať certifikát",
-      "passwordRequiredForEncryptedPrivateKey": "Zašifrovaný súkromný kľúč vyžaduje heslo",
-      "failedToDecryptPrivateKey": "Súkromný kľúč sa nepodarilo dešifrovať",
-      "noCertificateFoundInPemFile": "V súbore PEM sa nenašiel žiadny certifikát",
-      "noPrivateKeyFoundInPem": "V súbore PEM sa nenašiel žiadny súkromný kľúč",
-      "invalidTsaUrlTheTimestampAuthority": "Neplatná URL TSA. Autorita časových pečiatok musí mať platnú URL http:// alebo https://.",
-      "thisTsaEndpointUsesHttpThe": "Tento server TSA používa HTTP ({{tsaUrl}}). Prehliadač blokuje nezabezpečené požiadavky z tejto stránky HTTPS. Zvoľte TSA s adresou HTTPS alebo pri builde nastavte VITE_CORS_PROXY_URL, aby sa požiadavka preposlala cez vašu proxy.",
-      "unknown": "Neznámy"
-    }
+    "internetRequiredDescription": "Podpisovanie môže vyžadovať načítanie informácií o reťazci certifikátov zo servera vydavateľa vášho certifikátu, aby sa podpis overil."
   },
   "validateSignaturePdf": {
-    "name": "Overiť PDF podpis",
+    "name": "Overiť podpis PDF",
     "pageTitle": "Overiť PDF podpis - Verifikácia digitálnych podpisov | BentoPDF",
-    "subtitle": "Overte digitálne podpisy vo vašich PDF súboroch. Skontrolujte platnosť certifikátu, zobrazte údaje o podpisujúcom a potvrďte integritu dokumentu. Všetko spracovanie prebieha vo vašom prehliadači.",
-    "alert": {
-      "selectPemCrtCer": "Vyberte súbor certifikátu .pem, .crt, .cer alebo .der.",
-      "failedParseCertificateFile": "Súbor certifikátu sa nepodarilo spracovať.",
-      "failedValidateSignaturesFile": "Podpisy sa nepodarilo overiť. Súbor môže byť poškodený."
-    },
-    "loader": {
-      "analyzingSignatures": "Analyzujú sa podpisy..."
-    },
-    "ui": {
-      "customCertificateFileOptional": "Vlastný súbor certifikátu X.509 (voliteľné)",
-      "uploadTrustedCertificateToValidate": "Nahrajte dôveryhodný certifikát X.509 na overenie voči vlastnému zdroju dôvery.",
-      "uploadCertificatePemCrtCer": "Nahrať certifikát (.pem, .crt, .cer)",
-      "signatureValidationResults": "Výsledky overenia podpisov",
-      "uploadYourPdf": "Nahrajte svoje PDF",
-      "selectADigitallySignedPdfFile": "Vyberte digitálne podpísaný PDF súbor zo svojho zariadenia",
-      "automaticAnalysis": "Automatická analýza",
-      "theToolExtractsAndParsesAll": "Nástroj vyextrahuje a rozoberie všetky digitálne podpisy v dokumente",
-      "viewResults": "Zobraziť výsledky",
-      "seeSignerInformationCertificateValidityA": "Pozrite si údaje o podpisujúcom, platnosť certifikátu a stav podpisu"
-    },
-    "msg": {
-      "noSignaturesFound": "Nenašli sa žiadne podpisy",
-      "thisPdfDoesNotContainAny": "Toto PDF neobsahuje žiadne digitálne podpisy.",
-      "signedBy": "Podpísal",
-      "validFrom": "Platný od",
-      "validUntil": "Platný do",
-      "technicalDetails": "Technické podrobnosti",
-      "serialNumber": "Sériové číslo:",
-      "digestAlgorithm": "Hašovací algoritmus:",
-      "signatureAlgorithm": "Podpisový algoritmus:",
-      "fullCoverage": "Pokrýva celý dokument",
-      "partialCoverage": "Pokrýva časť dokumentu",
-      "signedOn": "Podpísané dňa",
-      "certificateExpired": "Platnosť certifikátu vypršala",
-      "cryptoVerificationFailed": "Kryptografické overenie zlyhalo",
-      "failedToParseSignature": "Podpis sa nepodarilo spracovať",
-      "insecureDigest": "Nezabezpečený odtlačok (MD5 / SHA-1)",
-      "intactNotVerified": "Podpis je neporušený — totožnosť podpisovateľa nie je overená",
-      "invalidCryptoFailed": "Neplatný — kryptografické overenie zlyhalo",
-      "invalidSignature": "Neplatný podpis",
-      "modifiedAfterSigning": "Zmenený po podpísaní (podpísaná časť je neporušená)",
-      "noCertificatesFound": "V podpise sa nenašli žiadne certifikáty",
-      "notInTrustChain": "Nie je v reťazci dôvery",
-      "selfSignedNotVerified": "Podpísaný sám sebou — totožnosť podpisovateľa nie je overená",
-      "signatureN": "Podpis {{num}}",
-      "signaturesFound_few": "podpisy nájdené",
-      "signaturesFound_many": "podpisu nájdeného",
-      "signaturesFound_one": "podpis nájdený",
-      "signaturesFound_other": "podpisov nájdených",
-      "trustVerification": "Overenie dôvery: {{verified}}/{{total}} podpisov overených voči vlastnému certifikátu",
-      "trusted": "Dôveryhodný",
-      "trustedCertificateLoaded": "Dôveryhodný certifikát je načítaný",
-      "unknown": "Neznáme",
-      "unverifiedUnsupportedAlgorithm": "Neoverený — nepodporovaný podpisový algoritmus",
-      "validCount_few": "{{count}} platné",
-      "validCount_many": "{{count}} platného",
-      "validCount_one": "{{count}} platný",
-      "validCount_other": "{{count}} platných",
-      "validSignature": "Platný podpis"
-    }
+    "subtitle": "Overte digitálne podpisy vo vašich PDF súboroch. Skontrolujte platnosť certifikátu, zobrazte údaje o podpisujúcom a potvrďte integritu dokumentu. Všetko spracovanie prebieha vo vašom prehliadači."
   },
   "timestampPdf": {
     "name": "Časová pečiatka PDF",
@@ -3154,307 +1106,49 @@
     "tsaSectionTitle": "Server časových pečiatok (TSA)",
     "selectTsa": "Vyberte TSA server",
     "applyTimestamp": "Aplikovať časovú pečiatku",
-    "successMessage": "Časová pečiatka bola úspešne pridaná! Časovú pečiatku možno overiť v akejkoľvek čítačke PDF.",
-    "loader": {
-      "applyingTimestamp": "Pridáva sa časová pečiatka..."
-    },
-    "alert": {
-      "timestampFailed": "Časová pečiatka zlyhala"
-    },
-    "ui": {
-      "internetConnectionRequired": "Vyžaduje sa pripojenie na internet",
-      "timestampingRequiresContactingSelectedTsa": "Pridanie časovej pečiatky vyžaduje spojenie s vybraným serverom TSA, ktorý vydá dôveryhodný token časovej pečiatky.",
-      "selectThePdfDocumentYouWant": "Vyberte PDF dokument, ktorému chcete pridať časovú pečiatku",
-      "chooseTsaServer": "Zvoliť server TSA",
-      "selectOneOfTheTrustedTsa": "Vyberte jeden z dôveryhodných serverov TSA",
-      "timestampDownload": "Časová pečiatka a stiahnutie",
-      "applyTheRfc3161TimestampAnd": "Použite časovú pečiatku RFC 3161 a stiahnite PDF s časovou pečiatkou"
-    },
-    "msg": {
-      "loadingPages": "{{value}} • Načítavajú sa strany...",
-      "failedToTimestampPdfPleaseTry": "Časovú pečiatku sa nepodarilo pridať: {{error}}\n\nSkúste iný server TSA alebo skontrolujte pripojenie na internet."
-    }
+    "successMessage": "Časová pečiatka bola úspešne pridaná! Časovú pečiatku možno overiť v akejkoľvek čítačke PDF."
   },
   "emailToPdf": {
     "name": "E-mail do PDF",
     "subtitle": "Previesť e-mailové súbory (EML, MSG) do formátu PDF. Podporuje exporty z Outlooku a štandardné e-mailové formáty.",
     "acceptedFormats": "EML, MSG súbory",
-    "convertButton": "Previesť do PDF",
-    "loader": {
-      "loadingPdfEngine": "Načítava sa PDF jadro...",
-      "generatingPdf": "Generuje sa PDF...",
-      "convertingEmails": "Konvertujú sa e-maily..."
-    },
-    "ui": {
-      "conversionOptions": "Možnosti prevodu",
-      "pageSize": "Veľkosť strany",
-      "includeCcBccRecipientsIn": "Zahrnúť do hlavičky príjemcov kópie a skrytej kópie",
-      "includeEmailAttachmentsList": "Zahrnúť zoznam príloh e-mailu",
-      "letter": "Letter",
-      "uploadEmailFile": "Nahrať e-mailový súbor",
-      "clickOrDragAndDropYour": "Kliknite alebo pretiahnite súbor .eml alebo .msg pre začiatok",
-      "clickTheConvertButtonToGenerate": "Kliknutím na tlačidlo konverzie vytvoríte PDF",
-      "saveYourConvertedPdfFileInstantly": "Okamžite uložte skonvertovaný PDF súbor"
-    },
-    "msg": {
-      "pleaseSelectAtLeastOneFile": "Vyberte aspoň jeden súbor {{TOOL_NAME}} (.eml alebo .msg).",
-      "parsing": "Analyzuje sa {{name}}...",
-      "successfullyConvertedToPdf": "{{name}} bol úspešne skonvertovaný do PDF.",
-      "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedFileSToPdf": "Do PDF boli úspešne skonvertované súbory {{TOOL_NAME}}: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}",
-      "unsupportedFileType": "Nepodporovaný typ súboru: .{{ext}}",
-      "toolName": "e-mail",
-      "unknownSender": "Neznámy odosielateľ",
-      "noSubject": "(Bez predmetu)",
-      "unknownDate": "Neznámy dátum",
-      "unknownRecipient": "Neznámy",
-      "fromLabel": "Od:",
-      "toLabel": "Komu:",
-      "dateLabel": "Dátum:",
-      "attachmentsHeading": "Prílohy ({{count}})"
-    }
+    "convertButton": "Previesť do PDF"
   },
   "fontToOutline": {
     "name": "Písma do kriviek",
-    "subtitle": "Previesť všetky písma na vektorové krivky pre konzistentné vykresľovanie na všetkých zariadeniach.",
-    "ui": {
-      "whatToolDoes": "Čo tento nástroj robí:",
-      "convertsAllTextToVector": "Prevedie všetok text na vektorové krivky",
-      "eliminatesFontDependencyIssues": "Odstráni problémy so závislosťou od písiem",
-      "ensuresConsistentRenderingAcrossAll": "Zabezpečí rovnaké zobrazenie na všetkých zariadeniach",
-      "idealPrintReadyPdfs": "Ideálne pre PDF pripravené na tlač",
-      "noteTextNoLongerSelectable": "Poznámka: Po prevode už text nebude možné označiť ani vyhľadávať.",
-      "convertToOutlines": "Previesť na krivky",
-      "selectYourPdfFileWithEmbedded": "Vyberte PDF súbor s vloženými písmami",
-      "ghostscriptConvertsAllFontsToVector": "Ghostscript prevedie všetky písma na vektorové krivky",
-      "getYourFontIndependentPdfInstantly": "PDF nezávislé od písiem dostanete okamžite"
-    },
-    "msg": {
-      "convertingFontsToOutlines": "Písma sa prevádzajú na krivky...",
-      "processingMultiplePdfs": "Spracúva sa viac PDF...",
-      "processing": "Spracúva sa {{value}}/{{count}}: {{name}}...",
-      "processedPdfs": "Spracované PDF: {{processedCount}}.",
-      "unexpectedError": "Vyskytla sa neočakávaná chyba."
-    }
+    "subtitle": "Previesť všetky písma na vektorové krivky pre konzistentné vykresľovanie na všetkých zariadeniach."
   },
   "deskewPdf": {
     "name": "Zarovnať naklonené PDF",
-    "subtitle": "Automaticky zarovnať naklonené naskenované strany pomocou knižnice OpenCV.",
-    "loader": {
-      "initializingPymupdf": "Inicializuje sa PyMuPDF..."
-    },
-    "alert": {
-      "downloadsStartedAllFiles": "Sťahovanie všetkých súborov sa začalo."
-    },
-    "ui": {
-      "skewThresholdDegrees": "Prah naklonenia (v stupňoch)",
-      "verySensitive01": "0,1° (veľmi citlivé)",
-      "default05": "0,5° (predvolené)",
-      "normal10": "1,0° (bežné)",
-      "lessSensitive20": "2,0° (menej citlivé)",
-      "pagesSkewBelowThresholdWon": "Strany s naklonením pod týmto prahom sa nebudú narovnávať.",
-      "processingQualityDpi": "Kvalita spracovania (DPI)",
-      "fast100": "100 (rýchle)",
-      "default150": "150 (predvolené)",
-      "better200": "200 (lepšie)",
-      "bestQuality300": "300 (najlepšia kvalita)",
-      "deskewResults": "Výsledky narovnania",
-      "pagesCorrected": "Narovnané strany:",
-      "selectYourScannedPdfWithTilted": "Vyberte naskenované PDF s naklonenými stranami",
-      "autoDetect": "Automatická detekcia",
-      "opencvAnalyzesAndDetectsSkewAngles": "OpenCV analyzuje a zistí uhly naklonenia",
-      "getYourStraightenedPdfInstantly": "Vyrovnané PDF dostanete okamžite"
-    },
-    "msg": {
-      "kb": "({{value}} KB)",
-      "deskewing": "Vyrovnáva sa {{name}}...",
-      "deskewedFileS": "Vyrovnané súbory: {{count}}. {{value}}",
-      "failedToDeskewPdf": "PDF sa nepodarilo vyrovnať: {{value}}"
-    }
+    "subtitle": "Automaticky zarovnať naklonené naskenované strany pomocou knižnice OpenCV."
   },
   "pdfToWord": {
     "name": "PDF do Wordu",
-    "subtitle": "Previesť PDF súbory do upraviteľných dokumentov Word.",
-    "ui": {
-      "convertToDocx": "Previesť do DOCX"
-    },
-    "msg": {
-      "couldNotLoadPageCount": "{{value}} • Počet strán sa nepodarilo načítať",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToDocx": "{{name}} bol úspešne skonvertovaný do DOCX.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedPdfSToDocx": "Do DOCX boli úspešne skonvertované PDF: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "subtitle": "Previesť PDF súbory do upraviteľných dokumentov Word."
   },
   "extractImages": {
     "name": "Extrahovať obrázky",
-    "subtitle": "Extrahovať všetky vložené obrázky z vašich PDF súborov.",
-    "loader": {
-      "loadingPdfProcessor": "Načítava sa spracovanie PDF..."
-    },
-    "alert": {
-      "noImagesFound": "Nenašli sa žiadne obrázky",
-      "noEmbeddedImagesWere": "Vo vybraných PDF súboroch sa nenašli žiadne vložené obrázky."
-    },
-    "ui": {
-      "extractedImages": "Extrahované obrázky",
-      "downloadAllZip": "Stiahnuť všetko (ZIP)"
-    },
-    "msg": {
-      "couldNotLoadPageCount": "{{value}} • Počet strán sa nepodarilo načítať",
-      "extractingImagesFrom": "Extrahujú sa obrázky z {{name}}...",
-      "foundImageSInPdfS": "Nájdené obrázky: {{count}} v PDF súboroch: {{count2}}.",
-      "anErrorOccurredDuringExtractionError": "Pri extrakcii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "subtitle": "Extrahovať všetky vložené obrázky z vašich PDF súborov."
   },
   "pdfToMarkdown": {
     "name": "PDF do Markdownu",
-    "subtitle": "Previesť text a tabuľky z PDF do formátu Markdown.",
-    "loader": {
-      "convertingMarkdown": "Konvertuje sa do Markdownu..."
-    },
-    "alert": {
-      "failedConvertPdfMay": "PDF sa nepodarilo skonvertovať. Môže obsahovať len obrázky alebo byť poškodené."
-    },
-    "ui": {
-      "includeImagesBase64": "Zahrnúť obrázky ako base64",
-      "convertToMarkdown": "Previesť do Markdownu"
-    },
-    "msg": {
-      "couldNotLoadPageCount": "{{value}} • Počet strán sa nepodarilo načítať",
-      "converting": "Konvertuje sa {{name}}...",
-      "successfullyConvertedToMarkdown": "{{name}} bol úspešne skonvertovaný do Markdownu.",
-      "converting2": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedPdfSToMarkdown": "Do Markdownu boli úspešne skonvertované PDF: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "subtitle": "Previesť text a tabuľky z PDF do formátu Markdown."
   },
   "preparePdfForAi": {
     "name": "Pripraviť PDF pre AI",
-    "subtitle": "Extrahovať obsah PDF ako LlamaIndex JSON pre RAG/LLM procesy.",
-    "loader": {
-      "extracting": "Extrahuje sa..."
-    },
-    "alert": {
-      "successfullyExtractedPdfAi": "PDF bolo úspešne extrahované na použitie s AI/LLM.",
-      "extractionPartial": "Extrahovanie čiastočne úspešné"
-    },
-    "ui": {
-      "outputFormat": "Výstupný formát:",
-      "eachPdfExtractedJsonFile": "Každé PDF sa extrahuje ako súbor JSON s poľom objektov LlamaIndex Document, ktoré obsahujú:",
-      "extractedTextContentPerPage": "– extrahovaný text každej strany",
-      "pageNumberHeadingsDocumentInfo": "– číslo strany, nadpisy a údaje o dokumente",
-      "additionalContextRagSystems": "– doplňujúci kontext pre systémy RAG",
-      "extractAi": "Extrahovať pre AI"
-    },
-    "msg": {
-      "couldNotLoadPageCount": "{{value}} • Počet strán sa nepodarilo načítať",
-      "extractingForAi": "{{name}} sa pripravuje pre AI...",
-      "extractingForAi2": "{{name}} sa pripravuje pre AI ({{value}}/{{total}})...",
-      "successfullyExtractedPdfSForAi": "Pre AI/LLM boli úspešne pripravené PDF: {{completed}}.",
-      "extractedPdfSFailed": "Pripravené PDF: {{completed}}, neúspešné: {{failed}}.",
-      "anErrorOccurredDuringExtractionError": "Pri extrakcii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "subtitle": "Extrahovať obsah PDF ako LlamaIndex JSON pre RAG/LLM procesy."
   },
   "pdfOcg": {
-    "name": "PDF OCG (Vrstvy)",
-    "subtitle": "Zobraziť, prepínať, pridávať a odstraňovať vrstvy OCG vo vašom PDF.",
-    "alert": {
-      "failedToggleLayerVisibility": "Viditeľnosť vrstvy sa nepodarilo prepnúť",
-      "layerNotFound": "Vrstva sa nenašla",
-      "failedDeleteLayer": "Vrstvu sa nepodarilo odstrániť",
-      "failedAddChildLayer": "Podradenú vrstvu sa nepodarilo pridať",
-      "failedLoadPdfLayers": "Vrstvy PDF sa nepodarilo načítať",
-      "invalidName": "Neplatný názov",
-      "enterLayerName": "Zadajte názov vrstvy",
-      "pdfWithLayerChanges": "PDF so zmenami vrstiev bolo uložené!"
-    },
-    "loader": {
-      "readingLayerConfiguration": "Číta sa konfigurácia vrstiev...",
-      "savingPdfWithLayer": "Ukladá sa PDF so zmenami vrstiev..."
-    },
-    "ui": {
-      "loadLayers": "Načítať vrstvy",
-      "enterNewLayerNamePlaceholder": "Zadajte názov novej vrstvy...",
-      "addLayer": "Pridať vrstvu",
-      "downloadModifiedPdf": "Stiahnuť upravené PDF",
-      "layerNamePlaceholder": "Názov vrstvy",
-      "loadingLayers": "Načítavajú sa vrstvy...",
-      "enterNameForTheNewLayer": "Zadajte názov novej vrstvy:"
-    },
-    "msg": {
-      "couldNotLoadPageCount": "{{value}} • Počet strán sa nepodarilo načítať",
-      "loadingLayersFrom": "Načítavajú sa vrstvy z {{name}}...",
-      "failedToAddLayer": "Vrstvu sa nepodarilo pridať: {{value}}",
-      "failedToSavePdf": "PDF sa nepodarilo uložiť: {{value}}",
-      "thisPdfHasNoLayersOcg": "Toto PDF nemá žiadne vrstvy (OCG).",
-      "addANewLayerToGet": "Začnite pridaním novej vrstvy!",
-      "addChildLayer": "Pridať podradenú vrstvu",
-      "enterChildLayerName": "Zadajte názov podradenej vrstvy pod vrstvou „{{parent}}“:",
-      "layer": "Vrstva",
-      "layerNumber": "Vrstva {{number}}",
-      "addChildLayerTitle": "Pridať podradenú vrstvu",
-      "deleteLayerTitle": "Odstrániť vrstvu"
-    }
+    "name": "PDF OCG (vrstvy)",
+    "subtitle": "Zobraziť, prepínať, pridávať a odstraňovať vrstvy OCG vo vašom PDF."
   },
   "pdfToPdfa": {
     "name": "PDF do PDF/A",
-    "subtitle": "Previesť PDF do PDF/A pre dlhodobú archiváciu.",
-    "loader": {
-      "preFlatteningPdf": "Predbežne sa splošťuje PDF...",
-      "initializingGhostscript": "Inicializuje sa Ghostscript...",
-      "convertingMultiplePdfsPdf": "Konvertuje sa viacero PDF súborov do PDF/A..."
-    },
-    "ui": {
-      "pdfVersion": "Verzia PDF/A",
-      "pdf1bStrictNoTransparency": "PDF/A-1b (prísne, bez priehľadnosti)",
-      "pdf2bRecommendedAllowsTransparency": "PDF/A-2b (odporúčané, povoľuje priehľadnosť)",
-      "pdf3bModernAllowsAttachments": "PDF/A-3b (moderné, povoľuje prílohy)",
-      "preFlattenPdfRecommendedComplex": "Pred prevodom zlúčiť vrstvy PDF (odporúčané pri zložitých súboroch)",
-      "convertsPdfToImagesFirst": "Najskôr prevedie PDF na obrázky, čím zlepší súlad s PDF/A. Odporúča sa, ak bežný prevod neprejde overením.",
-      "convertToPdfa": "Previesť do PDF/A"
-    },
-    "msg": {
-      "couldNotLoadPageCount": "{{value}} • Počet strán sa nepodarilo načítať",
-      "successfullyConvertedTo": "{{name}} bol úspešne skonvertovaný do {{level}}.",
-      "converting": "Konvertuje sa {{value}}/{{count}}: {{name}}...",
-      "successfullyConvertedPdfSTo": "Do {{level}} boli úspešne skonvertované PDF: {{count}}.",
-      "anErrorOccurredDuringConversionError": "Pri konverzii sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "subtitle": "Previesť PDF do PDF/A pre dlhodobú archiváciu."
   },
   "rasterizePdf": {
     "name": "Rastrovať PDF",
-    "subtitle": "Previesť PDF na PDF založené na obrázkoch. Zlúčiť vrstvy a odstrániť označiteľný text.",
-    "loader": {
-      "rasterizing": "Rastruje sa..."
-    },
-    "alert": {
-      "rasterizationComplete": "Rastrovanie dokončené",
-      "rasterizationPartial": "Rastrovanie čiastočne úspešné"
-    },
-    "ui": {
-      "dpiResolution": "DPI (rozlíšenie)",
-      "screen72": "72 (obrazovka)",
-      "default150": "150 (predvolené)",
-      "good200": "200 (dobré)",
-      "print300": "300 (tlač)",
-      "highQuality600": "600 (vysoká kvalita)",
-      "imageFormat": "Formát obrázka",
-      "pngLossless": "PNG (bezstratový)",
-      "jpegSmallerFileSize": "JPEG (menší súbor)",
-      "convertToGrayscale": "Previesť do odtieňov sivej"
-    },
-    "msg": {
-      "couldNotLoadPageCount": "{{value}} • Počet strán sa nepodarilo načítať",
-      "rasterizing": "Rastruje sa {{name}}...",
-      "successfullyRasterizedPdfAtDpi": "PDF bolo úspešne rastrované v rozlíšení {{dpi}} DPI.",
-      "rasterizing2": "Rastruje sa {{name}} ({{value}}/{{total}})...",
-      "successfullyRasterizedPdfSAtDpi": "V rozlíšení {{dpi}} DPI boli úspešne rastrované PDF: {{completed}}.",
-      "rasterizedPdfSFailed": "Rastrované PDF: {{completed}}, neúspešné: {{failed}}.",
-      "anErrorOccurredDuringRasterizationError": "Pri rastrovaní sa vyskytla chyba. Chyba: {{value}}"
-    }
+    "subtitle": "Previesť PDF na PDF založené na obrázkoch. Zlúčiť vrstvy a odstrániť označiteľný text."
   },
   "pdfWorkflow": {
     "name": "Tvorca pracovných postupov (Workflow) PDF",
@@ -3553,352 +1247,6 @@
       "invalidWorkflowFile": "Neplatný súbor pracovného postupu: chýba pole uzlov alebo prepojení.",
       "storageQuotaExceeded": "Nepodarilo sa uložiť pracovný postup: bola prekročená kvóta úložiska. Skúste vymazať staré šablóny.",
       "failedToImport": "Nepodarilo sa importovať pracovný postup: {{message}}"
-    },
-    "alert": {
-      "loaded": "Načítané"
-    },
-    "ui": {
-      "protectedPdf": "Chránené PDF",
-      "enterPasswordPlaceholder": "Zadajte heslo",
-      "skip": "Preskočiť",
-      "pdfFiles": "Súbory PDF",
-      "uploadPdfs": "Nahrať PDF",
-      "addMoreFiles": "Pridať ďalšie súbory",
-      "images": "Obrázky",
-      "uploadImages": "Nahrať obrázky",
-      "addMoreImages": "Pridať ďalšie obrázky",
-      "uploadOf": "Nahrať {{files}}",
-      "addMoreOf": "Pridať ďalšie {{files}}",
-      "supportedFormats": "Podporované: {{formats}}",
-      "wrongPdfPassword": "Nesprávne heslo alebo sa súbor „{{file}}“ nepodarilo dešifrovať.",
-      "failedLoadPdf": "Nepodarilo sa načítať PDF: {{message}}",
-      "failedLoadImages": "Nepodarilo sa načítať obrázky: {{message}}",
-      "failedLoadFiles": "Nepodarilo sa načítať súbory: {{message}}",
-      "certificate": "Certifikát (.pfx, .p12, .pem)",
-      "certificatePassword": "Heslo certifikátu",
-      "unlock": "Odomknúť",
-      "unlocking": "Odomyká sa...",
-      "incorrectPassword": "Nesprávne heslo",
-      "certificateUnlocked": "Certifikát je odomknutý",
-      "changeCertificate": "Zmeniť certifikát",
-      "uploadCertificate": "Nahrať certifikát",
-      "searchLanguages": "Hľadať jazyky...",
-      "t0Nodes": "0 uzlov",
-      "closeFaq": "Zavrieť časté otázky"
-    },
-    "processingNode": "Spracúva sa: {{node}}...",
-    "nodeCount_one": "{{count}} uzol",
-    "nodeCount_few": "{{count}} uzly",
-    "nodeCount_many": "{{count}} uzla",
-    "nodeCount_other": "{{count}} uzlov",
-    "status": {
-      "running": "Spracúva sa...",
-      "complete": "Hotovo",
-      "failed": "Chyba",
-      "connected": "Pripojený",
-      "notConnected": "Nepripojený"
-    },
-    "fileInputs": {
-      "word": {
-        "label": "Dokumenty Word",
-        "files": "dokumenty"
-      },
-      "excel": {
-        "label": "Tabuľky",
-        "files": "tabuľky"
-      },
-      "powerpoint": {
-        "label": "Prezentácie",
-        "files": "prezentácie"
-      },
-      "text": {
-        "label": "Textové súbory",
-        "files": "textové súbory"
-      },
-      "svg": {
-        "label": "Súbory SVG",
-        "files": "súbory SVG"
-      },
-      "epub": {
-        "label": "Súbory EPUB",
-        "files": "súbory EPUB"
-      },
-      "email": {
-        "label": "E-mailové súbory",
-        "files": "e-mailové súbory"
-      },
-      "xps": {
-        "label": "Súbory XPS",
-        "files": "súbory XPS"
-      },
-      "mobi": {
-        "label": "Súbory MOBI",
-        "files": "súbory MOBI"
-      },
-      "fb2": {
-        "label": "Súbory FB2",
-        "files": "súbory FB2"
-      },
-      "cbz": {
-        "label": "Archívy komiksov",
-        "files": "komiksy"
-      },
-      "markdown": {
-        "label": "Súbory Markdown",
-        "files": "súbory Markdown"
-      },
-      "json": {
-        "label": "Súbory JSON",
-        "files": "súbory JSON"
-      },
-      "xml": {
-        "label": "Súbory XML",
-        "files": "súbory XML"
-      },
-      "wpd": {
-        "label": "Súbory WordPerfect",
-        "files": "súbory WPD"
-      },
-      "wps": {
-        "label": "Súbory WPS",
-        "files": "súbory WPS"
-      },
-      "pages": {
-        "label": "Súbory Pages",
-        "files": "súbory Pages"
-      },
-      "odg": {
-        "label": "Súbory ODG",
-        "files": "súbory ODG"
-      },
-      "pub": {
-        "label": "Súbory Publisher",
-        "files": "súbory PUB"
-      },
-      "vsd": {
-        "label": "Súbory Visio",
-        "files": "súbory Visio"
-      }
-    },
-    "controls": {
-      "addBookmark": "Pridať záložku",
-      "afterPage": "Za stranou",
-      "angle": "Uhol",
-      "author": "Autor",
-      "backgroundColor": "Farba pozadia",
-      "binarize": "Binarizácia",
-      "blankPosition": "Umiestnenie prázdnych strán",
-      "blur": "Rozostrenie",
-      "border": "Okraj",
-      "borderColor": "Farba okraja",
-      "bottom": "Zdola",
-      "brightness": "Jas",
-      "color": "Farba",
-      "cols": "Stĺpce",
-      "compressionLevel": "Úroveň kompresie",
-      "contactInfo": "Kontaktné informácie",
-      "contrast": "Kontrast",
-      "convertToGrayscale": "Previesť do odtieňov sivej",
-      "count": "Počet",
-      "creator": "Aplikácia",
-      "customHeight": "Vlastná výška",
-      "customUnits": "Jednotky",
-      "customWidth": "Vlastná šírka",
-      "direction": "Smer",
-      "filename": "Názov súboru",
-      "fillColor": "Farba výplne",
-      "flatten": "Zlúčiť so stranou",
-      "flattenForms": "Zlúčiť formulárové polia so stranou",
-      "fontColor": "Farba písma",
-      "fontFamily": "Rodina písma",
-      "fontSize": "Veľkosť písma",
-      "footerCenter": "Päta v strede",
-      "footerLeft": "Päta vľavo",
-      "footerRight": "Päta vpravo",
-      "format": "Formát",
-      "gamma": "Gama",
-      "grayscale": "Odtiene sivej",
-      "gridMode": "Rozloženie",
-      "headerCenter": "Hlavička v strede",
-      "headerLeft": "Hlavička vľavo",
-      "headerRight": "Hlavička vpravo",
-      "hueShift": "Posun odtieňa",
-      "imageFormat": "Formát obrázka",
-      "includeAttachments": "Zahrnúť prílohy",
-      "includeCcBcc": "Zahrnúť kópiu a skrytú kópiu",
-      "keywords": "Kľúčové slová",
-      "language": "Jazyk",
-      "left": "Zľava",
-      "level": "Úroveň",
-      "location": "Miesto",
-      "margins": "Okraje",
-      "mode": "Režim",
-      "noise": "Šum",
-      "numberFormat": "Formát čísla",
-      "opacity": "Nepriehľadnosť",
-      "orientation": "Orientácia",
-      "ownerPassword": "Heslo vlastníka",
-      "pageSize": "Veľkosť strany",
-      "pages": "Strany",
-      "pagesPerSheet": "Strán na list",
-      "paperSize": "Veľkosť papiera",
-      "password": "Heslo",
-      "position": "Umiestnenie",
-      "preFlatten": "Najprv zlúčiť vrstvy",
-      "processingDpi": "DPI spracovania",
-      "producer": "Tvorca PDF",
-      "quality": "Kvalita",
-      "rasterizeDpi": "DPI rastrovania",
-      "reason": "Dôvod",
-      "redactMode": "Režim začiernenia",
-      "removeAnnotations": "Odstrániť anotácie",
-      "removeEmbeddedFiles": "Odstrániť vložené súbory",
-      "removeFonts": "Odstrániť písma",
-      "removeJavascript": "Odstrániť JavaScript",
-      "removeLayers": "Odstrániť vrstvy",
-      "removeLinks": "Odstrániť odkazy",
-      "removeMarkInfo": "Odstrániť MarkInfo",
-      "removeMetadata": "Odstrániť metadáta",
-      "removeStructureTree": "Odstrániť strom štruktúry",
-      "resolution": "Rozlíšenie",
-      "retainPageLabels": "Zachovať označenia strán",
-      "right": "Sprava",
-      "rotation": "Otočenie",
-      "rotationVariance": "Odchýlka otočenia",
-      "rows": "Riadky",
-      "saturation": "Sýtosť",
-      "scalingMode": "Spôsob prispôsobenia",
-      "separator": "Deliaca čiara",
-      "separatorColor": "Farba deliacej čiary",
-      "separatorThickness": "Hrúbka deliacej čiary",
-      "sepia": "Sépia",
-      "skewThreshold": "Prah sklonu",
-      "spacing": "Rozostup",
-      "subject": "Predmet",
-      "targetKilobytes": "Cieľová veľkosť (KB)",
-      "targetSize": "Cieľový formát",
-      "temperature": "Teplota",
-      "threshold": "Prah",
-      "tile": "Opakovať ako dlaždice",
-      "tileGapX": "Vodorovná medzera dlaždíc",
-      "tileGapY": "Zvislá medzera dlaždíc",
-      "tint": "Tónovanie",
-      "title": "Názov",
-      "top": "Zhora",
-      "tsaUrl": "URL servera TSA",
-      "userPassword": "Heslo používateľa",
-      "whitelist": "Povolené znaky",
-      "yellowish": "Zožltnutie"
-    },
-    "hints": {
-      "pages": "napr. 1-3, 5, 7-9",
-      "whitelist": "Obmedzí rozpoznávané znaky (prázdne = všetky)",
-      "afterPage": "Prázdne strany sa vložia za stranu s týmto číslom",
-      "x0": "Ľavý okraj v bodoch (1 palec = 72 bodov)",
-      "y0": "Horný okraj v bodoch",
-      "x1": "Pravý okraj v bodoch",
-      "y1": "Dolný okraj v bodoch",
-      "targetKilobytes": "Nájde najlepšiu kvalitu, pri ktorej súbor neprekročí túto veľkosť. 0 znamená bez obmedzenia.",
-      "retainPageLabels": "Vypnuté (predvolené): strany sa očíslujú postupne od 1 po N. Zapnuté: zostanú pôvodné označenia strán každého súboru (označenia sa môžu opakovať)."
-    },
-    "options": {
-      "orientation": {
-        "auto": "Automaticky (zachovať pôvodnú)",
-        "portrait": "Na výšku",
-        "landscape": "Na šírku",
-        "vertical": "Zvisle",
-        "horizontal": "Vodorovne"
-      },
-      "direction": {
-        "vertical": "Zvisle",
-        "horizontal": "Vodorovne"
-      },
-      "blankPosition": {
-        "end": "Na koniec",
-        "start": "Na začiatok",
-        "after": "Za stranu..."
-      },
-      "gridMode": {
-        "1x2": "1x2 (brožúra)",
-        "2x2": "2x2 (4 na list)",
-        "2x4": "2x4 (8 na list)",
-        "4x4": "4x4 (16 na list)"
-      },
-      "compressionLevel": {
-        "low": "Nízka (najlepšia kvalita)",
-        "medium": "Stredná (odporúčaná)",
-        "high": "Vysoká (najmenšie súbory)",
-        "lossless": "Bezstratová (bez straty kvality)"
-      },
-      "skewThreshold": {
-        "0_1": "0,1° (veľmi citlivé)",
-        "0_5": "0,5° (predvolené)",
-        "1_0": "1,0° (bežné)",
-        "2_0": "2,0° (menej citlivé)"
-      },
-      "processingDpi": {
-        "100": "100 (rýchle)",
-        "150": "150 (predvolené)",
-        "200": "200 (lepšie)",
-        "300": "300 (najlepšia kvalita)"
-      },
-      "targetSize": {
-        "Custom": "Vlastná"
-      },
-      "scalingMode": {
-        "fit": "Prispôsobiť (celá strana zostane viditeľná)",
-        "fill": "Vyplniť (pokryje celú cieľovú stranu)"
-      },
-      "customUnits": {
-        "mm": "Milimetre (mm)",
-        "in": "Palce (in)"
-      },
-      "resolution": {
-        "2_0": "Štandardné (192 DPI)",
-        "3_0": "Vysoké (288 DPI)",
-        "4_0": "Najvyššie (384 DPI)"
-      },
-      "position": {
-        "bottom-center": "Dole v strede",
-        "bottom-left": "Vľavo dole",
-        "bottom-right": "Vpravo dole",
-        "top-center": "Hore v strede",
-        "top-left": "Vľavo hore",
-        "top-right": "Vpravo hore",
-        "center": "V strede",
-        "top": "Hore",
-        "left": "Vľavo",
-        "right": "Vpravo",
-        "bottom": "Dole"
-      },
-      "numberFormat": {
-        "simple": "Jednoduchý (1, 2, 3)",
-        "page_x_of_y": "Strana X z Y"
-      },
-      "level": {
-        "PDF_A-1b": "PDF/A-1b (prísny, bez priehľadnosti)",
-        "PDF_A-2b": "PDF/A-2b (odporúčaný)",
-        "PDF_A-3b": "PDF/A-3b (moderný, povoľuje prílohy)"
-      },
-      "rasterizeDpi": {
-        "72": "72 (obrazovka)",
-        "150": "150 (predvolené)",
-        "200": "200 (dobré)",
-        "300": "300 (tlač)",
-        "600": "600 (vysoká kvalita)"
-      },
-      "imageFormat": {
-        "png": "PNG (bezstratový)",
-        "jpeg": "JPEG (menší súbor)"
-      },
-      "redactMode": {
-        "text": "Vyhľadať text",
-        "area": "Oblasť (súradnice)"
-      },
-      "angle": {
-        "90": "90° v smere hodinových ručičiek",
-        "270": "90° proti smeru hodinových ručičiek"
-      }
     }
   },
   "wasmSettings": {
@@ -3939,10 +1287,7 @@
     "resetWithDefaults": "Vlastné prepísania boli vymazané. Predkonfigurované hodnoty sú aktívne.",
     "resetNoDefaults": "Všetky konfigurácie a moduly v medzipamäti boli vymazané.",
     "licenseTitle": "Upozornenie o licencii:",
-    "licenseDescription": "Externé moduly (PyMuPDF, Ghostscript, CoherentPDF) sú licencované pod licenciou AGPL-3.0 alebo podobnými \"copyleft\" licenciami. Konfiguráciou a používaním týchto modulov súhlasíte s ich príslušnými licenčnými podmienkami. BentoPDF je kompatibilné so žiadnou implementáciou Ghostscript WASM a PyMuPDF WASM, ktorá nasleduje očakávané rozhranie.",
-    "ui": {
-      "ghostscript": "Ghostscript"
-    }
+    "licenseDescription": "Externé moduly (PyMuPDF, Ghostscript, CoherentPDF) sú licencované pod licenciou AGPL-3.0 alebo podobnými \"copyleft\" licenciami. Konfiguráciou a používaním týchto modulov súhlasíte s ich príslušnými licenčnými podmienkami. BentoPDF je kompatibilné so žiadnou implementáciou Ghostscript WASM a PyMuPDF WASM, ktorá nasleduje očakávané rozhranie."
   },
   "pdfOverlay": {
     "name": "Prekrytie PDF",
@@ -3969,138 +1314,14 @@
     "faqSinglePageQuestion": "Môžem použiť jednostranové PDF ako prekrytie pre všetky strany?",
     "faqSinglePageAnswer": "Áno! Zapnite možnosť \"Opakovať\" a vaše PDF na prekrytie sa bude opakovať na všetkých stranách základu. Jednostranový vodoznak sa aplikuje na každú stranu.",
     "faqPrivacyQuestion": "Sú moje súbory v súkromí a v bezpečí?",
-    "faqPrivacyAnswer": "Absolútne! Všetko spracovanie prebieha vo vašom prehliadači. Vaše súbory nikdy neopustia vaše zariadenie, čo zabezpečuje úplné súkromie.",
-    "alert": {
-      "missingFiles": "Chýbajúce súbory",
-      "uploadBothBasePdf": "Nahrajte základné PDF aj PDF na prekrytie/podloženie."
-    },
-    "ui": {
-      "pageRangePlaceholder": "napr. 1-5, 8, 10-z (prázdne = všetky)"
-    },
-    "msg": {
-      "applying": "Používa sa {{value}}...",
-      "processingProducedAnEmptyFile": "Výsledkom spracovania je prázdny súbor.",
-      "pdfAppliedSuccessfully": "PDF {{modeLabel}} bolo úspešne použité.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}."
-    }
+    "faqPrivacyAnswer": "Absolútne! Všetko spracovanie prebieha vo vašom prehliadači. Vaše súbory nikdy neopustia vaše zariadenie, čo zabezpečuje úplné súkromie."
   },
   "unlockPdf": {
-    "name": "Dešifrovať PDF",
-    "subtitle": "Odomknúť PDF odstránením ochrany heslom.",
-    "alert": {
-      "enterPdfPassword": "Zadajte heslo k PDF.",
-      "pdfDecryptedSuccessfullyDownload": "PDF bolo úspešne dešifrované! Sťahovanie sa začalo.",
-      "passwordYouEnteredIncorrect": "Zadané heslo je nesprávne. Skúste to znova.",
-      "passwordError": "Chyba hesla",
-      "unableDecryptPdfWith": "PDF sa nepodarilo dešifrovať zadaným heslom.",
-      "decryptionFailed": "Dešifrovanie zlyhalo",
-      "passwordYouEnteredWrong": "Zadané heslo je nesprávne alebo je súbor poškodený."
-    },
-    "ui": {
-      "pdfPassword": "Heslo k PDF",
-      "enterPdfPasswordPlaceholder": "Zadajte heslo k PDF",
-      "enterPasswordUsedToProtect": "Zadajte heslo, ktorým je toto PDF chránené.",
-      "decryptPdf": "Dešifrovať PDF"
-    },
-    "msg": {
-      "initializingDecryption": "Pripravuje sa dešifrovanie...",
-      "readingEncryptedPdf": "Číta sa zašifrované PDF...",
-      "decryptingPdf": "PDF sa dešifruje...",
-      "preparingDownload": "Pripravuje sa stiahnutie...",
-      "decrypting": "Dešifruje sa {{name}} ({{value}}/{{count}})...",
-      "noPdfFilesCouldBeDecrypted": "Žiadne PDF sa nepodarilo dešifrovať. Heslo môže byť nesprávne.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}",
-      "decryptedSuccessfully_few": "{{count}} PDF súbory boli úspešne dešifrované.",
-      "decryptedSuccessfully_many": "{{count}} PDF súborov bolo úspešne dešifrovaných.",
-      "decryptedSuccessfully_one": "{{count}} PDF súbor bol úspešne dešifrovaný.",
-      "decryptedSuccessfully_other": "{{count}} PDF súborov bolo úspešne dešifrovaných.",
-      "filesFailed_few": "{{count}} súbory zlyhali.",
-      "filesFailed_many": "{{count}} súborov zlyhalo.",
-      "filesFailed_one": "{{count}} súbor zlyhal.",
-      "filesFailed_other": "{{count}} súborov zlyhalo."
-    }
+    "name": "Odomknúť PDF",
+    "subtitle": "Odomknúť PDF odstránením ochrany heslom."
   },
   "protectPdf": {
-    "name": "Zašifrovať PDF",
-    "subtitle": "Uzamknúť vaše PDF pridaním hesla.",
-    "alert": {
-      "enterUserPassword": "Zadajte heslo používateľa.",
-      "encryptionFailed": "Šifrovanie zlyhalo",
-      "pdfMightCorrupted": "PDF môže byť poškodené."
-    },
-    "ui": {
-      "userPasswordRequired": "Heslo používateľa (povinné)",
-      "enterPasswordToOpenPdfPlaceholder": "Zadajte heslo na otvorenie PDF",
-      "passwordRequiredToOpenPdf": "Toto heslo sa bude vyžadovať pri otvorení PDF.",
-      "ownerPasswordOptional": "Heslo vlastníka (voliteľné)",
-      "enterPasswordPermissionsOptionalPlaceholder": "Zadajte heslo pre oprávnenia (voliteľné)",
-      "ifProvidedUsageRestrictionsApplied": "Ak ho zadáte, uplatnia sa obmedzenia používania. Ak nechcete žiadne obmedzenia, nechajte pole prázdne.",
-      "encryptionDetails": "Podrobnosti šifrovania:",
-      "bitAesEncryptionHighestSecurity256": "256-bitové šifrovanie AES (najvyššia bezpečnosť)",
-      "userPasswordRequiredToOpen": "Na otvorenie PDF sa vyžaduje heslo používateľa",
-      "ownerPasswordEnablesUsageRestrictions": "Heslo vlastníka zapína obmedzenia používania",
-      "withoutOwnerPasswordNoRestrictions": "Bez hesla vlastníka sa neuplatnia žiadne obmedzenia",
-      "encryptPdf": "Zašifrovať PDF"
-    },
-    "msg": {
-      "initializingEncryption": "Pripravuje sa šifrovanie...",
-      "readingPdf": "Číta sa PDF...",
-      "encryptingPdfWith256BitAes": "PDF sa šifruje 256-bitovým AES...",
-      "encryptionFailed": "Šifrovanie zlyhalo: {{value}}",
-      "preparingDownload": "Pripravuje sa stiahnutie...",
-      "encryptionResultedInAnEmptyFile": "Výsledkom šifrovania je prázdny súbor.",
-      "anErrorOccurred": "Vyskytla sa chyba: {{value}}",
-      "encryptedSuccessfully": "PDF bolo úspešne zašifrované pomocou 256-bitového AES!",
-      "noOwnerPasswordNote": "Poznámka: Bez samostatného hesla vlastníka nemá PDF žiadne obmedzenia používania."
-    }
-  },
-  "cropper": {
-    "alert": {
-      "selectAreaCrop": "Vyberte oblasť na orezanie.",
-      "failedLoadPdfCropping": "PDF sa nepodarilo načítať na orezanie."
-    },
-    "msg": {
-      "renderingPage": "Vykresľuje sa strana {{num}}...",
-      "pageOf": "Strana {{currentPageNum}} z {{numPages}}",
-      "processingPageOf": "Spracúva sa strana {{pageNum}} z {{totalPages}}..."
-    }
-  },
-  "redact": {
-    "loader": {
-      "applyingRedactions": "Používa sa začiernenie..."
-    },
-    "alert": {
-      "failedApplyRedactions": "Začiernenie sa nepodarilo použiť."
-    }
-  },
-  "compressPdfForEmail": {
-    "ui": {
-      "compressPdfForEmailAttachmentFree": "Komprimovať PDF pre prílohu e-mailu zadarmo | BentoPDF"
-    }
-  },
-  "compressPdfTo-100kb": {
-    "ui": {
-      "compressPdfTo100kbFreeOnline": "Komprimovať PDF na 100 KB zadarmo online | BentoPDF"
-    }
-  },
-  "compressPdfTo-1mb": {
-    "ui": {
-      "compressPdfTo1mbFreeOnline": "Komprimovať PDF na 1 MB zadarmo online | BentoPDF"
-    }
-  },
-  "compressPdfTo-200kb": {
-    "ui": {
-      "compressPdfTo200kbFreeOnline": "Komprimovať PDF na 200 KB zadarmo online | BentoPDF"
-    }
-  },
-  "compressPdfTo-2mb": {
-    "ui": {
-      "compressPdfTo2mbFreeOnline": "Komprimovať PDF na 2 MB zadarmo online | BentoPDF"
-    }
-  },
-  "compressPdfTo-500kb": {
-    "ui": {
-      "compressPdfTo500kbFreeOnline": "Komprimovať PDF na 500 KB zadarmo online | BentoPDF"
-    }
+    "name": "Chrániť PDF heslom",
+    "subtitle": "Uzamknúť vaše PDF pridaním hesla."
   }
 }

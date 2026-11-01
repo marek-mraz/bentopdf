@@ -39,9 +39,9 @@ import {
 } from '@/types';
 import { extractExistingFields as extractExistingPdfFields } from './form-creator-extraction.js';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t } from '../i18n/i18n.js';
-
 import '../utils/setup-pdf-worker.js';
+
+import { trText, trHtml } from '../i18n/i18n.js';
 
 let fields: FormField[] = [];
 let selectedField: FormField | null = null;
@@ -250,8 +250,8 @@ if (gotoPageBtn && gotoPageInput) {
       updatePageNavigation();
     } else {
       alert(
-        t('tools:createPdfForm.msg.pleaseEnterAValidPageNumber', {
-          count: pages.length,
+        trText('Please enter a valid page number between 1 and {{total}}', {
+          total: pages.length,
         })
       );
     }
@@ -395,6 +395,13 @@ canvas.addEventListener('click', (e) => {
   }
 });
 
+const standardFontText = (text: string, fallback: string): string =>
+  /^[\u0020-\u007e\u00a0-\u00ff\u2013\u2014\u2018\u2019\u201c\u201d\u2026\u20ac]*$/.test(
+    text
+  )
+    ? text
+    : fallback;
+
 function createField(type: FormField['type'], x: number, y: number): void {
   fieldCounter++;
   const field: FormField = {
@@ -426,16 +433,19 @@ function createField(type: FormField['type'], x: number, y: number): void {
     maxLength: 0,
     options:
       type === 'dropdown' || type === 'optionlist'
-        ? [1, 2, 3].map((num) => t('tools:createPdfForm.msg.optionN', { num }))
+        ? ['Option 1', 'Option 2', 'Option 3']
         : undefined,
     checked: type === 'radio' || type === 'checkbox' ? false : undefined,
     exportValue: type === 'radio' || type === 'checkbox' ? 'Yes' : undefined,
     groupName: type === 'radio' ? 'RadioGroup1' : undefined,
     label:
       type === 'button'
-        ? t('tools:createPdfForm.ui.button')
+        ? 'Button'
         : type === 'image'
-          ? t('tools:createPdfForm.msg.clickToUploadImage')
+          ? standardFontText(
+              trText('Click to Upload Image'),
+              'Click to Upload Image'
+            )
           : undefined,
     action: type === 'button' ? 'none' : undefined,
     jsScript: type === 'button' ? 'app.alert("Hello World!");' : undefined,
@@ -689,7 +699,7 @@ function renderField(field: FormField): void {
       // Empty state
       const optEl = document.createElement('div');
       optEl.className = 'px-1 w-full text-black italic';
-      optEl.textContent = t('tools:createPdfForm.msg.item1');
+      optEl.textContent = trText('Item 1');
       contentEl.appendChild(optEl);
     }
   } else if (field.type === 'button') {
@@ -700,7 +710,7 @@ function renderField(field: FormField): void {
       '#e5e7eb'
     );
     contentEl.style.color = field.textColor || '#000000';
-    contentEl.textContent = field.label || t('tools:createPdfForm.ui.button');
+    contentEl.textContent = field.label || trText('Button');
   } else if (field.type === 'signature') {
     contentEl.className =
       'w-full h-full flex items-center justify-center text-gray-400';
@@ -708,7 +718,7 @@ function renderField(field: FormField): void {
       field,
       '#f9fafb'
     );
-    contentEl.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="pen-tool" class="w-6 h-6 mb-1"></i><span class="text-[10px]">${t('tools:createPdfForm.msg.signHere')}</span></div>`;
+    contentEl.innerHTML = `<div class="flex flex-col items-center"><i data-lucide="pen-tool" class="w-6 h-6 mb-1"></i><span class="text-[10px]">${trHtml('Sign Here')}</span></div>`;
     setTimeout(() => (window as LucideWindow).lucide?.createIcons(), 0);
   } else if (field.type === 'date') {
     contentEl.className =
@@ -726,7 +736,7 @@ function renderField(field: FormField): void {
       field,
       '#f3f4f6'
     );
-    contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1"><i data-lucide="image" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">${escapeHtml(field.label || t('tools:createPdfForm.msg.clickToUploadImage'))}</span></div>`;
+    contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1"><i data-lucide="image" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">${escapeHtml(field.label || 'Click to Upload Image')}</span></div>`;
     setTimeout(() => (window as LucideWindow).lucide?.createIcons(), 0);
   } else if (field.type === 'barcode') {
     contentEl.className = 'w-full h-full flex items-center justify-center';
@@ -755,11 +765,11 @@ function renderField(field: FormField): void {
           String(field.name).replace(/[\r\n]+/g, ' '),
           error
         );
-        contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1 text-gray-400"><i data-lucide="qr-code" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">${t('tools:createPdfForm.msg.invalidData')}</span></div>`;
+        contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1 text-gray-400"><i data-lucide="qr-code" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">${trHtml('Invalid data')}</span></div>`;
         setTimeout(() => (window as LucideWindow).lucide?.createIcons(), 0);
       }
     } else {
-      contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1 text-gray-400"><i data-lucide="qr-code" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">${t('tools:createPdfForm.ui.barcode')}</span></div>`;
+      contentEl.innerHTML = `<div class="flex flex-col items-center text-center p-1 text-gray-400"><i data-lucide="qr-code" class="w-6 h-6 mb-1"></i><span class="text-[10px] leading-tight">${trHtml('Barcode')}</span></div>`;
       setTimeout(() => (window as LucideWindow).lucide?.createIcons(), 0);
     }
   }
@@ -1095,35 +1105,35 @@ function showProperties(field: FormField): void {
   if (field.type === 'text') {
     specificProps = `
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.value')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Value')}</label>
             <input type="text" id="propValue" value="${escapeHtml(field.defaultValue)}" ${field.combCells > 0 ? `maxlength="${field.combCells}"` : field.maxLength > 0 ? `maxlength="${field.maxLength}"` : ''} class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.maxLengthUnlimited')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Max Length (0 for unlimited)')}</label>
             <input type="number" id="propMaxLength" value="${field.maxLength}" min="0" ${field.combCells > 0 ? 'disabled' : ''} class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500 disabled:opacity-50">
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.divideIntoBoxes')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Divide into boxes (0 to disable)')}</label>
             <input type="number" id="propComb" value="${field.combCells}" min="0" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('toolPage.fontSize')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Font Size')}</label>
             <input type="number" id="propFontSize" value="${field.fontSize}" min="8" max="72" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.textColor')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Text Color')}</label>
             <input type="color" id="propTextColor" value="${field.textColor}">
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.alignment')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Alignment')}</label>
             <select id="propAlignment" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-            <option value="left" ${field.alignment === 'left' ? 'selected' : ''}>${t('tools:createPdfForm.msg.alignLeft')}</option>
-            <option value="center" ${field.alignment === 'center' ? 'selected' : ''}>${t('tools:createPdfForm.msg.alignCenter')}</option>
-            <option value="right" ${field.alignment === 'right' ? 'selected' : ''}>${t('tools:createPdfForm.msg.alignRight')}</option>
+            <option value="left" ${field.alignment === 'left' ? 'selected' : ''}>${trHtml('Left')}</option>
+            <option value="center" ${field.alignment === 'center' ? 'selected' : ''}>${trHtml('Center')}</option>
+            <option value="right" ${field.alignment === 'right' ? 'selected' : ''}>${trHtml('Right')}</option>
             </select>
         </div>
         <div class="flex items-center justify-between bg-gray-600 p-2 rounded mt-2">
-            <label for="propMultiline" class="text-xs font-semibold text-gray-300">${t('tools:createPdfForm.msg.multiLine')}</label>
+            <label for="propMultiline" class="text-xs font-semibold text-gray-300">${trHtml('Multi-line')}</label>
             <button id="propMultilineBtn" class="w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none ${field.multiline ? 'bg-indigo-600' : 'bg-gray-500'} relative">
                 <span class="absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ${field.multiline ? 'translate-x-6' : 'translate-x-0'}"></span>
             </button>
@@ -1132,7 +1142,7 @@ function showProperties(field: FormField): void {
   } else if (field.type === 'checkbox') {
     specificProps = `
         <div class="flex items-center justify-between bg-gray-600 p-2 rounded">
-            <label for="propChecked" class="text-xs font-semibold text-gray-300">${t('tools:createPdfForm.msg.checkedState')}</label>
+            <label for="propChecked" class="text-xs font-semibold text-gray-300">${trHtml('Checked State')}</label>
             <button id="propCheckedBtn" class="w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none ${field.checked ? 'bg-indigo-600' : 'bg-gray-500'} relative">
                 <span class="absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ${field.checked ? 'translate-x-6' : 'translate-x-0'}"></span>
             </button>
@@ -1141,15 +1151,15 @@ function showProperties(field: FormField): void {
   } else if (field.type === 'radio') {
     specificProps = `
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.groupNameSameForGroup')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Group Name (Must be same for group)')}</label>
             <input type="text" id="propGroupName" value="${escapeHtml(field.groupName)}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.exportValue')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Export Value')}</label>
             <input type="text" id="propExportValue" value="${escapeHtml(field.exportValue)}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div class="flex items-center justify-between bg-gray-600 p-2 rounded mt-2">
-            <label for="propChecked" class="text-xs font-semibold text-gray-300">${t('tools:createPdfForm.msg.checkedState')}</label>
+            <label for="propChecked" class="text-xs font-semibold text-gray-300">${trHtml('Checked State')}</label>
             <button id="propCheckedBtn" class="w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none ${field.checked ? 'bg-indigo-600' : 'bg-gray-500'} relative">
                 <span class="absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform duration-200 ${field.checked ? 'translate-x-6' : 'translate-x-0'}"></span>
             </button>
@@ -1158,50 +1168,50 @@ function showProperties(field: FormField): void {
   } else if (field.type === 'dropdown' || field.type === 'optionlist') {
     specificProps = `
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.optionsOnePerLine')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Options (One per line or comma separated)')}</label>
             <textarea id="propOptions" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500 h-24">${escapeHtml(field.options?.join('\n') ?? '')}</textarea>
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.selectedOption')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Selected Option')}</label>
             <select id="propSelectedOption" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="">${t('tools:createPdfForm.msg.none')}</option>
+                <option value="">${trHtml('None')}</option>
                 ${field.options?.map((opt) => `<option value="${escapeHtml(opt)}" ${field.defaultValue === opt ? 'selected' : ''}>${escapeHtml(opt)}</option>`).join('')}
             </select>
         </div>
         <div class="text-xs text-gray-400 italic mt-2">
-            ${t('tools:createPdfForm.msg.useFormFillerForOptions')}
+            ${trHtml('To actually fill or change the options, use our PDF Form Filler tool.')}
         </div>
         `;
   } else if (field.type === 'button') {
     specificProps = `
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.label')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Label')}</label>
             <input type="text" id="propLabel" value="${escapeHtml(field.label)}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.action')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Action')}</label>
             <select id="propAction" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="none" ${field.action === 'none' ? 'selected' : ''}>${t('tools:createPdfForm.msg.none')}</option>
-                <option value="reset" ${field.action === 'reset' ? 'selected' : ''}>${t('tools:createPdfForm.msg.resetForm')}</option>
-                <option value="print" ${field.action === 'print' ? 'selected' : ''}>${t('tools:createPdfForm.msg.printForm')}</option>
-                <option value="url" ${field.action === 'url' ? 'selected' : ''}>${t('tools:createPdfForm.msg.openUrl')}</option>
-                <option value="js" ${field.action === 'js' ? 'selected' : ''}>${t('tools:createPdfForm.msg.runJavascript')}</option>
-                <option value="showHide" ${field.action === 'showHide' ? 'selected' : ''}>${t('tools:createPdfForm.msg.showHideField')}</option>
+                <option value="none" ${field.action === 'none' ? 'selected' : ''}>${trHtml('None')}</option>
+                <option value="reset" ${field.action === 'reset' ? 'selected' : ''}>${trHtml('Reset Form')}</option>
+                <option value="print" ${field.action === 'print' ? 'selected' : ''}>${trHtml('Print Form')}</option>
+                <option value="url" ${field.action === 'url' ? 'selected' : ''}>${trHtml('Open URL')}</option>
+                <option value="js" ${field.action === 'js' ? 'selected' : ''}>${trHtml('Run Javascript')}</option>
+                <option value="showHide" ${field.action === 'showHide' ? 'selected' : ''}>${trHtml('Show/Hide Field')}</option>
             </select>
         </div>
         <div id="propUrlContainer" class="${field.action === 'url' ? '' : 'hidden'}">
-            <label class="block text-xs font-semibold text-gray-300 mb-1">URL</label>
-            <input type="text" id="propActionUrl" value="${escapeHtml(field.actionUrl || '')}" placeholder="https://example.com" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('URL')}</label>
+            <input type="text" id="propActionUrl" value="${escapeHtml(field.actionUrl || '')}" placeholder="${trHtml('https://example.com')}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div id="propJsContainer" class="${field.action === 'js' ? '' : 'hidden'}">
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.javascriptCode')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Javascript Code')}</label>
             <textarea id="propJsScript" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500 h-24 font-mono">${escapeHtml(field.jsScript || '')}</textarea>
         </div>
         <div id="propShowHideContainer" class="${field.action === 'showHide' ? '' : 'hidden'}">
             <div class="mb-2">
-                <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.targetField')}</label>
+                <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Target Field')}</label>
                 <select id="propTargetField" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                    <option value="">${t('tools:createPdfForm.msg.selectAField')}</option>
+                    <option value="">${trHtml('Select a field...')}</option>
                     ${fields
                       .filter((f) => f.id !== field.id)
                       .map(
@@ -1212,11 +1222,11 @@ function showProperties(field: FormField): void {
                 </select>
             </div>
             <div>
-                <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.visibility')}</label>
+                <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Visibility')}</label>
                 <select id="propVisibilityAction" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                    <option value="show" ${field.visibilityAction === 'show' ? 'selected' : ''}>${t('tools:createPdfForm.msg.show')}</option>
-                    <option value="hide" ${field.visibilityAction === 'hide' ? 'selected' : ''}>${t('tools:createPdfForm.msg.hide')}</option>
-                    <option value="toggle" ${field.visibilityAction === 'toggle' ? 'selected' : ''}>${t('tools:createPdfForm.msg.toggle')}</option>
+                    <option value="show" ${field.visibilityAction === 'show' ? 'selected' : ''}>${trHtml('Show')}</option>
+                    <option value="hide" ${field.visibilityAction === 'hide' ? 'selected' : ''}>${trHtml('Hide')}</option>
+                    <option value="toggle" ${field.visibilityAction === 'toggle' ? 'selected' : ''}>${trHtml('Toggle')}</option>
                 </select>
             </div>
         </div>
@@ -1224,7 +1234,7 @@ function showProperties(field: FormField): void {
   } else if (field.type === 'signature') {
     specificProps = `
         <div class="text-xs text-gray-400 italic mb-2">
-            ${t('tools:createPdfForm.msg.signatureFieldsNote')}
+            ${trHtml('Signature fields are AcroForm signature fields and would only be visible in an advanced PDF viewer.')}
         </div>
         `;
   } else if (field.type === 'date') {
@@ -1264,53 +1274,53 @@ function showProperties(field: FormField): void {
     const isCustom = !formats.includes(field.dateFormat || 'mm/dd/yyyy');
     specificProps = `
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.dateFormat')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Date Format')}</label>
             <select id="propDateFormat" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
                 ${formats.map((f) => `<option value="${f}" ${field.dateFormat === f ? 'selected' : ''}>${f}</option>`).join('')}
-                <option value="custom" ${isCustom ? 'selected' : ''}>${t('tools:createPdfForm.ui.custom')}</option>
+                <option value="custom" ${isCustom ? 'selected' : ''}>${trHtml('Custom')}</option>
             </select>
         </div>
         <div id="customFormatContainer" class="${isCustom ? '' : 'hidden'} mt-2">
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.customFormat')}</label>
-            <input type="text" id="propCustomFormat" value="${isCustom ? escapeHtml(field.dateFormat ?? '') : ''}" placeholder="${t('tools:createPdfForm.msg.customFormatPlaceholder', { example: 'dd/mm/yyyy HH:MM:ss' })}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Custom Format')}</label>
+            <input type="text" id="propCustomFormat" value="${isCustom ? escapeHtml(field.dateFormat ?? '') : ''}" placeholder="${trHtml('e.g. dd/mm/yyyy HH:MM:ss')}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div class="mt-3 p-2 bg-gray-700 rounded">
-            <span class="text-xs text-gray-400">${t('tools:createPdfForm.msg.exampleOfCurrentFormat')}</span>
+            <span class="text-xs text-gray-400">${trHtml('Example of current format:')}</span>
             <span id="dateFormatExample" class="text-sm text-white font-medium ml-2"></span>
         </div>
         <div class="bg-blue-900/30 border border-blue-700/50 rounded p-2 mt-2">
             <p class="text-xs text-blue-200">
                 <i data-lucide="info" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
-                <span><strong>${t('tools:createPdfForm.msg.browserNote')}</strong> ${t('tools:createPdfForm.msg.browserNoteText')}</span>
+                <span><strong>${trHtml('Browser Note:')}</strong> ${trHtml('Firefox and Chrome may show their native date picker format during selection. The correct format will apply when you finish entering the date.')}</span>
             </p>
         </div>
         `;
   } else if (field.type === 'image') {
     specificProps = `
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.labelPrompt')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Label / Prompt')}</label>
             <input type="text" id="propLabel" value="${escapeHtml(field.label)}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div class="text-xs text-gray-400 italic mt-2">
-            ${t('tools:createPdfForm.msg.imageFieldNote')}
+            ${trHtml('Clicking this field in the PDF will open a file picker to upload an image.')}
         </div>
         `;
   } else if (field.type === 'barcode') {
     specificProps = `
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.barcodeFormat')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Barcode Format')}</label>
             <select id="propBarcodeFormat" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="qrcode" ${field.barcodeFormat === 'qrcode' ? 'selected' : ''}>QR Code</option>
-                <option value="code128" ${field.barcodeFormat === 'code128' ? 'selected' : ''}>Code 128</option>
-                <option value="code39" ${field.barcodeFormat === 'code39' ? 'selected' : ''}>Code 39</option>
-                <option value="ean13" ${field.barcodeFormat === 'ean13' ? 'selected' : ''}>EAN-13</option>
-                <option value="upca" ${field.barcodeFormat === 'upca' ? 'selected' : ''}>UPC-A</option>
-                <option value="datamatrix" ${field.barcodeFormat === 'datamatrix' ? 'selected' : ''}>DataMatrix</option>
-                <option value="pdf417" ${field.barcodeFormat === 'pdf417' ? 'selected' : ''}>PDF417</option>
+                <option value="qrcode" ${field.barcodeFormat === 'qrcode' ? 'selected' : ''}>${trHtml('QR Code')}</option>
+                <option value="code128" ${field.barcodeFormat === 'code128' ? 'selected' : ''}>${trHtml('Code 128')}</option>
+                <option value="code39" ${field.barcodeFormat === 'code39' ? 'selected' : ''}>${trHtml('Code 39')}</option>
+                <option value="ean13" ${field.barcodeFormat === 'ean13' ? 'selected' : ''}>${trHtml('EAN-13')}</option>
+                <option value="upca" ${field.barcodeFormat === 'upca' ? 'selected' : ''}>${trHtml('UPC-A')}</option>
+                <option value="datamatrix" ${field.barcodeFormat === 'datamatrix' ? 'selected' : ''}>${trHtml('DataMatrix')}</option>
+                <option value="pdf417" ${field.barcodeFormat === 'pdf417' ? 'selected' : ''}>${trHtml('PDF417')}</option>
             </select>
         </div>
         <div>
-            <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.barcodeValue')}</label>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Barcode Value')}</label>
             <input type="text" id="propBarcodeValue" value="${escapeHtml(field.barcodeValue || '')}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         </div>
         <div id="barcodeFormatHint" class="text-xs text-gray-400 italic"></div>
@@ -1320,7 +1330,7 @@ function showProperties(field: FormField): void {
   const propertiesHtml = `
     <div class="space-y-3">
       <div>
-        <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.fieldName')} ${field.type === 'radio' ? t('tools:createPdfForm.msg.groupNameParenthesized') : ''}</label>
+        <label class="block text-xs font-semibold text-gray-300 mb-1">${field.type === 'radio' ? trHtml('Field Name (Group Name)') : trHtml('Field Name')}</label>
         <input type="text" id="propName" value="${escapeHtml(field.name)}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
         <div id="nameError" class="hidden text-red-400 text-xs mt-1"></div>
       </div>
@@ -1330,9 +1340,9 @@ function showProperties(field: FormField): void {
           fields.some((f) => f.type === 'radio' && f.id !== field.id))
           ? `
       <div>
-        <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.existingRadioGroups')}</label>
+        <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Existing Radio Groups')}</label>
         <select id="existingGroups" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-          <option value="">${t('tools:createPdfForm.msg.selectExistingGroup')}</option>
+          <option value="">${trHtml('-- Select existing group --')}</option>
           ${Array.from(existingRadioGroups)
             .map(
               (name) =>
@@ -1353,38 +1363,38 @@ function showProperties(field: FormField): void {
             )
             .join('')}
         </select>
-        <p class="text-xs text-gray-400 mt-1">${t('tools:createPdfForm.msg.selectToAddToExistingGroup')}</p>
+        <p class="text-xs text-gray-400 mt-1">${trHtml('Select to add this button to an existing group')}</p>
       </div>
       `
           : ''
       }
       ${specificProps}
       <div>
-        <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.tooltipHelpText')}</label>
-        <input type="text" id="propTooltip" value="${escapeHtml(field.tooltip)}" placeholder="${t('tools:createPdfForm.msg.descriptionForScreenReaders')}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
+        <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Tooltip / Help Text')}</label>
+        <input type="text" id="propTooltip" value="${escapeHtml(field.tooltip)}" placeholder="${trHtml('Description for screen readers')}" class="w-full bg-gray-600 border border-gray-500 text-white rounded px-2 py-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
       </div>
       <div class="flex items-center">
         <input type="checkbox" id="propRequired" ${field.required ? 'checked' : ''} class="mr-2">
-        <label for="propRequired" class="text-xs font-semibold text-gray-300">${t('tools:createPdfForm.msg.required')}</label>
+        <label for="propRequired" class="text-xs font-semibold text-gray-300">${trHtml('Required')}</label>
       </div>
       <div class="flex items-center">
         <input type="checkbox" id="propReadOnly" ${field.readOnly ? 'checked' : ''} class="mr-2">
-        <label for="propReadOnly" class="text-xs font-semibold text-gray-300">${t('tools:createPdfForm.msg.readOnly')}</label>
+        <label for="propReadOnly" class="text-xs font-semibold text-gray-300">${trHtml('Read Only')}</label>
       </div>
       <div>
-        <label class="block text-xs font-semibold text-gray-300 mb-1">${t('tools:createPdfForm.msg.borderColor')}</label>
+        <label class="block text-xs font-semibold text-gray-300 mb-1">${trHtml('Border Color')}</label>
         <input type="color" id="propBorderColor" value="${field.borderColor || '#000000'}">
       </div>
       <div class="flex items-center">
         <input type="checkbox" id="propHideBorder" ${field.hideBorder ? 'checked' : ''} class="mr-2">
-        <label for="propHideBorder" class="text-xs font-semibold text-gray-300">${t('tools:createPdfForm.msg.hideBorder')}</label>
+        <label for="propHideBorder" class="text-xs font-semibold text-gray-300">${trHtml('Hide Border')}</label>
       </div>
       <div class="flex items-center">
         <input type="checkbox" id="propTransparentBackground" ${field.transparentBackground ? 'checked' : ''} class="mr-2">
-        <label for="propTransparentBackground" class="text-xs font-semibold text-gray-300">${t('tools:createPdfForm.msg.transparentBackground')}</label>
+        <label for="propTransparentBackground" class="text-xs font-semibold text-gray-300">${trHtml('Transparent Background')}</label>
       </div>
       <button id="deleteBtn" class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition text-sm font-semibold">
-        ${t('tools:createPdfForm.msg.deleteField')}
+        ${trHtml('Delete Field')}
       </button>
     </div>
   `;
@@ -1409,9 +1419,7 @@ function showProperties(field: FormField): void {
 
   const validateName = (newName: string): boolean => {
     if (!newName) {
-      nameError.textContent = t(
-        'tools:createPdfForm.msg.fieldNameCannotBeEmpty'
-      );
+      nameError.textContent = trText('Field name cannot be empty');
       nameError.classList.remove('hidden');
       propName.classList.add('border-red-500');
       return false;
@@ -1429,11 +1437,9 @@ function showProperties(field: FormField): void {
     const isDuplicateInPdf = existingFieldNames.has(newName);
 
     if (isDuplicateInFields || isDuplicateInPdf) {
-      nameError.textContent = t(
-        isDuplicateInPdf
-          ? 'tools:createPdfForm.msg.fieldNameExistsInPdf'
-          : 'tools:createPdfForm.msg.fieldNameExistsInForm',
-        { name: newName }
+      nameError.textContent = trText(
+        'Field name "{{newName}}" already exists in this {{value}}. Please try using a unique name.',
+        { newName, value: isDuplicateInPdf ? trText('PDF') : trText('form') }
       );
       nameError.classList.remove('hidden');
       propName.classList.add('border-red-500');
@@ -1785,7 +1791,7 @@ function showProperties(field: FormField): void {
       if (propSelectedOption) {
         const currentVal = field.defaultValue;
         propSelectedOption.innerHTML =
-          `<option value="">${t('tools:compressPdf.hyperOptions.dpiNone')}</option>` +
+          `<option value="">${trHtml('None')}</option>` +
           field.options
             ?.map(
               (opt) =>
@@ -1824,9 +1830,7 @@ function showProperties(field: FormField): void {
         const contentEl = fieldWrapper.querySelector(
           '.field-content'
         ) as HTMLElement;
-        if (contentEl)
-          contentEl.textContent =
-            field.label || t('tools:createPdfForm.ui.button');
+        if (contentEl) contentEl.textContent = field.label || trText('Button');
       }
     });
 
@@ -2047,19 +2051,13 @@ function showProperties(field: FormField): void {
     };
 
     const barcodeFormatHints: Record<string, string> = {
-      qrcode: t('tools:createPdfForm.msg.barcodeHintAnyData'),
-      code128: t('tools:createPdfForm.msg.barcodeHintCode128'),
-      code39: t('tools:createPdfForm.msg.barcodeHintCode39'),
-      ean13: t('tools:createPdfForm.msg.barcodeHintDigits', {
-        min: 12,
-        max: 13,
-      }),
-      upca: t('tools:createPdfForm.msg.barcodeHintDigits', {
-        min: 11,
-        max: 12,
-      }),
-      datamatrix: t('tools:createPdfForm.msg.barcodeHintAnyData'),
-      pdf417: t('tools:createPdfForm.msg.barcodeHintAnyData'),
+      qrcode: trText('Any text, URL, or data'),
+      code128: trText('ASCII characters (letters, numbers, symbols)'),
+      code39: trText('Uppercase A-Z, digits 0-9, and - . $ / + % SPACE'),
+      ean13: trText('Exactly 12 or 13 digits'),
+      upca: trText('Exactly 11 or 12 digits'),
+      datamatrix: trText('Any text, URL, or data'),
+      pdf417: trText('Any text, URL, or data'),
     };
 
     const hintEl = document.getElementById('barcodeFormatHint');
@@ -2089,7 +2087,7 @@ function showProperties(field: FormField): void {
 
 // Hide properties panel
 function hideProperties(): void {
-  propertiesPanel.innerHTML = `<p class="text-gray-500 text-sm">${t('tools:createPdfForm.ui.selectAFieldToEditProperties')}</p>`;
+  propertiesPanel.innerHTML = `<p class="text-gray-500 text-sm">${trHtml('Select a field to edit properties')}</p>`;
 }
 
 // Delete field
@@ -2156,10 +2154,11 @@ downloadBtn.addEventListener('click', async () => {
       .map((name) => `"${name}"`)
       .join(', ');
     showModal(
-      t('tools:createPdfForm.msg.fieldNameConflict'),
-      t('tools:createPdfForm.msg.theFollowingFieldNamesAlreadyExist', {
-        conflictList,
-      }),
+      trText('Field Name Conflict'),
+      trText(
+        'The following field names already exist in the uploaded PDF: {{conflictList}}. Please rename these fields before downloading.',
+        { conflictList }
+      ),
       'error'
     );
     return;
@@ -2168,22 +2167,23 @@ downloadBtn.addEventListener('click', async () => {
   if (duplicates.length > 0) {
     const duplicateList = duplicates.map((name) => `"${name}"`).join(', ');
     showModal(
-      t('tools:createPdfForm.msg.duplicateFieldNames'),
-      t('tools:createPdfForm.msg.theFollowingFieldNamesAreUsed', {
-        duplicateList,
-      }),
+      trText('Duplicate Field Names'),
+      trText(
+        'The following field names are used more than once: {{duplicateList}}. Please rename these fields to use unique names before downloading.',
+        { duplicateList }
+      ),
       'error'
     );
     return;
   }
 
   if (fields.length === 0) {
-    alert(t('tools:createPdfForm.msg.pleaseAddAtLeastOneField'));
+    alert(trText('Please add at least one field before downloading.'));
     return;
   }
 
   if (pages.length === 0) {
-    alert(t('tools:createPdfForm.msg.noPagesFoundPleaseCreateA'));
+    alert(trText('No pages found. Please create a blank PDF or upload one.'));
     return;
   }
 
@@ -2591,19 +2591,15 @@ downloadBtn.addEventListener('click', async () => {
       } else if (field.type === 'image') {
         const imageBtn = form.createButton(field.name);
         const borderRgb = hexToRgb(field.borderColor || '#000000');
-        imageBtn.addToPage(
-          field.label || t('tools:createPdfForm.msg.clickToUploadImage'),
-          pdfPage,
-          {
-            x: x,
-            y: y,
-            width: width,
-            height: height,
-            borderWidth: field.hideBorder ? 0 : 1,
-            borderColor: rgb(borderRgb.r, borderRgb.g, borderRgb.b),
-            ...getPdfBackgroundOptions(field, 0.9, 0.9, 0.9),
-          }
-        );
+        imageBtn.addToPage(field.label || 'Click to Upload Image', pdfPage, {
+          x: x,
+          y: y,
+          width: width,
+          height: height,
+          borderWidth: field.hideBorder ? 0 : 1,
+          borderColor: rgb(borderRgb.r, borderRgb.g, borderRgb.b),
+          ...getPdfBackgroundOptions(field, 0.9, 0.9, 0.9),
+        });
 
         // Add Import Icon Action
         const widgets = imageBtn.acroField.getWidgets();
@@ -2731,13 +2727,13 @@ downloadBtn.addEventListener('click', async () => {
     });
     downloadFile(blob, uploadedFileName || 'document.pdf');
     showModal(
-      t('common.success'),
-      t('tools:createPdfForm.msg.yourPdfHasBeenDownloadedSuccessfully'),
+      'Success',
+      trText('Your PDF has been downloaded successfully.'),
       'info',
       () => {
         resetToInitial();
       },
-      t('tools:createPdfForm.msg.okay')
+      'Okay'
     );
   } catch (error) {
     console.error('Error generating PDF:', error);
@@ -2757,17 +2753,18 @@ downloadBtn.addEventListener('click', async () => {
         console.log(`Adding to existing radio group: ${fieldName}`);
       } else {
         showModal(
-          t('tools:createPdfForm.msg.duplicateFieldName'),
-          t('tools:createPdfForm.msg.aFieldNamedAlreadyExistsPlease', {
-            fieldName,
-          }),
+          trText('Duplicate Field Name'),
+          trText(
+            'A field named "{{fieldName}}" already exists. Please rename this field to use a unique name before downloading.',
+            { fieldName }
+          ),
           'error'
         );
       }
     } else {
       showModal(
-        t('common.error'),
-        t('tools:createPdfForm.msg.errorGeneratingPdf', { errorMessage }),
+        'Error',
+        trText('Error generating PDF: {{error}}', { error: errorMessage }),
         'error'
       );
     }
@@ -2828,7 +2825,7 @@ function resetToInitial(): void {
 
   canvas.innerHTML = '';
 
-  propertiesPanel.innerHTML = `<p class="text-gray-500 text-sm">${t('tools:createPdfForm.ui.selectAFieldToEditProperties')}</p>`;
+  propertiesPanel.innerHTML = `<p class="text-gray-500 text-sm">${trHtml('Select a field to edit properties')}</p>`;
 
   updateFieldCount();
 
@@ -2938,9 +2935,9 @@ async function renderCanvas(): Promise<void> {
 }
 
 function updatePageNavigation(): void {
-  pageIndicator.textContent = t('tools:createPdfForm.msg.pageOf', {
-    value: currentPageIndex + 1,
-    count: pages.length,
+  pageIndicator.textContent = trText('Page {{n}} of {{length}}', {
+    n: currentPageIndex + 1,
+    length: pages.length,
   });
   prevPageBtn.disabled = currentPageIndex === 0;
   nextPageBtn.disabled = currentPageIndex === pages.length - 1;
@@ -3101,8 +3098,8 @@ async function handlePdfUpload(file: File) {
   } catch (error) {
     console.error('Error loading PDF:', error);
     showModal(
-      t('common.error'),
-      t('tools:createPdfForm.msg.errorLoadingPdfFilePleaseTry'),
+      'Error',
+      trText('Error loading PDF file. Please try again with a valid PDF.'),
       'error'
     );
   }
@@ -3128,7 +3125,11 @@ addPageBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
   if (fields.length > 0 || pages.length > 0) {
-    if (confirm(t('tools:createPdfForm.msg.areYouSureYouWantTo'))) {
+    if (
+      confirm(
+        trText('Are you sure you want to reset? All your work will be lost.')
+      )
+    ) {
       resetToInitial();
     }
   } else {
@@ -3149,14 +3150,14 @@ function showModal(
   message: string,
   _type: 'error' | 'warning' | 'info' = 'error',
   onClose?: () => void,
-  buttonText: string = t('common.close')
+  buttonText: string = 'Close'
 ) {
   if (!errorModal || !errorModalTitle || !errorModalMessage || !errorModalClose)
     return;
 
-  errorModalTitle.textContent = title;
-  errorModalMessage.textContent = message;
-  errorModalClose.textContent = buttonText;
+  errorModalTitle.textContent = trText(title);
+  errorModalMessage.textContent = trText(message);
+  errorModalClose.textContent = trText(buttonText);
 
   modalCloseCallback = onClose || null;
   errorModal.classList.remove('hidden');

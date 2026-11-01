@@ -166,15 +166,13 @@
             id="add-more-btn"
             class="btn bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2"
           >
-            <i data-lucide="plus"></i>
-            <span data-i18n="upload.addMore">Add More Files</span>
+            <i data-lucide="plus"></i> <span>Add More Files</span>
           </button>
           <button
             id="clear-files-btn"
             class="btn bg-gray-700 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2"
           >
-            <i data-lucide="trash-2"></i>
-            <span data-i18n="upload.clearAll">Clear All</span>
+            <i data-lucide="trash-2"></i> <span>Clear All</span>
           </button>
         </div>
 
@@ -182,46 +180,28 @@
 
         <div id="extract-options" class="hidden mt-6 space-y-6">
           <div class="bg-gray-700 rounded-lg p-4 text-sm text-gray-300">
-            <p
-              data-i18n="tools:preparePdfForAi.ui.outputFormat"
-              class="font-medium text-white mb-2"
-            >
-              Output Format:
-            </p>
-            <p data-i18n="tools:preparePdfForAi.ui.eachPdfExtractedJsonFile">
+            <p class="font-medium text-white mb-2">Output Format:</p>
+            <p>
               Each PDF will be extracted as a JSON file containing an array of
               LlamaIndex Document objects with:
             </p>
             <ul class="list-disc list-inside mt-2 space-y-1 text-gray-400">
               <li>
-                <code class="text-indigo-400">text</code>
-                <span
-                  data-i18n="tools:preparePdfForAi.ui.extractedTextContentPerPage"
-                  >- Extracted text content per page</span
-                >
+                <code class="text-indigo-400">text</code> - Extracted text
+                content per page
               </li>
               <li>
-                <code class="text-indigo-400">metadata</code>
-                <span
-                  data-i18n="tools:preparePdfForAi.ui.pageNumberHeadingsDocumentInfo"
-                  >- Page number, headings, and document info</span
-                >
+                <code class="text-indigo-400">metadata</code> - Page number,
+                headings, and document info
               </li>
               <li>
-                <code class="text-indigo-400">extra_info</code>
-                <span
-                  data-i18n="tools:preparePdfForAi.ui.additionalContextRagSystems"
-                  >- Additional context for RAG systems</span
-                >
+                <code class="text-indigo-400">extra_info</code> - Additional
+                context for RAG systems
               </li>
             </ul>
           </div>
 
-          <button
-            data-i18n="tools:preparePdfForAi.ui.extractAi"
-            id="process-btn"
-            class="btn-gradient w-full mt-4"
-          >
+          <button id="process-btn" class="btn-gradient w-full mt-4">
             Extract for AI
           </button>
         </div>
@@ -236,11 +216,7 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          data-i18n="loader.processing"
-          id="loader-text"
-          class="text-white text-lg font-medium"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Processing...
         </p>
       </div>
@@ -253,11 +229,7 @@
       <div
         class="bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm w-full border border-gray-700"
       >
-        <h3
-          data-i18n="alert.title"
-          id="alert-title"
-          class="text-xl font-bold text-white mb-2"
-        >
+        <h3 id="alert-title" class="text-xl font-bold text-white mb-2">
           Alert
         </h3>
         <p id="alert-message" class="text-gray-300 mb-6"></p>
@@ -286,12 +258,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -304,12 +271,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -322,12 +284,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -349,74 +306,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -432,12 +351,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="prepare-pdf-for-ai.1.q"
-              >What does the JSON output contain?</span
-            >
+            What does the JSON output contain?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="prepare-pdf-for-ai.1.a">
+          <p class="faq-d-a">
             It follows the LlamaIndex document schema: one document per page
             with that page's text and metadata fields. It's produced by
             PyMuPDF's LlamaIndex integration, so it can be loaded directly into
@@ -446,12 +363,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="prepare-pdf-for-ai.2.q"
-              >How is this different from PDF to Text or PDF to Markdown?</span
-            >
+            How is this different from PDF to Text or PDF to Markdown?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="prepare-pdf-for-ai.2.a">
+          <p class="faq-d-a">
             <a href="/pdf-to-text" class="text-indigo-300 hover:text-indigo-400"
               >PDF to Text</a
             >
@@ -463,12 +378,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="prepare-pdf-for-ai.3.q"
-              >Does it work on scanned PDFs?</span
-            >
+            Does it work on scanned PDFs?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="prepare-pdf-for-ai.3.a">
+          <p class="faq-d-a">
             Only if they already have a text layer. Scanned images produce empty
             or near-empty output, so run them through
             <a href="/ocr-pdf" class="text-indigo-300 hover:text-indigo-400"
@@ -479,12 +392,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="prepare-pdf-for-ai.4.q"
-              >Can I process a whole batch of PDFs?</span
-            >
+            Can I process a whole batch of PDFs?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="prepare-pdf-for-ai.4.a">
+          <p class="faq-d-a">
             Yes. Upload multiple files and you get pdf-for-ai.zip containing one
             yourfile_llm.json per PDF; a single file downloads as
             yourfile_llm.json directly. If one file in the batch fails, the rest
@@ -493,13 +404,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="prepare-pdf-for-ai.5.q"
-              >Can I choose which pages to extract or control the chunk
-              size?</span
-            >
+            Can I choose which pages to extract or control the chunk size?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="prepare-pdf-for-ai.5.a">
+          <p class="faq-d-a">
             No. There are no options; every page is extracted with its full text
             and metadata. Do chunking in your own pipeline, where you can pick
             sizes that fit your embedding model, and drop pages you don't need
@@ -508,24 +416,20 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="prepare-pdf-for-ai.6.q"
-              >Can I prepare a password-protected PDF for AI tools?</span
-            >
+            Can I prepare a password-protected PDF for AI tools?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="prepare-pdf-for-ai.6.a">
+          <p class="faq-d-a">
             Yes. If a file is encrypted, you're prompted for its password before
             extraction starts, and the text is pulled from the decrypted copy.
           </p>
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="prepare-pdf-for-ai.7.q"
-              >Is my document sent to an AI service?</span
-            >
+            Is my document sent to an AI service?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="prepare-pdf-for-ai.7.a">
+          <p class="faq-d-a">
             No. Despite the name, nothing is sent to an AI provider or any
             server; the extraction runs with PyMuPDF compiled to WebAssembly
             inside your browser. You decide afterward where the JSON goes.
@@ -533,12 +437,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="prepare-pdf-for-ai.8.q"
-              >What can I do with the JSON file?</span
-            >
+            What can I do with the JSON file?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="prepare-pdf-for-ai.8.a">
+          <p class="faq-d-a">
             Feed it to a RAG pipeline, build a knowledge base for a chatbot, run
             LLM analysis over reports, or turn a PDF collection into training
             data. Because the content is split per page with metadata, answers

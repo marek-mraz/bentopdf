@@ -3,7 +3,8 @@ import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { createIcons, icons } from 'lucide';
 import { loadPyMuPDF } from '../utils/pymupdf-loader.js';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { trText, onPageReady } from '../i18n/i18n.js';
+
 let file: File | null = null;
 
 const updateUI = () => {
@@ -77,14 +78,11 @@ function tableToCsv(rows: (string | null)[][]): string {
 
 async function convert() {
   if (!file) {
-    showAlert(
-      t('tools:pdfToJpg.alert.noFile'),
-      t('tools:addPageLabels.uploadFirstMessage')
-    );
+    showAlert('No File', 'Please upload a PDF file first.');
     return;
   }
 
-  showLoader(t('loader.loadingEngine2'));
+  showLoader('Loading Engine...');
 
   try {
     const pymupdf = await loadPyMuPDF();
@@ -95,7 +93,7 @@ async function convert() {
     pwResult.pdf.destroy();
     file = pwResult.file;
 
-    showLoader(t('loader.extractingTables'));
+    showLoader('Extracting tables...');
 
     const doc = await pymupdf.open(file);
     const pageCount = doc.pageCount;
@@ -105,7 +103,10 @@ async function convert() {
 
     for (let i = 0; i < pageCount; i++) {
       showLoader(
-        t('tools:pdfToCsv.msg.scanningPageOf', { value: i + 1, pageCount })
+        trText('Scanning page {{n}} of {{pageCount}}...', {
+          n: i + 1,
+          pageCount,
+        })
       );
       const page = doc.getPage(i);
       const tables = page.findTables();
@@ -117,7 +118,7 @@ async function convert() {
     }
 
     if (allRows.length === 0) {
-      showAlert(t('alert.noTablesFound'), t('alert.noTablesWereDetected'));
+      showAlert('No Tables Found', 'No tables were detected in this PDF.');
       return;
     }
 
@@ -125,17 +126,17 @@ async function convert() {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     downloadFile(blob, `${baseName}.csv`);
     showAlert(
-      t('common.success'),
-      t('tools:pdfToCsv.alert.pdfConvertedCsvSuccessfully'),
+      'Success',
+      'PDF converted to CSV successfully!',
       'success',
       resetState
     );
   } catch (e) {
     console.error(e);
-    const message = e instanceof Error ? e.message : t('common.unknownError');
+    const message = e instanceof Error ? e.message : trText('Unknown error');
     showAlert(
-      t('common.error'),
-      t('tools:pdfToCsv.msg.failedToConvertPdfToCsv', { error: message })
+      'Error',
+      trText('Failed to convert PDF to CSV. {{message}}', { message })
     );
   } finally {
     hideLoader();
@@ -161,10 +162,7 @@ onPageReady(() => {
     );
 
     if (!validFile) {
-      showAlert(
-        t('tools:addPageLabels.invalidFileTitle'),
-        t('tools:pdfToJpg.alert.invalidFileExplanation')
-      );
+      showAlert('Invalid File', 'Please upload a PDF file.');
       return;
     }
 

@@ -3,7 +3,8 @@ import { formatBytes, formatIsoDate } from '../utils/helpers.js';
 import { createIcons, icons } from 'lucide';
 import { ViewMetadataState } from '@/types';
 import { loadPdfWithPasswordPrompt } from '../utils/password-prompt.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, trHtml, onPageReady } from '../i18n/i18n.js';
 
 const pageState: ViewMetadataState = {
   file: null,
@@ -129,7 +130,7 @@ function appendXmpNodes(
       continue;
     }
     if (key === 'rdf:Alt') {
-      key = t('tools:viewMetadata.msg.altContainer');
+      key = '(alt container)';
     }
 
     if (
@@ -137,11 +138,7 @@ function appendXmpNodes(
       elementChildren.length === 0
     ) {
       ulElement.appendChild(
-        createXmpListItem(
-          key,
-          t('tools:viewMetadata.msg.emptyResource'),
-          indentLevel
-        )
+        createXmpListItem(key, '(Empty Resource)', indentLevel)
       );
       continue;
     }
@@ -171,7 +168,7 @@ async function displayMetadata() {
   try {
     const result = await loadPdfWithPasswordPrompt(pageState.file);
     if (!result) return;
-    showLoader(t('loader.analyzingFullPdfMetadata'));
+    showLoader('Analyzing full PDF metadata...');
     const { pdf: pdfjsDoc, file: currentFile } = result;
     pageState.file = currentFile;
 
@@ -184,16 +181,14 @@ async function displayMetadata() {
     const rawXmpString = metadata ? metadata.getRaw() : null;
 
     // Info Dictionary Section
-    const infoSection = createSection(
-      t('tools:viewMetadata.msg.infoDictionary')
-    );
+    const infoSection = createSection(trText('Info Dictionary'));
     if (info && Object.keys(info).length > 0) {
       for (const key in info) {
         const value = (info as Record<string, unknown>)[key];
         let displayValue: string;
 
         if (value === null || typeof value === 'undefined') {
-          displayValue = t('tools:viewMetadata.msg.notSet');
+          displayValue = '- Not Set -';
         } else if (
           typeof value === 'object' &&
           value !== null &&
@@ -219,29 +214,27 @@ async function displayMetadata() {
         infoSection.ul.appendChild(createListItem(key, displayValue));
       }
     } else {
-      infoSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${t('tools:viewMetadata.msg.noInfoDictionaryDataFound')}</span></li>`;
+      infoSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${trHtml('- No Info Dictionary data found -')}</span></li>`;
     }
     metadataDisplay.appendChild(infoSection.wrapper);
 
     // Interactive Form Fields Section
-    const fieldsSection = createSection(
-      t('tools:viewMetadata.msg.interactiveFormFields')
-    );
+    const fieldsSection = createSection(trText('Interactive Form Fields'));
     if (fieldObjects && Object.keys(fieldObjects).length > 0) {
       for (const fieldName in fieldObjects) {
         const field = (
           fieldObjects as Record<string, Array<{ fieldValue?: unknown }>>
         )[fieldName][0];
-        const value = field.fieldValue || t('tools:viewMetadata.msg.notSet');
+        const value = field.fieldValue || '- Not Set -';
         fieldsSection.ul.appendChild(createListItem(fieldName, String(value)));
       }
     } else {
-      fieldsSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${t('tools:viewMetadata.msg.noInteractiveFormFieldsFound')}</span></li>`;
+      fieldsSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${trHtml('- No interactive form fields found -')}</span></li>`;
     }
     metadataDisplay.appendChild(fieldsSection.wrapper);
 
     // XMP Metadata Section
-    const xmpSection = createSection(t('tools:viewMetadata.msg.xmpMetadata'));
+    const xmpSection = createSection(trText('XMP Metadata'));
     if (rawXmpString) {
       try {
         const parser = new DOMParser();
@@ -257,18 +250,18 @@ async function displayMetadata() {
         }
 
         if (xmpSection.ul.children.length === 0) {
-          xmpSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${t('tools:viewMetadata.msg.noParseableXmpPropertiesFound')}</span></li>`;
+          xmpSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${trHtml('- No parseable XMP properties found -')}</span></li>`;
         }
       } catch (xmlError) {
         console.error('Failed to parse XMP XML:', xmlError);
-        xmpSection.ul.innerHTML = `<li><span class="text-red-500 italic">${t('tools:viewMetadata.msg.errorParsingXmpXmlDisplayingRaw')}</span></li>`;
+        xmpSection.ul.innerHTML = `<li><span class="text-red-500 italic">${trHtml('- Error parsing XMP XML. Displaying raw. -')}</span></li>`;
         const pre = document.createElement('pre');
         pre.className = 'text-xs text-gray-300 whitespace-pre-wrap break-all';
         pre.textContent = rawXmpString;
         xmpSection.ul.appendChild(pre);
       }
     } else {
-      xmpSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${t('tools:viewMetadata.msg.noXmpMetadataFound')}</span></li>`;
+      xmpSection.ul.innerHTML = `<li><span class="text-gray-500 italic">${trHtml('- No XMP metadata found -')}</span></li>`;
     }
     metadataDisplay.appendChild(xmpSection.wrapper);
 
@@ -276,7 +269,10 @@ async function displayMetadata() {
     createIcons({ icons });
   } catch (e) {
     console.error('Failed to view metadata or fields:', e);
-    showAlert(t('common.error'), t('alert.couldNotFullyAnalyze'));
+    showAlert(
+      'Error',
+      'Could not fully analyze the PDF. It may be corrupted or have an unusual structure.'
+    );
   } finally {
     hideLoader();
   }
@@ -304,7 +300,9 @@ async function updateUI() {
 
     const metaSpan = document.createElement('div');
     metaSpan.className = 'text-xs text-gray-400';
-    metaSpan.textContent = `${formatBytes(pageState.file.size)}`;
+    metaSpan.textContent = trText('{{size}}', {
+      size: formatBytes(pageState.file.size),
+    });
 
     infoContainer.append(nameSpan, metaSpan);
 
@@ -332,17 +330,11 @@ function copyMetadataAsJson() {
   navigator.clipboard
     .writeText(jsonString)
     .then(function () {
-      showAlert(
-        t('tools:viewMetadata.alert.copied'),
-        t('tools:viewMetadata.alert.metadataCopiedClipboardAs')
-      );
+      showAlert('Copied', 'Metadata copied to clipboard as JSON.');
     })
     .catch(function (err) {
       console.error('Failed to copy:', err);
-      showAlert(
-        t('common.error'),
-        t('tools:viewMetadata.alert.failedCopyMetadataClipboard')
-      );
+      showAlert('Error', 'Failed to copy metadata to clipboard.');
     });
 }
 

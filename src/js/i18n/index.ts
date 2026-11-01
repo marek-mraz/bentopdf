@@ -2,6 +2,8 @@ export {
   initI18n,
   onPageReady,
   t,
+  trText,
+  trHtml,
   changeLanguage,
   applyTranslations,
   rewriteLinks,

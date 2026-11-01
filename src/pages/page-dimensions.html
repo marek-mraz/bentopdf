@@ -161,7 +161,6 @@
           >
             <div class="flex items-center gap-2">
               <label
-                data-i18n="tools:pageDimensions.ui.units"
                 for="units-select"
                 class="text-sm font-medium text-gray-300"
                 >Units:</label
@@ -170,21 +169,10 @@
                 id="units-select"
                 class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg p-2"
               >
-                <option data-i18n="tools:pageDimensions.ui.pointsPt" value="pt">
-                  Points (pt)
-                </option>
-                <option data-i18n="tools:pageDimensions.ui.inchesIn" value="in">
-                  Inches (in)
-                </option>
-                <option
-                  data-i18n="tools:pageDimensions.ui.millimetersMm"
-                  value="mm"
-                >
-                  Millimeters (mm)
-                </option>
-                <option data-i18n="tools:pageDimensions.ui.pixelsPx" value="px">
-                  Pixels (px)
-                </option>
+                <option value="pt">Points (pt)</option>
+                <option value="in">Inches (in)</option>
+                <option value="mm">Millimeters (mm)</option>
+                <option value="px">Pixels (px)</option>
               </select>
             </div>
             <button
@@ -192,9 +180,7 @@
               class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
             >
               <i data-lucide="download" class="w-4 h-4"></i>
-              <span data-i18n="tools:pageDimensions.ui.exportToCsv"
-                >Export to CSV</span
-              >
+              <span>Export to CSV</span>
             </button>
           </div>
 
@@ -202,45 +188,13 @@
             <table class="w-full text-sm text-left">
               <thead class="text-xs uppercase bg-gray-900 text-gray-400">
                 <tr>
-                  <th
-                    data-i18n="tools:pageDimensions.ui.page"
-                    class="px-4 py-3"
-                  >
-                    Page #
-                  </th>
-                  <th
-                    data-i18n="tools:pageDimensions.ui.dimensions"
-                    class="px-4 py-3"
-                  >
-                    Dimensions
-                  </th>
-                  <th
-                    data-i18n="tools:pageDimensions.ui.standardSize"
-                    class="px-4 py-3"
-                  >
-                    Standard Size
-                  </th>
-                  <th data-i18n="toolPage.orientation" class="px-4 py-3">
-                    Orientation
-                  </th>
-                  <th
-                    data-i18n="tools:pageDimensions.ui.aspectRatio"
-                    class="px-4 py-3"
-                  >
-                    Aspect Ratio
-                  </th>
-                  <th
-                    data-i18n="tools:pageDimensions.ui.area"
-                    class="px-4 py-3"
-                  >
-                    Area
-                  </th>
-                  <th
-                    data-i18n="tools:pageDimensions.ui.rotation"
-                    class="px-4 py-3"
-                  >
-                    Rotation
-                  </th>
+                  <th class="px-4 py-3">Page #</th>
+                  <th class="px-4 py-3">Dimensions</th>
+                  <th class="px-4 py-3">Standard Size</th>
+                  <th class="px-4 py-3">Orientation</th>
+                  <th class="px-4 py-3">Aspect Ratio</th>
+                  <th class="px-4 py-3">Area</th>
+                  <th class="px-4 py-3">Rotation</th>
                 </tr>
               </thead>
               <tbody
@@ -295,12 +249,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -313,12 +262,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -331,12 +275,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -358,74 +297,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -441,12 +342,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-dimensions.1.q"
-              >How do I check whether my PDF is A4 or Letter?</span
-            >
+            How do I check whether my PDF is A4 or Letter?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-dimensions.1.a">
+          <p class="faq-d-a">
             Upload the file and the analysis runs immediately. The summary shows
             the total page count and how many distinct sizes appear, and the
             table lists each page's width and height next to the matched
@@ -456,12 +355,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-dimensions.2.q"
-              >Which standard paper sizes does it recognize?</span
-            >
+            Which standard paper sizes does it recognize?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-dimensions.2.a">
+          <p class="faq-d-a">
             A3, A4, A5, Letter, Legal, and Tabloid, in either portrait or
             landscape, matched within one point of the official dimensions.
             Anything else is reported as Custom with its exact measurements.
@@ -469,12 +366,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-dimensions.3.q"
-              >What does the Mixed Sizes warning mean?</span
-            >
+            What does the Mixed Sizes warning mean?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-dimensions.3.a">
+          <p class="faq-d-a">
             More than one width and height combination was found in the
             document, and the summary breaks down how many pages use each. A
             rotated page counts as a separate size from its upright twin, so a
@@ -489,13 +384,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-dimensions.4.q"
-              >Can I see the sizes in inches or millimeters instead of
-              points?</span
-            >
+            Can I see the sizes in inches or millimeters instead of points?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-dimensions.4.a">
+          <p class="faq-d-a">
             Use the units menu to switch the whole table between points, inches,
             millimeters, and pixels. Pixels are calculated at 96 PPI, which
             matches how browsers and most screen tools treat PDF pages.
@@ -503,12 +395,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-dimensions.5.q"
-              >What does the Rotation column tell me?</span
-            >
+            What does the Rotation column tell me?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-dimensions.5.a">
+          <p class="faq-d-a">
             It shows the rotation attribute stored on the page, in degrees. A
             page can look upright in a viewer while carrying a 90 or 270 degree
             rotation, which trips up some print and conversion workflows, and
@@ -520,12 +410,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-dimensions.6.q"
-              >Can I export the results?</span
-            >
+            Can I export the results?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-dimensions.6.a">
+          <p class="faq-d-a">
             Click Export to CSV to download page-dimensions.csv with one row per
             page: page number, width, height, standard size, orientation, aspect
             ratio, area, and rotation, in whichever unit is selected. It opens
@@ -534,24 +422,20 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-dimensions.7.q"
-              >Does this tool change my PDF?</span
-            >
+            Does this tool change my PDF?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-dimensions.7.a">
+          <p class="faq-d-a">
             No. It only reads the page tree and reports what it finds; nothing
             is rewritten, and the only download offered is the optional CSV.
           </p>
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="page-dimensions.8.q"
-              >Is the PDF uploaded for analysis?</span
-            >
+            Is the PDF uploaded for analysis?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="page-dimensions.8.a">
+          <p class="faq-d-a">
             No. The file is parsed in your browser and the measurements are
             computed locally, which is also why the results appear as soon as
             the file is loaded.

@@ -1,5 +1,5 @@
 import { showLoader, hideLoader, showAlert } from '../ui.js';
-import { t, onPageReady } from '../i18n/i18n';
+import { t, trText, onPageReady } from '../i18n/i18n';
 import {
   downloadFile,
   readFileAsArrayBuffer,
@@ -52,7 +52,10 @@ onPageReady(() => {
 
         const metaSpan = document.createElement('div');
         metaSpan.className = 'text-xs text-gray-400';
-        metaSpan.textContent = `${formatBytes(file.size)} • ${t('common.loadingPageCount')}`;
+        metaSpan.textContent = trText('{{size}} • {{loadingPageCount}}', {
+          size: formatBytes(file.size),
+          loadingPageCount: t('common.loadingPageCount'),
+        });
 
         infoContainer.append(nameSpan, metaSpan);
 
@@ -71,14 +74,14 @@ onPageReady(() => {
         try {
           const arrayBuffer = await readFileAsArrayBuffer(file);
           const pdfDoc = await getPDFDocument({ data: arrayBuffer }).promise;
-          metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+          metaSpan.textContent = trText('{{size}} • {{numPages}} pages', {
             size: formatBytes(file.size),
-            count: pdfDoc.numPages,
+            numPages: pdfDoc.numPages,
           });
         } catch {
-          metaSpan.textContent = t(
-            'tools:pdfToWord.msg.couldNotLoadPageCount',
-            { value: formatBytes(file.size) }
+          metaSpan.textContent = trText(
+            '{{size}} • Could not load page count',
+            { size: formatBytes(file.size) }
           );
         }
       }
@@ -104,20 +107,20 @@ onPageReady(() => {
   const convert = async () => {
     try {
       if (state.files.length === 0) {
-        showAlert(t('alert.noFiles'), t('alert.selectLeastOnePdf'));
+        showAlert('No Files', 'Please select at least one PDF file.');
         return;
       }
 
-      showLoader(t('loader.loadingPdfConverter'));
+      showLoader('Loading PDF converter...');
       const pymupdf = await loadPyMuPDF();
 
       hideLoader();
       state.files = await batchDecryptIfNeeded(state.files);
-      showLoader(t('loader.converting'));
+      showLoader('Converting...');
 
       if (state.files.length === 1) {
         const file = state.files[0];
-        showLoader(t('tools:pdfToWord.msg.converting', { name: file.name }));
+        showLoader(trText('Converting {{name}}...', { name: file.name }));
 
         const docxBlob = await pymupdf.pdfToDocx(
           await normalizeCmykForDocx(file)
@@ -128,8 +131,8 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:pdfToWord.msg.successfullyConvertedToDocx', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to DOCX.', {
             name: file.name,
           }),
           'success',
@@ -143,9 +146,9 @@ onPageReady(() => {
         for (let i = 0; i < state.files.length; i++) {
           const file = state.files[i];
           showLoader(
-            t('tools:pdfToWord.msg.converting2', {
-              value: i + 1,
-              count: state.files.length,
+            trText('Converting {{n}}/{{length}}: {{name}}...', {
+              n: i + 1,
+              length: state.files.length,
               name: file.name,
             })
           );
@@ -162,16 +165,16 @@ onPageReady(() => {
           zip.file(zipEntryName, arrayBuffer);
         }
 
-        showLoader(t('loader.creatingZipArchive'));
+        showLoader('Creating ZIP archive...');
         const zipBlob = await zip.generateAsync({ type: 'blob' });
 
         downloadFile(zipBlob, 'converted-documents.zip');
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:pdfToWord.msg.successfullyConvertedPdfSToDocx', {
-            count: state.files.length,
+          'Conversion Complete',
+          trText('Successfully converted {{length}} PDF(s) to DOCX.', {
+            length: state.files.length,
           }),
           'success',
           () => resetState()
@@ -180,9 +183,9 @@ onPageReady(() => {
     } catch (e: unknown) {
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:pdfToWord.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

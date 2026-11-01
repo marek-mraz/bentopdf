@@ -174,7 +174,6 @@
         <div id="tiff-options" class="hidden mt-6">
           <div class="mb-4">
             <label
-              data-i18n="toolPage.pdfQuality"
               for="tiff-pdf-quality"
               class="block mb-2 text-sm font-medium text-gray-300"
               >PDF Quality</label
@@ -183,34 +182,17 @@
               id="tiff-pdf-quality"
               class="w-full bg-gray-700 border border-gray-600 text-gray-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             >
-              <option data-i18n="toolPage.highQualityLargerFile" value="high">
-                High Quality (Larger file)
-              </option>
-              <option
-                data-i18n="toolPage.mediumQualityBalanced"
-                value="medium"
-                selected
-              >
-                Medium Quality (Balanced)
-              </option>
-              <option data-i18n="toolPage.lowQualitySmallerFile" value="low">
-                Low Quality (Smaller file)
-              </option>
+              <option value="high">High Quality (Larger file)</option>
+              <option value="medium" selected>Medium Quality (Balanced)</option>
+              <option value="low">Low Quality (Smaller file)</option>
             </select>
-            <p
-              data-i18n="toolPage.controlsImageCompressionWhenEmbedding"
-              class="mt-1 text-xs text-gray-400"
-            >
+            <p class="mt-1 text-xs text-gray-400">
               Controls image compression when embedding into PDF
             </p>
           </div>
         </div>
 
-        <button
-          data-i18n="toolPage.convertToPdf"
-          id="process-btn"
-          class="hidden btn-gradient w-full mt-6"
-        >
+        <button id="process-btn" class="hidden btn-gradient w-full mt-6">
           Convert to PDF
         </button>
       </div>
@@ -224,11 +206,7 @@
         class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl"
       >
         <div class="solid-spinner"></div>
-        <p
-          data-i18n="loader.processing"
-          id="loader-text"
-          class="text-white text-lg font-medium"
-        >
+        <p id="loader-text" class="text-white text-lg font-medium">
           Processing...
         </p>
       </div>
@@ -275,12 +253,7 @@
             1
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step1Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Upload File
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Upload File</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step1">
               Click or drag and drop your file to begin
             </p>
@@ -293,12 +266,7 @@
             2
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step2Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Process
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Process</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step2">
               Click the process button to start
             </p>
@@ -311,12 +279,7 @@
             3
           </div>
           <div class="flex-1">
-            <h3
-              data-i18n="howItWorks.step3Title"
-              class="text-lg font-semibold text-white mb-1"
-            >
-              Download
-            </h3>
+            <h3 class="text-lg font-semibold text-white mb-1">Download</h3>
             <p class="text-gray-400" data-i18n="howItWorks.step3">
               Save your processed file instantly
             </p>
@@ -338,74 +301,36 @@
           href="merge-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:mergePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Merge PDF
-          </h3>
-          <p data-i18n="tools:mergePdf.subtitle" class="text-gray-400 text-sm">
-            Free online merge PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Merge PDF</h3>
+          <p class="text-gray-400 text-sm">Free online merge PDF tool</p>
         </a>
         <a
           href="compress-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:compressPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Compress PDF
-          </h3>
-          <p
-            data-i18n="tools:compressPdf.subtitle"
-            class="text-gray-400 text-sm"
-          >
-            Free online compress PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Compress PDF</h3>
+          <p class="text-gray-400 text-sm">Free online compress PDF tool</p>
         </a>
         <a
           href="split-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:splitPdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Split PDF
-          </h3>
-          <p data-i18n="tools:splitPdf.subtitle" class="text-gray-400 text-sm">
-            Free online split PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Split PDF</h3>
+          <p class="text-gray-400 text-sm">Free online split PDF tool</p>
         </a>
         <a
           href="edit-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:pdfEditor.name"
-            class="text-white font-semibold mb-1"
-          >
-            Edit PDF
-          </h3>
-          <p data-i18n="tools:pdfEditor.subtitle" class="text-gray-400 text-sm">
-            Free online edit PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Edit PDF</h3>
+          <p class="text-gray-400 text-sm">Free online edit PDF tool</p>
         </a>
         <a
           href="rotate-pdf.html"
           class="block bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700"
         >
-          <h3
-            data-i18n="tools:rotatePdf.name"
-            class="text-white font-semibold mb-1"
-          >
-            Rotate PDF
-          </h3>
-          <p data-i18n="tools:rotatePdf.subtitle" class="text-gray-400 text-sm">
-            Free online rotate PDF tool
-          </p>
+          <h3 class="text-white font-semibold mb-1">Rotate PDF</h3>
+          <p class="text-gray-400 text-sm">Free online rotate PDF tool</p>
         </a>
       </div>
     </section>
@@ -421,12 +346,10 @@
       <div class="faq-list">
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="tiff-to-pdf.1.q"
-              >Does it handle multi-page TIFFs?</span
-            >
+            Does it handle multi-page TIFFs?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="tiff-to-pdf.1.a">
+          <p class="faq-d-a">
             Yes. Every page (IFD) inside a TIFF becomes a separate PDF page, so
             a 10-page fax file gives a 10-page PDF without splitting it first.
             Pages from several TIFF files are appended in list order into one
@@ -435,12 +358,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="tiff-to-pdf.2.q"
-              >Which TIFF variants are supported?</span
-            >
+            Which TIFF variants are supported?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="tiff-to-pdf.2.a">
+          <p class="faq-d-a">
             Grayscale and RGB images at 8, 16, or 32 bits per channel, with or
             without an alpha channel, stored uncompressed or with LZW or Deflate
             compression. TIFFs using CCITT Group 3 or 4 fax compression,
@@ -450,12 +371,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="tiff-to-pdf.3.q"
-              >What do the quality options do?</span
-            >
+            What do the quality options do?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="tiff-to-pdf.3.a">
+          <p class="faq-d-a">
             High stores each page as lossless PNG, keeping every pixel. Medium
             and Low re-encode pages as JPEG at 75% and 50% quality, which is
             much smaller for scanned photos but can blur fine text. Pixel
@@ -464,12 +383,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="tiff-to-pdf.4.q"
-              >What page size does a converted TIFF get?</span
-            >
+            What page size does a converted TIFF get?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="tiff-to-pdf.4.a">
+          <p class="faq-d-a">
             The page is sized to the pixel dimensions at one point per pixel,
             and the TIFF's own DPI tag is ignored. A 300 DPI Letter scan of 2550
             by 3300 pixels therefore becomes a page about 35 by 46 inches; run
@@ -484,12 +401,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="tiff-to-pdf.5.q"
-              >Will the PDF be searchable?</span
-            >
+            Will the PDF be searchable?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="tiff-to-pdf.5.a">
+          <p class="faq-d-a">
             No. Scanned TIFFs are images, and the PDF contains the same images
             with no text layer. Run the output through
             <a href="/ocr-pdf" class="text-indigo-300 hover:text-indigo-400"
@@ -500,12 +415,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="tiff-to-pdf.6.q"
-              >What happens with 16-bit or floating-point images?</span
-            >
+            What happens with 16-bit or floating-point images?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="tiff-to-pdf.6.a">
+          <p class="faq-d-a">
             They're reduced to 8 bits per channel for the PDF, so medical or
             scientific TIFFs lose their extended range. WhiteIsZero grayscale
             files are inverted correctly so black stays black.
@@ -513,12 +426,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="tiff-to-pdf.7.q"
-              >Why does a large TIFF take so long or fail?</span
-            >
+            Why does a large TIFF take so long or fail?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="tiff-to-pdf.7.a">
+          <p class="faq-d-a">
             The whole file is decoded into browser memory and each page is
             expanded to raw pixels before being re-encoded. Files of several
             hundred megabytes can exhaust that memory, so split very large TIFFs
@@ -527,10 +438,10 @@
         </details>
         <details class="faq-d">
           <summary class="faq-d-q">
-            <span data-i18n-faq="tiff-to-pdf.8.q">Are my scans uploaded?</span>
+            Are my scans uploaded?
             <i data-lucide="plus" class="faq-d-icon"></i>
           </summary>
-          <p class="faq-d-a" data-i18n-faq="tiff-to-pdf.8.a">
+          <p class="faq-d-a">
             No. The TIFF is decoded with a JavaScript decoder in your browser
             and the PDF is assembled locally, so medical images or confidential
             faxes never leave your device.

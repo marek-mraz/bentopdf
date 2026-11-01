@@ -2,7 +2,8 @@ import { showLoader, hideLoader, showAlert } from '../ui.js';
 import { downloadFile, formatBytes } from '../utils/helpers.js';
 import { state } from '../state.js';
 import { createIcons, icons } from 'lucide';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 onPageReady(() => {
   state.files = [];
@@ -86,10 +87,7 @@ onPageReady(() => {
       console.log('[CSV2PDF] Number of files:', state.files.length);
 
       if (state.files.length === 0) {
-        showAlert(
-          t('alert.noFiles'),
-          t('tools:csvToPdf.alert.selectLeastOneCsv')
-        );
+        showAlert('No Files', 'Please select at least one CSV file.');
         hideLoader();
         return;
       }
@@ -126,8 +124,8 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:csvToPdf.msg.successfullyConvertedToPdf', {
+          'Conversion Complete',
+          trText('Successfully converted {{name}} to PDF.', {
             name: originalFile.name,
           }),
           'success',
@@ -135,7 +133,7 @@ onPageReady(() => {
         );
       } else {
         console.log('[CSV2PDF] Converting multiple files:', state.files.length);
-        showLoader(t('tools:csvToPdf.loader.preparingConversion'));
+        showLoader('Preparing conversion...');
         const JSZip = (await import('jszip')).default;
         const zip = new JSZip();
 
@@ -151,9 +149,9 @@ onPageReady(() => {
               const overallPercent =
                 (i / state.files.length) * 100 + percent / state.files.length;
               showLoader(
-                t('tools:csvToPdf.msg.converting', {
-                  value: i + 1,
-                  count: state.files.length,
+                trText('Converting {{n}}/{{length}}: {{name}}...', {
+                  n: i + 1,
+                  length: state.files.length,
                   name: file.name,
                 }),
                 overallPercent
@@ -172,7 +170,7 @@ onPageReady(() => {
         }
 
         console.log('[CSV2PDF] Generating ZIP file...');
-        showLoader(t('loader.creatingZipArchive'));
+        showLoader('Creating ZIP archive...');
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         console.log('[CSV2PDF] ZIP size:', zipBlob.size);
 
@@ -181,9 +179,9 @@ onPageReady(() => {
         hideLoader();
 
         showAlert(
-          t('alert.conversionComplete'),
-          t('tools:csvToPdf.msg.successfullyConvertedCsvFileSTo', {
-            count: state.files.length,
+          'Conversion Complete',
+          trText('Successfully converted {{length}} CSV file(s) to PDF.', {
+            length: state.files.length,
           }),
           'success',
           () => resetState()
@@ -197,9 +195,9 @@ onPageReady(() => {
       );
       hideLoader();
       showAlert(
-        t('common.error'),
-        t('tools:csvToPdf.msg.anErrorOccurredDuringConversionError', {
-          value: e instanceof Error ? e.message : String(e),
+        'Error',
+        trText('An error occurred during conversion. Error: {{error}}', {
+          error: e instanceof Error ? e.message : String(e),
         })
       );
     }

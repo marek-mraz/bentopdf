@@ -11,7 +11,8 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { DeletePagesState } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
 import '../utils/setup-pdf-worker.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const deleteState: DeletePagesState = {
   file: null,
@@ -73,10 +74,7 @@ async function handleFile(file: File) {
     file.type !== 'application/pdf' &&
     !file.name.toLowerCase().endsWith('.pdf')
   ) {
-    showAlert(
-      t('tools:addPageLabels.invalidFileTitle'),
-      t('tools:duplexCollate.invalidFileMessage')
-    );
+    showAlert('Invalid File', 'Please select a PDF file.');
     return;
   }
 
@@ -88,7 +86,7 @@ async function handleFile(file: File) {
       deleteState.file = null;
       return;
     }
-    showLoader(t('tools:addPageLabels.loadingPdf'));
+    showLoader('Loading PDF...');
     deleteState.file = result.file;
     deleteState.pdfDoc = await loadPdfDocument(result.bytes);
     deleteState.pdfJsDoc = result.pdf;
@@ -102,7 +100,7 @@ async function handleFile(file: File) {
   } catch (error) {
     console.error('Error loading PDF:', error);
     hideLoader();
-    showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+    showAlert('Error', 'Failed to load PDF file.');
   }
 }
 
@@ -124,9 +122,9 @@ function updateFileDisplay() {
 
   const metaSpan = document.createElement('div');
   metaSpan.className = 'text-xs text-gray-400';
-  metaSpan.textContent = t('tools:addPageLabels.fileMeta', {
+  metaSpan.textContent = trText('{{size}} • {{totalPages}} pages', {
     size: formatBytes(deleteState.file.size),
-    count: deleteState.totalPages,
+    totalPages: deleteState.totalPages,
   });
 
   infoContainer.append(nameSpan, metaSpan);
@@ -180,7 +178,7 @@ async function renderThumbnails() {
     const pageLabel = document.createElement('span');
     pageLabel.className =
       'absolute top-1 left-1 bg-gray-800 text-white text-xs px-1.5 py-0.5 rounded';
-    pageLabel.textContent = `${i}`;
+    pageLabel.textContent = trText('{{i}}', { i });
 
     const deleteOverlay = document.createElement('div');
     deleteOverlay.className =
@@ -249,22 +247,16 @@ function updatePreview() {
 
 async function deletePages() {
   if (deleteState.pagesToDelete.size === 0) {
-    showAlert(
-      t('multiTool.noPages'),
-      t('tools:deletePages.alert.selectPagesDelete')
-    );
+    showAlert('No Pages', 'Please select pages to delete.');
     return;
   }
 
   if (deleteState.pagesToDelete.size >= deleteState.totalPages) {
-    showAlert(
-      t('common.error'),
-      t('tools:deletePages.alert.cannotDeleteAllPages')
-    );
+    showAlert('Error', 'Cannot delete all pages.');
     return;
   }
 
-  showLoader(t('tools:deletePages.loader.deletingPages'));
+  showLoader('Deleting pages...');
 
   try {
     const srcBytes = await deleteState.pdfDoc.save();
@@ -281,8 +273,8 @@ async function deletePages() {
 
     hideLoader();
     showAlert(
-      t('common.success'),
-      t('tools:deletePages.msg.deletedPageSSuccessfully', {
+      'Success',
+      trText('Deleted {{size}} page(s) successfully!', {
         size: deleteState.pagesToDelete.size,
       }),
       'success',
@@ -291,10 +283,7 @@ async function deletePages() {
   } catch (error) {
     console.error('Error deleting pages:', error);
     hideLoader();
-    showAlert(
-      t('common.error'),
-      t('tools:deletePages.alert.failedDeletePages')
-    );
+    showAlert('Error', 'Failed to delete pages.');
   }
 }
 

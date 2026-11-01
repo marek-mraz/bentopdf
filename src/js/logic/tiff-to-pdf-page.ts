@@ -4,11 +4,17 @@ import {
   formatBytes,
   readFileAsArrayBuffer,
 } from '../utils/helpers.js';
+import {
+  createDragHandle,
+  enableFileListReorder,
+  moveItem,
+} from '../utils/sortable-file-list.js';
 import { createIcons, icons } from 'lucide';
 import { PDFDocument as PDFLibDocument } from 'pdf-lib';
 import { decode } from 'tiff';
 import { tiffIfdToRgba } from '../utils/tiff-utils.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 let files: File[] = [];
 
@@ -42,9 +48,11 @@ const updateUI = () => {
 
       const sizeSpan = document.createElement('span');
       sizeSpan.className = 'flex-shrink-0 text-gray-400 text-xs';
-      sizeSpan.textContent = `(${formatBytes(file.size)})`;
+      sizeSpan.textContent = trText('({{size}})', {
+        size: formatBytes(file.size),
+      });
 
-      infoContainer.append(nameSpan, sizeSpan);
+      infoContainer.append(createDragHandle(), nameSpan, sizeSpan);
 
       const removeBtn = document.createElement('button');
       removeBtn.className =
@@ -57,6 +65,10 @@ const updateUI = () => {
 
       fileDiv.append(infoContainer, removeBtn);
       fileDisplayArea.appendChild(fileDiv);
+    });
+    enableFileListReorder(fileDisplayArea, (oldIndex, newIndex) => {
+      files = moveItem(files, oldIndex, newIndex);
+      updateUI();
     });
     createIcons({ icons });
   } else {
@@ -73,10 +85,7 @@ const resetState = () => {
 
 async function convert() {
   if (files.length === 0) {
-    showAlert(
-      t('alert.noFiles'),
-      t('tools:tiffToPdf.alert.selectLeastOneTiff')
-    );
+    showAlert('No Files', 'Please select at least one TIFF file.');
     return;
   }
   const qualitySelect = document.getElementById(
@@ -91,7 +100,7 @@ async function convert() {
   const useJpeg = quality !== 'high';
   const jpegQuality = jpegQualityMap[quality] || 0.75;
 
-  showLoader(t('tools:tiffToPdf.loader.convertingTiffPdf'));
+  showLoader('Converting TIFF to PDF...');
   try {
     const pdfDoc = await PDFLibDocument.create();
     for (const file of files) {
@@ -149,19 +158,14 @@ async function convert() {
       new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' }),
       'from_tiff.pdf'
     );
-    showAlert(
-      t('common.success'),
-      t('alert.pdfCreatedSuccessfully'),
-      'success',
-      () => {
-        resetState();
-      }
-    );
+    showAlert('Success', 'PDF created successfully!', 'success', () => {
+      resetState();
+    });
   } catch (e) {
     console.error(e);
     showAlert(
-      t('common.error'),
-      t('tools:tiffToPdf.alert.failedConvertTiffPdf')
+      'Error',
+      'Failed to convert TIFF to PDF. One of the files may be invalid.'
     );
   } finally {
     hideLoader();
@@ -193,8 +197,8 @@ onPageReady(() => {
 
     if (validFiles.length < newFiles.length) {
       showAlert(
-        t('alert.invalidFiles'),
-        t('tools:tiffToPdf.alert.someFilesWereSkipped')
+        'Invalid Files',
+        'Some files were skipped. Only TIFF files are allowed.'
       );
     }
 

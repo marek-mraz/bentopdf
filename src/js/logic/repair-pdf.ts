@@ -9,7 +9,8 @@ import JSZip from 'jszip';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
 import { batchDecryptIfNeeded } from '../utils/password-prompt.js';
 import type { QpdfInstanceExtended } from '@/types';
-import { t } from '../i18n/i18n';
+
+import { trText } from '../i18n/i18n.js';
 
 export async function repairPdfFile(file: File): Promise<Uint8Array | null> {
   const inputPath = '/input.pdf';
@@ -62,7 +63,7 @@ export async function repairPdfFile(file: File): Promise<Uint8Array | null> {
 
 export async function repairPdf() {
   if (state.files.length === 0) {
-    showAlert(t('alert.noFiles'), t('alert.selectOneMorePdf'));
+    showAlert('No Files', 'Please select one or more PDF files.');
     return;
   }
 
@@ -71,16 +72,16 @@ export async function repairPdf() {
 
   try {
     const decryptedFiles = await batchDecryptIfNeeded(state.files);
-    showLoader(t('tools:repairPdf.loader.initializingRepairEngine'));
+    showLoader('Initializing repair engine...');
     state.files = decryptedFiles;
 
     for (let i = 0; i < state.files.length; i++) {
       const file = state.files[i];
       showLoader(
-        t('tools:repairPdf.msg.repairing', {
+        trText('Repairing {{name}} ({{n}}/{{length}})...', {
           name: file.name,
-          value: i + 1,
-          count: state.files.length,
+          n: i + 1,
+          length: state.files.length,
         })
       );
 
@@ -100,8 +101,8 @@ export async function repairPdf() {
 
     if (successfulRepairs.length === 0) {
       showAlert(
-        t('tools:repairPdf.alert.repairFailed'),
-        t('tools:repairPdf.alert.unableRepairAnyUploaded')
+        'Repair Failed',
+        'Unable to repair any of the uploaded PDF files.'
       );
       return;
     }
@@ -109,11 +110,11 @@ export async function repairPdf() {
     if (failedRepairs.length > 0) {
       const failedList = failedRepairs.join(', ');
       showAlert(
-        t('tools:repairPdf.alert.partialSuccess'),
-        t('tools:repairPdf.msg.repairedFileSFailedToRepair', {
-          count: successfulRepairs.length,
-          failedList,
-        })
+        'Partial Success',
+        trText(
+          'Repaired {{length}} file(s). Failed to repair: {{failedList}}',
+          { length: successfulRepairs.length, failedList }
+        )
       );
     }
 
@@ -124,7 +125,7 @@ export async function repairPdf() {
       });
       downloadFile(blob, file.name);
     } else {
-      showLoader(t('loader.creatingZipArchive'));
+      showLoader('Creating ZIP archive...');
       const zip = new JSZip();
       const usedNames = new Set<string>();
       successfulRepairs.forEach((file) => {
@@ -138,17 +139,14 @@ export async function repairPdf() {
     }
 
     if (failedRepairs.length === 0) {
-      showAlert(
-        t('common.success'),
-        t('tools:repairPdf.alert.allFilesRepairedSuccessfully')
-      );
+      showAlert('Success', 'All files repaired successfully!');
     }
   } catch (error: unknown) {
     console.error('Critical error during repair:', error);
     hideLoader();
     showAlert(
-      t('common.error'),
-      t('tools:repairPdf.alert.unexpectedErrorOccurredDuring')
+      'Error',
+      'An unexpected error occurred during the repair process.'
     );
   }
 }

@@ -19,7 +19,7 @@ import { recognizePageCanvas } from '../compare/engine/ocr-page.ts';
 import { isLowQualityExtractedText } from '../compare/engine/text-normalization.ts';
 import { COMPARE_RENDER, COMPARE_GEOMETRY } from '../compare/config.ts';
 
-import { t } from '../i18n/i18n.js';
+import { trText } from '../i18n/i18n.js';
 
 export function getElement<T extends HTMLElement>(id: string) {
   return document.getElementById(id) as T | null;
@@ -230,7 +230,7 @@ export async function renderPage(
     renderMissingPage(
       canvas,
       placeholderId,
-      t('tools:comparePdfs.pageNotExist', { page: pageNum })
+      trText('Page {{pageNum}} does not exist in this PDF.', { pageNum })
     );
     return { model: null, exists: false };
   }
@@ -282,15 +282,12 @@ export async function renderPage(
       );
       finalModel.pageNumber = pageNum;
     } else {
-      ctx.showLoader(t('tools:comparePdfs.runningOcr', { page: pageNum }));
+      ctx.showLoader(trText('Running OCR on page {{pageNum}}...', { pageNum }));
       const ocrModel = await recognizePageCanvas(
         canvas,
         ctx.ocrLanguage,
         function (status, progress) {
-          ctx.showLoader(
-            t('msg.compareRender.ocr', { status }),
-            progress * 100
-          );
+          ctx.showLoader(trText('OCR: {{status}}', { status }), progress * 100);
         }
       );
       finalModel = {
@@ -329,7 +326,7 @@ export async function loadComparisonPage(
       renderMissingPage(
         renderTarget.canvas,
         renderTarget.placeholderId,
-        t('tools:comparePdfs.noPairedPage')
+        trText('No paired page for this side.')
       );
     }
     return { model: null, exists: false };
@@ -363,7 +360,7 @@ export async function loadComparisonPage(
   const context = canvas.getContext('2d');
 
   if (!context) {
-    throw new Error('Could not create offscreen comparison canvas.');
+    throw new Error(trText('Could not create offscreen comparison canvas.'));
   }
 
   const extractedModel = await extractPageModel(page, viewport);

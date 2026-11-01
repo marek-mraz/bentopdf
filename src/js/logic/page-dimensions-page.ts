@@ -12,7 +12,8 @@ import {
   UniqueSizeEntry,
 } from '@/types';
 import { loadPdfDocument } from '../utils/load-pdf-document.js';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, trHtml, onPageReady } from '../i18n/i18n.js';
 
 const pageState: PageDimensionsState = {
   file: null,
@@ -89,17 +90,17 @@ function renderSummary() {
   let summaryHTML = `
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
       <div class="bg-gray-900 border border-gray-700 rounded-lg p-4">
-        <p class="text-sm text-gray-400 mb-1">${t('tools:pageDimensions.msg.totalPages')}</p>
+        <p class="text-sm text-gray-400 mb-1">${trHtml('Total Pages')}</p>
         <p class="text-2xl font-bold text-white">${stats.totalPages}</p>
       </div>
       <div class="bg-gray-900 border border-gray-700 rounded-lg p-4">
-        <p class="text-sm text-gray-400 mb-1">${t('tools:pageDimensions.msg.uniquePageSizes')}</p>
+        <p class="text-sm text-gray-400 mb-1">${trHtml('Unique Page Sizes')}</p>
         <p class="text-2xl font-bold text-white">${stats.uniqueSizesCount}</p>
       </div>
       <div class="bg-gray-900 border border-gray-700 rounded-lg p-4">
-        <p class="text-sm text-gray-400 mb-1">${t('tools:pageDimensions.msg.documentType')}</p>
+        <p class="text-sm text-gray-400 mb-1">${trHtml('Document Type')}</p>
         <p class="text-2xl font-bold ${stats.hasMixedSizes ? 'text-yellow-400' : 'text-green-400'}">
-          ${stats.hasMixedSizes ? t('tools:pageDimensions.msg.mixedSizes') : t('tools:pageDimensions.msg.uniform')}
+          ${stats.hasMixedSizes ? trText('Mixed Sizes') : trText('Uniform')}
         </p>
       </div>
     </div>
@@ -111,13 +112,13 @@ function renderSummary() {
         <div class="flex items-start gap-3">
           <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0"></i>
           <div>
-            <h4 class="text-yellow-200 font-semibold mb-2">${t('tools:pageDimensions.msg.mixedPageSizesDetected')}</h4>
-            <p class="text-sm text-gray-300 mb-3">${t('tools:pageDimensions.msg.differentDimensions')}</p>
+            <h4 class="text-yellow-200 font-semibold mb-2">${trHtml('Mixed Page Sizes Detected')}</h4>
+            <p class="text-sm text-gray-300 mb-3">${trHtml('This document contains pages with different dimensions:')}</p>
             <ul class="space-y-1 text-sm text-gray-300">
               ${stats.uniqueSizes
                 .map(
                   (size: UniqueSizeEntry) => `
-                <li>• ${size.label}: ${t('tools:pageDimensions.msg.pageCount', { count: size.count })}</li>
+                <li>${size.count > 1 ? trHtml('• {{label}}: {{count}} pages', { label: size.label, count: size.count }) : trHtml('• {{label}}: 1 page', { label: size.label })}</li>
               `
                 )
                 .join('')}
@@ -155,7 +156,11 @@ function renderTable(unit: string) {
 
     const dimensionsCell = document.createElement('td');
     dimensionsCell.className = 'px-4 py-3 text-gray-300';
-    dimensionsCell.textContent = `${width} x ${height} ${unit}`;
+    dimensionsCell.textContent = trText('{{width}} x {{height}} {{unit}}', {
+      width,
+      height,
+      unit,
+    });
 
     const sizeCell = document.createElement('td');
     sizeCell.className = 'px-4 py-3 text-gray-300';
@@ -175,7 +180,9 @@ function renderTable(unit: string) {
 
     const rotationCell = document.createElement('td');
     rotationCell.className = 'px-4 py-3 text-gray-300';
-    rotationCell.textContent = `${pageData.rotation}°`;
+    rotationCell.textContent = trText('{{rotation}}°', {
+      rotation: pageData.rotation,
+    });
 
     row.append(
       pageNumCell,
@@ -197,16 +204,20 @@ function exportToCSV() {
   const unit = unitsSelect?.value || 'pt';
 
   const headers = [
-    t('tools:pageDimensions.ui.page'),
-    t('tools:pageDimensions.msg.widthUnit', { unit }),
-    t('tools:pageDimensions.msg.heightUnit', { unit }),
-    t('tools:pageDimensions.ui.standardSize'),
-    t('toolPage.orientation'),
-    t('tools:pageDimensions.ui.aspectRatio'),
-    `${t('tools:pageDimensions.ui.area')} (${unit}²)`,
-    t('tools:pageDimensions.ui.rotation'),
+    trText('Page #'),
+    trText('Width ({{unit}})', { unit }),
+    trText('Height ({{unit}})', { unit }),
+    trText('Standard Size'),
+    trText('Orientation'),
+    trText('Aspect Ratio'),
+    trText('Area ({{unit}}²)', { unit }),
+    trText('Rotation'),
   ];
-  const csvRows = [headers.join(',')];
+  const csvCell = (value: string | number) => {
+    const text = String(value);
+    return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  };
+  const csvRows = [headers.map(csvCell).join(',')];
 
   analyzedPagesData.forEach((pageData) => {
     const width = convertPoints(pageData.width, unit);
@@ -224,7 +235,7 @@ function exportToCSV() {
       area,
       `${pageData.rotation}°`,
     ];
-    csvRows.push(row.join(','));
+    csvRows.push(row.map(csvCell).join(','));
   });
 
   const csvContent = csvRows.join('\n');
@@ -253,9 +264,11 @@ function analyzeAndDisplayDimensions() {
       pageNum: index + 1,
       width,
       height,
-      orientation:
-        width > height ? t('toolPage.landscape') : t('toolPage.portrait'),
-      standardSize: getStandardPageName(width, height),
+      orientation: width > height ? trText('Landscape') : trText('Portrait'),
+      standardSize: (() => {
+        const name = getStandardPageName(width, height);
+        return name === 'Custom' ? trText('Custom') : name;
+      })(),
       rotation: rotation,
     });
   });
@@ -353,7 +366,7 @@ async function handleFileSelect(files: FileList | null) {
         analyzeAndDisplayDimensions();
       } catch (e) {
         console.error('Error loading PDF:', e);
-        showAlert(t('common.error'), t('tools:duplexCollate.loadErrorMessage'));
+        showAlert('Error', 'Failed to load PDF file.');
       }
     }
   }

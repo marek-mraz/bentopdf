@@ -9,7 +9,8 @@ import { icons, createIcons } from 'lucide';
 import JSZip from 'jszip';
 import { deduplicateFileName } from '../utils/deduplicate-filename.js';
 import { LinearizePdfState, QpdfInstanceExtended } from '@/types';
-import { t, onPageReady } from '../i18n/i18n';
+
+import { trText, onPageReady } from '../i18n/i18n.js';
 
 const pageState: LinearizePdfState = {
   files: [],
@@ -100,10 +101,7 @@ async function linearizePdf() {
     (file: File) => file.type === 'application/pdf'
   );
   if (!pdfFiles || pdfFiles.length === 0) {
-    showAlert(
-      t('tools:linearizePdf.alert.noPdfFiles'),
-      t('alert.uploadLeastOnePdf')
-    );
+    showAlert('No PDF Files', 'Please upload at least one PDF file.');
     return;
   }
 
@@ -111,8 +109,8 @@ async function linearizePdf() {
   const loaderText = document.getElementById('loader-text');
   if (loaderModal) loaderModal.classList.remove('hidden');
   if (loaderText)
-    loaderText.textContent = t(
-      'tools:linearizePdf.msg.optimizingPdfsForWebViewLinearizing'
+    loaderText.textContent = trText(
+      'Optimizing PDFs for web view (linearizing)...'
     );
 
   const zip = new JSZip();
@@ -130,11 +128,10 @@ async function linearizePdf() {
       const outputPath = `/output_${i}.pdf`;
 
       if (loaderText)
-        loaderText.textContent = t('tools:linearizePdf.msg.optimizing', {
-          name: file.name,
-          value: i + 1,
-          count: pdfFiles.length,
-        });
+        loaderText.textContent = trText(
+          'Optimizing {{name}} ({{n}}/{{length}})...',
+          { name: file.name, n: i + 1, length: pdfFiles.length }
+        );
 
       try {
         const fileBuffer = await readFileAsArrayBuffer(file);
@@ -152,7 +149,7 @@ async function linearizePdf() {
             `Linearization resulted in an empty file for ${file.name}.`
           );
           throw new Error(
-            t('tools:linearizePdf.msg.processingFailedFor', { name: file.name })
+            trText('Processing failed for {{name}}.', { name: file.name })
           );
         }
 
@@ -185,30 +182,29 @@ async function linearizePdf() {
     }
 
     if (successCount === 0) {
-      throw new Error(t('tools:linearizePdf.msg.noPdfFilesCouldBeLinearized'));
+      throw new Error(trText('No PDF files could be linearized.'));
     }
 
-    if (loaderText)
-      loaderText.textContent = t('tools:pdfsToZip.loader.generatingZipFile');
+    if (loaderText) loaderText.textContent = trText('Generating ZIP file...');
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     downloadFile(zipBlob, 'linearized-pdfs.zip');
 
-    let alertMessage = t('tools:linearizePdf.msg.linearizedSuccessfully', {
-      count: successCount,
-    });
+    let alertMessage = trText(
+      '{{successCount}} PDF(s) linearized successfully.',
+      { successCount }
+    );
     if (errorCount > 0) {
-      alertMessage += ` ${t('tools:linearizePdf.msg.filesFailed', { count: errorCount })}`;
+      alertMessage += ` ${trText('Files that failed: {{errorCount}}.', { errorCount })}`;
     }
-    showAlert(t('alert.processingComplete'), alertMessage, 'success', () => {
+    showAlert('Processing Complete', alertMessage, 'success', () => {
       resetState();
     });
   } catch (error: unknown) {
     console.error('Linearization process error:', error);
     showAlert(
-      t('tools:linearizePdf.alert.linearizationFailed'),
-      t('tools:linearizePdf.msg.anErrorOccurred', {
-        value:
-          error instanceof Error ? error.message : t('common.unknownError'),
+      'Linearization Failed',
+      trText('An error occurred: {{error}}.', {
+        error: error instanceof Error ? error.message : trText('Unknown error'),
       })
     );
   } finally {
