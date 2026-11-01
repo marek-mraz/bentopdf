@@ -94,6 +94,21 @@ INTEGRITY="sha512-$(openssl dgst -sha512 -binary "$VENDORED" | base64 -w0)" \
 grep -qF "$(openssl dgst -sha512 -binary "$VENDORED" | base64 -w0)" package-lock.json \
   || { echo "package-lock.json: bentopdf-pdfium integrity not updated" >&2; exit 1; }
 
+# 2a2. Viewer: the prebuilt viewer (embedpdf 2.9.1 base) ignored the crop box
+# origin, so on a page whose CropBox or MediaBox does not start at 0,0 a
+# redaction landed off the mark and left the marked text in the file; it also
+# floored mark edges to whole points. viewer/patch-viewer.mjs backports
+# embedpdf's fixes and stops the build on any other viewer. The tarball is
+# repacked without times or owners, so binaries.sha256 pins one result.
+mkdir "$TMP/viewer"
+tar xzf "$VIEWER" -C "$TMP/viewer"
+node "$HERE/viewer/patch-viewer.mjs" "$TMP/viewer/package"
+tar --sort=name --mtime=@0 --owner=0 --group=0 --numeric-owner -C "$TMP/viewer" -cf - package | gzip -9n > "$VIEWER"
+INTEGRITY="sha512-$(openssl dgst -sha512 -binary "$VIEWER" | base64 -w0)" \
+  perl -0pi -e 's#("node_modules/bentopdf-viewer":\s*\{[^}]*?"integrity":\s*")[^"]+#$1$ENV{INTEGRITY}#' package-lock.json
+grep -qF "$(openssl dgst -sha512 -binary "$VIEWER" | base64 -w0)" package-lock.json \
+  || { echo "package-lock.json: bentopdf-viewer integrity not updated" >&2; exit 1; }
+
 # 2b. Third-party binaries: everything bundled above plus the WASM, viewers and
 # engine tarballs upstream commits. OCR data for languages not chosen in this
 # build may be missing from the image; nothing may differ or be new.
