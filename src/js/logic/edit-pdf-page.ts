@@ -542,12 +542,16 @@ async function handleFiles(files: FileList) {
                 );
               }
             }
-            try {
-              await redactionPlugin.commitAllPending().toPromise();
-            } catch (err) {
-              console.error('Applying redactions failed:', err);
-            }
-            if (redactionPlugin.getState().pendingCount > 0) {
+            // A failed commit can leave nothing pending (the document went
+            // away under it), so the result counts, not only the count.
+            const committed = await redactionPlugin
+              .commitAllPending()
+              .toPromise()
+              .catch((err: unknown) => {
+                console.error('Applying redactions failed:', err);
+                return false;
+              });
+            if (!committed || redactionPlugin.getState().pendingCount > 0) {
               showAlert(
                 t('tools:pdfEditor.alert.redactionFailed'),
                 t('tools:pdfEditor.alert.someRedactionMarksCould')
