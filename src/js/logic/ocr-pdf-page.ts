@@ -8,6 +8,7 @@ import { performOcr } from '../utils/ocr.js';
 import {
   getAvailableTesseractLanguageEntries,
   resolveConfiguredTesseractAvailableLanguages,
+  tesseractLanguageName,
   UnsupportedOcrLanguageError,
 } from '../utils/tesseract-language-availability.js';
 import { initI18n, t, onPageReady } from '../i18n/index.js';
@@ -271,7 +272,9 @@ function populateLanguageList() {
     const label = document.createElement('label');
     label.className =
       'flex items-center gap-2 p-2 rounded-md hover:bg-gray-700 cursor-pointer';
-    label.dataset.search = `${name} ${code}`.toLowerCase();
+    // English names stay searchable in every interface language.
+    label.dataset.search =
+      `${name} ${tesseractLanguages[code]} ${code}`.toLowerCase();
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -373,9 +376,7 @@ onPageReady(async function () {
       const selected = Array.from(
         langList.querySelectorAll('.lang-checkbox:checked')
       ).map(function (cb) {
-        return tesseractLanguages[
-          (cb as HTMLInputElement).value as keyof typeof tesseractLanguages
-        ];
+        return tesseractLanguageName((cb as HTMLInputElement).value);
       });
 
       if (selectedLangsDisplay) {
