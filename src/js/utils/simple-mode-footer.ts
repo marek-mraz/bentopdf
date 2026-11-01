@@ -13,6 +13,7 @@ if (__SIMPLE_MODE__) {
   const keysToHide = [
     'howItWorks.title',
     'relatedTools.title',
+    'tools:addPageLabels.relatedToolsTitle',
     'faq.sectionTitle',
   ];
 
