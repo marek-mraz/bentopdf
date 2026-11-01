@@ -196,6 +196,8 @@ onPageReady(() => {
   const textInput = document.getElementById(
     'text-input'
   ) as HTMLTextAreaElement;
+  // The page translator skips <textarea>, so its placeholder is set here.
+  textInput.placeholder = trText('Start typing here...');
 
   // Back to Tools
   if (backBtn) {

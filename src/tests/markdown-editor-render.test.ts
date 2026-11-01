@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { describe, it, expect, beforeEach } from 'vitest';
 import MarkdownIt from 'markdown-it';
 import { MarkdownEditor } from '@/js/utils/markdown-editor';
@@ -20,8 +21,15 @@ beforeEach(() => {
 });
 
 describe('Markdown to PDF rendering', () => {
-  it('renders every feature of the default sample', () => {
-    const root = preview();
+  it.each([
+    ['default', undefined],
+    [
+      'Slovak',
+      JSON.parse(fs.readFileSync('public/locales/sk/tools.json', 'utf8'))
+        .markdownToPdf.sampleDocument,
+    ],
+  ])('renders every feature of the %s sample', (_, sample) => {
+    const root = preview(sample);
     for (const selector of [
       'sub',
       'sup',

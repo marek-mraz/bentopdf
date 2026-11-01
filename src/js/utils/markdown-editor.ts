@@ -27,7 +27,7 @@ import { fullEmoji } from '@mdit/plugin-emoji';
 import { tasklist } from '@mdit/plugin-tasklist';
 import { katex as katexPlugin } from '@mdit/plugin-katex-slim';
 import { useMarkdownPlugins } from './markdown-plugins';
-import { applyTranslations, trHtml, trText } from '../i18n/i18n';
+import { applyTranslations, hasKey, t, trHtml, trText } from '../i18n/i18n';
 import type {
   WindowWithLucide,
   WindowWithI18next,
@@ -346,7 +346,8 @@ export class MarkdownEditor {
     if (options.initialContent) {
       this.setContent(options.initialContent);
     } else {
-      this.setContent(DEFAULT_MARKDOWN);
+      const sample = 'tools:markdownToPdf.sampleDocument';
+      this.setContent(hasKey(sample) ? t(sample) : DEFAULT_MARKDOWN);
     }
   }
 

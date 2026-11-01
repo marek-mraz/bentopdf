@@ -8265,6 +8265,12 @@
     ],
     "fileCount": 1
   },
+  "Start typing here...": {
+    "files": [
+      "logic/txt-to-pdf-page.ts"
+    ],
+    "fileCount": 1
+  },
   "Stitch all pages into one continuous page": {
     "files": [
       "workflow/nodes/registry.ts"
@@ -9847,6 +9853,18 @@
   "{{message}} It was password protected, so the compressed copy has no password. Use Protect PDF to add one again.": {
     "files": [
       "logic/compress-pdf-page.ts"
+    ],
+    "fileCount": 1
+  },
+  "{{name}} (Fraktur)": {
+    "files": [
+      "utils/tesseract-language-availability.ts"
+    ],
+    "fileCount": 1
+  },
+  "{{name}} (Old)": {
+    "files": [
+      "utils/tesseract-language-availability.ts"
     ],
     "fileCount": 1
   },
